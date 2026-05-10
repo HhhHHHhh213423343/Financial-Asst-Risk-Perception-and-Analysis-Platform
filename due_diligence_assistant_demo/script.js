@@ -2505,7 +2505,7 @@ async function handleGenerateVersion() {
   state.isGeneratingVersion = true;
   render();
   try {
-    await fetchJson(`/api/company/${encodeURIComponent(state.processEngineCompanyCode)}/report-versions`, {
+    const createdVersion = await fetchJson(`/api/company/${encodeURIComponent(state.processEngineCompanyCode)}/report-versions`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -2513,6 +2513,7 @@ async function handleGenerateVersion() {
         data_source_ids: state.pendingDataSourceSelection,
       }),
     });
+    state.reportVersionId = createdVersion.id;
     await refreshCompanyDetail(state.processEngineCompanyCode);
   } catch (error) {
     console.error(error);

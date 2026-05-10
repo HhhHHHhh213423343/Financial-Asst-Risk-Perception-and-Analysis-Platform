@@ -1368,6 +1368,7 @@ def call_deepseek_chat(
             "model": model_name,
             "temperature": 0.2,
             "max_tokens": 12000,
+            "thinking": {"type": "disabled"},
             "messages": payload_messages,
         }
     ).encode("utf-8")
