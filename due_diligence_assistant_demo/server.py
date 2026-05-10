@@ -411,7 +411,11 @@ def load_local_config() -> dict:
         return {}
 
 
-DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY", "") or load_local_config().get("deepseek_api_key", "")
+DEEPSEEK_MODEL = os.getenv("DEEPSEEK_MODEL", "deepseek-v4-flash").strip() or "deepseek-v4-flash"
+
+
+def get_deepseek_api_key() -> str:
+    return (os.getenv("DEEPSEEK_API_KEY", "") or load_local_config().get("deepseek_api_key", "")).strip()
 
 
 def now_iso() -> str:
@@ -1348,18 +1352,20 @@ def call_deepseek_chat(
     messages: list[dict],
     *,
     system_prompt: str | None = None,
-    model: str = "deepseek-v4-flash",
+    model: str | None = None,
 ) -> dict:
-    if not DEEPSEEK_API_KEY:
+    api_key = get_deepseek_api_key()
+    if not api_key:
         raise RuntimeError("DeepSeek API Key 未配置")
 
+    model_name = (model or DEEPSEEK_MODEL).strip() or "deepseek-v4-flash"
     payload_messages = []
     if system_prompt:
         payload_messages.append({"role": "system", "content": system_prompt})
     payload_messages.extend(messages)
     payload = json.dumps(
         {
-            "model": model,
+            "model": model_name,
             "temperature": 0.2,
             "max_tokens": 12000,
             "messages": payload_messages,
@@ -1370,7 +1376,7 @@ def call_deepseek_chat(
         data=payload,
         headers={
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
+            "Authorization": f"Bearer {api_key}",
         },
         method="POST",
     )
@@ -2034,7 +2040,7 @@ def generate_report_with_deepseek(detail: dict, company_code: str, version_numbe
     response = call_deepseek_chat(
         [{"role": "user", "content": prompt}],
         system_prompt=REPORT_SYSTEM_PROMPT,
-        model="deepseek-v4-flash",
+        model=DEEPSEEK_MODEL,
     )
     content = (
         response.get("choices", [{}])[0]
@@ -2122,7 +2128,7 @@ def build_ai_review_result(detail: dict, company_code: str, version: dict, repor
     response = call_deepseek_chat(
         [{"role": "user", "content": prompt}],
         system_prompt=REVIEW_SYSTEM_PROMPT,
-        model="deepseek-v4-flash",
+        model=DEEPSEEK_MODEL,
     )
     content = (
         response.get("choices", [{}])[0]
@@ -2847,9 +2853,9 @@ def get_company_detail_payload(company_code: str) -> dict | None:
     ]
     detail["ai_capability"] = {
         "provider": "DeepSeek",
-        "configured": bool(DEEPSEEK_API_KEY),
+        "configured": bool(get_deepseek_api_key()),
         "mode": "server_env",
-        "model": "deepseek-v4-flash",
+        "model": DEEPSEEK_MODEL,
         "generate_endpoint": f"/api/company/{quote(company_code)}/report-versions",
         "review_endpoint": f"/api/company/{quote(company_code)}/report-versions/{{version_id}}/review",
     }
@@ -2884,7 +2890,7 @@ def create_report_version(company_code: str, knowledge_file_ids: list[str] | Non
         "review_result": None,
         "review_edit_text": full_text,
         "review_saved_at": None,
-        "generation_mode": "deepseek-v4-flash",
+        "generation_mode": DEEPSEEK_MODEL,
     }
     runtime["versions"].append(new_version)
     runtime["next_version"] += 1
@@ -3029,8 +3035,8 @@ class DemoRequestHandler(SimpleHTTPRequestHandler):
             return self.respond_json(
                 {
                     "provider": "DeepSeek",
-                    "deepseek_configured": bool(DEEPSEEK_API_KEY),
-                    "deepseek_model": "deepseek-v4-flash",
+                    "deepseek_configured": bool(get_deepseek_api_key()),
+                    "deepseek_model": DEEPSEEK_MODEL,
                     "pdf_export_enabled": REPORTLAB_AVAILABLE,
                     "material_buckets": [
                         {"id": key, "title": value}
