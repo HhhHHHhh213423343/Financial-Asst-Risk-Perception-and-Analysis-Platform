@@ -1,4 +1,4 @@
-# Financial Assistant Risk Perception and Analysis Platform
+# 风险感知与分析平台
 
 面向银行公司客户授信尽调场景的风险感知与分析 Demo 平台。项目包含前端交互页面、Python 后端 API、SQLite 示例数据库、知识库材料、尽调报告生成/预审流程，以及 DeepSeek AI 调用能力。
 
