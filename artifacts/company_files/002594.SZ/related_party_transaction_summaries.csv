@@ -1,0 +1,3 @@
+﻿period_code,related_party_name,relation_type,transaction_type,transaction_amount_cny,revenue_or_cost_ratio,settlement_method,pricing_comment,risk_level,note
+20251231,深圳市灵犀电子封装有限公司,affiliate_supply_chain,component_purchase,380000000.0,0.013,bank_transfer,Related procurement exposure remains manageable,low,
+20251231,融捷投资控股集团有限公司,shareholder,equity_relation,620000000.0,0.021,bank_transfer,Needs related-party pricing memo,medium,

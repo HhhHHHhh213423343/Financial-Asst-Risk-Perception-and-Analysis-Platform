@@ -1,0 +1,6 @@
+﻿invoice_no,issue_date,amount_cny,tax_rate_pct,invoice_type,buyer_name,seller_name
+001INV0001,2025-07-18,448000.0,13.0,vat_special,,深圳市灵犀微传感科技有限公司
+001INV0002,2025-08-18,517500.0,13.0,vat_special,,深圳市灵犀微传感科技有限公司
+001INV0003,2025-09-18,608000.0,13.0,vat_special,,深圳市灵犀微传感科技有限公司
+001INV0004,2025-10-18,688500.0,13.0,vat_special,,深圳市灵犀微传感科技有限公司
+001INV0005,2025-11-18,810000.0,13.0,vat_special,,深圳市灵犀微传感科技有限公司

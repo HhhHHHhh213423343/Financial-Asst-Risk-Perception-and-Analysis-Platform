@@ -1,0 +1,18 @@
+﻿company_code,contract_no,contract_type,counterparty_name,sign_date,amount_cny,payment_terms,performance_status
+COMP-001,COMP-001-CTR-001,sales,宁德新材装备股份有限公司,2025-07-05,768000.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-001,COMP-001-CTR-002,sales,苏州华芯工业自动化有限公司,2025-08-05,883200.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-001,COMP-001-CTR-003,sales,广州精测模组有限公司,2025-09-05,1033600.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-001,COMP-001-CTR-004,sales,宁德新材装备股份有限公司,2025-10-05,1166400.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-001,COMP-001-CTR-005,sales,苏州华芯工业自动化有限公司,2025-11-05,1368000.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-002,COMP-002-CTR-001,sales,昆山锐控精密制造有限公司,2025-07-05,636000.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-002,COMP-002-CTR-002,sales,无锡新桥机电有限公司,2025-08-05,704000.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-002,COMP-002-CTR-003,sales,常州智数工厂科技有限公司,2025-09-05,782000.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-003,COMP-003-CTR-001,sales,重庆弘冠电子有限公司,2025-07-05,840000.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-003,COMP-003-CTR-002,sales,绵阳星桥包装设备有限公司,2025-08-05,921600.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-003,COMP-003-CTR-003,sales,西安迅控自动化有限公司,2025-09-05,1033600.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-004,COMP-004-CTR-001,sales,绍兴万景产业园运营有限公司,2025-07-05,504000.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-004,COMP-004-CTR-002,sales,宁波启盛商用物业管理有限公司,2025-08-05,569600.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-004,COMP-004-CTR-003,sales,杭州联港冷链科技有限公司,2025-09-05,639200.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-005,COMP-005-CTR-001,sales,襄阳医联智慧医院管理有限公司,2025-07-05,576000.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-005,COMP-005-CTR-002,sales,武汉协和康健信息服务中心,2025-08-05,640000.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-005,COMP-005-CTR-003,sales,荆州仁和社区医疗集团,2025-09-05,707200.0,"30% advance, 70% within 60 days after acceptance",performing

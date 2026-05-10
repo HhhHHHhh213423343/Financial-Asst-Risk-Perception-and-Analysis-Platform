@@ -1,0 +1,7 @@
+﻿period_code,filing_type,declared_revenue_cny,output_tax_cny,input_tax_cny,tax_burden_ratio,filing_status
+2025-07,VAT_summary,519400.0,67522.0,36358.0,0.03,submitted
+2025-08,VAT_summary,544500.0,70785.0,38115.0,0.03,submitted
+2025-09,VAT_summary,557750.0,72507.5,39042.5,0.03,submitted
+2025-10,VAT_summary,578200.0,75166.0,40474.0,0.03,submitted
+2025-11,VAT_summary,591700.0,76921.0,41419.0,0.03,submitted
+2025-12,VAT_summary,628650.0,81724.5,44005.5,0.03,submitted

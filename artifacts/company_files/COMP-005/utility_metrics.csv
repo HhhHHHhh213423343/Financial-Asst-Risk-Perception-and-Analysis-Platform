@@ -1,0 +1,13 @@
+﻿period_code,utility_type,consumption_value,unit,yoy_change_pct
+2025-07,power,7200.0,kwh,0.0
+2025-07,water,118.0,ton,0.0
+2025-08,power,7250.0,kwh,0.0069
+2025-08,water,119.0,ton,0.0085
+2025-09,power,7300.0,kwh,0.0139
+2025-09,water,120.0,ton,0.0169
+2025-10,power,7340.0,kwh,0.0194
+2025-10,water,121.0,ton,0.0254
+2025-11,power,7380.0,kwh,0.025
+2025-11,water,121.0,ton,0.0254
+2025-12,power,7420.0,kwh,0.0306
+2025-12,water,122.0,ton,0.0339

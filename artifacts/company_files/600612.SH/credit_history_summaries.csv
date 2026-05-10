@@ -1,0 +1,2 @@
+﻿subject_type,subject_name,credit_channel,account_count,outstanding_balance_cny,overdue_count,max_overdue_bucket,hard_inquiry_3m,hard_inquiry_6m,external_guarantee_exposure_cny,credit_assessment,summary_note
+enterprise,老凤祥股份有限公司,public_financial_debt_profile,12,4609991098.58,0,none,0,0,239448334.35,good,"Listed-company credit history proxy summarized from public leverage, debt, and disclosure context."

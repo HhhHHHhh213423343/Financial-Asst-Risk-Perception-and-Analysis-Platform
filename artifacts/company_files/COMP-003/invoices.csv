@@ -1,0 +1,4 @@
+﻿invoice_no,issue_date,amount_cny,tax_rate_pct,invoice_type,buyer_name,seller_name
+003INV0001,2025-07-18,490000.0,13.0,vat_special,,成都智检视觉装备有限公司
+003INV0002,2025-08-18,540000.0,13.0,vat_special,,成都智检视觉装备有限公司
+003INV0003,2025-09-18,608000.0,13.0,vat_special,,成都智检视觉装备有限公司

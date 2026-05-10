@@ -1,0 +1,107 @@
+﻿company_code,company_name,person_code,full_name,role_type,title,equity_ratio,voting_ratio,is_actual_controller,is_guarantor,education_level,birth_year
+002594.SZ,比亚迪股份有限公司,LISTED-BYD-WCF,王传福,listed_chairman,董事长、执行董事、总裁,16.9,16.9,1,0,硕士,1965
+002594.SZ,比亚迪股份有限公司,LISTED-BYD-XZQ,夏佐全,listed_director,非执行董事,2.72,2.72,0,0,硕士,1962
+002594.SZ,比亚迪股份有限公司,LISTED-BYD-YL,喻玲,listed_independent_director,独立非执行董事,,,0,0,博士,1976
+002594.SZ,比亚迪股份有限公司,LISTED-BYD-ZM,张敏,listed_independent_director,独立非执行董事,,,0,0,博士,1976
+002594.SZ,比亚迪股份有限公司,LISTED-BYD-CHP,蔡洪平,listed_independent_director,独立非执行董事,,,0,0,本科,1953
+002594.SZ,比亚迪股份有限公司,LISTED-BYD-LXY,吕向阳,listed_vice_chairman,副董事长、非执行董事,7.87,7.87,0,0,大专,1961
+002594.SZ,比亚迪股份有限公司,LISTED-BYD-WCF2,王传方,listed_vice_president,副总裁,0.2904,0.2904,0,0,,1960
+002594.SZ,比亚迪股份有限公司,LISTED-BYD-LZL,罗忠良,listed_vice_president,副总裁,0.0009,0.0009,0,0,硕士,1978
+002594.SZ,比亚迪股份有限公司,LISTED-BYD-LHB,罗红斌,listed_vice_president,副总裁,0.0018,0.0018,0,0,硕士,1965
+002594.SZ,比亚迪股份有限公司,LISTED-BYD-ZJP,赵俭平,listed_vice_president,副总裁,,,0,0,本科,1976
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-DXJ,董晓婕,listed_board_secretary,副总裁、董事会秘书,0.0019,0.0019,0,0,硕士,45
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-LYI,刘毅,listed_ceo,执行董事、总裁、首席执行官,0.0013,0.0013,0,0,博士,51
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-CYQ,陈玉卿,listed_chairman,董事长、执行董事,0.0058,0.0058,1,0,本科,51
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-PDH,潘东辉,listed_director,非执行董事,,,0,0,硕士,57
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-CQY,陈启宇,listed_director,非执行董事,0.0043,0.0043,0,0,硕士,54
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-YJ,严佳,listed_employee_director,职工董事、总会计师,0.0002,0.0002,0,0,本科,46
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-WKX,王可心,listed_executive_director,执行董事,0.0121,0.0121,0,0,本科,62
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-FRL,冯蓉丽,listed_executive_president,执行总裁,0.0019,0.0019,0,0,硕士,51
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-CPH,Chen Penghui,listed_independent_director,独立非执行董事,,,0,0,硕士,54
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-YZS,余梓山,listed_independent_director,独立非执行董事,,,0,0,硕士,70
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-YYC,杨玉成,listed_independent_director,独立非执行董事,,,0,0,博士,61
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-WQD,王全弟,listed_independent_director,独立非执行董事,,,0,0,本科,76
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-GXH,关晓晖,listed_joint_chairman,联席董事长、执行董事,0.011,0.011,0,0,硕士,55
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-WZ,Wenjie Zhang,listed_joint_president,联席总裁,,,0,0,硕士,59
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-XW,Xingli Wang,listed_joint_president,联席总裁,,,0,0,博士,64
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-LJ,李静,listed_joint_president,联席总裁,0.0019,0.0019,0,0,硕士,54
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-XL,Xiang Li,listed_senior_vice_president,高级副总裁,,,0,0,博士,61
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-WDH,王冬华,listed_senior_vice_president,高级副总裁,0.0019,0.0019,0,0,硕士,57
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-HH,胡航,listed_senior_vice_president,高级副总裁,0.0007,0.0007,0,0,硕士,43
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-CZY,陈战宇,listed_senior_vice_president,高级副总裁,0.0012,0.0012,0,0,硕士,55
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-HZ,黄智,listed_senior_vice_president,高级副总裁、首席财务官,,,0,0,硕士,
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-WDY,文德镛,listed_vice_chairman,副董事长、执行董事,0.0038,0.0038,0,0,硕士,55
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-LLL,吕力琅,listed_vice_president,副总裁,,,0,0,博士,49
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-MLY,孟凌媛,listed_vice_president,副总裁,,,0,0,本科,48
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-ZY,朱悦,listed_vice_president,副总裁,0.001,0.001,0,0,博士,49
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-JH,纪皓,listed_vice_president,副总裁,0.0006,0.0006,0,0,硕士,52
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-SL,苏莉,listed_vice_president,副总裁,0.0007,0.0007,0,0,本科,55
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-CJS,蔡婧姝,listed_vice_president,副总裁,,,0,0,硕士,42
+600196.SH,上海复星医药（集团）股份有限公司,LISTED-FX-YFB,袁方兵,listed_vice_president,副总裁,,,0,0,硕士,51
+600519.SH,贵州茅台酒股份有限公司,LISTED-MT-CH,陈华,listed_chairman,董事长、董事,,,1,0,硕士,1972
+600519.SH,贵州茅台酒股份有限公司,LISTED-MT-ZX,周雪,listed_director,董事,,,0,0,本科,1978
+600519.SH,贵州茅台酒股份有限公司,LISTED-MT-WL,王莉,listed_director,董事、代理总经理,,,0,0,硕士,1972
+600519.SH,贵州茅台酒股份有限公司,LISTED-MT-WF,韦芳,listed_employee_director,职工董事,,,0,0,本科,1972
+600519.SH,贵州茅台酒股份有限公司,LISTED-MT-WX,王鑫,listed_independent_director,独立董事,,,0,0,博士,1977
+600519.SH,贵州茅台酒股份有限公司,LISTED-MT-SLM,盛雷鸣,listed_independent_director,独立董事,,,0,0,博士,1970
+600519.SH,贵州茅台酒股份有限公司,LISTED-MT-GTY,郭田勇,listed_independent_director,独立董事,,,0,0,博士,1968
+600519.SH,贵州茅台酒股份有限公司,LISTED-MT-XP,向平,listed_vice_president,副总经理,,,0,0,硕士,1972
+600519.SH,贵州茅台酒股份有限公司,LISTED-MT-ZXU,张旭,listed_vice_president,副总经理,,,0,0,本科,1974
+600519.SH,贵州茅台酒股份有限公司,LISTED-MT-ZZQ,钟正强,listed_vice_president,副总经理,,,0,0,本科,1971
+600612.SH,老凤祥股份有限公司,LISTED-LFX-QJM,邱建敏,listed_board_secretary,董事会秘书,,,0,0,硕士,53
+600612.SH,老凤祥股份有限公司,LISTED-LFX-YY,杨奕,listed_chairman,董事长、非独立董事,,,1,0,硕士,54
+600612.SH,老凤祥股份有限公司,LISTED-LFX-LJ,李军,listed_director,非独立董事、副总经理,0.0016,0.0016,0,0,本科,57
+600612.SH,老凤祥股份有限公司,LISTED-LFX-SSH,沈顺辉,listed_director,非独立董事,,,0,0,硕士,62
+600612.SH,老凤祥股份有限公司,LISTED-LFX-CZH,陈智海,listed_director,非独立董事,,,0,0,博士,62
+600612.SH,老凤祥股份有限公司,LISTED-LFX-LXJ,凌晓静,listed_finance_director,财务总监,,,0,0,本科,46
+600612.SH,老凤祥股份有限公司,LISTED-LFX-YTC,俞铁成,listed_independent_director,独立董事,,,0,0,硕士,51
+600612.SH,老凤祥股份有限公司,LISTED-LFX-ZQX,张其秀,listed_independent_director,独立董事,,,0,0,本科,71
+600612.SH,老凤祥股份有限公司,LISTED-LFX-ZLT,朱黎庭,listed_independent_director,独立董事,,,0,0,本科,65
+600612.SH,老凤祥股份有限公司,LISTED-LFX-MML,马民良,listed_independent_director,独立董事,,,0,0,硕士,70
+600612.SH,老凤祥股份有限公司,LISTED-LFX-HH,黄骅,listed_vice_chairman,副董事长、非独立董事、总经理,,,0,0,本科,57
+600612.SH,老凤祥股份有限公司,LISTED-LFX-SL,史亮,listed_vice_president,副总经理,,,0,0,本科,65
+600612.SH,老凤祥股份有限公司,LISTED-LFX-SBY,孙斌烨,listed_vice_president,副总经理,,,0,0,本科,60
+600612.SH,老凤祥股份有限公司,LISTED-LFX-WYZ,王永忠,listed_vice_president,副总经理,,,0,0,硕士,54
+600612.SH,老凤祥股份有限公司,LISTED-LFX-CXJ,蔡旭姣,listed_vice_president,副总经理,,,0,0,硕士,44
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-LZF,刘志峰,listed_board_secretary,副总经理、董事会秘书,,,0,0,本科,
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-LCY,刘长云,listed_chairman,董事长、非独立董事,,,1,0,博士,
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-WXS,吴雪松,listed_director,非独立董事,,,0,0,本科,53
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-WQ,王琦,listed_director,非独立董事,,,0,0,本科,64
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-HW,贺威,listed_director,非独立董事、副总裁,0.0053,0.0053,0,0,本科,40
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-WZL,吴志龙,listed_employee_director,职工代表董事,,,0,0,硕士,
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-XXY,夏晓益,listed_finance_director,财务总监,,,0,0,本科,48
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-LSL,刘树林,listed_honorary_chairman,名誉副董事长,1.4,1.4,0,0,高中,
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-ZXQ,曾湘泉,listed_independent_director,独立董事,,,0,0,博士,71
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-TGL,汤谷良,listed_independent_director,独立董事,,,0,0,博士,64
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-WY,王瑛,listed_independent_director,独立董事,,,0,0,博士,
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-AH,艾华,listed_independent_director,独立董事,0.0001,0.0001,0,0,博士,67
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-LYD,陆银娣,listed_independent_director,独立董事,,,0,0,硕士,64
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-LYC,刘义常,listed_vice_chairman,副董事长、非独立董事、业务总裁,,,0,0,本科,
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-LZN,刘兆年,listed_vice_chairman,副董事长、非独立董事,1.1983,1.1983,0,0,博士,66
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-LDP,刘登攀,listed_vice_chairman,副董事长、非独立董事,,,0,0,硕士,
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-GYH,龚翼华,listed_vice_chairman,副董事长、非独立董事、总经理,0.0717,0.0717,0,0,硕士,48
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-QM,全铭,listed_vice_president,副总经理,,,0,0,硕士,
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-ZQS,张青松,listed_vice_president,副总经理,0.0003,0.0003,0,0,硕士,48
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-YN,杨聂,listed_vice_president,副总经理,0.0051,0.0051,0,0,硕士,44
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-YJM,杨菊美,listed_vice_president,副总经理,0.0134,0.0134,0,0,本科,51
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-WQB,王启兵,listed_vice_president,副总经理,0.0056,0.0056,0,0,本科,62
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-SXL,苏熙凌,listed_vice_president,副总经理、REITs首席运营官,,,0,0,硕士,
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-XZJ,许志君,listed_vice_president,副总经理,,,0,0,硕士,50
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-GL,郭磊,listed_vice_president,副总经理,0.0176,0.0176,0,0,硕士,48
+600998.SH,九州通医药集团股份有限公司,LISTED-JT-CWJ,陈卫俊,listed_vice_president,副总经理,,,0,0,本科,46
+COMP-001,深圳市灵犀微传感科技有限公司,P003,郭时远,core_executive,CTO,0.18,0.18,0,0,phd,1986
+COMP-001,深圳市灵犀微传感科技有限公司,P002,陈澜,finance_controller,Finance Director,0.06,0.06,0,0,bachelor,1990
+COMP-001,深圳市灵犀微传感科技有限公司,P004,周曼,guarantor,Family guarantor,0.0,0.0,0,1,high_school,1962
+COMP-001,深圳市灵犀微传感科技有限公司,P001,周越,legal_representative,CEO,0.42,0.42,1,1,master,1987
+COMP-002,苏州云衡工业软件有限公司,P102,陆青,core_executive,COO,0.14,0.14,0,0,master,1992
+COMP-002,苏州云衡工业软件有限公司,P103,韩石,finance_controller,Finance Manager,0.04,0.04,0,0,bachelor,1987
+COMP-002,苏州云衡工业软件有限公司,P101,江衡,legal_representative,CEO,0.46,0.46,1,1,master,1988
+COMP-003,成都智检视觉装备有限公司,P203,陶笙,core_executive,R&D Director,0.11,0.11,0,0,master,1991
+COMP-003,成都智检视觉装备有限公司,P202,白琳,finance_controller,Finance Lead,0.05,0.05,0,0,bachelor,1989
+COMP-003,成都智检视觉装备有限公司,P201,何舟,legal_representative,General Manager,0.38,0.38,1,1,master,1985
+COMP-004,杭州启脉能源物联科技有限公司,P302,唐雨,core_executive,Product Director,0.12,0.12,0,0,master,1993
+COMP-004,杭州启脉能源物联科技有限公司,P303,赵闻,finance_controller,Finance Manager,0.03,0.03,0,0,bachelor,1988
+COMP-004,杭州启脉能源物联科技有限公司,P301,邵启,legal_representative,CEO,0.44,0.44,1,1,master,1990
+COMP-005,武汉睿桥医疗信息技术有限公司,P402,冯薇,core_executive,Product VP,0.1,0.1,0,0,master,1991
+COMP-005,武汉睿桥医疗信息技术有限公司,P403,叶宁,finance_controller,Finance Lead,0.04,0.04,0,0,bachelor,1990
+COMP-005,武汉睿桥医疗信息技术有限公司,P401,许桥,legal_representative,CEO,0.41,0.41,1,1,master,1986

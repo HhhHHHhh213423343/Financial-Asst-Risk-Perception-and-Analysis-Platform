@@ -1,0 +1,19 @@
+﻿txn_date,txn_direction,counterparty_name,amount_cny,balance_after_cny,txn_summary
+2025-07-11,credit,襄阳医联智慧医院管理有限公司,222720.0,672720.0,Contract collection
+2025-07-12,credit,武汉协和康健信息服务中心,161280.0,834000.0,Contract collection
+2025-07-23,debit,武汉数联机房运维有限公司,148800.0,685200.0,Supplier payment
+2025-08-11,credit,襄阳医联智慧医院管理有限公司,229100.0,914300.0,Contract collection
+2025-08-12,credit,武汉协和康健信息服务中心,165900.0,1080200.0,Contract collection
+2025-08-23,debit,武汉数联机房运维有限公司,155000.0,925200.0,Supplier payment
+2025-09-11,credit,襄阳医联智慧医院管理有限公司,232232.0,1157432.0,Contract collection
+2025-09-12,credit,武汉协和康健信息服务中心,168168.0,1325600.0,Contract collection
+2025-09-23,debit,武汉数联机房运维有限公司,161200.0,1164400.0,Supplier payment
+2025-10-11,credit,襄阳医联智慧医院管理有限公司,250560.0,1414960.0,Contract collection
+2025-10-12,credit,武汉协和康健信息服务中心,181440.0,1596400.0,Contract collection
+2025-10-23,debit,武汉数联机房运维有限公司,167400.0,1429000.0,Supplier payment
+2025-11-11,credit,襄阳医联智慧医院管理有限公司,251082.0,1680082.0,Contract collection
+2025-11-12,credit,武汉协和康健信息服务中心,181818.0,1861900.0,Contract collection
+2025-11-23,debit,武汉数联机房运维有限公司,172050.0,1689850.0,Supplier payment
+2025-12-11,credit,襄阳医联智慧医院管理有限公司,261174.0,1951024.0,Contract collection
+2025-12-12,credit,武汉协和康健信息服务中心,189126.0,2140150.0,Contract collection
+2025-12-23,debit,武汉数联机房运维有限公司,176700.0,1963450.0,Supplier payment

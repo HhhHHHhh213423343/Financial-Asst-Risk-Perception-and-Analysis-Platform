@@ -1,0 +1,64 @@
+﻿period_code,statement_type,display_order,line_code,line_name,value,unit,source_page_no
+20221231,balance,1,cash,Cash,58274318733.23,CNY,9
+20221231,balance,2,accounts_receivable,Accounts Receivable,20937144.0,CNY,9
+20221231,balance,3,inventory,Inventory,38824374236.24,CNY,9
+20221231,balance,4,total_assets,Total Assets,254500826096.02,CNY,9
+20221231,balance,5,total_liabilities,Total Liabilities,49562744832.16,CNY,9
+20221231,balance,6,accounts_payable,Accounts Payable,2408371053.69,CNY,9
+20221231,balance,7,short_debt,Short-term Debt,109351155.28,CNY,9
+20221231,balance,8,shareholder_equity,Shareholder Equity,204938081263.86,CNY,9
+20221231,cashflow,1,operating_cashflow,Operating Cash Flow,36698595830.03,CNY,11
+20221231,cashflow,2,investing_cashflow,Investing Cash Flow,-5536826334.9,CNY,11
+20221231,cashflow,3,financing_cashflow,Financing Cash Flow,-57424528979.83,CNY,11
+20221231,cashflow,4,net_cashflow,Net Cash Flow,-26261848396.69,CNY,11
+20221231,cashflow,5,capex,Capital Expenditure,5306546416.54,CNY,11
+20221231,income,1,revenue,Revenue,127553959355.97,CNY,10
+20221231,income,2,operating_cost,Operating Cost,10093468616.63,CNY,10
+20221231,income,3,selling_expense,Selling Expense,3297724190.94,CNY,10
+20221231,income,4,admin_expense,Administrative Expense,9012191073.63,CNY,10
+20221231,income,5,finance_expense,Finance Expense,-1391805826.72,CNY,10
+20221231,income,6,rd_expense,R&D Expense,135185680.4,CNY,10
+20221231,income,7,operating_profit,Operating Profit,87879521782.39,CNY,10
+20221231,income,8,net_profit,Net Profit,65376039957.88,CNY,10
+20231231,balance,1,cash,Cash,69070136376.12,CNY,5
+20231231,balance,2,accounts_receivable,Accounts Receivable,60373410.41,CNY,5
+20231231,balance,3,inventory,Inventory,46435185061.53,CNY,5
+20231231,balance,4,total_assets,Total Assets,272699660092.25,CNY,5
+20231231,balance,5,total_liabilities,Total Liabilities,49043190797.43,CNY,5
+20231231,balance,6,accounts_payable,Accounts Payable,3093091103.67,CNY,5
+20231231,balance,7,short_debt,Short-term Debt,57054879.48,CNY,5
+20231231,balance,8,shareholder_equity,Shareholder Equity,223656469294.82,CNY,5
+20231231,cashflow,1,operating_cashflow,Operating Cash Flow,66593247721.09,CNY,7
+20231231,cashflow,2,investing_cashflow,Investing Cash Flow,-9724414015.16,CNY,7
+20231231,cashflow,3,financing_cashflow,Financing Cash Flow,-58889101991.94,CNY,7
+20231231,cashflow,4,net_cashflow,Net Cash Flow,-2018550030.36,CNY,7
+20231231,cashflow,5,capex,Capital Expenditure,2619755888.79,CNY,7
+20231231,income,1,revenue,Revenue,150560330316.44998,CNY,6
+20231231,income,2,operating_cost,Operating Cost,11867273851.78,CNY,6
+20231231,income,3,selling_expense,Selling Expense,4648613585.82,CNY,6
+20231231,income,4,admin_expense,Administrative Expense,9729389252.31,CNY,6
+20231231,income,5,finance_expense,Finance Expense,-1789503701.48,CNY,6
+20231231,income,6,rd_expense,R&D Expense,157371873.01,CNY,6
+20231231,income,7,operating_profit,Operating Profit,103708655208.38,CNY,6
+20231231,income,8,net_profit,Net Profit,77521476277.8,CNY,6
+20241231,balance,1,cash,Cash,59295822956.89,CNY,1
+20241231,balance,2,accounts_receivable,Accounts Receivable,18974192.75,CNY,1
+20241231,balance,3,inventory,Inventory,54343285157.47,CNY,1
+20241231,balance,4,total_assets,Total Assets,298944579918.7,CNY,1
+20241231,balance,5,total_liabilities,Total Liabilities,56933264798.1,CNY,1
+20241231,balance,6,accounts_payable,Accounts Payable,3514969230.31,CNY,1
+20241231,balance,7,short_debt,Short-term Debt,111951112.2,CNY,1
+20241231,balance,8,shareholder_equity,Shareholder Equity,242011315120.6,CNY,1
+20241231,cashflow,1,operating_cashflow,Operating Cash Flow,92463692168.43,CNY,3
+20241231,cashflow,2,investing_cashflow,Investing Cash Flow,-1785202630.71,CNY,3
+20241231,cashflow,3,financing_cashflow,Financing Cash Flow,-71067506484.81,CNY,3
+20241231,cashflow,4,net_cashflow,Net Cash Flow,19609900305.36,CNY,3
+20241231,cashflow,5,capex,Capital Expenditure,4678712053.56,CNY,3
+20241231,income,1,revenue,Revenue,174144069958.24997,CNY,2
+20241231,income,2,operating_cost,Operating Cost,13789482367.98,CNY,2
+20241231,income,3,selling_expense,Selling Expense,5639300059.49,CNY,2
+20241231,income,4,admin_expense,Administrative Expense,9315650060.38,CNY,2
+20241231,income,5,finance_expense,Finance Expense,-1470219863.34,CNY,2
+20241231,income,6,rd_expense,R&D Expense,218375472.87,CNY,2
+20241231,income,7,operating_profit,Operating Profit,119688579453.23,CNY,2
+20241231,income,8,net_profit,Net Profit,89334728025.9,CNY,2

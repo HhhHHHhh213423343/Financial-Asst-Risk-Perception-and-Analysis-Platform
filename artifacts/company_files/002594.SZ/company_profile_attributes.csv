@@ -1,0 +1,83 @@
+﻿attribute_group,label,value_text,source_ref,note
+industry_insight,市场趋势,行业趋势需结合政策周期、下游需求、价格变化和企业自身经营效率持续观察。,AkShare cache,
+industry_insight,所属行业,比亚迪 当前归属 乘用车。该字段来自 AkShare 个股公开信息，可作为轻量行业识别口径。,AkShare cache,
+industry_insight,竞争格局,同板块可比公司包括：赛力斯、上汽集团、长安汽车、北汽蓝谷、长城汽车。后续可结合财报指标做更细的同业对比。,AkShare cache,
+industry_insight,行业位置,在已取得的 9 家同板块公司中，按成交额等公开行情指标粗略位于第 1 位。,AkShare cache,
+listing_info,上市日期,2011-06-30,Qichacha manual capture,
+listing_info,募集资金净额,13.54亿,Qichacha manual capture,
+listing_info,发行市盈率,20.47,Qichacha manual capture,
+listing_info,发行总市值,14.22亿,Qichacha manual capture,
+listing_info,发行总量,7900万股,Qichacha manual capture,
+listing_info,发行方式,网下询价配售,Qichacha manual capture,
+listing_info,定价中签率,4.49%,Qichacha manual capture,
+listing_info,总经理,王传福,Qichacha manual capture,
+listing_info,每股发行价,18,Qichacha manual capture,
+listing_info,每股面值,1,Qichacha manual capture,
+listing_info,法人代表,王传福,Qichacha manual capture,
+listing_info,独立董事,张敏、蔡洪平、喻玲,Qichacha manual capture,
+listing_info,网上发行日期,2011-06-21,Qichacha manual capture,
+listing_info,网下配售中签率,20.55%,Qichacha manual capture,
+listing_info,董事长,王传福,Qichacha manual capture,
+listing_info,董秘,李黔,Qichacha manual capture,
+listing_info,证券事务代表,程燕、吴越,Qichacha manual capture,
+listing_info,首日开盘价,22,Qichacha manual capture,
+listing_info,首日换手率,87.96%,Qichacha manual capture,
+listing_info,首日收盘价,25.45,Qichacha manual capture,
+public_profile,上市时间,2011-06-30,AkShare cache,AkShare 个股信息返回的上市日期
+public_profile,交易所,SZ,AkShare cache,按股票代码推断
+public_profile,企业图谱,暂无信息,AkShare cache,后续可接企业关系数据源补齐
+public_profile,企业规模,大型,Qichacha manual capture,企查查截图人工补录
+public_profile,分支机构,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+public_profile,办公地址,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+public_profile,受益所有人,王传福,Qichacha manual capture,依据股东及主要人员截图人工补录
+public_profile,员工人数,869622（2025年）,Qichacha manual capture,企查查截图人工补录
+public_profile,国标行业,新能源汽车整车制造,Qichacha manual capture,企查查截图人工补录
+public_profile,官网,www.byd.com/cn/index.html,Qichacha manual capture,企查查截图人工补录
+public_profile,实控人,王传福,Qichacha manual capture,依据股东及主要人员截图人工补录
+public_profile,客户名称,比亚迪,AkShare cache,AkShare 个股公开信息返回的股票简称
+public_profile,对外投资,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+public_profile,总市值,9461.83 亿元,AkShare cache,按公开行情数据估算
+public_profile,成立时间,1995-02-10,Qichacha manual capture,企查查截图人工补录
+public_profile,所属集团,比亚迪,Qichacha manual capture,企查查截图人工补录
+public_profile,曾用名,深圳市比亚迪实业有限公司（1995-02 至 2002-06）,Qichacha manual capture,企查查截图人工补录
+public_profile,最新价,103.78,AkShare cache,AkShare 行情接口返回的最新价格
+public_profile,法定代表人,王传福,Qichacha manual capture,企查查截图人工补录
+public_profile,注册地址,深圳市大鹏新区葵涌街道延安路一号,Qichacha manual capture,企查查截图人工补录
+public_profile,注册资本,91.17 亿股,AkShare cache,AkShare 未返回注册资本时，以总股本作公开市场口径参考
+public_profile,流通市值,3618.41 亿元,AkShare cache,按公开行情数据估算
+public_profile,经营范围,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+public_profile,联系电话,0755-89888888,Qichacha manual capture,企查查截图人工补录
+public_profile,股东,详见股东信息页（已结构化入库）,Qichacha manual capture,企查查截图人工补录
+public_profile,股权穿透图,暂无信息,AkShare cache,后续可接企业关系数据源补齐
+public_profile,股票代码,002594.SZ,AkShare cache,财报数据查询主键
+public_profile,营业收入,8039.65亿元（2025年）,Qichacha manual capture,企查查截图人工补录
+public_profile,邮箱,bydpo@byd.com,Qichacha manual capture,企查查截图人工补录
+public_profile,高管,详见主要人员页（已结构化入库）,Qichacha manual capture,企查查截图人工补录
+registration,人员规模,2000-2999人,Qichacha manual capture,
+registration,企业类型,股份有限公司（台港澳与境内合资、上市）,Qichacha manual capture,
+registration,参保人数,2625（2024年报）,Qichacha manual capture,
+registration,国标行业,新能源汽车整车制造（C3612）,Qichacha manual capture,
+registration,实缴资本,911719.8万元,Qichacha manual capture,
+registration,工商注册号,440301501127941,Qichacha manual capture,
+registration,所属地区,广东省深圳市龙岗区,Qichacha manual capture,
+registration,注册资本,911719.7565万元,Qichacha manual capture,
+registration,登记机关,深圳市市场监督管理局,Qichacha manual capture,
+registration,登记状态,开业（存续）,Qichacha manual capture,
+registration,纳税人识别号,91440300192317458F,Qichacha manual capture,
+registration,纳税人资质,一般纳税人,Qichacha manual capture,
+registration,组织机构代码,19231745-8,Qichacha manual capture,
+registration,经营范围,锂离子电池以及其他电池、充电器、电子产品、仪器仪表、柔性线路板、五金制品、液晶显示器、手机零配件、模具、塑胶制品及其相关附件的生产、销售；3D眼镜、GPS导航产品的研发、生产及销售；货物及技术进出口；作为比亚迪汽车有限公司比亚迪品牌乘用车、电动车的总经销商，从事品牌乘用车、电动车及其零部件的营销、批发和出口，提供售后服务；电池管理系统、换流柜、逆变柜、汇流箱、开关柜、储能机组的销售；汽车电子装置研发、销售；新能源汽车关键零部件及上述零部件的关键零件、部件的研发、销售；轨道交通运输设备的研发、设计、销售、租赁与售后服务；轨道梁柱的研发、设计、销售；自有物业租赁；广告设计、制作、代理及发布；信息与技术咨询、技术服务。,Qichacha manual capture,
+registration,统一社会信用代码,91440300192317458F,Qichacha manual capture,
+registration,英文名,BYD Company Limited,Qichacha manual capture,
+registration,营业期限,1995-02-10 至 2053-02-08,Qichacha manual capture,
+shareholder_summary,股东1,HKSCC NOMINEES LIMITED,Qichacha manual capture,流通H股 | 持股比例 40.3800% | 标签：中国香港、大股东
+shareholder_summary,股东10,李柯,Qichacha manual capture,流通A股、限售流通A股 | 持股比例 0.3600%
+shareholder_summary,股东11,比亚迪股份有限公司-2025年员工持股计划,Qichacha manual capture,流通A股 | 持股比例 0.3551%
+shareholder_summary,股东2,王传福,Qichacha manual capture,流通A股、限售流通A股 | 持股比例 16.9000% | 标签：实际控制人、受益所有人
+shareholder_summary,股东3,吕向阳,Qichacha manual capture,流通A股、限售流通A股 | 持股比例 7.8700% | 间接持股比例 4.5735% | 标签：股权质押
+shareholder_summary,股东4,融捷投资控股集团有限公司,Qichacha manual capture,流通A股 | 持股比例 5.1100% | 标签：股权质押
+shareholder_summary,股东5,夏佐全,Qichacha manual capture,流通A股、限售流通A股 | 持股比例 2.7200%
+shareholder_summary,股东6,香港中央结算有限公司,Qichacha manual capture,流通A股 | 持股比例 2.1600%
+shareholder_summary,股东7,张炜,Qichacha manual capture,流通A股 | 持股比例 0.6000%
+shareholder_summary,股东8,王念强,Qichacha manual capture,流通A股 | 持股比例 0.6000%
+shareholder_summary,股东9,全国社保基金一一四组合,Qichacha manual capture,流通A股 | 持股比例 0.4600%

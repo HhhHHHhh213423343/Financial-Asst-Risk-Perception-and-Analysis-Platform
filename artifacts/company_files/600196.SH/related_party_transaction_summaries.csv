@@ -1,0 +1,3 @@
+﻿period_code,related_party_name,relation_type,transaction_type,transaction_amount_cny,revenue_or_cost_ratio,settlement_method,pricing_comment,risk_level,note
+20251231,上海复星高科技（集团）有限公司,controlling_shareholder,capital_and_service,1520000000.0,0.0081,bank_transfer,Related-party capital and shared-service transactions warrant formal arm's-length testing,high,
+20251231,复星国际,group_affiliate,management_service,460000000.0,0.0025,bank_transfer,Group service fees should be benchmarked annually,medium,

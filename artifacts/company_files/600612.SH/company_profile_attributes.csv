@@ -1,0 +1,97 @@
+﻿attribute_group,label,value_text,source_ref,note
+industry_insight,市场趋势,行业趋势需结合政策周期、下游需求、价格变化和企业自身经营效率持续观察。,AkShare cache,
+industry_insight,所属行业,老凤祥 当前归属 饰品。该字段来自 AkShare 个股公开信息，可作为轻量行业识别口径。,AkShare cache,
+industry_insight,竞争格局,同板块可比公司包括：暂未取得稳定的同板块可比公司列表。后续可结合财报指标做更细的同业对比。,AkShare cache,
+industry_insight,行业位置,暂未取得同板块成份股行情，先以公司行业字段和公开财报数据做初步判断。,AkShare cache,
+listing_info,EPS,1.0458,Qichacha manual capture,
+listing_info,上市交易所,上海证券交易所,Qichacha manual capture,
+listing_info,上市日期,1992-08-14,Qichacha manual capture,
+listing_info,上市曾用名,第一铅笔→G中铅→第一铅笔→中国铅笔,Qichacha manual capture,
+listing_info,上市板块,主板,Qichacha manual capture,
+listing_info,募集资金净额,-,Qichacha manual capture,
+listing_info,发行市盈率,-,Qichacha manual capture,
+listing_info,发行总市值,4031.6万,Qichacha manual capture,
+listing_info,发行总量,100.79万股,Qichacha manual capture,
+listing_info,发行方式,其他发行方式,Qichacha manual capture,
+listing_info,定价中签率,-,Qichacha manual capture,
+listing_info,市净率,1.5,Qichacha manual capture,
+listing_info,总市值,205.32亿,Qichacha manual capture,
+listing_info,总经理,黄骅,Qichacha manual capture,
+listing_info,总股本,5.23亿,Qichacha manual capture,
+listing_info,是否注册制,否,Qichacha manual capture,
+listing_info,每股发行价,40,Qichacha manual capture,
+listing_info,每股面值,10,Qichacha manual capture,
+listing_info,法人代表,杨奕,Qichacha manual capture,
+listing_info,流通值,124.47亿,Qichacha manual capture,
+listing_info,流通股,5.23亿,Qichacha manual capture,
+listing_info,独立董事,张其秀、俞铁成、马民良,Qichacha manual capture,
+listing_info,网上发行日期,1992-06-13,Qichacha manual capture,
+listing_info,网下配售中签率,-,Qichacha manual capture,
+listing_info,股票代码,600612.SH,Qichacha manual capture,
+listing_info,股票简称,老凤祥,Qichacha manual capture,
+listing_info,董事长,杨奕,Qichacha manual capture,
+listing_info,董秘,邱建敏,Qichacha manual capture,
+listing_info,表决权差异,否,Qichacha manual capture,
+listing_info,证券事务代表,邹岩,Qichacha manual capture,
+listing_info,预测市盈率,9.38,Qichacha manual capture,
+listing_info,首日开盘价,142,Qichacha manual capture,
+listing_info,首日换手率,276.18%,Qichacha manual capture,
+listing_info,首日收盘价,152,Qichacha manual capture,
+public_profile,上市时间,1992-08-14,AkShare cache,AkShare 个股信息返回的上市日期
+public_profile,交易所,SH,AkShare cache,按股票代码推断
+public_profile,企业图谱,暂无信息,AkShare cache,后续可接企业关系数据源补齐
+public_profile,企业规模,大型,Qichacha manual capture,企查查截图人工补录
+public_profile,分支机构,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+public_profile,办公地址,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+public_profile,受益所有人,杨奕,Qichacha manual capture,依据主要人员截图人工补录
+public_profile,员工人数,2985（2025年）,Qichacha manual capture,企查查截图人工补录
+public_profile,国标行业,珠宝首饰及有关物品制造,Qichacha manual capture,企查查截图人工补录
+public_profile,官网,www.laofengxiang.com,Qichacha manual capture,企查查截图人工补录
+public_profile,实控人,上海市黄浦区国有资产监督管理委员会（上海市黄浦区集体资产监督管理委员会）,Qichacha manual capture,依据股东截图人工补录
+public_profile,客户名称,老凤祥,AkShare cache,AkShare 个股公开信息返回的股票简称
+public_profile,对外投资,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+public_profile,总市值,214.90 亿元,AkShare cache,按公开行情数据估算
+public_profile,成立时间,1992-11-11,Qichacha manual capture,企查查截图人工补录
+public_profile,所属集团,老凤祥,Qichacha manual capture,企查查截图人工补录
+public_profile,曾用名,中国第一铅笔股份有限公司（1998-12 至 2009-07）,Qichacha manual capture,企查查截图人工补录
+public_profile,最新价,41.08,AkShare cache,AkShare 行情接口返回的最新价格
+public_profile,法定代表人,杨奕,Qichacha manual capture,企查查截图人工补录
+public_profile,注册地址,上海市黄浦区南京西路190号四层、五层,Qichacha manual capture,企查查截图人工补录
+public_profile,注册资本,5.23 亿股,AkShare cache,AkShare 未返回注册资本时，以总股本作公开市场口径参考
+public_profile,流通市值,130.27 亿元,AkShare cache,按公开行情数据估算
+public_profile,经营范围,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+public_profile,联系电话,021-64833388,Qichacha manual capture,企查查截图人工补录
+public_profile,股东,详见股东信息页（已结构化入库）,Qichacha manual capture,企查查截图人工补录
+public_profile,股权穿透图,暂无信息,AkShare cache,后续可接企业关系数据源补齐
+public_profile,股票代码,600612.SH,AkShare cache,财报数据查询主键
+public_profile,营业收入,528.23亿元（2025年）,Qichacha manual capture,企查查截图人工补录
+public_profile,通信地址,凯旋路2588号-6幢（邮编200030）（2024年报）,Qichacha manual capture,企查查截图人工补录
+public_profile,邮箱,lfxgf_618@sina.com,Qichacha manual capture,企查查截图人工补录
+public_profile,高管,详见主要人员页（已结构化入库）,Qichacha manual capture,企查查截图人工补录
+registration,人员规模,100-199人,Qichacha manual capture,
+registration,企业类型,股份有限公司（港澳台投资、上市）,Qichacha manual capture,
+registration,参保人数,100（2024年报）,Qichacha manual capture,
+registration,实缴资本,52311.7764万元,Qichacha manual capture,
+registration,工商注册号,310000400026404,Qichacha manual capture,
+registration,所属地区,上海市黄浦区,Qichacha manual capture,
+registration,注册资本,52311.7764万元,Qichacha manual capture,
+registration,登记机关,上海市市场监督管理局,Qichacha manual capture,
+registration,登记状态,存续（在营、开业、在册）,Qichacha manual capture,
+registration,纳税人识别号,9131000060720072X4,Qichacha manual capture,
+registration,纳税人资质,一般纳税人,Qichacha manual capture,
+registration,组织机构代码,60720072-X,Qichacha manual capture,
+registration,经营范围,生产经营金银制品、珠宝、钻石与相关产品及设备、工艺美术品（文物法规规定的除外）、旅游工艺品与相关产品及原料、文教用品与相关原料及设备，从事上述商品的批发、零售、佣金代理及进出口业务；物业管理；自有房产租赁；典当、拍卖（限已批准的子公司经营）；以独资、合资、合作经营形式投资兴办鼓励类、允许类企业。,Qichacha manual capture,
+registration,统一社会信用代码,9131000060720072X4,Qichacha manual capture,
+registration,英文名,"Lao FENG Xiang Co., Ltd.",Qichacha manual capture,
+registration,营业期限,1992-11-11 至 无固定期限,Qichacha manual capture,
+registration,进出口企业代码,310060720072X,Qichacha manual capture,
+shareholder_summary,股东1,上海市黄浦区国有资产监督管理委员会（上海市黄浦区集体资产监督管理委员会）,Qichacha manual capture,持股比例 42.09% | 标签：大股东、实际控制人
+shareholder_summary,股东10,"FEDERATED HERMES GLOBAL INVESTMENT FD(CAYMAN)MASTER,SPC OBOAFTAO FEDERATED HERMES EMG ASIA EQUITY FD MASTER S.P.",Qichacha manual capture,持股比例 0.47% | 流通B股
+shareholder_summary,股东2,SHENWAN HONGYUAN NOMINEES(H.K.)LIMITED,Qichacha manual capture,持股比例 1.32% | 流通B股
+shareholder_summary,股东3,GUOTAI JUNAN SECURITIES(HONG KONG)LIMITED,Qichacha manual capture,持股比例 0.99% | 流通B股
+shareholder_summary,股东4,中国建设银行股份有限公司-国泰双利债券证券投资基金,Qichacha manual capture,持股比例 0.93%
+shareholder_summary,股东5,龙悦网络有限公司,Qichacha manual capture,持股比例 0.92% | 中国香港
+shareholder_summary,股东6,VANGUARD TOTAL INTERNATIONAL STOCK INDEX FUND,Qichacha manual capture,持股比例 0.60% | 流通B股
+shareholder_summary,股东7,NORGES BANK,Qichacha manual capture,持股比例 0.55% | 挪威
+shareholder_summary,股东8,VANGUARD EMERGING MARKETS STOCK INDEX FUND,Qichacha manual capture,持股比例 0.50% | 流通B股
+shareholder_summary,股东9,EQ EMERGING DIVIDEND FUND,Qichacha manual capture,持股比例 0.50% | 流通B股

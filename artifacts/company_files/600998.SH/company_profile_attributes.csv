@@ -1,0 +1,97 @@
+﻿attribute_group,label,value_text,source_ref,note
+industry_insight,市场趋势,行业受集采、创新药审批、医保控费和院外渠道变化影响，研发与现金流质量需要同步观察。,AkShare cache,
+industry_insight,所属行业,九州通 当前归属 医药商业。该字段来自 AkShare 个股公开信息，可作为轻量行业识别口径。,AkShare cache,
+industry_insight,竞争格局,同板块可比公司包括：暂未取得稳定的同板块可比公司列表。后续可结合财报指标做更细的同业对比。,AkShare cache,
+industry_insight,行业位置,暂未取得同板块成份股行情，先以公司行业字段和公开财报数据做初步判断。,AkShare cache,
+listing_info,EPS,0.14,Qichacha manual capture,
+listing_info,上市交易所,上海证券交易所,Qichacha manual capture,
+listing_info,上市日期,2010-11-02,Qichacha manual capture,
+listing_info,上市曾用名,-,Qichacha manual capture,
+listing_info,上市板块,主板,Qichacha manual capture,
+listing_info,募集资金净额,18.93亿,Qichacha manual capture,
+listing_info,发行市盈率,65,Qichacha manual capture,
+listing_info,发行总市值,19.5亿,Qichacha manual capture,
+listing_info,发行总量,1.5亿股,Qichacha manual capture,
+listing_info,发行方式,网下询价配售,Qichacha manual capture,
+listing_info,定价中签率,0.64%,Qichacha manual capture,
+listing_info,市净率,0.93,Qichacha manual capture,
+listing_info,总市值,254.64亿,Qichacha manual capture,
+listing_info,总经理,龚翼华,Qichacha manual capture,
+listing_info,总股本,50.42亿,Qichacha manual capture,
+listing_info,是否注册制,否,Qichacha manual capture,
+listing_info,每股发行价,13,Qichacha manual capture,
+listing_info,每股面值,1,Qichacha manual capture,
+listing_info,法人代表,刘长云,Qichacha manual capture,
+listing_info,流通值,254.64亿,Qichacha manual capture,
+listing_info,流通股,50.42亿,Qichacha manual capture,
+listing_info,独立董事,汤谷良、陆银娣、曾湘泉、王瑛、艾华,Qichacha manual capture,
+listing_info,网上发行日期,2010-10-25,Qichacha manual capture,
+listing_info,网下配售中签率,0.89%,Qichacha manual capture,
+listing_info,股票代码,600998.SH,Qichacha manual capture,
+listing_info,股票简称,九州通,Qichacha manual capture,
+listing_info,董事长,刘长云,Qichacha manual capture,
+listing_info,董秘,刘志峰,Qichacha manual capture,
+listing_info,表决权差异,否,Qichacha manual capture,
+listing_info,证券事务代表,张溪,Qichacha manual capture,
+listing_info,预测市盈率,8.68,Qichacha manual capture,
+listing_info,首日开盘价,18.25,Qichacha manual capture,
+listing_info,首日换手率,83.29%,Qichacha manual capture,
+listing_info,首日收盘价,18.98,Qichacha manual capture,
+public_profile,上市时间,2010-11-02,AkShare cache,AkShare 个股信息返回的上市日期
+public_profile,交易所,SH,AkShare cache,按股票代码推断
+public_profile,企业图谱,暂无信息,AkShare cache,后续可接企业关系数据源补齐
+public_profile,企业规模,大型,Qichacha manual capture,企查查截图人工补录
+public_profile,分支机构,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+public_profile,办公地址,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+public_profile,受益所有人,刘长云,Qichacha manual capture,依据主要人员及股东截图人工补录
+public_profile,员工人数,29862（2025年）,Qichacha manual capture,企查查截图人工补录
+public_profile,国标行业,西药批发,Qichacha manual capture,企查查截图人工补录
+public_profile,官网,www.jztey.com,Qichacha manual capture,企查查截图人工补录
+public_profile,实控人,刘长云,Qichacha manual capture,依据主要人员及股东截图人工补录
+public_profile,客户名称,九州通,AkShare cache,AkShare 个股公开信息返回的股票简称
+public_profile,对外投资,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+public_profile,总市值,272.80 亿元,AkShare cache,按公开行情数据估算
+public_profile,成立时间,1999-03-09,Qichacha manual capture,企查查截图人工补录
+public_profile,所属集团,九州通集团,Qichacha manual capture,企查查截图人工补录
+public_profile,曾用名,九州通集团有限公司（2003-10 至 2008-11）,Qichacha manual capture,企查查截图人工补录
+public_profile,最新价,5.41,AkShare cache,AkShare 行情接口返回的最新价格
+public_profile,法定代表人,刘长云,Qichacha manual capture,企查查截图人工补录
+public_profile,注册地址,湖北省武汉市汉阳区龙兴西街5号,Qichacha manual capture,企查查截图人工补录
+public_profile,注册资本,50.42 亿股,AkShare cache,AkShare 未返回注册资本时，以总股本作公开市场口径参考
+public_profile,流通市值,272.80 亿元,AkShare cache,按公开行情数据估算
+public_profile,经营范围,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+public_profile,联系电话,027-84683017,Qichacha manual capture,企查查截图人工补录
+public_profile,股东,详见股东信息页（已结构化入库）,Qichacha manual capture,企查查截图人工补录
+public_profile,股权穿透图,暂无信息,AkShare cache,后续可接企业关系数据源补齐
+public_profile,股票代码,600998.SH,AkShare cache,财报数据查询主键
+public_profile,营业收入,1613.90亿元（2025年）,Qichacha manual capture,企查查截图人工补录
+public_profile,邮箱,jztdmc@jztey.com,Qichacha manual capture,企查查截图人工补录
+public_profile,高管,详见主要人员页（已结构化入库）,Qichacha manual capture,企查查截图人工补录
+registration,人员规模,1000-1999人,Qichacha manual capture,
+registration,企业类型,股份有限公司（外商投资、上市）,Qichacha manual capture,
+registration,分支机构参保人数,3（2024年报）,Qichacha manual capture,
+registration,参保人数,1636（2024年报）,Qichacha manual capture,
+registration,实缴资本,504247.0234万元,Qichacha manual capture,
+registration,工商注册号,420000400000103,Qichacha manual capture,
+registration,所属地区,湖北省武汉市汉阳区,Qichacha manual capture,
+registration,注册资本,504247.0234万元,Qichacha manual capture,
+registration,登记机关,湖北省市场监督管理局,Qichacha manual capture,
+registration,登记状态,存续（在营、开业、在册）,Qichacha manual capture,
+registration,纳税人识别号,9142000071451795XA,Qichacha manual capture,
+registration,纳税人资质,一般纳税人,Qichacha manual capture,
+registration,组织机构代码,71451795-X,Qichacha manual capture,
+registration,经营范围,药品批发、第三类医疗器械经营、药品互联网信息服务、酒类经营、医药器械租赁、食品销售、药品进出口、中药饮片代煎服务、第一类增值电信业务、第二类增值电信业务、技术咨询服务、化妆品及日用百货销售、供应链服务、物流仓储、软件开发、人工智能基础软件及应用软件开发、数据处理与存储支持服务、互联网数据服务、健康咨询、远程健康管理、物业管理、会议及展览服务、企业管理及市场营销咨询等。,Qichacha manual capture,
+registration,统一社会信用代码,9142000071451795XA,Qichacha manual capture,
+registration,英文名,"Jointown Pharmaceutical Group Co., Ltd.",Qichacha manual capture,
+registration,营业期限,1999-03-09 至 无固定期限,Qichacha manual capture,
+registration,进出口企业代码,420171451795X,Qichacha manual capture,
+shareholder_summary,股东1,上海弘康实业投资有限公司,Qichacha manual capture,持股比例 21.58% | 标签：大股东、股权质押
+shareholder_summary,股东10,长城国泰（舟山）产业并购重组基金合伙企业（有限合伙）,Qichacha manual capture,持股比例 1.36% | 关联产品/机构：长城股权基金
+shareholder_summary,股东2,狮龙国际集团（香港）有限公司,Qichacha manual capture,持股比例 11.41%
+shareholder_summary,股东3,楚昌投资集团有限公司,Qichacha manual capture,持股比例 9.11% | 间接持股比例 24.4027% | 标签：股权质押
+shareholder_summary,股东4,中山广银投资有限公司,Qichacha manual capture,持股比例 6.65% | 标签：股权质押
+shareholder_summary,股东5,北京点金投资有限公司,Qichacha manual capture,持股比例 5.48% | 关联产品/机构：楚昌投资
+shareholder_summary,股东6,中国信达资产管理股份有限公司,Qichacha manual capture,持股比例 4.99% | 关联产品/机构：中国信达（01359.HK）
+shareholder_summary,股东7,香港中央结算有限公司,Qichacha manual capture,持股比例 2.08%
+shareholder_summary,股东8,全国社保基金六零四组合,Qichacha manual capture,持股比例 1.42%
+shareholder_summary,股东9,刘树林,Qichacha manual capture,持股比例 1.40% | 间接持股比例 11.9469%

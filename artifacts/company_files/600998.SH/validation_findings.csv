@@ -1,0 +1,2 @@
+﻿rule_name,severity,finding_title,finding_summary,impact_summary,confidence
+Debt service coverage check,medium,Leverage remains elevated for public-company sample,Latest debt-to-assets ratio is about 67.19%.,Public leverage level warrants peer-based interpretation.,0.86

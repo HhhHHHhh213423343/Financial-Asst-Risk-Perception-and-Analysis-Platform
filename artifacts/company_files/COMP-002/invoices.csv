@@ -1,0 +1,4 @@
+﻿invoice_no,issue_date,amount_cny,tax_rate_pct,invoice_type,buyer_name,seller_name
+002INV0001,2025-07-18,371000.0,13.0,vat_special,,苏州云衡工业软件有限公司
+002INV0002,2025-08-18,412500.0,13.0,vat_special,,苏州云衡工业软件有限公司
+002INV0003,2025-09-18,460000.0,13.0,vat_special,,苏州云衡工业软件有限公司

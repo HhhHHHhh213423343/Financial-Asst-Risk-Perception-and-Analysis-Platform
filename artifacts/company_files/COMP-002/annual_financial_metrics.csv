@@ -1,0 +1,40 @@
+﻿period_code,metric_code,metric_name,metric_category,value,unit
+2023FY,fixed_assets,Net Fixed Assets,balance_sheet,426485.18,CNY
+2023FY,total_assets,Total Assets,balance_sheet,5917260.6,CNY
+2023FY,total_liabilities,Total Liabilities,balance_sheet,2011868.6,CNY
+2023FY,capital_expenditure,Capital Expenditure,cash_flow,266553.24,CNY
+2023FY,net_cash_from_investing,Net Cash from Investing,cash_flow,-266553.24,CNY
+2023FY,operating_cash_flow,Operating Cash Flow,cash_flow,878732.73,CNY
+2023FY,gross_profit,Gross Profit,income_statement,3092017.54,CNY
+2023FY,net_profit,Net Profit,income_statement,788464.48,CNY
+2023FY,revenue,Revenue,income_statement,5331064.73,CNY
+2023FY,asset_liability_ratio,Asset Liability Ratio,ratio,0.34,ratio
+2023FY,gross_margin_pct,Gross Margin,ratio,0.58,ratio
+2023FY,operating_cash_flow_margin_pct,Operating Cash Flow Margin,ratio,0.1648,ratio
+2023FY,rd_ratio_pct,R&D Ratio,ratio,0.195,ratio
+2024FY,fixed_assets,Net Fixed Assets,balance_sheet,486193.1,CNY
+2024FY,total_assets,Total Assets,balance_sheet,7253632.71,CNY
+2024FY,total_liabilities,Total Liabilities,balance_sheet,2683844.1,CNY
+2024FY,capital_expenditure,Capital Expenditure,cash_flow,364644.83,CNY
+2024FY,net_cash_from_investing,Net Cash from Investing,cash_flow,-364644.83,CNY
+2024FY,operating_cash_flow,Operating Cash Flow,cash_flow,696503.6,CNY
+2024FY,gross_profit,Gross Profit,income_statement,3616061.21,CNY
+2024FY,net_profit,Net Profit,income_statement,935921.72,CNY
+2024FY,revenue,Revenue,income_statement,6077413.79,CNY
+2024FY,asset_liability_ratio,Asset Liability Ratio,ratio,0.37,ratio
+2024FY,gross_margin_pct,Gross Margin,ratio,0.595,ratio
+2024FY,operating_cash_flow_margin_pct,Operating Cash Flow Margin,ratio,0.1146,ratio
+2024FY,rd_ratio_pct,R&D Ratio,ratio,0.21,ratio
+2025FY,fixed_assets,Net Fixed Assets,balance_sheet,563984.0,CNY
+2025FY,total_assets,Total Assets,balance_sheet,8917841.32,CNY
+2025FY,total_liabilities,Total Liabilities,balance_sheet,3567136.53,CNY
+2025FY,capital_expenditure,Capital Expenditure,cash_flow,493486.0,CNY
+2025FY,net_cash_from_investing,Net Cash from Investing,cash_flow,-493486.0,CNY
+2025FY,operating_cash_flow,Operating Cash Flow,cash_flow,719146.45,CNY
+2025FY,gross_profit,Gross Profit,income_statement,4300378.0,CNY
+2025FY,net_profit,Net Profit,income_statement,1127968.0,CNY
+2025FY,revenue,Revenue,income_statement,7049800.0,CNY
+2025FY,asset_liability_ratio,Asset Liability Ratio,ratio,0.4,ratio
+2025FY,gross_margin_pct,Gross Margin,ratio,0.61,ratio
+2025FY,operating_cash_flow_margin_pct,Operating Cash Flow Margin,ratio,0.102,ratio
+2025FY,rd_ratio_pct,R&D Ratio,ratio,0.22,ratio

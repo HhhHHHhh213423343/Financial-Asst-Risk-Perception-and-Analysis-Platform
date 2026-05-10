@@ -1,0 +1,7 @@
+﻿period_code,declared_revenue_cny,invoiced_amount_cny,bank_receipts_cny,output_tax_cny,input_tax_cny,invoice_count,revenue_invoice_gap_cny,invoice_receipt_gap_cny,gap_ratio,status,check_note
+2025-07,399000.0,394800.0,361200.0,51870.0,27930.0,8,4200.0,33600.0,0.08,warn,"Revenue, invoice, and bank receipt consistency summary for demo tax dimension."
+2025-08,413850.0,418300.0,373800.0,53800.5,28969.5,9,4450.0,44500.0,0.1,warn,"Revenue, invoice, and bank receipt consistency summary for demo tax dimension."
+2025-09,432400.0,441800.0,390100.0,56212.0,30268.0,10,9400.0,51700.0,0.11,warn,"Revenue, invoice, and bank receipt consistency summary for demo tax dimension."
+2025-10,450450.0,465300.0,430650.0,58558.5,31531.5,11,14850.0,34650.0,0.07,warn,"Revenue, invoice, and bank receipt consistency summary for demo tax dimension."
+2025-11,480600.0,507600.0,459000.0,62478.0,33642.0,12,27000.0,48600.0,0.09,warn,"Revenue, invoice, and bank receipt consistency summary for demo tax dimension."
+2025-12,504000.0,526400.0,470400.0,65520.0,35280.0,13,22400.0,56000.0,0.1,warn,"Revenue, invoice, and bank receipt consistency summary for demo tax dimension."

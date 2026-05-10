@@ -1,0 +1,151 @@
+﻿company_code,period_code,metric_code,metric_name,value,unit
+COMP-001,2025-07,accounts_receivable,Accounts Receivable,672000.0,CNY
+COMP-001,2025-07,gross_profit,Gross Profit,211200.0,CNY
+COMP-001,2025-07,net_profit,Net Profit,44800.0,CNY
+COMP-001,2025-07,operating_cash_flow,Operating Cash Flow,25600.0,CNY
+COMP-001,2025-07,revenue,Revenue,640000.0,CNY
+COMP-001,2025-08,accounts_receivable,Accounts Receivable,724500.0,CNY
+COMP-001,2025-08,gross_profit,Gross Profit,227700.0,CNY
+COMP-001,2025-08,net_profit,Net Profit,48300.0,CNY
+COMP-001,2025-08,operating_cash_flow,Operating Cash Flow,27600.0,CNY
+COMP-001,2025-08,revenue,Revenue,690000.0,CNY
+COMP-001,2025-09,accounts_receivable,Accounts Receivable,798000.0,CNY
+COMP-001,2025-09,gross_profit,Gross Profit,250800.0,CNY
+COMP-001,2025-09,net_profit,Net Profit,53200.0,CNY
+COMP-001,2025-09,operating_cash_flow,Operating Cash Flow,30400.0,CNY
+COMP-001,2025-09,revenue,Revenue,760000.0,CNY
+COMP-001,2025-10,accounts_receivable,Accounts Receivable,850500.0,CNY
+COMP-001,2025-10,gross_profit,Gross Profit,267300.0,CNY
+COMP-001,2025-10,net_profit,Net Profit,56700.0,CNY
+COMP-001,2025-10,operating_cash_flow,Operating Cash Flow,32400.0,CNY
+COMP-001,2025-10,revenue,Revenue,810000.0,CNY
+COMP-001,2025-11,accounts_receivable,Accounts Receivable,945000.0,CNY
+COMP-001,2025-11,gross_profit,Gross Profit,297000.0,CNY
+COMP-001,2025-11,net_profit,Net Profit,63000.0,CNY
+COMP-001,2025-11,operating_cash_flow,Operating Cash Flow,36000.0,CNY
+COMP-001,2025-11,revenue,Revenue,900000.0,CNY
+COMP-001,2025-12,accounts_receivable,Accounts Receivable,1029000.0,CNY
+COMP-001,2025-12,gross_profit,Gross Profit,323400.0,CNY
+COMP-001,2025-12,net_profit,Net Profit,68600.0,CNY
+COMP-001,2025-12,operating_cash_flow,Operating Cash Flow,39200.0,CNY
+COMP-001,2025-12,revenue,Revenue,980000.0,CNY
+COMP-002,2025-07,accounts_receivable,Accounts Receivable,381600.0,CNY
+COMP-002,2025-07,gross_profit,Gross Profit,323300.0,CNY
+COMP-002,2025-07,net_profit,Net Profit,84800.0,CNY
+COMP-002,2025-07,operating_cash_flow,Operating Cash Flow,95400.0,CNY
+COMP-002,2025-07,revenue,Revenue,530000.0,CNY
+COMP-002,2025-08,accounts_receivable,Accounts Receivable,396000.0,CNY
+COMP-002,2025-08,gross_profit,Gross Profit,335500.0,CNY
+COMP-002,2025-08,net_profit,Net Profit,88000.0,CNY
+COMP-002,2025-08,operating_cash_flow,Operating Cash Flow,99000.0,CNY
+COMP-002,2025-08,revenue,Revenue,550000.0,CNY
+COMP-002,2025-09,accounts_receivable,Accounts Receivable,414000.0,CNY
+COMP-002,2025-09,gross_profit,Gross Profit,350750.0,CNY
+COMP-002,2025-09,net_profit,Net Profit,92000.0,CNY
+COMP-002,2025-09,operating_cash_flow,Operating Cash Flow,103500.0,CNY
+COMP-002,2025-09,revenue,Revenue,575000.0,CNY
+COMP-002,2025-10,accounts_receivable,Accounts Receivable,424800.0,CNY
+COMP-002,2025-10,gross_profit,Gross Profit,359900.0,CNY
+COMP-002,2025-10,net_profit,Net Profit,94400.0,CNY
+COMP-002,2025-10,operating_cash_flow,Operating Cash Flow,106200.0,CNY
+COMP-002,2025-10,revenue,Revenue,590000.0,CNY
+COMP-002,2025-11,accounts_receivable,Accounts Receivable,439200.0,CNY
+COMP-002,2025-11,gross_profit,Gross Profit,372100.0,CNY
+COMP-002,2025-11,net_profit,Net Profit,97600.0,CNY
+COMP-002,2025-11,operating_cash_flow,Operating Cash Flow,109800.0,CNY
+COMP-002,2025-11,revenue,Revenue,610000.0,CNY
+COMP-002,2025-12,accounts_receivable,Accounts Receivable,457200.0,CNY
+COMP-002,2025-12,gross_profit,Gross Profit,387350.0,CNY
+COMP-002,2025-12,net_profit,Net Profit,101600.0,CNY
+COMP-002,2025-12,operating_cash_flow,Operating Cash Flow,114300.0,CNY
+COMP-002,2025-12,revenue,Revenue,635000.0,CNY
+COMP-003,2025-07,accounts_receivable,Accounts Receivable,504000.0,CNY
+COMP-003,2025-07,gross_profit,Gross Profit,301000.0,CNY
+COMP-003,2025-07,net_profit,Net Profit,77000.0,CNY
+COMP-003,2025-07,operating_cash_flow,Operating Cash Flow,126000.0,CNY
+COMP-003,2025-07,revenue,Revenue,700000.0,CNY
+COMP-003,2025-08,accounts_receivable,Accounts Receivable,518400.0,CNY
+COMP-003,2025-08,gross_profit,Gross Profit,309600.0,CNY
+COMP-003,2025-08,net_profit,Net Profit,79200.0,CNY
+COMP-003,2025-08,operating_cash_flow,Operating Cash Flow,129600.0,CNY
+COMP-003,2025-08,revenue,Revenue,720000.0,CNY
+COMP-003,2025-09,accounts_receivable,Accounts Receivable,547200.0,CNY
+COMP-003,2025-09,gross_profit,Gross Profit,326800.0,CNY
+COMP-003,2025-09,net_profit,Net Profit,83600.0,CNY
+COMP-003,2025-09,operating_cash_flow,Operating Cash Flow,136800.0,CNY
+COMP-003,2025-09,revenue,Revenue,760000.0,CNY
+COMP-003,2025-10,accounts_receivable,Accounts Receivable,561600.0,CNY
+COMP-003,2025-10,gross_profit,Gross Profit,335400.0,CNY
+COMP-003,2025-10,net_profit,Net Profit,85800.0,CNY
+COMP-003,2025-10,operating_cash_flow,Operating Cash Flow,140400.0,CNY
+COMP-003,2025-10,revenue,Revenue,780000.0,CNY
+COMP-003,2025-11,accounts_receivable,Accounts Receivable,568800.0,CNY
+COMP-003,2025-11,gross_profit,Gross Profit,339700.0,CNY
+COMP-003,2025-11,net_profit,Net Profit,86900.0,CNY
+COMP-003,2025-11,operating_cash_flow,Operating Cash Flow,142200.0,CNY
+COMP-003,2025-11,revenue,Revenue,790000.0,CNY
+COMP-003,2025-12,accounts_receivable,Accounts Receivable,597600.0,CNY
+COMP-003,2025-12,gross_profit,Gross Profit,356900.0,CNY
+COMP-003,2025-12,net_profit,Net Profit,91300.0,CNY
+COMP-003,2025-12,operating_cash_flow,Operating Cash Flow,149400.0,CNY
+COMP-003,2025-12,revenue,Revenue,830000.0,CNY
+COMP-004,2025-07,accounts_receivable,Accounts Receivable,378000.0,CNY
+COMP-004,2025-07,gross_profit,Gross Profit,163800.0,CNY
+COMP-004,2025-07,net_profit,Net Profit,37800.0,CNY
+COMP-004,2025-07,operating_cash_flow,Operating Cash Flow,42000.0,CNY
+COMP-004,2025-07,revenue,Revenue,420000.0,CNY
+COMP-004,2025-08,accounts_receivable,Accounts Receivable,400500.0,CNY
+COMP-004,2025-08,gross_profit,Gross Profit,173550.0,CNY
+COMP-004,2025-08,net_profit,Net Profit,40050.0,CNY
+COMP-004,2025-08,operating_cash_flow,Operating Cash Flow,44500.0,CNY
+COMP-004,2025-08,revenue,Revenue,445000.0,CNY
+COMP-004,2025-09,accounts_receivable,Accounts Receivable,423000.0,CNY
+COMP-004,2025-09,gross_profit,Gross Profit,183300.0,CNY
+COMP-004,2025-09,net_profit,Net Profit,42300.0,CNY
+COMP-004,2025-09,operating_cash_flow,Operating Cash Flow,47000.0,CNY
+COMP-004,2025-09,revenue,Revenue,470000.0,CNY
+COMP-004,2025-10,accounts_receivable,Accounts Receivable,445500.0,CNY
+COMP-004,2025-10,gross_profit,Gross Profit,193050.0,CNY
+COMP-004,2025-10,net_profit,Net Profit,44550.0,CNY
+COMP-004,2025-10,operating_cash_flow,Operating Cash Flow,49500.0,CNY
+COMP-004,2025-10,revenue,Revenue,495000.0,CNY
+COMP-004,2025-11,accounts_receivable,Accounts Receivable,486000.0,CNY
+COMP-004,2025-11,gross_profit,Gross Profit,210600.0,CNY
+COMP-004,2025-11,net_profit,Net Profit,48600.0,CNY
+COMP-004,2025-11,operating_cash_flow,Operating Cash Flow,54000.0,CNY
+COMP-004,2025-11,revenue,Revenue,540000.0,CNY
+COMP-004,2025-12,accounts_receivable,Accounts Receivable,504000.0,CNY
+COMP-004,2025-12,gross_profit,Gross Profit,218400.0,CNY
+COMP-004,2025-12,net_profit,Net Profit,50400.0,CNY
+COMP-004,2025-12,operating_cash_flow,Operating Cash Flow,56000.0,CNY
+COMP-004,2025-12,revenue,Revenue,560000.0,CNY
+COMP-005,2025-07,accounts_receivable,Accounts Receivable,432000.0,CNY
+COMP-005,2025-07,gross_profit,Gross Profit,230400.0,CNY
+COMP-005,2025-07,net_profit,Net Profit,48000.0,CNY
+COMP-005,2025-07,operating_cash_flow,Operating Cash Flow,48000.0,CNY
+COMP-005,2025-07,revenue,Revenue,480000.0,CNY
+COMP-005,2025-08,accounts_receivable,Accounts Receivable,450000.0,CNY
+COMP-005,2025-08,gross_profit,Gross Profit,240000.0,CNY
+COMP-005,2025-08,net_profit,Net Profit,50000.0,CNY
+COMP-005,2025-08,operating_cash_flow,Operating Cash Flow,50000.0,CNY
+COMP-005,2025-08,revenue,Revenue,500000.0,CNY
+COMP-005,2025-09,accounts_receivable,Accounts Receivable,468000.0,CNY
+COMP-005,2025-09,gross_profit,Gross Profit,249600.0,CNY
+COMP-005,2025-09,net_profit,Net Profit,52000.0,CNY
+COMP-005,2025-09,operating_cash_flow,Operating Cash Flow,52000.0,CNY
+COMP-005,2025-09,revenue,Revenue,520000.0,CNY
+COMP-005,2025-10,accounts_receivable,Accounts Receivable,486000.0,CNY
+COMP-005,2025-10,gross_profit,Gross Profit,259200.0,CNY
+COMP-005,2025-10,net_profit,Net Profit,54000.0,CNY
+COMP-005,2025-10,operating_cash_flow,Operating Cash Flow,54000.0,CNY
+COMP-005,2025-10,revenue,Revenue,540000.0,CNY
+COMP-005,2025-11,accounts_receivable,Accounts Receivable,499500.0,CNY
+COMP-005,2025-11,gross_profit,Gross Profit,266400.0,CNY
+COMP-005,2025-11,net_profit,Net Profit,55500.0,CNY
+COMP-005,2025-11,operating_cash_flow,Operating Cash Flow,55500.0,CNY
+COMP-005,2025-11,revenue,Revenue,555000.0,CNY
+COMP-005,2025-12,accounts_receivable,Accounts Receivable,513000.0,CNY
+COMP-005,2025-12,gross_profit,Gross Profit,273600.0,CNY
+COMP-005,2025-12,net_profit,Net Profit,57000.0,CNY
+COMP-005,2025-12,operating_cash_flow,Operating Cash Flow,57000.0,CNY
+COMP-005,2025-12,revenue,Revenue,570000.0,CNY

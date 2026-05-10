@@ -1,0 +1,16 @@
+﻿company_code,subject_type,subject_name,credit_channel,account_count,outstanding_balance_cny,overdue_count,max_overdue_bucket,hard_inquiry_3m,hard_inquiry_6m,external_guarantee_exposure_cny,credit_assessment,summary_note
+002594.SZ,enterprise,比亚迪,public_financial_debt_profile,12,38484710000.0,0,none,0,0,18755720940.0,watch,"Listed-company credit history proxy summarized from public leverage, debt, and disclosure context."
+600196.SH,enterprise,上海复星医药（集团）股份有限公司,public_financial_debt_profile,12,15529939564.82,0,none,0,0,1746408572.24,good,"Listed-company credit history proxy summarized from public leverage, debt, and disclosure context."
+600519.SH,enterprise,贵州茅台,public_financial_debt_profile,12,111951112.2,0,none,0,0,1707997943.94,good,"Listed-company credit history proxy summarized from public leverage, debt, and disclosure context."
+600612.SH,enterprise,老凤祥股份有限公司,public_financial_debt_profile,12,4609991098.58,0,none,0,0,239448334.35,good,"Listed-company credit history proxy summarized from public leverage, debt, and disclosure context."
+600998.SH,enterprise,九州通医药集团股份有限公司,public_financial_debt_profile,12,9935748652.23,0,none,0,0,2064085154.15,watch,"Listed-company credit history proxy summarized from public leverage, debt, and disclosure context."
+COMP-001,controller,周越,personal_credit_summary,6,1350000.0,1,M2,4,6,1200000.0,watch,Controller credit profile summarized for demo use; replace with authorized credit report if available.
+COMP-001,enterprise,深圳市灵犀微传感科技有限公司,enterprise_credit_summary,8,5100000.0,2,M2,4,7,860000.0,watch,Borrower shows higher leverage and query activity; review bank inquiry context.
+COMP-002,controller,江衡,personal_credit_summary,3,420000.0,0,none,1,2,0.0,good,Controller credit profile summarized for demo use; replace with authorized credit report if available.
+COMP-002,enterprise,苏州云衡工业软件有限公司,enterprise_credit_summary,4,1800000.0,0,none,1,2,250000.0,good,Enterprise credit history is broadly clean with limited external guarantees.
+COMP-003,controller,何舟,personal_credit_summary,3,420000.0,0,none,1,2,0.0,good,Controller credit profile summarized for demo use; replace with authorized credit report if available.
+COMP-003,enterprise,成都智检视觉装备有限公司,enterprise_credit_summary,4,1800000.0,0,none,1,2,250000.0,good,Enterprise credit history is broadly clean with limited external guarantees.
+COMP-004,controller,邵启,personal_credit_summary,5,860000.0,1,M1,2,4,300000.0,watch,Controller credit profile summarized for demo use; replace with authorized credit report if available.
+COMP-004,enterprise,杭州启脉能源物联科技有限公司,enterprise_credit_summary,6,3200000.0,1,M1,2,4,480000.0,watch,Mild concentration and leverage require monitoring but no severe adverse history.
+COMP-005,controller,许桥,personal_credit_summary,5,860000.0,1,M1,2,4,300000.0,watch,Controller credit profile summarized for demo use; replace with authorized credit report if available.
+COMP-005,enterprise,武汉睿桥医疗信息技术有限公司,enterprise_credit_summary,6,3200000.0,1,M1,2,4,480000.0,watch,Mild concentration and leverage require monitoring but no severe adverse history.

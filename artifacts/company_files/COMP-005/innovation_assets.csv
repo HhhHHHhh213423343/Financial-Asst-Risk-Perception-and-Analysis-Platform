@@ -1,0 +1,6 @@
+﻿asset_type,asset_name,registration_no,status,grant_date,expiry_date
+patent,Healthcare Informatics core asset 1,COMP-005-IP-001,active,2023-01-10,2033-12-31
+patent,Healthcare Informatics core asset 2,COMP-005-IP-002,active,2023-02-10,2033-12-31
+software_copyright,Healthcare Informatics core asset 3,COMP-005-IP-003,active,2023-03-10,2033-12-31
+software_copyright,Healthcare Informatics core asset 4,COMP-005-IP-004,active,2023-04-10,2033-12-31
+software_copyright,Healthcare Informatics core asset 5,COMP-005-IP-005,active,2023-05-10,2033-12-31

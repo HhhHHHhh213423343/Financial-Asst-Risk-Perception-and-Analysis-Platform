@@ -1,0 +1,3 @@
+﻿rule_name,severity,finding_title,finding_summary,impact_summary,confidence
+Contract to invoice to cash check,medium,Hospital project collections are slower than invoice rhythm,Public hospital receivables are aging beyond standard commercial terms.,Raises working capital pressure and justifies lower amount.,0.83
+Debt service coverage check,medium,Coverage relies on delayed public hospital settlements,Verified bank inflow covers modeled repayment by around 1.15x in weak months.,Buffer is acceptable only with tighter amount and monitoring.,0.78

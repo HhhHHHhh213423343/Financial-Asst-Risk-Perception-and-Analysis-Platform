@@ -1,0 +1,3 @@
+﻿period_code,related_party_name,relation_type,transaction_type,transaction_amount_cny,revenue_or_cost_ratio,settlement_method,pricing_comment,risk_level,note
+20241231,上海弘康实业投资有限公司,major_shareholder,capital_support,560000000.0,0.0035,bank_transfer,Capital support and related borrowings need board-level disclosure review,medium,
+20241231,楚昌投资集团有限公司,shareholder_group,fund_transfer,1280000000.0,0.0079,bank_transfer,Group funding arrangements require related-party cap monitoring,high,

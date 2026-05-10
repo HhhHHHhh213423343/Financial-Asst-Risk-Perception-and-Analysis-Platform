@@ -1,0 +1,16 @@
+﻿company_code,period_code,related_party_name,relation_type,transaction_type,transaction_amount_cny,revenue_or_cost_ratio,settlement_method,pricing_comment,risk_level,note
+002594.SZ,20251231,深圳市灵犀电子封装有限公司,affiliate_supply_chain,component_purchase,380000000.0,0.013,bank_transfer,Related procurement exposure remains manageable,low,
+002594.SZ,20251231,融捷投资控股集团有限公司,shareholder,equity_relation,620000000.0,0.021,bank_transfer,Needs related-party pricing memo,medium,
+600196.SH,20251231,上海复星高科技（集团）有限公司,controlling_shareholder,capital_and_service,1520000000.0,0.0081,bank_transfer,Related-party capital and shared-service transactions warrant formal arm's-length testing,high,
+600196.SH,20251231,复星国际,group_affiliate,management_service,460000000.0,0.0025,bank_transfer,Group service fees should be benchmarked annually,medium,
+600519.SH,20241231,中国贵州茅台酒厂（集团）有限责任公司,controlling_shareholder,brand_license_and_group_service,910000000.0,0.0053,internal_settlement,State-owned group transactions should follow formal pricing approvals,medium,
+600519.SH,20241231,贵州茅台酒厂（集团）技术开发有限公司,affiliate,procurement_and_service,245000000.0,0.0014,bank_transfer,Monitor overlap between operating entities,low,
+600612.SH,20241231,上海市黄浦区国有资产监督管理委员会（上海市黄浦区集体资产监督管理委员会）,actual_controller,state_owned_coordination,0.0,0.0,policy_coordination,No direct operating transaction captured; controller influence reflected in governance layer,low,
+600612.SH,20241231,龙悦网络有限公司,shareholder,channel_settlement,88000000.0,0.0017,bank_transfer,Cross-border settlement pricing should be reviewed periodically,low,
+600998.SH,20241231,上海弘康实业投资有限公司,major_shareholder,capital_support,560000000.0,0.0035,bank_transfer,Capital support and related borrowings need board-level disclosure review,medium,
+600998.SH,20241231,楚昌投资集团有限公司,shareholder_group,fund_transfer,1280000000.0,0.0079,bank_transfer,Group funding arrangements require related-party cap monitoring,high,
+COMP-001,2025FY,深圳市灵犀电子封装有限公司,affiliate_supplier,purchase,1738008.0,0.18,bank_transfer,Pricing and settlement need supplementary explanation,high,Shares controller family links and short-term advances.
+COMP-002,2025FY,苏州云衡数字运维有限公司,subsidiary,purchase,563984.0,0.08,bank_transfer,Comparable to internal reference band,low,Lightweight delivery affiliate with no material debt.
+COMP-003,2025FY,成都智检系统集成服务中心,service_affiliate,purchase,740128.0,0.08,bank_transfer,Comparable to internal reference band,low,Provides on-site integration services.
+COMP-004,2025FY,杭州启脉低碳服务有限公司,affiliate_service_company,purchase,710232.0,0.12,bank_transfer,Pricing and settlement need supplementary explanation,medium,Service implementation affiliate used for municipal contracts.
+COMP-005,2025FY,武汉睿桥云维服务有限公司,service_affiliate,purchase,767196.0,0.12,bank_transfer,Pricing and settlement need supplementary explanation,medium,Maintains after-sales service contracts.

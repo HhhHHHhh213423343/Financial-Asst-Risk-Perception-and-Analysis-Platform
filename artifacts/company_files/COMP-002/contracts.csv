@@ -1,0 +1,4 @@
+﻿contract_no,counterparty_name,sign_date,amount_cny,payment_terms,performance_status
+COMP-002-CTR-001,昆山锐控精密制造有限公司,2025-07-05,636000.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-002-CTR-002,无锡新桥机电有限公司,2025-08-05,704000.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-002-CTR-003,常州智数工厂科技有限公司,2025-09-05,782000.0,"30% advance, 70% within 60 days after acceptance",performing

@@ -1,0 +1,127 @@
+﻿period_code,statement_type,display_order,line_code,line_name,value,unit,source_page_no
+2023FY,balance,1,cash_and_equivalents,Cash and Cash Equivalents,781755.9,CNY,1
+2023FY,balance,2,accounts_receivable,Accounts Receivable,3474619.56,CNY,1
+2023FY,balance,3,inventory,Inventory,1191298.14,CNY,1
+2023FY,balance,4,other_current_assets,Other Current Assets,297824.53,CNY,1
+2023FY,balance,5,fixed_assets,Net Fixed Assets,1092023.29,CNY,1
+2023FY,balance,6,intangible_assets,Intangible Assets,297824.53,CNY,1
+2023FY,balance,7,other_assets,Other Assets,148912.27,CNY,1
+2023FY,balance,8,total_assets,Total Assets,7284258.22,CNY,1
+2023FY,balance,9,accounts_payable,Accounts Payable,992748.45,CNY,1
+2023FY,balance,10,short_term_debt,Short-term Debt,794198.76,CNY,1
+2023FY,balance,11,long_term_debt,Long-term Debt,397099.38,CNY,1
+2023FY,balance,12,other_liabilities,Other Liabilities,729656.7,CNY,1
+2023FY,balance,13,total_liabilities,Total Liabilities,2913703.29,CNY,1
+2023FY,balance,14,paid_in_capital,Paid-in Capital,6000000.0,CNY,1
+2023FY,balance,15,retained_earnings,Retained Earnings,0.0,CNY,1
+2023FY,balance,16,total_equity,Total Equity,4370554.93,CNY,1
+2023FY,cashflow,1,beginning_cash_balance,Beginning Cash Balance,397099.38,CNY,3
+2023FY,cashflow,2,net_profit,Net Profit,502082.52,CNY,3
+2023FY,cashflow,3,depreciation_amortization,Depreciation and Amortization,89545.91,CNY,3
+2023FY,cashflow,4,inventory_change,Inventory Change,148912.27,CNY,3
+2023FY,cashflow,5,receivable_change,Receivable Change,99274.84,CNY,3
+2023FY,cashflow,6,payable_change,Payable Change,148912.27,CNY,3
+2023FY,cashflow,7,taxes_paid,Taxes Paid,84172.66,CNY,3
+2023FY,cashflow,8,net_cash_from_operations,Net Cash from Operations,501915.0,CNY,3
+2023FY,cashflow,9,capital_expenditure,Capital Expenditure,297824.53,CNY,3
+2023FY,cashflow,10,net_cash_from_investing,Net Cash from Investing,-297824.53,CNY,3
+2023FY,cashflow,11,debt_financing_net,Net Debt Financing,190607.7,CNY,3
+2023FY,cashflow,12,equity_financing_net,Net Equity Financing,0.0,CNY,3
+2023FY,cashflow,13,dividends_paid,Dividends Paid,10041.65,CNY,3
+2023FY,cashflow,14,net_cash_from_financing,Net Cash from Financing,180566.05,CNY,3
+2023FY,cashflow,15,net_increase_in_cash,Net Increase in Cash,384656.52,CNY,3
+2023FY,cashflow,16,ending_cash_balance,Ending Cash Balance,781755.9,CNY,3
+2023FY,income,1,revenue,Revenue,4963742.23,CNY,2
+2023FY,income,2,cogs,Cost of Goods Sold,2730058.23,CNY,2
+2023FY,income,3,gross_profit,Gross Profit,2233684.0,CNY,2
+2023FY,income,4,selling_expense,Selling Expense,397099.38,CNY,2
+2023FY,income,5,admin_expense,Administrative Expense,297824.53,CNY,2
+2023FY,income,6,rd_expense,R&D Expense,868654.89,CNY,2
+2023FY,income,7,operating_profit,Operating Profit,670105.2,CNY,2
+2023FY,income,8,interest_expense,Interest Expense,79419.88,CNY,2
+2023FY,income,9,income_tax_expense,Income Tax Expense,88602.8,CNY,2
+2023FY,income,10,net_profit,Net Profit,502082.52,CNY,2
+2024FY,balance,1,cash_and_equivalents,Cash and Cash Equivalents,1490869.99,CNY,5
+2024FY,balance,2,accounts_receivable,Accounts Receivable,4336325.21,CNY,5
+2024FY,balance,3,inventory,Inventory,1334253.91,CNY,5
+2024FY,balance,4,other_current_assets,Other Current Assets,333563.48,CNY,5
+2024FY,balance,5,fixed_assets,Net Fixed Assets,1223066.09,CNY,5
+2024FY,balance,6,intangible_assets,Intangible Assets,333563.48,CNY,5
+2024FY,balance,7,other_assets,Other Assets,166781.74,CNY,5
+2024FY,balance,8,total_assets,Total Assets,9218423.9,CNY,5
+2024FY,balance,9,accounts_payable,Accounts Payable,1111878.26,CNY,5
+2024FY,balance,10,short_term_debt,Short-term Debt,889502.61,CNY,5
+2024FY,balance,11,long_term_debt,Long-term Debt,444751.3,CNY,5
+2024FY,balance,12,other_liabilities,Other Liabilities,1517790.11,CNY,5
+2024FY,balance,13,total_liabilities,Total Liabilities,3963922.28,CNY,5
+2024FY,balance,14,paid_in_capital,Paid-in Capital,6000000.0,CNY,5
+2024FY,balance,15,retained_earnings,Retained Earnings,0.0,CNY,5
+2024FY,balance,16,total_equity,Total Equity,5254501.62,CNY,5
+2024FY,cashflow,1,beginning_cash_balance,Beginning Cash Balance,781755.9,CNY,7
+2024FY,cashflow,2,net_profit,Net Profit,562332.43,CNY,7
+2024FY,cashflow,3,depreciation_amortization,Depreciation and Amortization,109202.33,CNY,7
+2024FY,cashflow,4,inventory_change,Inventory Change,142955.77,CNY,7
+2024FY,cashflow,5,receivable_change,Receivable Change,861705.65,CNY,7
+2024FY,cashflow,6,payable_change,Payable Change,119129.81,CNY,7
+2024FY,cashflow,7,taxes_paid,Taxes Paid,94273.37,CNY,7
+2024FY,cashflow,8,net_cash_from_operations,Net Cash from Operations,151631.41,CNY,7
+2024FY,cashflow,9,capital_expenditure,Capital Expenditure,444751.3,CNY,7
+2024FY,cashflow,10,net_cash_from_investing,Net Cash from Investing,-444751.3,CNY,7
+2024FY,cashflow,11,debt_financing_net,Net Debt Financing,213480.63,CNY,7
+2024FY,cashflow,12,equity_financing_net,Net Equity Financing,800000.0,CNY,7
+2024FY,cashflow,13,dividends_paid,Dividends Paid,11246.65,CNY,7
+2024FY,cashflow,14,net_cash_from_financing,Net Cash from Financing,1002233.98,CNY,7
+2024FY,cashflow,15,net_increase_in_cash,Net Increase in Cash,709114.09,CNY,7
+2024FY,cashflow,16,ending_cash_balance,Ending Cash Balance,1490869.99,CNY,7
+2024FY,income,1,revenue,Revenue,5559391.3,CNY,6
+2024FY,income,2,cogs,Cost of Goods Sold,2974274.35,CNY,6
+2024FY,income,3,gross_profit,Gross Profit,2585116.95,CNY,6
+2024FY,income,4,selling_expense,Selling Expense,444751.3,CNY,6
+2024FY,income,5,admin_expense,Administrative Expense,333563.48,CNY,6
+2024FY,income,6,rd_expense,R&D Expense,1056284.35,CNY,6
+2024FY,income,7,operating_profit,Operating Profit,750517.82,CNY,6
+2024FY,income,8,interest_expense,Interest Expense,88950.26,CNY,6
+2024FY,income,9,income_tax_expense,Income Tax Expense,99235.13,CNY,6
+2024FY,income,10,net_profit,Net Profit,562332.43,CNY,6
+2025FY,balance,1,cash_and_equivalents,Cash and Cash Equivalents,1147191.47,CNY,9
+2025FY,balance,2,accounts_receivable,Accounts Receivable,5626104.0,CNY,9
+2025FY,balance,3,inventory,Inventory,1534392.0,CNY,9
+2025FY,balance,4,other_current_assets,Other Current Assets,383598.0,CNY,9
+2025FY,balance,5,fixed_assets,Net Fixed Assets,1406526.0,CNY,9
+2025FY,balance,6,intangible_assets,Intangible Assets,383598.0,CNY,9
+2025FY,balance,7,other_assets,Other Assets,191799.0,CNY,9
+2025FY,balance,8,total_assets,Total Assets,10673208.47,CNY,9
+2025FY,balance,9,accounts_payable,Accounts Payable,1278660.0,CNY,9
+2025FY,balance,10,short_term_debt,Short-term Debt,1022928.0,CNY,9
+2025FY,balance,11,long_term_debt,Long-term Debt,511464.0,CNY,9
+2025FY,balance,12,other_liabilities,Other Liabilities,2096623.9,CNY,9
+2025FY,balance,13,total_liabilities,Total Liabilities,4909675.9,CNY,9
+2025FY,balance,14,paid_in_capital,Paid-in Capital,6000000.0,CNY,9
+2025FY,balance,15,retained_earnings,Retained Earnings,0.0,CNY,9
+2025FY,balance,16,total_equity,Total Equity,5763532.57,CNY,9
+2025FY,cashflow,1,beginning_cash_balance,Beginning Cash Balance,1490869.99,CNY,11
+2025FY,cashflow,2,net_profit,Net Profit,673853.82,CNY,11
+2025FY,cashflow,3,depreciation_amortization,Depreciation and Amortization,122306.61,CNY,11
+2025FY,cashflow,4,inventory_change,Inventory Change,200138.09,CNY,11
+2025FY,cashflow,5,receivable_change,Receivable Change,1289778.79,CNY,11
+2025FY,cashflow,6,payable_change,Payable Change,166781.74,CNY,11
+2025FY,cashflow,7,taxes_paid,Taxes Paid,112969.61,CNY,11
+2025FY,cashflow,8,net_cash_from_operations,Net Cash from Operations,-307.16,CNY,11
+2025FY,cashflow,9,capital_expenditure,Capital Expenditure,575397.0,CNY,11
+2025FY,cashflow,10,net_cash_from_investing,Net Cash from Investing,-575397.0,CNY,11
+2025FY,cashflow,11,debt_financing_net,Net Debt Financing,245502.72,CNY,11
+2025FY,cashflow,12,equity_financing_net,Net Equity Financing,0.0,CNY,11
+2025FY,cashflow,13,dividends_paid,Dividends Paid,13477.08,CNY,11
+2025FY,cashflow,14,net_cash_from_financing,Net Cash from Financing,232025.64,CNY,11
+2025FY,cashflow,15,net_increase_in_cash,Net Increase in Cash,-343678.52,CNY,11
+2025FY,cashflow,16,ending_cash_balance,Ending Cash Balance,1147191.47,CNY,11
+2025FY,income,1,revenue,Revenue,6393300.0,CNY,10
+2025FY,income,2,cogs,Cost of Goods Sold,3324516.0,CNY,10
+2025FY,income,3,gross_profit,Gross Profit,3068784.0,CNY,10
+2025FY,income,4,selling_expense,Selling Expense,511464.0,CNY,10
+2025FY,income,5,admin_expense,Administrative Expense,383598.0,CNY,10
+2025FY,income,6,rd_expense,R&D Expense,1278660.0,CNY,10
+2025FY,income,7,operating_profit,Operating Profit,895062.0,CNY,10
+2025FY,income,8,interest_expense,Interest Expense,102292.8,CNY,10
+2025FY,income,9,income_tax_expense,Income Tax Expense,118915.38,CNY,10
+2025FY,income,10,net_profit,Net Profit,673853.82,CNY,10

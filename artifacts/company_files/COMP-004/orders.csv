@@ -1,0 +1,4 @@
+﻿order_no,contract_no,order_date,order_amount_cny,delivery_due_date,collection_milestones,performance_status
+COMP-004-ORD-001,COMP-004-CTR-001,2025-07-08,378000.0,2025-07-28,Acceptance + 60 days,delivered
+COMP-004-ORD-002,COMP-004-CTR-002,2025-08-08,422750.0,2025-08-28,Acceptance + 60 days,delivered
+COMP-004-ORD-003,COMP-004-CTR-003,2025-09-08,470000.0,2025-09-28,Acceptance + 60 days,delivered

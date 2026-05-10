@@ -1,0 +1,4 @@
+﻿contract_no,counterparty_name,sign_date,amount_cny,payment_terms,performance_status
+COMP-004-CTR-001,绍兴万景产业园运营有限公司,2025-07-05,504000.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-004-CTR-002,宁波启盛商用物业管理有限公司,2025-08-05,569600.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-004-CTR-003,杭州联港冷链科技有限公司,2025-09-05,639200.0,"30% advance, 70% within 60 days after acceptance",performing

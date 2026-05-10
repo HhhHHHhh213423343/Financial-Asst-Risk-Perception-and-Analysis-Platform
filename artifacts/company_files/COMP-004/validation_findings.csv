@@ -1,0 +1,3 @@
+﻿rule_name,severity,finding_title,finding_summary,impact_summary,confidence
+Customer concentration threshold,medium,Top client contributes sizable deployment revenue,Single industrial park client contributes more than one quarter of trailing revenue.,Collection timing may create volatility.,0.81
+Debt service coverage check,medium,Coverage is acceptable but thinner than peers,Verified minimum inflow covers modeled repayment by roughly 1.2x.,Appropriate for smaller amount or tighter monitoring.,0.77

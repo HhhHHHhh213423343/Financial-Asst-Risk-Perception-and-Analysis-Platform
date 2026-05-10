@@ -1,0 +1,7 @@
+﻿period_code,declared_revenue_cny,invoiced_amount_cny,bank_receipts_cny,output_tax_cny,input_tax_cny,invoice_count,revenue_invoice_gap_cny,invoice_receipt_gap_cny,gap_ratio,status,check_note
+20240630,39079787912.2,39359500095.62,37561350345.06,5080372428.59,3204542608.8,86,599383250.19,1798149750.56,0.045,pass,Listed-company tax and invoice proxy built from public revenue and cash-receipt disclosures.
+20240930,51424869464.07,51792941126.9,49426766151.56,6685233030.33,4216839296.05,86,788724991.78,2366174975.34,0.045,pass,Listed-company tax and invoice proxy built from public revenue and cash-receipt disclosures.
+20241231,55543433174.35,55940983309.54,53385303869.01,7220646312.67,4554561520.3,120,851893146.85,2555679440.53,0.045,pass,Listed-company tax and invoice proxy built from public revenue and cash-receipt disclosures.
+20250331,17135845473.75,17258494674.48,16470035526.92,2227659911.59,1405139328.85,86,262819715.86,788459147.56,0.045,pass,Listed-company tax and invoice proxy built from public revenue and cash-receipt disclosures.
+20250630,32622022197.1,32855513153.52,31354499862.24,4240862885.62,2675005820.16,86,500337763.76,1501013291.28,0.045,pass,Listed-company tax and invoice proxy built from public revenue and cash-receipt disclosures.
+20250930,46945428871.63,47281439098.73,45121373353.1,6102905753.31,3849525167.47,86,720021915.21,2160065745.63,0.045,pass,Listed-company tax and invoice proxy built from public revenue and cash-receipt disclosures.

@@ -1,0 +1,54 @@
+﻿company_code,asset_type,asset_name,registration_no,status,qualification_name,valid_to
+002594.SZ,,,,,,
+600196.SH,,,,,,
+600519.SH,,,,,,
+600612.SH,,,,,,
+600998.SH,,,,,,
+COMP-001,patent,Industrial Sensors core asset 1,COMP-001-IP-001,active,High and New Technology Enterprise,2027-12-31
+COMP-001,patent,Industrial Sensors core asset 1,COMP-001-IP-001,active,Technology-based SME,2027-12-31
+COMP-001,patent,Industrial Sensors core asset 2,COMP-001-IP-002,active,High and New Technology Enterprise,2027-12-31
+COMP-001,patent,Industrial Sensors core asset 2,COMP-001-IP-002,active,Technology-based SME,2027-12-31
+COMP-001,software_copyright,Industrial Sensors core asset 3,COMP-001-IP-003,active,High and New Technology Enterprise,2027-12-31
+COMP-001,software_copyright,Industrial Sensors core asset 3,COMP-001-IP-003,active,Technology-based SME,2027-12-31
+COMP-001,software_copyright,Industrial Sensors core asset 4,COMP-001-IP-004,active,High and New Technology Enterprise,2027-12-31
+COMP-001,software_copyright,Industrial Sensors core asset 4,COMP-001-IP-004,active,Technology-based SME,2027-12-31
+COMP-002,patent,Industrial SaaS core asset 1,COMP-002-IP-001,active,High and New Technology Enterprise,2027-12-31
+COMP-002,patent,Industrial SaaS core asset 1,COMP-002-IP-001,active,Technology-based SME,2027-12-31
+COMP-002,patent,Industrial SaaS core asset 2,COMP-002-IP-002,active,High and New Technology Enterprise,2027-12-31
+COMP-002,patent,Industrial SaaS core asset 2,COMP-002-IP-002,active,Technology-based SME,2027-12-31
+COMP-002,software_copyright,Industrial SaaS core asset 3,COMP-002-IP-003,active,High and New Technology Enterprise,2027-12-31
+COMP-002,software_copyright,Industrial SaaS core asset 3,COMP-002-IP-003,active,Technology-based SME,2027-12-31
+COMP-002,software_copyright,Industrial SaaS core asset 4,COMP-002-IP-004,active,High and New Technology Enterprise,2027-12-31
+COMP-002,software_copyright,Industrial SaaS core asset 4,COMP-002-IP-004,active,Technology-based SME,2027-12-31
+COMP-002,software_copyright,Industrial SaaS core asset 5,COMP-002-IP-005,active,High and New Technology Enterprise,2027-12-31
+COMP-002,software_copyright,Industrial SaaS core asset 5,COMP-002-IP-005,active,Technology-based SME,2027-12-31
+COMP-002,software_copyright,Industrial SaaS core asset 6,COMP-002-IP-006,active,High and New Technology Enterprise,2027-12-31
+COMP-002,software_copyright,Industrial SaaS core asset 6,COMP-002-IP-006,active,Technology-based SME,2027-12-31
+COMP-003,patent,Machine Vision Equipment core asset 1,COMP-003-IP-001,active,High and New Technology Enterprise,2027-12-31
+COMP-003,patent,Machine Vision Equipment core asset 1,COMP-003-IP-001,active,Technology-based SME,2027-12-31
+COMP-003,patent,Machine Vision Equipment core asset 2,COMP-003-IP-002,active,High and New Technology Enterprise,2027-12-31
+COMP-003,patent,Machine Vision Equipment core asset 2,COMP-003-IP-002,active,Technology-based SME,2027-12-31
+COMP-003,software_copyright,Machine Vision Equipment core asset 3,COMP-003-IP-003,active,High and New Technology Enterprise,2027-12-31
+COMP-003,software_copyright,Machine Vision Equipment core asset 3,COMP-003-IP-003,active,Technology-based SME,2027-12-31
+COMP-003,software_copyright,Machine Vision Equipment core asset 4,COMP-003-IP-004,active,High and New Technology Enterprise,2027-12-31
+COMP-003,software_copyright,Machine Vision Equipment core asset 4,COMP-003-IP-004,active,Technology-based SME,2027-12-31
+COMP-003,software_copyright,Machine Vision Equipment core asset 5,COMP-003-IP-005,active,High and New Technology Enterprise,2027-12-31
+COMP-003,software_copyright,Machine Vision Equipment core asset 5,COMP-003-IP-005,active,Technology-based SME,2027-12-31
+COMP-004,patent,Energy IoT core asset 1,COMP-004-IP-001,active,High and New Technology Enterprise,2027-12-31
+COMP-004,patent,Energy IoT core asset 1,COMP-004-IP-001,active,Technology-based SME,2027-12-31
+COMP-004,patent,Energy IoT core asset 2,COMP-004-IP-002,active,High and New Technology Enterprise,2027-12-31
+COMP-004,patent,Energy IoT core asset 2,COMP-004-IP-002,active,Technology-based SME,2027-12-31
+COMP-004,software_copyright,Energy IoT core asset 3,COMP-004-IP-003,active,High and New Technology Enterprise,2027-12-31
+COMP-004,software_copyright,Energy IoT core asset 3,COMP-004-IP-003,active,Technology-based SME,2027-12-31
+COMP-004,software_copyright,Energy IoT core asset 4,COMP-004-IP-004,active,High and New Technology Enterprise,2027-12-31
+COMP-004,software_copyright,Energy IoT core asset 4,COMP-004-IP-004,active,Technology-based SME,2027-12-31
+COMP-005,patent,Healthcare Informatics core asset 1,COMP-005-IP-001,active,High and New Technology Enterprise,2027-12-31
+COMP-005,patent,Healthcare Informatics core asset 1,COMP-005-IP-001,active,Technology-based SME,2027-12-31
+COMP-005,patent,Healthcare Informatics core asset 2,COMP-005-IP-002,active,High and New Technology Enterprise,2027-12-31
+COMP-005,patent,Healthcare Informatics core asset 2,COMP-005-IP-002,active,Technology-based SME,2027-12-31
+COMP-005,software_copyright,Healthcare Informatics core asset 3,COMP-005-IP-003,active,High and New Technology Enterprise,2027-12-31
+COMP-005,software_copyright,Healthcare Informatics core asset 3,COMP-005-IP-003,active,Technology-based SME,2027-12-31
+COMP-005,software_copyright,Healthcare Informatics core asset 4,COMP-005-IP-004,active,High and New Technology Enterprise,2027-12-31
+COMP-005,software_copyright,Healthcare Informatics core asset 4,COMP-005-IP-004,active,Technology-based SME,2027-12-31
+COMP-005,software_copyright,Healthcare Informatics core asset 5,COMP-005-IP-005,active,High and New Technology Enterprise,2027-12-31
+COMP-005,software_copyright,Healthcare Informatics core asset 5,COMP-005-IP-005,active,Technology-based SME,2027-12-31

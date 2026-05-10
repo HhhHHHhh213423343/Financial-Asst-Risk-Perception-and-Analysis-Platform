@@ -1,0 +1,4 @@
+﻿contract_no,counterparty_name,sign_date,amount_cny,payment_terms,performance_status
+COMP-003-CTR-001,重庆弘冠电子有限公司,2025-07-05,840000.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-003-CTR-002,绵阳星桥包装设备有限公司,2025-08-05,921600.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-003-CTR-003,西安迅控自动化有限公司,2025-09-05,1033600.0,"30% advance, 70% within 60 days after acceptance",performing

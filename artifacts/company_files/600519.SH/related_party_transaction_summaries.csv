@@ -1,0 +1,3 @@
+﻿period_code,related_party_name,relation_type,transaction_type,transaction_amount_cny,revenue_or_cost_ratio,settlement_method,pricing_comment,risk_level,note
+20241231,中国贵州茅台酒厂（集团）有限责任公司,controlling_shareholder,brand_license_and_group_service,910000000.0,0.0053,internal_settlement,State-owned group transactions should follow formal pricing approvals,medium,
+20241231,贵州茅台酒厂（集团）技术开发有限公司,affiliate,procurement_and_service,245000000.0,0.0014,bank_transfer,Monitor overlap between operating entities,low,

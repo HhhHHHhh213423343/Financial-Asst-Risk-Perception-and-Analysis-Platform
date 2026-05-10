@@ -1,0 +1,3 @@
+﻿period_code,related_party_name,relation_type,transaction_type,transaction_amount_cny,revenue_or_cost_ratio,settlement_method,pricing_comment,risk_level,note
+20241231,上海市黄浦区国有资产监督管理委员会（上海市黄浦区集体资产监督管理委员会）,actual_controller,state_owned_coordination,0.0,0.0,policy_coordination,No direct operating transaction captured; controller influence reflected in governance layer,low,
+20241231,龙悦网络有限公司,shareholder,channel_settlement,88000000.0,0.0017,bank_transfer,Cross-border settlement pricing should be reviewed periodically,low,

@@ -1,0 +1,7 @@
+﻿period_code,inflow_total_cny,outflow_total_cny,net_flow_cny,average_daily_balance_cny,top_inflow_counterparty,top_outflow_counterparty,transaction_count,large_transaction_count,abnormal_fluctuation_flag,summary_note
+2025-07,508800.0,339200.0,169600.0,344500.0,昆山锐控精密制造有限公司,苏州象限云服务有限公司,18,2,0,Monthly settlement summary derived from seeded bank statement behavior.
+2025-08,522500.0,352000.0,170500.0,357500.0,昆山锐控精密制造有限公司,苏州象限云服务有限公司,20,2,0,Monthly settlement summary derived from seeded bank statement behavior.
+2025-09,557750.0,368000.0,189750.0,373750.0,昆山锐控精密制造有限公司,苏州象限云服务有限公司,22,2,0,Monthly settlement summary derived from seeded bank statement behavior.
+2025-10,554600.0,377600.0,177000.0,383500.0,昆山锐控精密制造有限公司,苏州象限云服务有限公司,24,2,0,Monthly settlement summary derived from seeded bank statement behavior.
+2025-11,585600.0,390400.0,195200.0,396500.0,昆山锐控精密制造有限公司,苏州象限云服务有限公司,26,2,0,Monthly settlement summary derived from seeded bank statement behavior.
+2025-12,603250.0,406400.0,196850.0,412750.0,昆山锐控精密制造有限公司,苏州象限云服务有限公司,28,2,0,Monthly settlement summary derived from seeded bank statement behavior.

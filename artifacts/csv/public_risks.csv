@@ -1,0 +1,7 @@
+﻿company_code,event_type,severity,event_date,title,summary
+COMP-001,admin_notice,medium,2025-09-12,Tax bureau requested supplementary filing explanation,Supplementary explanation required for mismatched invoice recognition.
+COMP-001,labour_dispute,low,2025-11-20,Former sales manager labor dispute,Closed with mediation and no material compensation.
+COMP-002,contract_dispute,low,2025-08-16,Historic implementation acceptance dispute,Resolved within 30 days with no cash loss.
+COMP-003,environmental_check,low,2025-10-18,Routine environmental inspection completed,No penalty issued; only housekeeping advice recorded.
+COMP-004,payment_delay,medium,2025-10-31,Major client delayed acceptance settlement,One project acceptance lagged by 45 days.
+COMP-005,judicial_notice,medium,2025-09-08,Hospital project payment arbitration notice,Collection dispute under mediation; no final judgement yet.

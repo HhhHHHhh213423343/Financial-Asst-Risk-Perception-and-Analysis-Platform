@@ -1,0 +1,11 @@
+﻿company_code,name,unified_social_credit_code,region_province,region_city,industry_category,subindustry,enterprise_scale,operating_status,risk_tier,registered_capital_cny,paid_in_capital_cny,overview
+002594.SZ,比亚迪股份有限公司,91440300192317458F,广东省,深圳市,新能源汽车整车制造,新能源汽车整车制造,listed,开业（存续）,medium,9117197565.0,9117198000.0,比亚迪股份有限公司成立于1995年2月，董事长为王传福，是一家在深圳和香港两地上市的企业，公司业务覆盖汽车、电子、新能源等领域。
+600196.SH,上海复星医药（集团）股份有限公司,913100001330605412,上海市,上海市,化学制剂制造,化学药品制剂制造,listed,存续（在营、开业、在册）,medium,2670429325.0,2670429325.0,上海复星医药（集团）股份有限公司成立于1995年5月31日，董事长为陈玉卿，公司于1998年8月7日在上交所上市（600196.SH），并于2012年10月30日在香港联交所上市。
+600519.SH,贵州茅台酒股份有限公司,9152000071430580XT,贵州省,遵义市,白酒制造,白酒制造,listed,存续（在营、开业、在册）,low,1252270215.0,1252270215.0,贵州茅台酒股份有限公司成立于1999年11月20日，董事长为陈华，公司于2001年8月27日在上海证券交易所上市，股票代码600519.SH，公司主营业务为茅台酒及茅台酱香系列酒。
+600612.SH,老凤祥股份有限公司,9131000060720072X4,上海市,上海市,珠宝首饰制造,珠宝首饰及有关物品制造,listed,存续（在营、开业、在册）,low,523117764.0,523117764.0,老凤祥股份有限公司成立于1992年11月11日，董事长为杨奕，企业属性为国有企业，公司于1992年8月14日在上交所上市，股票代码600612.SH，业务覆盖黄金、铂金、珠宝首饰等。
+600998.SH,九州通医药集团股份有限公司,9142000071451795XA,湖北省,武汉市,药品代理,西药批发,listed,存续（在营、开业、在册）,medium,5042470234.0,5042470234.0,九州通医药集团股份有限公司成立于1999年3月，董事长为刘长云，公司于2010年11月在上海证券交易所上市，股票代码600998.SH，作为科技驱动型的全链医药产业综合服务商开展业务。
+COMP-001,深圳市灵犀微传感科技有限公司,91440300MA5DEMO001,Guangdong,Shenzhen,Tech Manufacturing,Industrial Sensors,small,active,medium_high,12000000.0,7800000.0,Builds high-precision industrial sensors for battery and equipment clients.
+COMP-002,苏州云衡工业软件有限公司,91320500MA5DEMO002,Jiangsu,Suzhou,Enterprise Software,Industrial SaaS,small,active,low,10000000.0,6600000.0,Develops cloud manufacturing scheduling and MES add-on software for precision factories.
+COMP-003,成都智检视觉装备有限公司,91510100MA5DEMO003,Sichuan,Chengdu,Advanced Equipment,Machine Vision Equipment,small,active,low,15000000.0,9000000.0,Supplies inline machine vision inspection modules for electronics and food packaging lines.
+COMP-004,杭州启脉能源物联科技有限公司,91330100MA5DEMO004,Zhejiang,Hangzhou,Industrial Internet,Energy IoT,small,active,medium,8000000.0,5200000.0,Provides energy monitoring gateways and SaaS dashboards for industrial parks and chains.
+COMP-005,武汉睿桥医疗信息技术有限公司,91420100MA5DEMO005,Hubei,Wuhan,Medical Technology Services,Healthcare Informatics,small,active,medium,9000000.0,6000000.0,Builds outpatient and specialty clinic information modules for regional hospitals and community care groups.

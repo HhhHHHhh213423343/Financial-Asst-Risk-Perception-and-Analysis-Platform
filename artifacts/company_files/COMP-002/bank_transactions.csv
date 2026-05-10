@@ -1,0 +1,19 @@
+﻿txn_date,txn_direction,counterparty_name,amount_cny,balance_after_cny,txn_summary
+2025-07-11,credit,昆山锐控精密制造有限公司,295104.0,745104.0,Contract collection
+2025-07-12,credit,无锡新桥机电有限公司,213696.0,958800.0,Contract collection
+2025-07-23,debit,苏州象限云服务有限公司,164300.0,794500.0,Supplier payment
+2025-08-11,credit,昆山锐控精密制造有限公司,303050.0,1097550.0,Contract collection
+2025-08-12,credit,无锡新桥机电有限公司,219450.0,1317000.0,Contract collection
+2025-08-23,debit,苏州象限云服务有限公司,170500.0,1146500.0,Supplier payment
+2025-09-11,credit,昆山锐控精密制造有限公司,323495.0,1469995.0,Contract collection
+2025-09-12,credit,无锡新桥机电有限公司,234255.0,1704250.0,Contract collection
+2025-09-23,debit,苏州象限云服务有限公司,178250.0,1526000.0,Supplier payment
+2025-10-11,credit,昆山锐控精密制造有限公司,321668.0,1847668.0,Contract collection
+2025-10-12,credit,无锡新桥机电有限公司,232932.0,2080600.0,Contract collection
+2025-10-23,debit,苏州象限云服务有限公司,182900.0,1897700.0,Supplier payment
+2025-11-11,credit,昆山锐控精密制造有限公司,339648.0,2237348.0,Contract collection
+2025-11-12,credit,无锡新桥机电有限公司,245952.0,2483300.0,Contract collection
+2025-11-23,debit,苏州象限云服务有限公司,189100.0,2294200.0,Supplier payment
+2025-12-11,credit,昆山锐控精密制造有限公司,349885.0,2644085.0,Contract collection
+2025-12-12,credit,无锡新桥机电有限公司,253365.0,2897450.0,Contract collection
+2025-12-23,debit,苏州象限云服务有限公司,196850.0,2700600.0,Supplier payment

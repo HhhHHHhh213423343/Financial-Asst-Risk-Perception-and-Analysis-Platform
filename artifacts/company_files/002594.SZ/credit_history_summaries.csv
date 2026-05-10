@@ -1,0 +1,2 @@
+﻿subject_type,subject_name,credit_channel,account_count,outstanding_balance_cny,overdue_count,max_overdue_bucket,hard_inquiry_3m,hard_inquiry_6m,external_guarantee_exposure_cny,credit_assessment,summary_note
+enterprise,比亚迪,public_financial_debt_profile,12,38484710000.0,0,none,0,0,18755720940.0,watch,"Listed-company credit history proxy summarized from public leverage, debt, and disclosure context."

@@ -1,0 +1,4 @@
+﻿invoice_no,issue_date,amount_cny,tax_rate_pct,invoice_type,buyer_name,seller_name
+004INV0001,2025-07-18,294000.0,13.0,vat_special,,杭州启脉能源物联科技有限公司
+004INV0002,2025-08-18,333750.0,13.0,vat_special,,杭州启脉能源物联科技有限公司
+004INV0003,2025-09-18,376000.0,13.0,vat_special,,杭州启脉能源物联科技有限公司

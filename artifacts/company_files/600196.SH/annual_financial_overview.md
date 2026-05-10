@@ -1,0 +1,17 @@
+# Annual Financial Statement Overview
+
+- 20211231 | Capital Expenditure | 4972799402.17 CNY
+- 20211231 | Net Profit | 4976269370.32 CNY
+- 20211231 | Revenue | 39011184281.58 CNY
+- 20221231 | Capital Expenditure | 5888838856.94 CNY
+- 20221231 | Net Profit | 3947464120.11 CNY
+- 20221231 | Revenue | 43951546895.23 CNY
+- 20231231 | Capital Expenditure | 5336704753.14 CNY
+- 20231231 | Net Profit | 2895063426.58 CNY
+- 20231231 | Revenue | 41399539588.42 CNY
+- 20241231 | Capital Expenditure | 4410191178.59 CNY
+- 20241231 | Net Profit | 3512440385.0 CNY
+- 20241231 | Revenue | 41067195862.59 CNY
+- 20251231 | Capital Expenditure | 4448451634.91 CNY
+- 20251231 | Net Profit | 4247929628.38 CNY
+- 20251231 | Revenue | 41661612748.15 CNY

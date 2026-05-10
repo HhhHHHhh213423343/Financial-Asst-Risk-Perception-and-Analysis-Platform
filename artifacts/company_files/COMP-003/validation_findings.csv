@@ -1,0 +1,3 @@
+﻿rule_name,severity,finding_title,finding_summary,impact_summary,confidence
+Contract to invoice to cash check,low,Project acceptance and receipts are largely aligned,Receipts lag contract milestones by less than one billing cycle.,Supports stable project execution quality.,0.84
+Debt service coverage check,low,Coverage remains adequate,Verified minimum monthly inflow covers modeled repayment by more than 1.6x.,Supports approval with equipment collateral add-on.,0.86

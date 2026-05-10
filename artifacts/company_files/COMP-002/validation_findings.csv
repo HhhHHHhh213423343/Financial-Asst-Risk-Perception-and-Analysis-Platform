@@ -1,0 +1,3 @@
+﻿rule_name,severity,finding_title,finding_summary,impact_summary,confidence
+Debt service coverage check,low,Debt service coverage remains healthy,Verified monthly collections are above modeled repayment need.,Supports recommended approval.,0.88
+R&D substance check,low,R&D capability is well supported,R&D team ratio and software IP portfolio support tech claims.,Strengthens confidence in product sustainability.,0.9

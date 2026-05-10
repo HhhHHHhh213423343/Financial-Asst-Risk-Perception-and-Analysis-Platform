@@ -1,0 +1,22 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+
+# Local runtime config and secrets
+.env
+.env.*
+!.env.example
+due_diligence_assistant_demo/.local_config.json
+
+# Local agent/editor state
+.golutra/
+.omx/
+.sixth/
+
+# Dependency folders
+node_modules
+
+# Runtime logs and temporary files
+*.log
+tmp/
+temp/

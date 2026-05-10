@@ -1,0 +1,433 @@
+﻿company_code,attribute_group,label,value_text,source_ref,note
+002594.SZ,industry_insight,市场趋势,行业趋势需结合政策周期、下游需求、价格变化和企业自身经营效率持续观察。,AkShare cache,
+002594.SZ,industry_insight,所属行业,比亚迪 当前归属 乘用车。该字段来自 AkShare 个股公开信息，可作为轻量行业识别口径。,AkShare cache,
+002594.SZ,industry_insight,竞争格局,同板块可比公司包括：赛力斯、上汽集团、长安汽车、北汽蓝谷、长城汽车。后续可结合财报指标做更细的同业对比。,AkShare cache,
+002594.SZ,industry_insight,行业位置,在已取得的 9 家同板块公司中，按成交额等公开行情指标粗略位于第 1 位。,AkShare cache,
+002594.SZ,listing_info,上市日期,2011-06-30,Qichacha manual capture,
+002594.SZ,listing_info,募集资金净额,13.54亿,Qichacha manual capture,
+002594.SZ,listing_info,发行市盈率,20.47,Qichacha manual capture,
+002594.SZ,listing_info,发行总市值,14.22亿,Qichacha manual capture,
+002594.SZ,listing_info,发行总量,7900万股,Qichacha manual capture,
+002594.SZ,listing_info,发行方式,网下询价配售,Qichacha manual capture,
+002594.SZ,listing_info,定价中签率,4.49%,Qichacha manual capture,
+002594.SZ,listing_info,总经理,王传福,Qichacha manual capture,
+002594.SZ,listing_info,每股发行价,18,Qichacha manual capture,
+002594.SZ,listing_info,每股面值,1,Qichacha manual capture,
+002594.SZ,listing_info,法人代表,王传福,Qichacha manual capture,
+002594.SZ,listing_info,独立董事,张敏、蔡洪平、喻玲,Qichacha manual capture,
+002594.SZ,listing_info,网上发行日期,2011-06-21,Qichacha manual capture,
+002594.SZ,listing_info,网下配售中签率,20.55%,Qichacha manual capture,
+002594.SZ,listing_info,董事长,王传福,Qichacha manual capture,
+002594.SZ,listing_info,董秘,李黔,Qichacha manual capture,
+002594.SZ,listing_info,证券事务代表,程燕、吴越,Qichacha manual capture,
+002594.SZ,listing_info,首日开盘价,22,Qichacha manual capture,
+002594.SZ,listing_info,首日换手率,87.96%,Qichacha manual capture,
+002594.SZ,listing_info,首日收盘价,25.45,Qichacha manual capture,
+002594.SZ,public_profile,上市时间,2011-06-30,AkShare cache,AkShare 个股信息返回的上市日期
+002594.SZ,public_profile,交易所,SZ,AkShare cache,按股票代码推断
+002594.SZ,public_profile,企业图谱,暂无信息,AkShare cache,后续可接企业关系数据源补齐
+002594.SZ,public_profile,企业规模,大型,Qichacha manual capture,企查查截图人工补录
+002594.SZ,public_profile,分支机构,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+002594.SZ,public_profile,办公地址,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+002594.SZ,public_profile,受益所有人,王传福,Qichacha manual capture,依据股东及主要人员截图人工补录
+002594.SZ,public_profile,员工人数,869622（2025年）,Qichacha manual capture,企查查截图人工补录
+002594.SZ,public_profile,国标行业,新能源汽车整车制造,Qichacha manual capture,企查查截图人工补录
+002594.SZ,public_profile,官网,www.byd.com/cn/index.html,Qichacha manual capture,企查查截图人工补录
+002594.SZ,public_profile,实控人,王传福,Qichacha manual capture,依据股东及主要人员截图人工补录
+002594.SZ,public_profile,客户名称,比亚迪,AkShare cache,AkShare 个股公开信息返回的股票简称
+002594.SZ,public_profile,对外投资,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+002594.SZ,public_profile,总市值,9461.83 亿元,AkShare cache,按公开行情数据估算
+002594.SZ,public_profile,成立时间,1995-02-10,Qichacha manual capture,企查查截图人工补录
+002594.SZ,public_profile,所属集团,比亚迪,Qichacha manual capture,企查查截图人工补录
+002594.SZ,public_profile,曾用名,深圳市比亚迪实业有限公司（1995-02 至 2002-06）,Qichacha manual capture,企查查截图人工补录
+002594.SZ,public_profile,最新价,103.78,AkShare cache,AkShare 行情接口返回的最新价格
+002594.SZ,public_profile,法定代表人,王传福,Qichacha manual capture,企查查截图人工补录
+002594.SZ,public_profile,注册地址,深圳市大鹏新区葵涌街道延安路一号,Qichacha manual capture,企查查截图人工补录
+002594.SZ,public_profile,注册资本,91.17 亿股,AkShare cache,AkShare 未返回注册资本时，以总股本作公开市场口径参考
+002594.SZ,public_profile,流通市值,3618.41 亿元,AkShare cache,按公开行情数据估算
+002594.SZ,public_profile,经营范围,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+002594.SZ,public_profile,联系电话,0755-89888888,Qichacha manual capture,企查查截图人工补录
+002594.SZ,public_profile,股东,详见股东信息页（已结构化入库）,Qichacha manual capture,企查查截图人工补录
+002594.SZ,public_profile,股权穿透图,暂无信息,AkShare cache,后续可接企业关系数据源补齐
+002594.SZ,public_profile,股票代码,002594.SZ,AkShare cache,财报数据查询主键
+002594.SZ,public_profile,营业收入,8039.65亿元（2025年）,Qichacha manual capture,企查查截图人工补录
+002594.SZ,public_profile,邮箱,bydpo@byd.com,Qichacha manual capture,企查查截图人工补录
+002594.SZ,public_profile,高管,详见主要人员页（已结构化入库）,Qichacha manual capture,企查查截图人工补录
+002594.SZ,registration,人员规模,2000-2999人,Qichacha manual capture,
+002594.SZ,registration,企业类型,股份有限公司（台港澳与境内合资、上市）,Qichacha manual capture,
+002594.SZ,registration,参保人数,2625（2024年报）,Qichacha manual capture,
+002594.SZ,registration,国标行业,新能源汽车整车制造（C3612）,Qichacha manual capture,
+002594.SZ,registration,实缴资本,911719.8万元,Qichacha manual capture,
+002594.SZ,registration,工商注册号,440301501127941,Qichacha manual capture,
+002594.SZ,registration,所属地区,广东省深圳市龙岗区,Qichacha manual capture,
+002594.SZ,registration,注册资本,911719.7565万元,Qichacha manual capture,
+002594.SZ,registration,登记机关,深圳市市场监督管理局,Qichacha manual capture,
+002594.SZ,registration,登记状态,开业（存续）,Qichacha manual capture,
+002594.SZ,registration,纳税人识别号,91440300192317458F,Qichacha manual capture,
+002594.SZ,registration,纳税人资质,一般纳税人,Qichacha manual capture,
+002594.SZ,registration,组织机构代码,19231745-8,Qichacha manual capture,
+002594.SZ,registration,经营范围,锂离子电池以及其他电池、充电器、电子产品、仪器仪表、柔性线路板、五金制品、液晶显示器、手机零配件、模具、塑胶制品及其相关附件的生产、销售；3D眼镜、GPS导航产品的研发、生产及销售；货物及技术进出口；作为比亚迪汽车有限公司比亚迪品牌乘用车、电动车的总经销商，从事品牌乘用车、电动车及其零部件的营销、批发和出口，提供售后服务；电池管理系统、换流柜、逆变柜、汇流箱、开关柜、储能机组的销售；汽车电子装置研发、销售；新能源汽车关键零部件及上述零部件的关键零件、部件的研发、销售；轨道交通运输设备的研发、设计、销售、租赁与售后服务；轨道梁柱的研发、设计、销售；自有物业租赁；广告设计、制作、代理及发布；信息与技术咨询、技术服务。,Qichacha manual capture,
+002594.SZ,registration,统一社会信用代码,91440300192317458F,Qichacha manual capture,
+002594.SZ,registration,英文名,BYD Company Limited,Qichacha manual capture,
+002594.SZ,registration,营业期限,1995-02-10 至 2053-02-08,Qichacha manual capture,
+002594.SZ,shareholder_summary,股东1,HKSCC NOMINEES LIMITED,Qichacha manual capture,流通H股 | 持股比例 40.3800% | 标签：中国香港、大股东
+002594.SZ,shareholder_summary,股东10,李柯,Qichacha manual capture,流通A股、限售流通A股 | 持股比例 0.3600%
+002594.SZ,shareholder_summary,股东11,比亚迪股份有限公司-2025年员工持股计划,Qichacha manual capture,流通A股 | 持股比例 0.3551%
+002594.SZ,shareholder_summary,股东2,王传福,Qichacha manual capture,流通A股、限售流通A股 | 持股比例 16.9000% | 标签：实际控制人、受益所有人
+002594.SZ,shareholder_summary,股东3,吕向阳,Qichacha manual capture,流通A股、限售流通A股 | 持股比例 7.8700% | 间接持股比例 4.5735% | 标签：股权质押
+002594.SZ,shareholder_summary,股东4,融捷投资控股集团有限公司,Qichacha manual capture,流通A股 | 持股比例 5.1100% | 标签：股权质押
+002594.SZ,shareholder_summary,股东5,夏佐全,Qichacha manual capture,流通A股、限售流通A股 | 持股比例 2.7200%
+002594.SZ,shareholder_summary,股东6,香港中央结算有限公司,Qichacha manual capture,流通A股 | 持股比例 2.1600%
+002594.SZ,shareholder_summary,股东7,张炜,Qichacha manual capture,流通A股 | 持股比例 0.6000%
+002594.SZ,shareholder_summary,股东8,王念强,Qichacha manual capture,流通A股 | 持股比例 0.6000%
+002594.SZ,shareholder_summary,股东9,全国社保基金一一四组合,Qichacha manual capture,流通A股 | 持股比例 0.4600%
+600196.SH,listing_info,EPS,0.33,Qichacha manual capture,
+600196.SH,listing_info,上市交易所,上海证券交易所,Qichacha manual capture,
+600196.SH,listing_info,上市日期,1998-08-07,Qichacha manual capture,
+600196.SH,listing_info,上市曾用名,复星实业→复星医药→G复星,Qichacha manual capture,
+600196.SH,listing_info,上市板块,主板,Qichacha manual capture,
+600196.SH,listing_info,募集资金净额,3.48亿,Qichacha manual capture,
+600196.SH,listing_info,发行市盈率,15,Qichacha manual capture,
+600196.SH,listing_info,发行总市值,3.58亿,Qichacha manual capture,
+600196.SH,listing_info,发行总量,5000万股,Qichacha manual capture,
+600196.SH,listing_info,发行方式,网下定价发行,Qichacha manual capture,
+600196.SH,listing_info,定价中签率,0.33%,Qichacha manual capture,
+600196.SH,listing_info,市净率,1.35,Qichacha manual capture,
+600196.SH,listing_info,总市值,662.80亿,Qichacha manual capture,
+600196.SH,listing_info,总经理,刘毅,Qichacha manual capture,
+600196.SH,listing_info,总股本,26.7亿,Qichacha manual capture,
+600196.SH,listing_info,是否注册制,否,Qichacha manual capture,
+600196.SH,listing_info,每股发行价,7.15,Qichacha manual capture,
+600196.SH,listing_info,每股面值,1,Qichacha manual capture,
+600196.SH,listing_info,法人代表,陈玉卿,Qichacha manual capture,
+600196.SH,listing_info,流通值,525.81亿,Qichacha manual capture,
+600196.SH,listing_info,流通股,26.7亿,Qichacha manual capture,
+600196.SH,listing_info,独立董事,王全弟、余梓山、Chen Penghui、杨玉成,Qichacha manual capture,
+600196.SH,listing_info,网上发行日期,1998-06-25,Qichacha manual capture,
+600196.SH,listing_info,网下配售中签率,-,Qichacha manual capture,
+600196.SH,listing_info,股票代码,600196.SH,Qichacha manual capture,
+600196.SH,listing_info,股票简称,复星医药,Qichacha manual capture,
+600196.SH,listing_info,董事长,陈玉卿,Qichacha manual capture,
+600196.SH,listing_info,董秘,董晓婕,Qichacha manual capture,
+600196.SH,listing_info,表决权差异,否,Qichacha manual capture,
+600196.SH,listing_info,证券事务代表,-,Qichacha manual capture,
+600196.SH,listing_info,预测市盈率,19.03,Qichacha manual capture,
+600196.SH,listing_info,首日开盘价,25,Qichacha manual capture,
+600196.SH,listing_info,首日换手率,75.36%,Qichacha manual capture,
+600196.SH,listing_info,首日收盘价,24.7,Qichacha manual capture,
+600196.SH,public_profile,交易所,SH,AkShare cache,根据缓存股票代码确定
+600196.SH,public_profile,企业概况,创新驱动的全球化医药健康产业集团，覆盖制药、器械诊断、医疗服务与医药商业协同。,AkShare cache,本地 AkShare 企业摘要
+600196.SH,public_profile,企业规模,大型,Qichacha manual capture,企查查截图人工补录
+600196.SH,public_profile,员工人数,40603（2025年）,Qichacha manual capture,企查查截图人工补录
+600196.SH,public_profile,国标行业,化学药品制剂制造,Qichacha manual capture,企查查截图人工补录
+600196.SH,public_profile,官网,www.fosunpharma.com,Qichacha manual capture,企查查截图人工补录
+600196.SH,public_profile,客户名称,复星医药,AkShare cache,来自本地 AkShare 企业缓存
+600196.SH,public_profile,成立时间,1995-05-31,Qichacha manual capture,企查查截图人工补录
+600196.SH,public_profile,所属集团,复星集团,Qichacha manual capture,企查查截图人工补录
+600196.SH,public_profile,曾用名,上海复星实业股份有限公司（1995-05 至 -）,Qichacha manual capture,企查查截图人工补录
+600196.SH,public_profile,法定代表人,陈玉卿,Qichacha manual capture,企查查截图人工补录
+600196.SH,public_profile,注册地址,曹杨路510号9楼,Qichacha manual capture,企查查截图人工补录
+600196.SH,public_profile,联系电话,021-33987000,Qichacha manual capture,企查查截图人工补录
+600196.SH,public_profile,股东,详见股东信息页（已结构化入库）,Qichacha manual capture,企查查截图人工补录
+600196.SH,public_profile,股票代码,600196.SH,AkShare cache,本地 AkShare 企业缓存主键
+600196.SH,public_profile,营业收入,416.62亿元（2025年）,Qichacha manual capture,企查查截图人工补录
+600196.SH,public_profile,通信地址,上海市宜山路1289号A楼（2024年报）,Qichacha manual capture,企查查截图人工补录
+600196.SH,public_profile,邮箱,ir@fosunpharma.com,Qichacha manual capture,企查查截图人工补录
+600196.SH,public_profile,高管,详见主要人员页（已结构化入库）,Qichacha manual capture,企查查截图人工补录
+600196.SH,registration,人员规模,100-199人,Qichacha manual capture,
+600196.SH,registration,企业类型,其他股份有限公司（上市）,Qichacha manual capture,
+600196.SH,registration,参保人数,158（2024年报）,Qichacha manual capture,
+600196.SH,registration,实缴资本,267042.9325万元,Qichacha manual capture,
+600196.SH,registration,工商注册号,310000000036602,Qichacha manual capture,
+600196.SH,registration,所属地区,上海市普陀区,Qichacha manual capture,
+600196.SH,registration,注册资本,267042.9325万元,Qichacha manual capture,
+600196.SH,registration,登记机关,上海市市场监督管理局,Qichacha manual capture,
+600196.SH,registration,登记状态,存续（在营、开业、在册）,Qichacha manual capture,
+600196.SH,registration,纳税人识别号,913100001330605412,Qichacha manual capture,
+600196.SH,registration,纳税人资质,一般纳税人,Qichacha manual capture,
+600196.SH,registration,组织机构代码,13306054-1,Qichacha manual capture,
+600196.SH,registration,经营范围,生物化学产品、试剂、生物四技服务、自产自销产品、仪器仪表、电子产品、计算机、化工原料（除危险品）、咨询服务；经营本企业自产产品及相关技术的出口业务，经营本企业生产、科研所需的原辅材料、机械设备、仪器仪表、零配件及相关技术的进口业务。,Qichacha manual capture,
+600196.SH,registration,统一社会信用代码,913100001330605412,Qichacha manual capture,
+600196.SH,registration,英文名,"Shanghai Fosun Pharmaceutical (Group) Co., Ltd.",Qichacha manual capture,
+600196.SH,registration,营业期限,1998-03-31 至 无固定期限,Qichacha manual capture,
+600196.SH,registration,进出口企业代码,3100133060541,Qichacha manual capture,
+600196.SH,shareholder_summary,股东1,上海复星高科技（集团）有限公司,Qichacha manual capture,持股比例 33.32% | 标签：大股东、股权质押 | 关联产品/机构：复星国际
+600196.SH,shareholder_summary,股东10,全国社保基金一一二组合,Qichacha manual capture,持股比例 0.45%
+600196.SH,shareholder_summary,股东2,HKSCC NOMINEES LIMITED,Qichacha manual capture,持股比例 20.65% | 流通H股
+600196.SH,shareholder_summary,股东3,香港中央结算有限公司,Qichacha manual capture,持股比例 1.89%
+600196.SH,shareholder_summary,股东4,上海银行股份有限公司-银华中证创新药产业交易型开放式指数证券投资基金,Qichacha manual capture,持股比例 0.72%
+600196.SH,shareholder_summary,股东5,中国银行股份有限公司-招商国证生物医药指数分级证券投资基金,Qichacha manual capture,持股比例 0.70%
+600196.SH,shareholder_summary,股东6,中国证券金融股份有限公司,Qichacha manual capture,持股比例 0.70% | 关联产品/机构：中证金融
+600196.SH,shareholder_summary,股东7,中国建设银行股份有限公司-易方达沪深300医药卫生交易型开放式指数证券投资基金,Qichacha manual capture,持股比例 0.67%
+600196.SH,shareholder_summary,股东8,熊立武,Qichacha manual capture,持股比例 0.53%
+600196.SH,shareholder_summary,股东9,阿布达比投资局-自有资金,Qichacha manual capture,持股比例 0.48%
+600519.SH,listing_info,EPS,21.76,Qichacha manual capture,
+600519.SH,listing_info,上市交易所,上海证券交易所,Qichacha manual capture,
+600519.SH,listing_info,上市日期,2001-08-27,Qichacha manual capture,
+600519.SH,listing_info,上市曾用名,贵州茅台→G茅台,Qichacha manual capture,
+600519.SH,listing_info,上市板块,主板,Qichacha manual capture,
+600519.SH,listing_info,募集资金净额,22.02亿,Qichacha manual capture,
+600519.SH,listing_info,发行市盈率,23.93,Qichacha manual capture,
+600519.SH,listing_info,发行总市值,22.44亿,Qichacha manual capture,
+600519.SH,listing_info,发行总量,7150万股,Qichacha manual capture,
+600519.SH,listing_info,发行方式,网下定价发行,Qichacha manual capture,
+600519.SH,listing_info,定价中签率,1.13%,Qichacha manual capture,
+600519.SH,listing_info,市净率,6.35,Qichacha manual capture,
+600519.SH,listing_info,总市值,1.72万亿,Qichacha manual capture,
+600519.SH,listing_info,总经理,-,Qichacha manual capture,
+600519.SH,listing_info,总股本,12.52亿,Qichacha manual capture,
+600519.SH,listing_info,是否注册制,否,Qichacha manual capture,
+600519.SH,listing_info,每股发行价,31.39,Qichacha manual capture,
+600519.SH,listing_info,每股面值,1,Qichacha manual capture,
+600519.SH,listing_info,法人代表,陈华,Qichacha manual capture,
+600519.SH,listing_info,流通值,17193.54亿,Qichacha manual capture,
+600519.SH,listing_info,流通股,12.52亿,Qichacha manual capture,
+600519.SH,listing_info,独立董事,郭田勇、盛雷鸣、王鑫,Qichacha manual capture,
+600519.SH,listing_info,网上发行日期,2001-07-31,Qichacha manual capture,
+600519.SH,listing_info,股票代码,600519.SH,Qichacha manual capture,
+600519.SH,listing_info,股票简称,贵州茅台,Qichacha manual capture,
+600519.SH,listing_info,董事长,陈华,Qichacha manual capture,
+600519.SH,listing_info,董秘,-,Qichacha manual capture,
+600519.SH,listing_info,表决权差异,否,Qichacha manual capture,
+600519.SH,listing_info,证券事务代表,蔡聪应,Qichacha manual capture,
+600519.SH,listing_info,预测市盈率,15.78,Qichacha manual capture,
+600519.SH,listing_info,首日开盘价,34.51,Qichacha manual capture,
+600519.SH,listing_info,首日换手率,56.83%,Qichacha manual capture,
+600519.SH,listing_info,首日收盘价,35.55,Qichacha manual capture,
+600519.SH,public_profile,交易所,SH,AkShare cache,根据缓存股票代码确定
+600519.SH,public_profile,企业概况,贵州茅台酒股份有限公司成立于1999年11月20日，董事长为陈华，公司于2001年8月27日在上海证券交易所上市，主营业务为茅台酒及茅台酱香系列酒。,Qichacha manual capture,企查查截图人工补录
+600519.SH,public_profile,企业规模,大型,Qichacha manual capture,企查查截图人工补录
+600519.SH,public_profile,员工人数,34992（2025年）,Qichacha manual capture,企查查截图人工补录
+600519.SH,public_profile,国标行业,白酒制造,Qichacha manual capture,企查查截图人工补录
+600519.SH,public_profile,官网,www.moutaichina.com,Qichacha manual capture,企查查截图人工补录
+600519.SH,public_profile,客户名称,贵州茅台,AkShare cache,来自本地 AkShare 企业缓存
+600519.SH,public_profile,成立时间,1999-11-20,Qichacha manual capture,企查查截图人工补录
+600519.SH,public_profile,所属集团,贵州茅台集团,Qichacha manual capture,企查查截图人工补录
+600519.SH,public_profile,法定代表人,陈华,Qichacha manual capture,企查查截图人工补录
+600519.SH,public_profile,注册地址,贵州省遵义市仁怀市茅台镇,Qichacha manual capture,企查查截图人工补录
+600519.SH,public_profile,联系电话,0851-22386004,Qichacha manual capture,企查查截图人工补录
+600519.SH,public_profile,股东,详见股东信息页（已结构化入库）,Qichacha manual capture,企查查截图人工补录
+600519.SH,public_profile,股票代码,600519.SH,AkShare cache,本地 AkShare 企业缓存主键
+600519.SH,public_profile,营业收入,1720.54亿元（2025年）,Qichacha manual capture,企查查截图人工补录
+600519.SH,public_profile,邮箱,mtmsk@126.com,Qichacha manual capture,企查查截图人工补录
+600519.SH,public_profile,高管,详见主要人员页（已结构化入库）,Qichacha manual capture,企查查截图人工补录
+600519.SH,registration,人员规模,10000人以上,Qichacha manual capture,
+600519.SH,registration,企业类型,其他股份有限公司（上市）,Qichacha manual capture,
+600519.SH,registration,分支机构参保人数,11732（2024年报）,Qichacha manual capture,
+600519.SH,registration,参保人数,21977（2024年报）,Qichacha manual capture,
+600519.SH,registration,国标行业,白酒制造（C1512）,Qichacha manual capture,
+600519.SH,registration,实缴资本,125227.0215万元,Qichacha manual capture,
+600519.SH,registration,工商注册号,520000000068765,Qichacha manual capture,
+600519.SH,registration,所属地区,贵州省遵义市仁怀市,Qichacha manual capture,
+600519.SH,registration,注册资本,125227.0215万元,Qichacha manual capture,
+600519.SH,registration,登记机关,贵州省市场监督管理局,Qichacha manual capture,
+600519.SH,registration,登记状态,存续（在营、开业、在册）,Qichacha manual capture,
+600519.SH,registration,纳税人识别号,9152000071430580XT,Qichacha manual capture,
+600519.SH,registration,纳税人资质,一般纳税人,Qichacha manual capture,
+600519.SH,registration,组织机构代码,71430580-X,Qichacha manual capture,
+600519.SH,registration,经营范围,茅台酒及系列酒的生产与销售；饮料、食品、包装材料的生产、销售；防伪技术开发、信息产业相关产品的研制、开发；酒店经营管理、住宿、餐饮、娱乐、洗浴及停车场管理服务；车辆运输（不含危险化学品）、维修保养；第二类增值电信业务。,Qichacha manual capture,
+600519.SH,registration,统一社会信用代码,9152000071430580XT,Qichacha manual capture,
+600519.SH,registration,英文名,"Kweichow Moutai Co., Ltd.",Qichacha manual capture,
+600519.SH,registration,营业期限,1999-11-20 至 无固定期限,Qichacha manual capture,
+600519.SH,shareholder_summary,股东1,中国贵州茅台酒厂（集团）有限责任公司,Qichacha manual capture,流通A股 | 持股比例 54.40% | 间接持股比例 2.22% | 标签：省属国企、大股东
+600519.SH,shareholder_summary,股东10,中国证券金融股份有限公司,Qichacha manual capture,流通A股 | 持股比例 0.32%
+600519.SH,shareholder_summary,股东2,香港中央结算有限公司,Qichacha manual capture,流通A股 | 持股比例 4.69%
+600519.SH,shareholder_summary,股东3,贵州省国有资本运营有限责任公司,Qichacha manual capture,流通A股 | 持股比例 4.55% | 关联产品/机构：贵州金控集团
+600519.SH,shareholder_summary,股东4,贵州茅台酒厂（集团）技术开发有限公司,Qichacha manual capture,流通A股 | 持股比例 2.22%
+600519.SH,shareholder_summary,股东5,中央汇金资产管理有限责任公司,Qichacha manual capture,流通A股 | 持股比例 0.83%
+600519.SH,shareholder_summary,股东6,中国银行股份有限公司-招商中证白酒指数分级证券投资基金,Qichacha manual capture,流通A股 | 持股比例 0.41%
+600519.SH,shareholder_summary,股东7,中国工商银行股份有限公司-华泰柏瑞沪深300交易型开放式指数证券投资基金,Qichacha manual capture,流通A股 | 持股比例 0.40%
+600519.SH,shareholder_summary,股东8,中国工商银行-上证50交易型开放式指数证券投资基金,Qichacha manual capture,流通A股 | 持股比例 0.36%
+600519.SH,shareholder_summary,股东9,国丰兴华（北京）私募基金管理有限公司-鸿鹄志远（上海）私募投资基金有限公司,Qichacha manual capture,流通A股 | 持股比例 0.33%
+600612.SH,industry_insight,市场趋势,行业趋势需结合政策周期、下游需求、价格变化和企业自身经营效率持续观察。,AkShare cache,
+600612.SH,industry_insight,所属行业,老凤祥 当前归属 饰品。该字段来自 AkShare 个股公开信息，可作为轻量行业识别口径。,AkShare cache,
+600612.SH,industry_insight,竞争格局,同板块可比公司包括：暂未取得稳定的同板块可比公司列表。后续可结合财报指标做更细的同业对比。,AkShare cache,
+600612.SH,industry_insight,行业位置,暂未取得同板块成份股行情，先以公司行业字段和公开财报数据做初步判断。,AkShare cache,
+600612.SH,listing_info,EPS,1.0458,Qichacha manual capture,
+600612.SH,listing_info,上市交易所,上海证券交易所,Qichacha manual capture,
+600612.SH,listing_info,上市日期,1992-08-14,Qichacha manual capture,
+600612.SH,listing_info,上市曾用名,第一铅笔→G中铅→第一铅笔→中国铅笔,Qichacha manual capture,
+600612.SH,listing_info,上市板块,主板,Qichacha manual capture,
+600612.SH,listing_info,募集资金净额,-,Qichacha manual capture,
+600612.SH,listing_info,发行市盈率,-,Qichacha manual capture,
+600612.SH,listing_info,发行总市值,4031.6万,Qichacha manual capture,
+600612.SH,listing_info,发行总量,100.79万股,Qichacha manual capture,
+600612.SH,listing_info,发行方式,其他发行方式,Qichacha manual capture,
+600612.SH,listing_info,定价中签率,-,Qichacha manual capture,
+600612.SH,listing_info,市净率,1.5,Qichacha manual capture,
+600612.SH,listing_info,总市值,205.32亿,Qichacha manual capture,
+600612.SH,listing_info,总经理,黄骅,Qichacha manual capture,
+600612.SH,listing_info,总股本,5.23亿,Qichacha manual capture,
+600612.SH,listing_info,是否注册制,否,Qichacha manual capture,
+600612.SH,listing_info,每股发行价,40,Qichacha manual capture,
+600612.SH,listing_info,每股面值,10,Qichacha manual capture,
+600612.SH,listing_info,法人代表,杨奕,Qichacha manual capture,
+600612.SH,listing_info,流通值,124.47亿,Qichacha manual capture,
+600612.SH,listing_info,流通股,5.23亿,Qichacha manual capture,
+600612.SH,listing_info,独立董事,张其秀、俞铁成、马民良,Qichacha manual capture,
+600612.SH,listing_info,网上发行日期,1992-06-13,Qichacha manual capture,
+600612.SH,listing_info,网下配售中签率,-,Qichacha manual capture,
+600612.SH,listing_info,股票代码,600612.SH,Qichacha manual capture,
+600612.SH,listing_info,股票简称,老凤祥,Qichacha manual capture,
+600612.SH,listing_info,董事长,杨奕,Qichacha manual capture,
+600612.SH,listing_info,董秘,邱建敏,Qichacha manual capture,
+600612.SH,listing_info,表决权差异,否,Qichacha manual capture,
+600612.SH,listing_info,证券事务代表,邹岩,Qichacha manual capture,
+600612.SH,listing_info,预测市盈率,9.38,Qichacha manual capture,
+600612.SH,listing_info,首日开盘价,142,Qichacha manual capture,
+600612.SH,listing_info,首日换手率,276.18%,Qichacha manual capture,
+600612.SH,listing_info,首日收盘价,152,Qichacha manual capture,
+600612.SH,public_profile,上市时间,1992-08-14,AkShare cache,AkShare 个股信息返回的上市日期
+600612.SH,public_profile,交易所,SH,AkShare cache,按股票代码推断
+600612.SH,public_profile,企业图谱,暂无信息,AkShare cache,后续可接企业关系数据源补齐
+600612.SH,public_profile,企业规模,大型,Qichacha manual capture,企查查截图人工补录
+600612.SH,public_profile,分支机构,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+600612.SH,public_profile,办公地址,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+600612.SH,public_profile,受益所有人,杨奕,Qichacha manual capture,依据主要人员截图人工补录
+600612.SH,public_profile,员工人数,2985（2025年）,Qichacha manual capture,企查查截图人工补录
+600612.SH,public_profile,国标行业,珠宝首饰及有关物品制造,Qichacha manual capture,企查查截图人工补录
+600612.SH,public_profile,官网,www.laofengxiang.com,Qichacha manual capture,企查查截图人工补录
+600612.SH,public_profile,实控人,上海市黄浦区国有资产监督管理委员会（上海市黄浦区集体资产监督管理委员会）,Qichacha manual capture,依据股东截图人工补录
+600612.SH,public_profile,客户名称,老凤祥,AkShare cache,AkShare 个股公开信息返回的股票简称
+600612.SH,public_profile,对外投资,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+600612.SH,public_profile,总市值,214.90 亿元,AkShare cache,按公开行情数据估算
+600612.SH,public_profile,成立时间,1992-11-11,Qichacha manual capture,企查查截图人工补录
+600612.SH,public_profile,所属集团,老凤祥,Qichacha manual capture,企查查截图人工补录
+600612.SH,public_profile,曾用名,中国第一铅笔股份有限公司（1998-12 至 2009-07）,Qichacha manual capture,企查查截图人工补录
+600612.SH,public_profile,最新价,41.08,AkShare cache,AkShare 行情接口返回的最新价格
+600612.SH,public_profile,法定代表人,杨奕,Qichacha manual capture,企查查截图人工补录
+600612.SH,public_profile,注册地址,上海市黄浦区南京西路190号四层、五层,Qichacha manual capture,企查查截图人工补录
+600612.SH,public_profile,注册资本,5.23 亿股,AkShare cache,AkShare 未返回注册资本时，以总股本作公开市场口径参考
+600612.SH,public_profile,流通市值,130.27 亿元,AkShare cache,按公开行情数据估算
+600612.SH,public_profile,经营范围,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+600612.SH,public_profile,联系电话,021-64833388,Qichacha manual capture,企查查截图人工补录
+600612.SH,public_profile,股东,详见股东信息页（已结构化入库）,Qichacha manual capture,企查查截图人工补录
+600612.SH,public_profile,股权穿透图,暂无信息,AkShare cache,后续可接企业关系数据源补齐
+600612.SH,public_profile,股票代码,600612.SH,AkShare cache,财报数据查询主键
+600612.SH,public_profile,营业收入,528.23亿元（2025年）,Qichacha manual capture,企查查截图人工补录
+600612.SH,public_profile,通信地址,凯旋路2588号-6幢（邮编200030）（2024年报）,Qichacha manual capture,企查查截图人工补录
+600612.SH,public_profile,邮箱,lfxgf_618@sina.com,Qichacha manual capture,企查查截图人工补录
+600612.SH,public_profile,高管,详见主要人员页（已结构化入库）,Qichacha manual capture,企查查截图人工补录
+600612.SH,registration,人员规模,100-199人,Qichacha manual capture,
+600612.SH,registration,企业类型,股份有限公司（港澳台投资、上市）,Qichacha manual capture,
+600612.SH,registration,参保人数,100（2024年报）,Qichacha manual capture,
+600612.SH,registration,实缴资本,52311.7764万元,Qichacha manual capture,
+600612.SH,registration,工商注册号,310000400026404,Qichacha manual capture,
+600612.SH,registration,所属地区,上海市黄浦区,Qichacha manual capture,
+600612.SH,registration,注册资本,52311.7764万元,Qichacha manual capture,
+600612.SH,registration,登记机关,上海市市场监督管理局,Qichacha manual capture,
+600612.SH,registration,登记状态,存续（在营、开业、在册）,Qichacha manual capture,
+600612.SH,registration,纳税人识别号,9131000060720072X4,Qichacha manual capture,
+600612.SH,registration,纳税人资质,一般纳税人,Qichacha manual capture,
+600612.SH,registration,组织机构代码,60720072-X,Qichacha manual capture,
+600612.SH,registration,经营范围,生产经营金银制品、珠宝、钻石与相关产品及设备、工艺美术品（文物法规规定的除外）、旅游工艺品与相关产品及原料、文教用品与相关原料及设备，从事上述商品的批发、零售、佣金代理及进出口业务；物业管理；自有房产租赁；典当、拍卖（限已批准的子公司经营）；以独资、合资、合作经营形式投资兴办鼓励类、允许类企业。,Qichacha manual capture,
+600612.SH,registration,统一社会信用代码,9131000060720072X4,Qichacha manual capture,
+600612.SH,registration,英文名,"Lao FENG Xiang Co., Ltd.",Qichacha manual capture,
+600612.SH,registration,营业期限,1992-11-11 至 无固定期限,Qichacha manual capture,
+600612.SH,registration,进出口企业代码,310060720072X,Qichacha manual capture,
+600612.SH,shareholder_summary,股东1,上海市黄浦区国有资产监督管理委员会（上海市黄浦区集体资产监督管理委员会）,Qichacha manual capture,持股比例 42.09% | 标签：大股东、实际控制人
+600612.SH,shareholder_summary,股东10,"FEDERATED HERMES GLOBAL INVESTMENT FD(CAYMAN)MASTER,SPC OBOAFTAO FEDERATED HERMES EMG ASIA EQUITY FD MASTER S.P.",Qichacha manual capture,持股比例 0.47% | 流通B股
+600612.SH,shareholder_summary,股东2,SHENWAN HONGYUAN NOMINEES(H.K.)LIMITED,Qichacha manual capture,持股比例 1.32% | 流通B股
+600612.SH,shareholder_summary,股东3,GUOTAI JUNAN SECURITIES(HONG KONG)LIMITED,Qichacha manual capture,持股比例 0.99% | 流通B股
+600612.SH,shareholder_summary,股东4,中国建设银行股份有限公司-国泰双利债券证券投资基金,Qichacha manual capture,持股比例 0.93%
+600612.SH,shareholder_summary,股东5,龙悦网络有限公司,Qichacha manual capture,持股比例 0.92% | 中国香港
+600612.SH,shareholder_summary,股东6,VANGUARD TOTAL INTERNATIONAL STOCK INDEX FUND,Qichacha manual capture,持股比例 0.60% | 流通B股
+600612.SH,shareholder_summary,股东7,NORGES BANK,Qichacha manual capture,持股比例 0.55% | 挪威
+600612.SH,shareholder_summary,股东8,VANGUARD EMERGING MARKETS STOCK INDEX FUND,Qichacha manual capture,持股比例 0.50% | 流通B股
+600612.SH,shareholder_summary,股东9,EQ EMERGING DIVIDEND FUND,Qichacha manual capture,持股比例 0.50% | 流通B股
+600998.SH,industry_insight,市场趋势,行业受集采、创新药审批、医保控费和院外渠道变化影响，研发与现金流质量需要同步观察。,AkShare cache,
+600998.SH,industry_insight,所属行业,九州通 当前归属 医药商业。该字段来自 AkShare 个股公开信息，可作为轻量行业识别口径。,AkShare cache,
+600998.SH,industry_insight,竞争格局,同板块可比公司包括：暂未取得稳定的同板块可比公司列表。后续可结合财报指标做更细的同业对比。,AkShare cache,
+600998.SH,industry_insight,行业位置,暂未取得同板块成份股行情，先以公司行业字段和公开财报数据做初步判断。,AkShare cache,
+600998.SH,listing_info,EPS,0.14,Qichacha manual capture,
+600998.SH,listing_info,上市交易所,上海证券交易所,Qichacha manual capture,
+600998.SH,listing_info,上市日期,2010-11-02,Qichacha manual capture,
+600998.SH,listing_info,上市曾用名,-,Qichacha manual capture,
+600998.SH,listing_info,上市板块,主板,Qichacha manual capture,
+600998.SH,listing_info,募集资金净额,18.93亿,Qichacha manual capture,
+600998.SH,listing_info,发行市盈率,65,Qichacha manual capture,
+600998.SH,listing_info,发行总市值,19.5亿,Qichacha manual capture,
+600998.SH,listing_info,发行总量,1.5亿股,Qichacha manual capture,
+600998.SH,listing_info,发行方式,网下询价配售,Qichacha manual capture,
+600998.SH,listing_info,定价中签率,0.64%,Qichacha manual capture,
+600998.SH,listing_info,市净率,0.93,Qichacha manual capture,
+600998.SH,listing_info,总市值,254.64亿,Qichacha manual capture,
+600998.SH,listing_info,总经理,龚翼华,Qichacha manual capture,
+600998.SH,listing_info,总股本,50.42亿,Qichacha manual capture,
+600998.SH,listing_info,是否注册制,否,Qichacha manual capture,
+600998.SH,listing_info,每股发行价,13,Qichacha manual capture,
+600998.SH,listing_info,每股面值,1,Qichacha manual capture,
+600998.SH,listing_info,法人代表,刘长云,Qichacha manual capture,
+600998.SH,listing_info,流通值,254.64亿,Qichacha manual capture,
+600998.SH,listing_info,流通股,50.42亿,Qichacha manual capture,
+600998.SH,listing_info,独立董事,汤谷良、陆银娣、曾湘泉、王瑛、艾华,Qichacha manual capture,
+600998.SH,listing_info,网上发行日期,2010-10-25,Qichacha manual capture,
+600998.SH,listing_info,网下配售中签率,0.89%,Qichacha manual capture,
+600998.SH,listing_info,股票代码,600998.SH,Qichacha manual capture,
+600998.SH,listing_info,股票简称,九州通,Qichacha manual capture,
+600998.SH,listing_info,董事长,刘长云,Qichacha manual capture,
+600998.SH,listing_info,董秘,刘志峰,Qichacha manual capture,
+600998.SH,listing_info,表决权差异,否,Qichacha manual capture,
+600998.SH,listing_info,证券事务代表,张溪,Qichacha manual capture,
+600998.SH,listing_info,预测市盈率,8.68,Qichacha manual capture,
+600998.SH,listing_info,首日开盘价,18.25,Qichacha manual capture,
+600998.SH,listing_info,首日换手率,83.29%,Qichacha manual capture,
+600998.SH,listing_info,首日收盘价,18.98,Qichacha manual capture,
+600998.SH,public_profile,上市时间,2010-11-02,AkShare cache,AkShare 个股信息返回的上市日期
+600998.SH,public_profile,交易所,SH,AkShare cache,按股票代码推断
+600998.SH,public_profile,企业图谱,暂无信息,AkShare cache,后续可接企业关系数据源补齐
+600998.SH,public_profile,企业规模,大型,Qichacha manual capture,企查查截图人工补录
+600998.SH,public_profile,分支机构,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+600998.SH,public_profile,办公地址,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+600998.SH,public_profile,受益所有人,刘长云,Qichacha manual capture,依据主要人员及股东截图人工补录
+600998.SH,public_profile,员工人数,29862（2025年）,Qichacha manual capture,企查查截图人工补录
+600998.SH,public_profile,国标行业,西药批发,Qichacha manual capture,企查查截图人工补录
+600998.SH,public_profile,官网,www.jztey.com,Qichacha manual capture,企查查截图人工补录
+600998.SH,public_profile,实控人,刘长云,Qichacha manual capture,依据主要人员及股东截图人工补录
+600998.SH,public_profile,客户名称,九州通,AkShare cache,AkShare 个股公开信息返回的股票简称
+600998.SH,public_profile,对外投资,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+600998.SH,public_profile,总市值,272.80 亿元,AkShare cache,按公开行情数据估算
+600998.SH,public_profile,成立时间,1999-03-09,Qichacha manual capture,企查查截图人工补录
+600998.SH,public_profile,所属集团,九州通集团,Qichacha manual capture,企查查截图人工补录
+600998.SH,public_profile,曾用名,九州通集团有限公司（2003-10 至 2008-11）,Qichacha manual capture,企查查截图人工补录
+600998.SH,public_profile,最新价,5.41,AkShare cache,AkShare 行情接口返回的最新价格
+600998.SH,public_profile,法定代表人,刘长云,Qichacha manual capture,企查查截图人工补录
+600998.SH,public_profile,注册地址,湖北省武汉市汉阳区龙兴西街5号,Qichacha manual capture,企查查截图人工补录
+600998.SH,public_profile,注册资本,50.42 亿股,AkShare cache,AkShare 未返回注册资本时，以总股本作公开市场口径参考
+600998.SH,public_profile,流通市值,272.80 亿元,AkShare cache,按公开行情数据估算
+600998.SH,public_profile,经营范围,暂无信息,AkShare cache,AkShare 未返回时显示暂无信息
+600998.SH,public_profile,联系电话,027-84683017,Qichacha manual capture,企查查截图人工补录
+600998.SH,public_profile,股东,详见股东信息页（已结构化入库）,Qichacha manual capture,企查查截图人工补录
+600998.SH,public_profile,股权穿透图,暂无信息,AkShare cache,后续可接企业关系数据源补齐
+600998.SH,public_profile,股票代码,600998.SH,AkShare cache,财报数据查询主键
+600998.SH,public_profile,营业收入,1613.90亿元（2025年）,Qichacha manual capture,企查查截图人工补录
+600998.SH,public_profile,邮箱,jztdmc@jztey.com,Qichacha manual capture,企查查截图人工补录
+600998.SH,public_profile,高管,详见主要人员页（已结构化入库）,Qichacha manual capture,企查查截图人工补录
+600998.SH,registration,人员规模,1000-1999人,Qichacha manual capture,
+600998.SH,registration,企业类型,股份有限公司（外商投资、上市）,Qichacha manual capture,
+600998.SH,registration,分支机构参保人数,3（2024年报）,Qichacha manual capture,
+600998.SH,registration,参保人数,1636（2024年报）,Qichacha manual capture,
+600998.SH,registration,实缴资本,504247.0234万元,Qichacha manual capture,
+600998.SH,registration,工商注册号,420000400000103,Qichacha manual capture,
+600998.SH,registration,所属地区,湖北省武汉市汉阳区,Qichacha manual capture,
+600998.SH,registration,注册资本,504247.0234万元,Qichacha manual capture,
+600998.SH,registration,登记机关,湖北省市场监督管理局,Qichacha manual capture,
+600998.SH,registration,登记状态,存续（在营、开业、在册）,Qichacha manual capture,
+600998.SH,registration,纳税人识别号,9142000071451795XA,Qichacha manual capture,
+600998.SH,registration,纳税人资质,一般纳税人,Qichacha manual capture,
+600998.SH,registration,组织机构代码,71451795-X,Qichacha manual capture,
+600998.SH,registration,经营范围,药品批发、第三类医疗器械经营、药品互联网信息服务、酒类经营、医药器械租赁、食品销售、药品进出口、中药饮片代煎服务、第一类增值电信业务、第二类增值电信业务、技术咨询服务、化妆品及日用百货销售、供应链服务、物流仓储、软件开发、人工智能基础软件及应用软件开发、数据处理与存储支持服务、互联网数据服务、健康咨询、远程健康管理、物业管理、会议及展览服务、企业管理及市场营销咨询等。,Qichacha manual capture,
+600998.SH,registration,统一社会信用代码,9142000071451795XA,Qichacha manual capture,
+600998.SH,registration,英文名,"Jointown Pharmaceutical Group Co., Ltd.",Qichacha manual capture,
+600998.SH,registration,营业期限,1999-03-09 至 无固定期限,Qichacha manual capture,
+600998.SH,registration,进出口企业代码,420171451795X,Qichacha manual capture,
+600998.SH,shareholder_summary,股东1,上海弘康实业投资有限公司,Qichacha manual capture,持股比例 21.58% | 标签：大股东、股权质押
+600998.SH,shareholder_summary,股东10,长城国泰（舟山）产业并购重组基金合伙企业（有限合伙）,Qichacha manual capture,持股比例 1.36% | 关联产品/机构：长城股权基金
+600998.SH,shareholder_summary,股东2,狮龙国际集团（香港）有限公司,Qichacha manual capture,持股比例 11.41%
+600998.SH,shareholder_summary,股东3,楚昌投资集团有限公司,Qichacha manual capture,持股比例 9.11% | 间接持股比例 24.4027% | 标签：股权质押
+600998.SH,shareholder_summary,股东4,中山广银投资有限公司,Qichacha manual capture,持股比例 6.65% | 标签：股权质押
+600998.SH,shareholder_summary,股东5,北京点金投资有限公司,Qichacha manual capture,持股比例 5.48% | 关联产品/机构：楚昌投资
+600998.SH,shareholder_summary,股东6,中国信达资产管理股份有限公司,Qichacha manual capture,持股比例 4.99% | 关联产品/机构：中国信达（01359.HK）
+600998.SH,shareholder_summary,股东7,香港中央结算有限公司,Qichacha manual capture,持股比例 2.08%
+600998.SH,shareholder_summary,股东8,全国社保基金六零四组合,Qichacha manual capture,持股比例 1.42%
+600998.SH,shareholder_summary,股东9,刘树林,Qichacha manual capture,持股比例 1.40% | 间接持股比例 11.9469%

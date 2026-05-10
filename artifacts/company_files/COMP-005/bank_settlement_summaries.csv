@@ -1,0 +1,7 @@
+﻿period_code,inflow_total_cny,outflow_total_cny,net_flow_cny,average_daily_balance_cny,top_inflow_counterparty,top_outflow_counterparty,transaction_count,large_transaction_count,abnormal_fluctuation_flag,summary_note
+2025-07,384000.0,321600.0,62400.0,249600.0,襄阳医联智慧医院管理有限公司,武汉数联机房运维有限公司,18,3,0,Monthly settlement summary derived from seeded bank statement behavior.
+2025-08,395000.0,335000.0,60000.0,260000.0,襄阳医联智慧医院管理有限公司,武汉数联机房运维有限公司,20,3,0,Monthly settlement summary derived from seeded bank statement behavior.
+2025-09,400400.0,348400.0,52000.0,270400.0,襄阳医联智慧医院管理有限公司,武汉数联机房运维有限公司,22,3,0,Monthly settlement summary derived from seeded bank statement behavior.
+2025-10,432000.0,361800.0,70200.0,280800.0,襄阳医联智慧医院管理有限公司,武汉数联机房运维有限公司,24,3,0,Monthly settlement summary derived from seeded bank statement behavior.
+2025-11,432900.0,371850.0,61050.0,288600.0,襄阳医联智慧医院管理有限公司,武汉数联机房运维有限公司,26,3,0,Monthly settlement summary derived from seeded bank statement behavior.
+2025-12,450300.0,381900.0,68400.0,296400.0,襄阳医联智慧医院管理有限公司,武汉数联机房运维有限公司,28,3,0,Monthly settlement summary derived from seeded bank statement behavior.

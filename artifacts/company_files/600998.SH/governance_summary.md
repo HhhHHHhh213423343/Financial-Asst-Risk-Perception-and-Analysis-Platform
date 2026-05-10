@@ -1,0 +1,28 @@
+# Governance Summary
+
+- 刘长云 | listed_chairman | 董事长、非独立董事 | equity None
+- 刘志峰 | listed_board_secretary | 副总经理、董事会秘书 | equity None
+- 吴雪松 | listed_director | 非独立董事 | equity None
+- 王琦 | listed_director | 非独立董事 | equity None
+- 贺威 | listed_director | 非独立董事、副总裁 | equity 0.0053
+- 吴志龙 | listed_employee_director | 职工代表董事 | equity None
+- 夏晓益 | listed_finance_director | 财务总监 | equity None
+- 刘树林 | listed_honorary_chairman | 名誉副董事长 | equity 1.4
+- 曾湘泉 | listed_independent_director | 独立董事 | equity None
+- 汤谷良 | listed_independent_director | 独立董事 | equity None
+- 王瑛 | listed_independent_director | 独立董事 | equity None
+- 艾华 | listed_independent_director | 独立董事 | equity 0.0001
+- 陆银娣 | listed_independent_director | 独立董事 | equity None
+- 刘义常 | listed_vice_chairman | 副董事长、非独立董事、业务总裁 | equity None
+- 刘兆年 | listed_vice_chairman | 副董事长、非独立董事 | equity 1.1983
+- 刘登攀 | listed_vice_chairman | 副董事长、非独立董事 | equity None
+- 龚翼华 | listed_vice_chairman | 副董事长、非独立董事、总经理 | equity 0.0717
+- 全铭 | listed_vice_president | 副总经理 | equity None
+- 张青松 | listed_vice_president | 副总经理 | equity 0.0003
+- 杨聂 | listed_vice_president | 副总经理 | equity 0.0051
+- 杨菊美 | listed_vice_president | 副总经理 | equity 0.0134
+- 王启兵 | listed_vice_president | 副总经理 | equity 0.0056
+- 苏熙凌 | listed_vice_president | 副总经理、REITs首席运营官 | equity None
+- 许志君 | listed_vice_president | 副总经理 | equity None
+- 郭磊 | listed_vice_president | 副总经理 | equity 0.0176
+- 陈卫俊 | listed_vice_president | 副总经理 | equity None

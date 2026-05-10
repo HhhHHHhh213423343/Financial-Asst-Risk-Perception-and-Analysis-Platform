@@ -1,0 +1,31 @@
+# Governance Summary
+
+- 陈玉卿 | listed_chairman | 董事长、执行董事 | equity 0.0058
+- 董晓婕 | listed_board_secretary | 副总裁、董事会秘书 | equity 0.0019
+- 刘毅 | listed_ceo | 执行董事、总裁、首席执行官 | equity 0.0013
+- 潘东辉 | listed_director | 非执行董事 | equity None
+- 陈启宇 | listed_director | 非执行董事 | equity 0.0043
+- 严佳 | listed_employee_director | 职工董事、总会计师 | equity 0.0002
+- 王可心 | listed_executive_director | 执行董事 | equity 0.0121
+- 冯蓉丽 | listed_executive_president | 执行总裁 | equity 0.0019
+- Chen Penghui | listed_independent_director | 独立非执行董事 | equity None
+- 余梓山 | listed_independent_director | 独立非执行董事 | equity None
+- 杨玉成 | listed_independent_director | 独立非执行董事 | equity None
+- 王全弟 | listed_independent_director | 独立非执行董事 | equity None
+- 关晓晖 | listed_joint_chairman | 联席董事长、执行董事 | equity 0.011
+- Wenjie Zhang | listed_joint_president | 联席总裁 | equity None
+- Xingli Wang | listed_joint_president | 联席总裁 | equity None
+- 李静 | listed_joint_president | 联席总裁 | equity 0.0019
+- Xiang Li | listed_senior_vice_president | 高级副总裁 | equity None
+- 王冬华 | listed_senior_vice_president | 高级副总裁 | equity 0.0019
+- 胡航 | listed_senior_vice_president | 高级副总裁 | equity 0.0007
+- 陈战宇 | listed_senior_vice_president | 高级副总裁 | equity 0.0012
+- 黄智 | listed_senior_vice_president | 高级副总裁、首席财务官 | equity None
+- 文德镛 | listed_vice_chairman | 副董事长、执行董事 | equity 0.0038
+- 吕力琅 | listed_vice_president | 副总裁 | equity None
+- 孟凌媛 | listed_vice_president | 副总裁 | equity None
+- 朱悦 | listed_vice_president | 副总裁 | equity 0.001
+- 纪皓 | listed_vice_president | 副总裁 | equity 0.0006
+- 苏莉 | listed_vice_president | 副总裁 | equity 0.0007
+- 蔡婧姝 | listed_vice_president | 副总裁 | equity None
+- 袁方兵 | listed_vice_president | 副总裁 | equity None

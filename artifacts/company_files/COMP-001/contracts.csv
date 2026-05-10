@@ -1,0 +1,6 @@
+﻿contract_no,counterparty_name,sign_date,amount_cny,payment_terms,performance_status
+COMP-001-CTR-001,宁德新材装备股份有限公司,2025-07-05,768000.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-001-CTR-002,苏州华芯工业自动化有限公司,2025-08-05,883200.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-001-CTR-003,广州精测模组有限公司,2025-09-05,1033600.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-001-CTR-004,宁德新材装备股份有限公司,2025-10-05,1166400.0,"30% advance, 70% within 60 days after acceptance",performing
+COMP-001-CTR-005,苏州华芯工业自动化有限公司,2025-11-05,1368000.0,"30% advance, 70% within 60 days after acceptance",performing

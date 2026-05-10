@@ -1,0 +1,5 @@
+﻿rule_name,severity,finding_title,finding_summary,impact_summary,confidence
+Contract to invoice to cash check,medium,Contract receipts lag invoice rhythm,Two key contracts were substantially invoiced before corresponding cash receipts arrived.,Raises receivable aging pressure.,0.79
+Customer concentration threshold,medium,Top five customer concentration is elevated,Top five customers contributed about 76 percent of revenue.,Any delay from the top customer could materially affect repayment.,0.88
+Revenue triangle check,high,Revenue and bank inflow diverge in Q4,December self-reported revenue exceeded verified bank inflow by more than 20 percent.,Weakens confidence in short-term collection quality.,0.91
+Utility and output deviation,high,Power usage fell while revenue accelerated,Power consumption trended down for three months while shipped value increased materially.,Requires manual check on outsourced production and revenue recognition timing.,0.86

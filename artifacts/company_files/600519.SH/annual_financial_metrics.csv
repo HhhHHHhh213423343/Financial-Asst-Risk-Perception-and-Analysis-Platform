@@ -1,0 +1,149 @@
+﻿period_code,metric_code,metric_name,metric_category,value,unit
+20201231,accounts_payable,Accounts Payable,balance_sheet,1342267668.12,CNY
+20201231,accounts_receivable,Accounts Receivable,balance_sheet,1532728979.67,CNY
+20201231,cash,Cash,balance_sheet,36091090060.9,CNY
+20201231,inventory,Inventory,balance_sheet,28869087678.06,CNY
+20201231,shareholder_equity,Shareholder Equity,balance_sheet,167720683101.28,CNY
+20201231,total_assets,Total Assets,balance_sheet,213395810527.46,CNY
+20201231,total_liabilities,Total Liabilities,balance_sheet,45675127426.18,CNY
+20201231,capital_expenditure,Capital Expenditure,cash_flow,2089769498.78,CNY
+20201231,financing_cashflow,Financing Cash Flow,cash_flow,-24127536908.26,CNY
+20201231,investing_cashflow,Investing Cash Flow,cash_flow,-1805227155.72,CNY
+20201231,net_cashflow,Net Cash Flow,cash_flow,25736685268.41,CNY
+20201231,operating_cashflow,Operating Cash Flow,cash_flow,51669068693.03,CNY
+20201231,admin_expense,Administrative Expense,income_statement,6789844289.39,CNY
+20201231,finance_expense,Finance Expense,income_statement,-234610582.44,CNY
+20201231,net_profit,Net Profit,income_statement,49523329882.4,CNY
+20201231,operating_cost,Operating Cost,income_statement,8154001476.28,CNY
+20201231,operating_profit,Operating Profit,income_statement,66635079882.38,CNY
+20201231,rd_expense,R&D Expense,income_statement,50398036.33,CNY
+20201231,revenue,Revenue,income_statement,97993240501.21,CNY
+20201231,selling_expense,Selling Expense,income_statement,2547745650.95,CNY
+20201231,asset_turnover,Asset Turnover,ratio,0.4788,ratio
+20201231,cfo_to_net_profit,Operating Cash Flow / Net Profit,ratio,1.0433278379245772,ratio
+20201231,current_ratio,Current Ratio,ratio,4.0648,ratio
+20201231,debt_to_assets_pct,Debt to Assets,ratio,21.4039,percent
+20201231,gross_margin_pct,Gross Margin,ratio,76.7788,percent
+20201231,net_margin_pct,Net Margin,ratio,52.1763,percent
+20201231,quick_ratio,Quick Ratio,ratio,3.4327,ratio
+20201231,roa_pct,ROA,ratio,24.9841,percent
+20201231,roe_pct,ROE,ratio,28.95,percent
+20211231,accounts_payable,Accounts Payable,balance_sheet,2009832495.56,CNY
+20211231,cash,Cash,balance_sheet,51810243607.11,CNY
+20211231,inventory,Inventory,balance_sheet,33394365084.83,CNY
+20211231,shareholder_equity,Shareholder Equity,balance_sheet,196957506705.34,CNY
+20211231,short_debt,Short-term Debt,balance_sheet,104319886.87,CNY
+20211231,total_assets,Total Assets,balance_sheet,255168195159.9,CNY
+20211231,total_liabilities,Total Liabilities,balance_sheet,58210688454.56,CNY
+20211231,capital_expenditure,Capital Expenditure,cash_flow,3408784532.01,CNY
+20211231,financing_cashflow,Financing Cash Flow,cash_flow,-26564141388.96,CNY
+20211231,investing_cashflow,Investing Cash Flow,cash_flow,-5562445704.34,CNY
+20211231,net_cashflow,Net Cash Flow,cash_flow,31900062511.47,CNY
+20211231,operating_cashflow,Operating Cash Flow,cash_flow,64028676147.37,CNY
+20211231,admin_expense,Administrative Expense,income_statement,8450274065.03,CNY
+20211231,finance_expense,Finance Expense,income_statement,-934523406.02,CNY
+20211231,net_profit,Net Profit,income_statement,55720529956.46,CNY
+20211231,operating_cost,Operating Cost,income_statement,8983377809.96,CNY
+20211231,operating_profit,Operating Profit,income_statement,74750880777.52,CNY
+20211231,rd_expense,R&D Expense,income_statement,61923213.59,CNY
+20211231,revenue,Revenue,income_statement,109464278563.89,CNY
+20211231,selling_expense,Selling Expense,income_statement,2737369434.78,CNY
+20211231,asset_turnover,Asset Turnover,ratio,0.4533,ratio
+20211231,cfo_to_net_profit,Operating Cash Flow / Net Profit,ratio,1.1491038616718467,ratio
+20211231,current_ratio,Current Ratio,ratio,3.8119,ratio
+20211231,debt_to_assets_pct,Debt to Assets,ratio,22.8127,percent
+20211231,gross_margin_pct,Gross Margin,ratio,77.128,percent
+20211231,net_margin_pct,Net Margin,ratio,52.4724,percent
+20211231,quick_ratio,Quick Ratio,ratio,3.2353,ratio
+20211231,roa_pct,ROA,ratio,23.7835,percent
+20211231,roe_pct,ROE,ratio,27.68,percent
+20221231,accounts_payable,Accounts Payable,balance_sheet,2408371053.69,CNY
+20221231,accounts_receivable,Accounts Receivable,balance_sheet,20937144.0,CNY
+20221231,cash,Cash,balance_sheet,58274318733.23,CNY
+20221231,inventory,Inventory,balance_sheet,38824374236.24,CNY
+20221231,shareholder_equity,Shareholder Equity,balance_sheet,204938081263.86,CNY
+20221231,short_debt,Short-term Debt,balance_sheet,109351155.28,CNY
+20221231,total_assets,Total Assets,balance_sheet,254500826096.02,CNY
+20221231,total_liabilities,Total Liabilities,balance_sheet,49562744832.16,CNY
+20221231,capital_expenditure,Capital Expenditure,cash_flow,5306546416.54,CNY
+20221231,financing_cashflow,Financing Cash Flow,cash_flow,-57424528979.83,CNY
+20221231,investing_cashflow,Investing Cash Flow,cash_flow,-5536826334.9,CNY
+20221231,net_cashflow,Net Cash Flow,cash_flow,-26261848396.69,CNY
+20221231,operating_cashflow,Operating Cash Flow,cash_flow,36698595830.03,CNY
+20221231,admin_expense,Administrative Expense,income_statement,9012191073.63,CNY
+20221231,finance_expense,Finance Expense,income_statement,-1391805826.72,CNY
+20221231,net_profit,Net Profit,income_statement,65376039957.88,CNY
+20221231,operating_cost,Operating Cost,income_statement,10093468616.63,CNY
+20221231,operating_profit,Operating Profit,income_statement,87879521782.39,CNY
+20221231,rd_expense,R&D Expense,income_statement,135185680.4,CNY
+20221231,revenue,Revenue,income_statement,127553959355.97,CNY
+20221231,selling_expense,Selling Expense,income_statement,3297724190.94,CNY
+20221231,asset_turnover,Asset Turnover,ratio,0.4871,ratio
+20221231,cfo_to_net_profit,Operating Cash Flow / Net Profit,ratio,0.5613462646815852,ratio
+20221231,current_ratio,Current Ratio,ratio,4.4147,ratio
+20221231,debt_to_assets_pct,Debt to Assets,ratio,19.421,percent
+20221231,gross_margin_pct,Gross Margin,ratio,76.9627,percent
+20221231,net_margin_pct,Net Margin,ratio,52.6795,percent
+20221231,quick_ratio,Quick Ratio,ratio,3.6235,ratio
+20221231,roa_pct,ROA,ratio,25.6608,percent
+20221231,roe_pct,ROE,ratio,31.75,percent
+20231231,accounts_payable,Accounts Payable,balance_sheet,3093091103.67,CNY
+20231231,accounts_receivable,Accounts Receivable,balance_sheet,60373410.41,CNY
+20231231,cash,Cash,balance_sheet,69070136376.12,CNY
+20231231,inventory,Inventory,balance_sheet,46435185061.53,CNY
+20231231,shareholder_equity,Shareholder Equity,balance_sheet,223656469294.82,CNY
+20231231,short_debt,Short-term Debt,balance_sheet,57054879.48,CNY
+20231231,total_assets,Total Assets,balance_sheet,272699660092.25,CNY
+20231231,total_liabilities,Total Liabilities,balance_sheet,49043190797.43,CNY
+20231231,capital_expenditure,Capital Expenditure,cash_flow,2619755888.79,CNY
+20231231,financing_cashflow,Financing Cash Flow,cash_flow,-58889101991.94,CNY
+20231231,investing_cashflow,Investing Cash Flow,cash_flow,-9724414015.16,CNY
+20231231,net_cashflow,Net Cash Flow,cash_flow,-2018550030.36,CNY
+20231231,operating_cashflow,Operating Cash Flow,cash_flow,66593247721.09,CNY
+20231231,admin_expense,Administrative Expense,income_statement,9729389252.31,CNY
+20231231,finance_expense,Finance Expense,income_statement,-1789503701.48,CNY
+20231231,net_profit,Net Profit,income_statement,77521476277.8,CNY
+20231231,operating_cost,Operating Cost,income_statement,11867273851.78,CNY
+20231231,operating_profit,Operating Profit,income_statement,103708655208.38,CNY
+20231231,rd_expense,R&D Expense,income_statement,157371873.01,CNY
+20231231,revenue,Revenue,income_statement,150560330316.44998,CNY
+20231231,selling_expense,Selling Expense,income_statement,4648613585.82,CNY
+20231231,asset_turnover,Asset Turnover,ratio,0.5604,ratio
+20231231,cfo_to_net_profit,Operating Cash Flow / Net Profit,ratio,0.8590296640178982,ratio
+20231231,current_ratio,Current Ratio,ratio,4.6239,ratio
+20231231,debt_to_assets_pct,Debt to Assets,ratio,17.9843,percent
+20231231,gross_margin_pct,Gross Margin,ratio,76.9107,percent
+20231231,net_margin_pct,Net Margin,ratio,52.488,percent
+20231231,quick_ratio,Quick Ratio,ratio,3.6704,ratio
+20231231,roa_pct,ROA,ratio,29.4163,percent
+20231231,roe_pct,ROE,ratio,34.65,percent
+20241231,accounts_payable,Accounts Payable,balance_sheet,3514969230.31,CNY
+20241231,accounts_receivable,Accounts Receivable,balance_sheet,18974192.75,CNY
+20241231,cash,Cash,balance_sheet,59295822956.89,CNY
+20241231,inventory,Inventory,balance_sheet,54343285157.47,CNY
+20241231,shareholder_equity,Shareholder Equity,balance_sheet,242011315120.6,CNY
+20241231,short_debt,Short-term Debt,balance_sheet,111951112.2,CNY
+20241231,total_assets,Total Assets,balance_sheet,298944579918.7,CNY
+20241231,total_liabilities,Total Liabilities,balance_sheet,56933264798.1,CNY
+20241231,capital_expenditure,Capital Expenditure,cash_flow,4678712053.56,CNY
+20241231,financing_cashflow,Financing Cash Flow,cash_flow,-71067506484.81,CNY
+20241231,investing_cashflow,Investing Cash Flow,cash_flow,-1785202630.71,CNY
+20241231,net_cashflow,Net Cash Flow,cash_flow,19609900305.36,CNY
+20241231,operating_cashflow,Operating Cash Flow,cash_flow,92463692168.43,CNY
+20241231,admin_expense,Administrative Expense,income_statement,9315650060.38,CNY
+20241231,finance_expense,Finance Expense,income_statement,-1470219863.34,CNY
+20241231,net_profit,Net Profit,income_statement,89334728025.9,CNY
+20241231,operating_cost,Operating Cost,income_statement,13789482367.98,CNY
+20241231,operating_profit,Operating Profit,income_statement,119688579453.23,CNY
+20241231,rd_expense,R&D Expense,income_statement,218375472.87,CNY
+20241231,revenue,Revenue,income_statement,174144069958.24997,CNY
+20241231,selling_expense,Selling Expense,income_statement,5639300059.49,CNY
+20241231,asset_turnover,Asset Turnover,ratio,0.5979,ratio
+20241231,cfo_to_net_profit,Operating Cash Flow / Net Profit,ratio,1.0350251711923593,ratio
+20241231,current_ratio,Current Ratio,ratio,4.4541,ratio
+20241231,debt_to_assets_pct,Debt to Assets,ratio,19.0448,percent
+20241231,gross_margin_pct,Gross Margin,ratio,76.1756,percent
+20241231,net_margin_pct,Net Margin,ratio,52.2734,percent
+20241231,quick_ratio,Quick Ratio,ratio,3.4925,ratio
+20241231,roa_pct,ROA,ratio,31.2554,percent
+20241231,roe_pct,ROE,ratio,36.99,percent

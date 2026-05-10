@@ -1,0 +1,7 @@
+﻿asset_type,asset_name,registration_no,status,grant_date,expiry_date
+patent,Industrial SaaS core asset 1,COMP-002-IP-001,active,2023-01-10,2033-12-31
+patent,Industrial SaaS core asset 2,COMP-002-IP-002,active,2023-02-10,2033-12-31
+software_copyright,Industrial SaaS core asset 3,COMP-002-IP-003,active,2023-03-10,2033-12-31
+software_copyright,Industrial SaaS core asset 4,COMP-002-IP-004,active,2023-04-10,2033-12-31
+software_copyright,Industrial SaaS core asset 5,COMP-002-IP-005,active,2023-05-10,2033-12-31
+software_copyright,Industrial SaaS core asset 6,COMP-002-IP-006,active,2023-06-10,2033-12-31

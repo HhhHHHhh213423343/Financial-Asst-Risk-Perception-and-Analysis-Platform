@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>金融资产风险感知与分析平台 Demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <div class="app-frame">
+        <header class="topbar">
+          <div class="topbar-brand">
+            <img src="./assets/logo.png" alt="金融资产风险感知与分析平台" class="brand-logo" />
+            <div>
+              <p class="brand-kicker">Demo</p>
+              <h1>金融资产风险感知与分析平台</h1>
+            </div>
+          </div>
+
+          <nav class="topbar-nav" id="topbar-nav" aria-label="一级主导航"></nav>
+        </header>
+
+        <div class="workspace">
+          <aside class="sidebar">
+            <div class="sidebar-context" id="sidebar-context"></div>
+            <nav class="sidebar-nav" id="sidebar-nav" aria-label="二级菜单"></nav>
+            <div class="sidebar-note" id="sidebar-note"></div>
+          </aside>
+
+          <main class="main-panel">
+            <section id="toolbar-area"></section>
+            <section id="content-area"></section>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer-overlay is-hidden" id="preview-overlay">
+      <div class="preview-drawer">
+        <div class="preview-drawer-head">
+          <div>
+            <p class="section-kicker">尽调报告全文</p>
+            <h3 id="preview-title"></h3>
+          </div>
+          <button class="ghost-action" type="button" data-action="close-preview">关闭</button>
+        </div>
+
+        <div class="preview-drawer-body">
+          <aside class="preview-outline" id="preview-outline"></aside>
+          <article class="preview-article" id="preview-article"></article>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-overlay is-hidden" id="completion-modal">
+      <div class="completion-modal">
+        <div class="modal-head">
+          <div>
+            <p class="section-kicker">资料完善</p>
+            <h3 id="completion-modal-title"></h3>
+          </div>
+          <button class="ghost-action" type="button" data-action="close-completion-modal">关闭</button>
+        </div>
+        <div class="modal-body" id="completion-modal-body"></div>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

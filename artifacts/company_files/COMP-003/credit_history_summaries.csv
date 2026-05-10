@@ -1,0 +1,3 @@
+﻿subject_type,subject_name,credit_channel,account_count,outstanding_balance_cny,overdue_count,max_overdue_bucket,hard_inquiry_3m,hard_inquiry_6m,external_guarantee_exposure_cny,credit_assessment,summary_note
+controller,何舟,personal_credit_summary,3,420000.0,0,none,1,2,0.0,good,Controller credit profile summarized for demo use; replace with authorized credit report if available.
+enterprise,成都智检视觉装备有限公司,enterprise_credit_summary,4,1800000.0,0,none,1,2,250000.0,good,Enterprise credit history is broadly clean with limited external guarantees.

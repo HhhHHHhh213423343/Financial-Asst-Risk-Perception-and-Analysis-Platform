@@ -1,0 +1,19 @@
+﻿txn_date,txn_direction,counterparty_name,amount_cny,balance_after_cny,txn_summary
+2025-07-11,credit,重庆弘冠电子有限公司,361340.0,811340.0,Contract collection
+2025-07-12,credit,绵阳星桥包装设备有限公司,261660.0,1073000.0,Contract collection
+2025-07-23,debit,成都维拓工控配件有限公司,217000.0,856000.0,Supplier payment
+2025-08-11,credit,重庆弘冠电子有限公司,380016.0,1236016.0,Contract collection
+2025-08-12,credit,绵阳星桥包装设备有限公司,275184.0,1511200.0,Contract collection
+2025-08-23,debit,成都维拓工控配件有限公司,223200.0,1288000.0,Supplier payment
+2025-09-11,credit,重庆弘冠电子有限公司,396720.0,1684720.0,Contract collection
+2025-09-12,credit,绵阳星桥包装设备有限公司,287280.0,1972000.0,Contract collection
+2025-09-23,debit,成都维拓工控配件有限公司,235600.0,1736400.0,Supplier payment
+2025-10-11,credit,重庆弘冠电子有限公司,398112.0,2134512.0,Contract collection
+2025-10-12,credit,绵阳星桥包装设备有限公司,288288.0,2422800.0,Contract collection
+2025-10-23,debit,成都维拓工控配件有限公司,241800.0,2181000.0,Supplier payment
+2025-11-11,credit,重庆弘冠电子有限公司,421544.0,2602544.0,Contract collection
+2025-11-12,credit,绵阳星桥包装设备有限公司,305256.0,2907800.0,Contract collection
+2025-11-23,debit,成都维拓工控配件有限公司,244900.0,2662900.0,Supplier payment
+2025-12-11,credit,重庆弘冠电子有限公司,433260.0,3096160.0,Contract collection
+2025-12-12,credit,绵阳星桥包装设备有限公司,313740.0,3409900.0,Contract collection
+2025-12-23,debit,成都维拓工控配件有限公司,257300.0,3152600.0,Supplier payment

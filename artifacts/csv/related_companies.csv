@@ -1,0 +1,12 @@
+﻿company_code,related_company_name,relation_type,risk_flag,control_path,note
+600519.SH,贵州茅台酒股份有限公司和义兴酒业分公司,branch,0,,负责人：黄旭；地区：贵州省遵义市仁怀市；成立日期：2020-09-24；状态：存续
+600519.SH,贵州茅台酒股份有限公司茅台国际大酒店,branch,0,,负责人：谭娟；地区：贵州省遵义市仁怀市；成立日期：2016-04-29；状态：存续
+600519.SH,贵州茅台酒股份有限公司遵义水厂分公司,branch,1,,负责人：薛建华；地区：贵州省遵义市红花岗区；成立日期：2022-08-25；状态：注销
+600612.SH,中国第一铅笔股份有限公司卢湾分公司,branch,1,,负责人：李继国；地区：上海市徐汇区；成立日期：2006-11-07；状态：注销
+600612.SH,中国第一铅笔股份有限公司职工技术协会,branch,1,,负责人：黄明旭；地区：上海市虹口区；成立日期：1992-06-19；状态：注销
+600612.SH,中国第一铅笔股份有限公司高蒂丝化妆品分公司,branch,0,,负责人：朱惠毅；地区：上海市虹口区；成立日期：1992-12-03；状态：吊销
+COMP-001,深圳市灵犀电子封装有限公司,affiliate_supplier,1,common_controller,Shares controller family links and short-term advances.
+COMP-002,苏州云衡数字运维有限公司,subsidiary,0,common_controller,Lightweight delivery affiliate with no material debt.
+COMP-003,成都智检系统集成服务中心,service_affiliate,0,common_controller,Provides on-site integration services.
+COMP-004,杭州启脉低碳服务有限公司,affiliate_service_company,0,common_controller,Service implementation affiliate used for municipal contracts.
+COMP-005,武汉睿桥云维服务有限公司,service_affiliate,0,common_controller,Maintains after-sales service contracts.

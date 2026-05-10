@@ -1,0 +1,73 @@
+﻿period_code,metric_code,metric_name,value,unit
+2025-07,accounts_payable,Accounts Payable,201600.0,CNY
+2025-07,accounts_receivable,Accounts Receivable,432000.0,CNY
+2025-07,asset_liability_ratio,Asset Liability Ratio,0.46,ratio
+2025-07,cogs,Cost of Goods Sold,249600.0,CNY
+2025-07,gross_margin_pct,Gross Margin,0.48,ratio
+2025-07,gross_profit,Gross Profit,230400.0,CNY
+2025-07,inventory,Inventory,163200.0,CNY
+2025-07,net_profit,Net Profit,48000.0,CNY
+2025-07,operating_cash_flow,Operating Cash Flow,48000.0,CNY
+2025-07,revenue,Revenue,480000.0,CNY
+2025-07,total_assets,Total Assets,3024000.0,CNY
+2025-07,total_liabilities,Total Liabilities,1391040.0,CNY
+2025-08,accounts_payable,Accounts Payable,210000.0,CNY
+2025-08,accounts_receivable,Accounts Receivable,450000.0,CNY
+2025-08,asset_liability_ratio,Asset Liability Ratio,0.46,ratio
+2025-08,cogs,Cost of Goods Sold,260000.0,CNY
+2025-08,gross_margin_pct,Gross Margin,0.48,ratio
+2025-08,gross_profit,Gross Profit,240000.0,CNY
+2025-08,inventory,Inventory,170000.0,CNY
+2025-08,net_profit,Net Profit,50000.0,CNY
+2025-08,operating_cash_flow,Operating Cash Flow,50000.0,CNY
+2025-08,revenue,Revenue,500000.0,CNY
+2025-08,total_assets,Total Assets,3195000.0,CNY
+2025-08,total_liabilities,Total Liabilities,1469700.0,CNY
+2025-09,accounts_payable,Accounts Payable,218400.0,CNY
+2025-09,accounts_receivable,Accounts Receivable,468000.0,CNY
+2025-09,asset_liability_ratio,Asset Liability Ratio,0.46,ratio
+2025-09,cogs,Cost of Goods Sold,270400.0,CNY
+2025-09,gross_margin_pct,Gross Margin,0.48,ratio
+2025-09,gross_profit,Gross Profit,249600.0,CNY
+2025-09,inventory,Inventory,176800.0,CNY
+2025-09,net_profit,Net Profit,52000.0,CNY
+2025-09,operating_cash_flow,Operating Cash Flow,52000.0,CNY
+2025-09,revenue,Revenue,520000.0,CNY
+2025-09,total_assets,Total Assets,3366000.0,CNY
+2025-09,total_liabilities,Total Liabilities,1548360.0,CNY
+2025-10,accounts_payable,Accounts Payable,226800.0,CNY
+2025-10,accounts_receivable,Accounts Receivable,486000.0,CNY
+2025-10,asset_liability_ratio,Asset Liability Ratio,0.46,ratio
+2025-10,cogs,Cost of Goods Sold,280800.0,CNY
+2025-10,gross_margin_pct,Gross Margin,0.48,ratio
+2025-10,gross_profit,Gross Profit,259200.0,CNY
+2025-10,inventory,Inventory,183600.0,CNY
+2025-10,net_profit,Net Profit,54000.0,CNY
+2025-10,operating_cash_flow,Operating Cash Flow,54000.0,CNY
+2025-10,revenue,Revenue,540000.0,CNY
+2025-10,total_assets,Total Assets,3537000.0,CNY
+2025-10,total_liabilities,Total Liabilities,1627020.0,CNY
+2025-11,accounts_payable,Accounts Payable,233100.0,CNY
+2025-11,accounts_receivable,Accounts Receivable,499500.0,CNY
+2025-11,asset_liability_ratio,Asset Liability Ratio,0.46,ratio
+2025-11,cogs,Cost of Goods Sold,288600.0,CNY
+2025-11,gross_margin_pct,Gross Margin,0.48,ratio
+2025-11,gross_profit,Gross Profit,266400.0,CNY
+2025-11,inventory,Inventory,188700.0,CNY
+2025-11,net_profit,Net Profit,55500.0,CNY
+2025-11,operating_cash_flow,Operating Cash Flow,55500.0,CNY
+2025-11,revenue,Revenue,555000.0,CNY
+2025-11,total_assets,Total Assets,3676500.0,CNY
+2025-11,total_liabilities,Total Liabilities,1691190.0,CNY
+2025-12,accounts_payable,Accounts Payable,239400.0,CNY
+2025-12,accounts_receivable,Accounts Receivable,513000.0,CNY
+2025-12,asset_liability_ratio,Asset Liability Ratio,0.46,ratio
+2025-12,cogs,Cost of Goods Sold,296400.0,CNY
+2025-12,gross_margin_pct,Gross Margin,0.48,ratio
+2025-12,gross_profit,Gross Profit,273600.0,CNY
+2025-12,inventory,Inventory,193800.0,CNY
+2025-12,net_profit,Net Profit,57000.0,CNY
+2025-12,operating_cash_flow,Operating Cash Flow,57000.0,CNY
+2025-12,revenue,Revenue,570000.0,CNY
+2025-12,total_assets,Total Assets,3816000.0,CNY
+2025-12,total_liabilities,Total Liabilities,1755360.0,CNY
