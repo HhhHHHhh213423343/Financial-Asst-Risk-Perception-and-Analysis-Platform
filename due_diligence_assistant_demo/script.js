@@ -313,30 +313,30 @@ const homeToolRailItems = [
 
 const smartNavRouteMeta = {
   "company-profile": {
-    path: "/company-profile",
+    sectionId: "enterprise-library",
+    sidebarId: "portrait",
     label: "企业画像",
-    topSectionId: "enterprise-library",
   },
   "insight-tasks": {
-    path: "/insight-tasks",
+    sectionId: "due-task",
+    sidebarId: "execution",
     label: "洞察任务",
-    topSectionId: "due-task",
   },
   "due-diligence-report": {
-    path: "/reports/due-diligence",
+    sectionId: "report-center",
+    sidebarId: "generation",
     label: "尽调报告",
-    topSectionId: "report-center",
   },
   "watchlist-detail": {
-    path: "/watchlist",
+    sectionId: "watchlist",
+    sidebarId: "alerts",
     label: "风险预警",
-    topSectionId: "watchlist",
   },
 };
 
 const smartNavActionCatalog = [
-  { routeKey: "company-profile", label: "查看企业画像", description: "进入企业画像详情页" },
   { routeKey: "insight-tasks", label: "查看洞察任务", description: "进入洞察任务详情页" },
+  { routeKey: "company-profile", label: "查看企业画像", description: "进入企业画像详情页" },
   { routeKey: "due-diligence-report", label: "查看尽调报告", description: "进入尽调报告详情页" },
   { routeKey: "watchlist-detail", label: "查看风险预警", description: "进入监控预警详情页" },
 ];
@@ -350,6 +350,7 @@ const smartNavIntentKeywords = {
 const smartNavCompanies = [
   {
     id: "lingxi",
+    companyCode: "COMP-001",
     name: "深圳市灵犀微传感科技有限公司",
     aliases: ["深圳灵犀微传感", "灵犀微传感", "灵犀微传感科技", "灵犀微传感公司", "灵犀"],
     industry: "工业传感器 / 智能制造",
@@ -403,6 +404,7 @@ const smartNavCompanies = [
   },
   {
     id: "qimai",
+    companyCode: "COMP-004",
     name: "杭州启脉能源物联科技有限公司",
     aliases: ["杭州启脉能源", "启脉能源", "启脉能源物联", "启脉物联", "启脉"],
     industry: "能源物联 / 工业软件",
@@ -455,6 +457,7 @@ const smartNavCompanies = [
   },
   {
     id: "huafeng",
+    companyCode: null,
     name: "华丰电气集团有限公司",
     aliases: ["华丰电气", "华丰集团", "华丰电气集团", "华丰"],
     industry: "电气设备 / 工程集成",
@@ -1392,8 +1395,75 @@ function normalizeSmartSearchText(value) {
     .replace(/[（()）·,，。、“”"'‘’:：;；!！?？\s\-_/]/g, "");
 }
 
+function buildSmartNavAliases(name = "") {
+  const rawName = String(name || "").trim();
+  if (!rawName) return [];
+
+  const aliases = new Set([rawName]);
+  const stripCorporateSuffix = (value) => value
+    .replace(/（集团）股份有限公司$/g, "")
+    .replace(/（集团）有限公司$/g, "")
+    .replace(/集团股份有限公司$/g, "")
+    .replace(/集团有限公司$/g, "")
+    .replace(/股份有限公司$/g, "")
+    .replace(/有限责任公司$/g, "")
+    .replace(/有限公司$/g, "")
+    .trim();
+
+  const withoutSuffix = stripCorporateSuffix(rawName);
+  if (withoutSuffix) aliases.add(withoutSuffix);
+
+  const withoutRegion = rawName.replace(/^(北京|上海|天津|重庆|深圳市|广州市|杭州市|苏州市|成都市|武汉市|南京市|宁波市|无锡市|佛山市|东莞市|青岛市|厦门市|珠海市|合肥市|长沙市|郑州市|西安市|山东省|浙江省|江苏省|广东省|湖北省|四川省)/, "").trim();
+  if (withoutRegion) aliases.add(withoutRegion);
+
+  const withoutRegionSuffix = stripCorporateSuffix(withoutRegion);
+  if (withoutRegionSuffix) aliases.add(withoutRegionSuffix);
+
+  const compactName = rawName.replace(/[（）()]/g, "");
+  if (compactName && compactName !== rawName) aliases.add(compactName);
+
+  return Array.from(aliases).filter(Boolean);
+}
+
+function createSmartNavCompanyFromBackend(company) {
+  if (!company) return null;
+  const companyCode = company.company_code || company.companyCode || company.id;
+  if (!companyCode) return null;
+  return {
+    id: `db-${String(companyCode).toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+    companyCode,
+    name: company.name,
+    aliases: buildSmartNavAliases(company.name),
+    industry: formatCompanyIndustry(company),
+    region: [company.region_province, company.region_city].filter(Boolean).join(" · ") || "企业库样本",
+    summary: compactText(localizeText(company.overview), "已接入企业库，可直接进入画像、任务、报告和预警模块。"),
+    riskLevel: getCompanyRiskLevelLabel(company) || "中风险",
+    riskScore: getCompanyRiskScoreValue(company) ?? getRiskScore(company),
+  };
+}
+
+function getSmartNavCompaniesSource() {
+  const backendCompanies = (state.companies || [])
+    .map(createSmartNavCompanyFromBackend)
+    .filter(Boolean);
+
+  const byCode = new Map(backendCompanies.map((item) => [item.companyCode, item]));
+  const mergedPrimary = smartNavCompanies.map((item) => {
+    const backendMatch = item.companyCode ? byCode.get(item.companyCode) : backendCompanies.find((company) => company.name === item.name);
+    return {
+      ...backendMatch,
+      ...item,
+      aliases: Array.from(new Set([...(backendMatch?.aliases || []), ...(item.aliases || [])])),
+    };
+  });
+
+  const occupiedCodes = new Set(mergedPrimary.map((item) => item.companyCode).filter(Boolean));
+  const remainder = backendCompanies.filter((item) => !occupiedCodes.has(item.companyCode));
+  return [...mergedPrimary, ...remainder];
+}
+
 function getSmartNavCompanyById(companyId) {
-  return smartNavCompanies.find((item) => item.id === companyId) || null;
+  return getSmartNavCompaniesSource().find((item) => item.id === companyId) || null;
 }
 
 function resolveSmartNavCompany(input) {
@@ -1403,7 +1473,7 @@ function resolveSmartNavCompany(input) {
   let matched = null;
   let highestScore = 0;
 
-  smartNavCompanies.forEach((company) => {
+  getSmartNavCompaniesSource().forEach((company) => {
     const searchTokens = [company.name, ...(company.aliases || [])]
       .map(normalizeSmartSearchText)
       .filter(Boolean);
@@ -1490,9 +1560,18 @@ function getSmartNavContextCompany() {
   return getSmartNavCompanyById(state.smartNavContext.companyId);
 }
 
+function resolveExistingCompanyCode(company) {
+  if (!company) return null;
+  if (company.companyCode && getCompanySummary(company.companyCode)) return company.companyCode;
+  const matched = state.companies.find((item) => item.name === company.name);
+  return matched?.company_code || null;
+}
+
 function buildSmartNavSearch(context = state.smartNavContext) {
   if (!context) return "";
   const params = new URLSearchParams();
+  if (context.sectionId) params.set("section", context.sectionId);
+  if (context.routeKey) params.set("intent", context.routeKey);
   if (context.companyId) params.set("companyId", context.companyId);
   if (context.companyName) params.set("companyName", context.companyName);
   if (context.rawInput) params.set("q", context.rawInput);
@@ -1501,10 +1580,7 @@ function buildSmartNavSearch(context = state.smartNavContext) {
 
 function getAppLocationFromState() {
   if (state.smartNavContext?.routeKey && smartNavRouteMeta[state.smartNavContext.routeKey]) {
-    return {
-      pathname: smartNavRouteMeta[state.smartNavContext.routeKey].path,
-      search: buildSmartNavSearch(),
-    };
+    return { pathname: "/", search: buildSmartNavSearch() };
   }
   if (state.topSectionId === "risk-map") return getRiskMapPath();
   return { pathname: "/", search: "" };
@@ -1528,22 +1604,110 @@ function syncLocationFromState(replace = false) {
   );
 }
 
+function applySmartSectionState(routeKey, company, options = {}) {
+  const meta = smartNavRouteMeta[routeKey];
+  if (!meta) return false;
+  const companyCode = resolveExistingCompanyCode(company);
+  if (!companyCode) return false;
+
+  state.topSectionId = meta.sectionId;
+  state.activeSidebarBySection[meta.sectionId] = meta.sidebarId;
+  state.previewOpen = false;
+  state.previewSectionId = null;
+  state.riskMapRegionId = null;
+
+  if (routeKey === "company-profile") {
+    state.portraitCompanyId = companyCode;
+    state.portraitView = "detail";
+    state.portraitLoadingCompanyCode = options.loading ? companyCode : null;
+    state.portraitError = null;
+  }
+  if (routeKey === "insight-tasks") {
+    state.taskBoardCompanyCode = companyCode;
+    state.taskBoardView = "detail";
+  }
+  if (routeKey === "due-diligence-report") {
+    state.processEngineCompanyCode = companyCode;
+    state.reportCenterReportTypeId = "due-diligence";
+    state.reportCenterView = "detail";
+    state.reportCenterLoadingCompanyCode = options.loading ? companyCode : null;
+    state.reportCenterError = null;
+    state.dueDiligenceTabId = "report-generate";
+    rememberCompany("process-engine", companyCode);
+  }
+  if (routeKey === "watchlist-detail") {
+    state.watchlistFocusCode = companyCode;
+    state.watchlistPanelMode = "detail";
+  }
+
+  state.smartNavContext = {
+    routeKey,
+    sectionId: meta.sectionId,
+    companyId: company.id,
+    companyName: company.name,
+    rawInput: options.rawInput ?? state.homeCommandInput,
+  };
+  return true;
+}
+
+async function hydrateSmartSectionState(routeKey, company) {
+  const companyCode = resolveExistingCompanyCode(company);
+  if (!companyCode) return;
+
+  if (routeKey === "company-profile") {
+    try {
+      await ensureCompanyDetail(companyCode);
+      const summary = mapCompanyToPortraitListItem(getRealCompanySummary(companyCode));
+      if (summary) {
+        state.riskHouseFocusId = getPortraitDefaultFocusId(buildPortraitCompanyDetail(summary, getCompanyDetail(companyCode)));
+      }
+    } catch (error) {
+      state.portraitError = error.message || "企业画像详情加载失败";
+    } finally {
+      state.portraitLoadingCompanyCode = null;
+    }
+    return;
+  }
+
+  if (routeKey === "due-diligence-report") {
+    try {
+      await ensureCompanyDetail(companyCode);
+      const reportDetail = getCompanyDetail(companyCode);
+      syncSelectedVersion(reportDetail);
+      syncKnowledgeSelection(reportDetail);
+      state.reportCenterError = null;
+    } catch (error) {
+      state.reportCenterError = error.message || "加载企业报告失败";
+      state.reportCenterView = "company-list";
+    } finally {
+      state.reportCenterLoadingCompanyCode = null;
+    }
+    return;
+  }
+
+  if (["insight-tasks", "watchlist-detail"].includes(routeKey)) {
+    await ensureCompanyDetail(companyCode).catch(() => {});
+  }
+}
+
 function applyRouteFromLocation(pathname = window.location.pathname, search = window.location.search) {
   const currentPath = String(pathname || "/");
-  const smartEntry = Object.entries(smartNavRouteMeta).find(([, meta]) => meta.path === currentPath);
-  if (smartEntry) {
-    const [routeKey, meta] = smartEntry;
-    const params = new URLSearchParams(search || "");
-    const company = getSmartNavCompanyById(params.get("companyId")) || resolveSmartNavCompany(params.get("companyName"));
-    state.topSectionId = meta.topSectionId;
-    state.smartNavContext = {
-      routeKey,
-      companyId: company?.id || params.get("companyId") || "",
-      companyName: company?.name || params.get("companyName") || "目标企业",
-      rawInput: params.get("q") || "",
-    };
-    state.homeCommandInput = params.get("q") || company?.name || "";
-    state.homeCommandMessage = "";
+  const params = new URLSearchParams(search || "");
+  const routeKey = params.get("intent");
+  const sectionId = params.get("section");
+  const company = getSmartNavCompanyById(params.get("companyId")) || resolveSmartNavCompany(params.get("companyName"));
+
+  if (currentPath === "/" && routeKey && smartNavRouteMeta[routeKey] && company) {
+    if (applySmartSectionState(routeKey, company, { rawInput: params.get("q") || company.name })) {
+      state.homeCommandInput = params.get("q") || company.name || "";
+      state.homeCommandMessage = "";
+      return;
+    }
+  }
+
+  if (currentPath === "/" && sectionId && !routeKey) {
+    state.topSectionId = sectionId;
+    state.smartNavContext = null;
     state.riskMapRegionId = null;
     state.previewOpen = false;
     state.previewSectionId = null;
@@ -1558,8 +1722,12 @@ function applyRouteFromLocation(pathname = window.location.pathname, search = wi
     state.previewSectionId = null;
     return;
   }
+
   state.smartNavContext = null;
   state.riskMapRegionId = null;
+  if (currentPath === "/") {
+    state.topSectionId = "home";
+  }
 }
 
 function getMetricMap(detail) {
@@ -4951,6 +5119,7 @@ function renderHomeCommandSuggestions(resolution) {
   if (!resolution.input) return "";
 
   if (!resolution.company) {
+    const exampleCompanies = getSmartNavCompaniesSource().slice(0, 6);
     return `
       <div class="astraea-command-suggestion-layer is-empty">
         <div class="astraea-command-suggestion-layer__hint">
@@ -4958,7 +5127,7 @@ function renderHomeCommandSuggestions(resolution) {
           <span>未找到匹配企业，请尝试输入企业全称或简称。</span>
         </div>
         <div class="astraea-command-suggestion-layer__examples">
-          ${smartNavCompanies
+          ${exampleCompanies
             .map(
               (item) => `
                 <button
@@ -5275,24 +5444,17 @@ function renderSmartNavigationPage() {
   contentAreaEl.innerHTML = renderSmartCompanyProfile(company);
 }
 
-function navigateToSmartRoute(routeKey, company, rawInput = state.homeCommandInput, replace = false) {
+async function navigateToSmartRoute(routeKey, company, rawInput = state.homeCommandInput, replace = false) {
   if (!company || !smartNavRouteMeta[routeKey]) return;
-  state.smartNavContext = {
-    routeKey,
-    companyId: company.id,
-    companyName: company.name,
-    rawInput: String(rawInput || "").trim(),
-  };
+  if (!applySmartSectionState(routeKey, company, { rawInput: String(rawInput || "").trim(), loading: true })) {
+    state.homeCommandMessage = "当前企业暂无可复用的模块数据，无法直接跳转到现有详情页。";
+    rerenderHomeCommandCard();
+    return;
+  }
   state.homeCommandMessage = "";
-  state.topSectionId = smartNavRouteMeta[routeKey].topSectionId;
-  state.previewOpen = false;
-  state.previewSectionId = null;
-  state.riskMapRegionId = null;
-  if (routeKey === "company-profile") state.activeSidebarBySection["enterprise-library"] = "portrait";
-  if (routeKey === "insight-tasks") state.activeSidebarBySection["due-task"] = "execution";
-  if (routeKey === "due-diligence-report") state.activeSidebarBySection["report-center"] = "generation";
-  if (routeKey === "watchlist-detail") state.activeSidebarBySection.watchlist = "alerts";
   syncLocationFromState(replace);
+  render();
+  await hydrateSmartSectionState(routeKey, company);
   render();
 }
 
@@ -5356,8 +5518,8 @@ function renderHome() {
         <div class="astraea-home-main">
           <div class="astraea-home-hero">
             <div class="astraea-home-copy">
-              <h1>今天要调查哪家企业？</h1>
-              <p>我将为您全方位收集、分析与研判，提供可靠的尽职调查洞察与建议。</p>
+              <h1>今天，我们从哪项风险开始洞察？</h1>
+              <p>Astraea 将协助你识别企业、资产与区域风险信号，生成可追溯的尽调洞察。</p>
             </div>
 
             <div class="astraea-command-card glass-card neon-border">
@@ -5397,7 +5559,6 @@ function renderHome() {
                     >
                       <span class="astraea-quick-card__icon">${item.icon}</span>
                       <strong>${item.title}</strong>
-                      <small>${item.subtitle}</small>
                       <span class="astraea-quick-card__arrow">→</span>
                     </button>
                   `,
@@ -6670,10 +6831,6 @@ function renderReportCenter() {
 }
 
 function renderContent() {
-  if (state.smartNavContext?.routeKey) {
-    renderSmartNavigationPage();
-    return;
-  }
   if (state.topSectionId === "home") {
     renderHome();
     return;
@@ -7378,12 +7535,12 @@ document.addEventListener("click", async (event) => {
       rerenderHomeCommandCard();
       return;
     }
-    navigateToSmartRoute(resolution.routeKey, resolution.company);
+    await navigateToSmartRoute(resolution.routeKey, resolution.company);
     return;
   }
   if (action === "open-home-smart-route") {
     const company = getSmartNavCompanyById(target.dataset.companyId);
-    navigateToSmartRoute(target.dataset.routeKey, company);
+    await navigateToSmartRoute(target.dataset.routeKey, company);
     return;
   }
   if (action === "fill-home-command-example") {
@@ -8030,7 +8187,7 @@ document.addEventListener("keydown", async (event) => {
       rerenderHomeCommandCard();
       return;
     }
-    navigateToSmartRoute(resolution.routeKey, resolution.company, target.value);
+    await navigateToSmartRoute(resolution.routeKey, resolution.company, target.value);
     return;
   }
   if (isEditableEventTarget(target) && !["risk-view-search-input", "process-engine-search-input", "task-board-search-input", "report-center-search-input"].includes(target.id)) {
@@ -8079,12 +8236,20 @@ async function init() {
     syncKnowledgeSelection(getCompanyDetail(DEMO_COMPANY_CODE));
   }
   applyRouteFromLocation();
+  if (state.smartNavContext?.routeKey) {
+    const company = getSmartNavContextCompany();
+    if (company) await hydrateSmartSectionState(state.smartNavContext.routeKey, company);
+  }
   render();
 }
 
-window.addEventListener("popstate", () => {
+window.addEventListener("popstate", async () => {
   if (!state.meta) return;
   applyRouteFromLocation();
+  if (state.smartNavContext?.routeKey) {
+    const company = getSmartNavContextCompany();
+    if (company) await hydrateSmartSectionState(state.smartNavContext.routeKey, company);
+  }
   render();
 });
 

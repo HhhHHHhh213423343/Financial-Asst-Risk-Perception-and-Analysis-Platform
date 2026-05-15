@@ -60,6 +60,7 @@ textarea {
 .app-shell {
   min-height: 100vh;
   padding: 24px;
+  padding-bottom: 88px;
 }
 
 .app-frame {
@@ -201,8 +202,32 @@ textarea {
 
 .main-panel {
   min-width: 0;
-  padding: 28px 32px 36px;
+  padding: 28px 32px 88px;
   overflow: auto;
+}
+
+.global-demo-disclaimer {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  max-width: calc(100vw - 32px);
+  padding: 0 18px;
+  border: 1px solid rgba(129, 157, 235, 0.18);
+  border-radius: 999px;
+  background: rgba(7, 16, 40, 0.82);
+  box-shadow: 0 10px 28px rgba(2, 7, 20, 0.24);
+  backdrop-filter: blur(14px);
+  color: rgba(223, 233, 255, 0.78);
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+  pointer-events: none;
 }
 
 .hero-card,
@@ -6988,27 +7013,27 @@ body::before {
 
 .cosmic-background__mesh {
   background-image:
-    linear-gradient(rgba(78, 124, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(78, 124, 255, 0.06) 1px, transparent 1px);
+    linear-gradient(rgba(78, 124, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(78, 124, 255, 0.07) 1px, transparent 1px);
   background-size: 84px 84px;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.82), transparent 88%);
-  opacity: 0.35;
+  opacity: 0.42;
 }
 
 .cosmic-background__glow {
-  filter: blur(18px);
+  filter: blur(26px);
 }
 
 .cosmic-background__glow--blue {
-  background: radial-gradient(circle at 24% 18%, rgba(65, 137, 255, 0.28), transparent 20%);
+  background: radial-gradient(circle at 24% 18%, rgba(65, 137, 255, 0.32), transparent 20%);
 }
 
 .cosmic-background__glow--violet {
-  background: radial-gradient(circle at 78% 28%, rgba(143, 107, 255, 0.22), transparent 18%);
+  background: radial-gradient(circle at 78% 28%, rgba(143, 107, 255, 0.28), transparent 18%);
 }
 
 .cosmic-background__glow--cyan {
-  background: radial-gradient(circle at 56% 88%, rgba(40, 230, 255, 0.14), transparent 18%);
+  background: radial-gradient(circle at 56% 88%, rgba(40, 230, 255, 0.18), transparent 18%);
 }
 
 .cosmic-background__stars {
@@ -7054,10 +7079,11 @@ body::before {
 .preview-drawer,
 .completion-modal,
 .glass-panel {
-  background: linear-gradient(135deg, rgba(20, 38, 84, 0.72), rgba(8, 17, 40, 0.86));
+  background: linear-gradient(135deg, rgba(12, 24, 58, 0.45), rgba(8, 17, 40, 0.68));
   border: 1px solid rgba(130, 166, 255, 0.28);
   box-shadow:
     0 0 0 1px rgba(116, 156, 255, 0.06) inset,
+    inset 0 1px 0 rgba(255,255,255,0.08),
     0 18px 60px rgba(0, 0, 0, 0.38),
     0 0 36px rgba(76, 118, 255, 0.12);
   backdrop-filter: blur(18px);
@@ -7758,6 +7784,19 @@ input[type="file"] {
   padding-right: 92px;
 }
 
+.astraea-home::before {
+  content: "";
+  position: absolute;
+  inset: -38px -20px auto;
+  height: 420px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 24% 38%, rgba(41, 225, 255, 0.1), transparent 22%),
+    radial-gradient(circle at 62% 14%, rgba(131, 103, 255, 0.16), transparent 26%),
+    radial-gradient(circle at 84% 30%, rgba(75, 123, 255, 0.12), transparent 22%);
+  filter: blur(10px);
+}
+
 .astraea-home-stage {
   display: grid;
   grid-template-columns: 440px minmax(0, 1fr);
@@ -7772,12 +7811,39 @@ input[type="file"] {
   overflow: hidden;
   background:
     linear-gradient(120deg, rgba(55, 230, 255, 0.08), transparent 34%),
-    radial-gradient(circle at 52% 34%, rgba(40, 230, 255, 0.14), transparent 38%),
-    linear-gradient(180deg, rgba(6, 15, 38, 0.74), rgba(4, 11, 30, 0.82));
-  border-color: rgba(73, 215, 255, 0.18);
+    radial-gradient(circle at 48% 28%, rgba(40, 230, 255, 0.2), transparent 34%),
+    radial-gradient(circle at 54% 86%, rgba(118, 103, 255, 0.14), transparent 28%),
+    linear-gradient(180deg, rgba(7, 18, 44, 0.52), rgba(4, 11, 30, 0.62));
+  border-color: rgba(120, 201, 255, 0.22);
   box-shadow:
-    inset 0 0 70px rgba(47, 233, 255, 0.05),
-    0 22px 60px rgba(0, 10, 30, 0.32);
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    inset 0 0 88px rgba(47, 233, 255, 0.06),
+    0 22px 60px rgba(0, 10, 30, 0.32),
+    0 0 44px rgba(58, 111, 255, 0.12);
+}
+
+.astraea-portrait-panel::before,
+.astraea-portrait-panel::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.astraea-portrait-panel::before {
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(95, 239, 255, 0.28) 0 1px, transparent 2px),
+    radial-gradient(circle at 78% 22%, rgba(95, 239, 255, 0.22) 0 1px, transparent 2px),
+    radial-gradient(circle at 24% 58%, rgba(160, 184, 255, 0.18) 0 1px, transparent 2px),
+    radial-gradient(circle at 82% 56%, rgba(95, 239, 255, 0.2) 0 1.4px, transparent 2.4px),
+    radial-gradient(circle at 46% 70%, rgba(146, 115, 255, 0.16) 0 1px, transparent 2px);
+}
+
+.astraea-portrait-panel::after {
+  inset: 8% 10% 18%;
+  border-radius: 50%;
+  border: 1px dashed rgba(102, 196, 255, 0.12);
+  filter: drop-shadow(0 0 12px rgba(91, 230, 255, 0.08));
 }
 
 .astraea-portrait-panel__orbit {
@@ -7799,7 +7865,7 @@ input[type="file"] {
 
 .astraea-portrait-panel__signals {
   position: absolute;
-  inset: 92px 24px auto 24px;
+  inset: 84px 22px auto 22px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 160px 54px;
@@ -7807,9 +7873,59 @@ input[type="file"] {
 }
 
 .astraea-portrait-panel__signals span {
-  color: rgba(89, 235, 255, 0.72);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 8px 12px;
+  border: 1px solid rgba(101, 210, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(8, 20, 48, 0.34);
+  color: rgba(121, 237, 255, 0.88);
   font-size: 13px;
-  text-shadow: 0 0 18px rgba(40, 230, 255, 0.3);
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 18px rgba(40, 230, 255, 0.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 0 18px rgba(40, 230, 255, 0.08);
+  backdrop-filter: blur(12px);
+}
+
+.astraea-portrait-panel__signals span::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(93, 247, 255, 0.96), rgba(165, 198, 255, 0.94));
+  box-shadow: 0 0 12px rgba(82, 236, 255, 0.5);
+}
+
+.astraea-portrait-panel__signals span::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 52px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(101, 210, 255, 0.34), transparent);
+  transform: translateY(-50%);
+}
+
+.astraea-portrait-panel__signals span:nth-child(odd) {
+  justify-self: start;
+}
+
+.astraea-portrait-panel__signals span:nth-child(odd)::after {
+  right: -48px;
+}
+
+.astraea-portrait-panel__signals span:nth-child(even) {
+  justify-self: end;
+}
+
+.astraea-portrait-panel__signals span:nth-child(even)::after {
+  left: -48px;
+  transform: translateY(-50%) scaleX(-1);
 }
 
 .astraea-portrait-frame {
@@ -7818,6 +7934,7 @@ input[type="file"] {
   display: grid;
   place-items: center;
   min-height: 530px;
+  isolation: isolate;
 }
 
 .astraea-portrait-frame::before {
@@ -7859,6 +7976,7 @@ input[type="file"] {
     drop-shadow(0 0 34px rgba(32, 209, 255, 0.34))
     drop-shadow(0 0 86px rgba(74, 108, 255, 0.2))
     drop-shadow(0 24px 42px rgba(0, 8, 28, 0.4));
+  animation: astraea-float 7s ease-in-out infinite;
 }
 
 .astraea-portrait-copy {
@@ -7913,10 +8031,14 @@ input[type="file"] {
   padding: 32px 34px 22px;
   border-radius: 28px;
   background:
-    radial-gradient(circle at 76% 8%, rgba(143, 107, 255, 0.12), transparent 24%),
-    radial-gradient(circle at 34% 74%, rgba(40, 230, 255, 0.08), transparent 24%),
-    linear-gradient(180deg, rgba(4, 12, 34, 0.72), rgba(4, 10, 28, 0.52));
-  border: 1px solid rgba(84, 121, 255, 0.08);
+    radial-gradient(circle at 76% 8%, rgba(143, 107, 255, 0.18), transparent 24%),
+    radial-gradient(circle at 34% 74%, rgba(40, 230, 255, 0.1), transparent 24%),
+    linear-gradient(180deg, rgba(7, 18, 44, 0.42), rgba(4, 10, 28, 0.38));
+  border: 1px solid rgba(120, 160, 255, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    inset 0 0 60px rgba(79, 135, 255, 0.04),
+    0 24px 70px rgba(0, 0, 0, 0.24);
 }
 
 .astraea-home-copy h1 {
@@ -7925,7 +8047,10 @@ input[type="file"] {
   font-size: clamp(52px, 5vw, 72px);
   line-height: 1.12;
   letter-spacing: 0.02em;
-  text-shadow: 0 0 30px rgba(95, 140, 255, 0.14);
+  text-shadow:
+    0 0 18px rgba(255,255,255,0.05),
+    0 0 34px rgba(95, 140, 255, 0.16),
+    0 0 56px rgba(113, 102, 255, 0.08);
 }
 
 .astraea-home-copy p {
@@ -7941,8 +8066,15 @@ input[type="file"] {
   border-radius: 28px;
   min-height: 206px;
   background:
-    radial-gradient(circle at 80% 0%, rgba(124, 112, 255, 0.12), transparent 18%),
-    linear-gradient(180deg, rgba(10, 20, 50, 0.86), rgba(8, 16, 38, 0.92));
+    radial-gradient(circle at 76% 12%, rgba(124, 112, 255, 0.24), transparent 16%),
+    radial-gradient(circle at 42% 50%, rgba(55, 214, 255, 0.1), transparent 34%),
+    linear-gradient(180deg, rgba(12, 24, 58, 0.45), rgba(7, 16, 40, 0.62));
+  border: 1px solid rgba(120, 160, 255, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 20px 60px rgba(0,0,0,0.35),
+    0 0 40px rgba(72,120,255,0.12);
+  backdrop-filter: blur(18px);
 }
 
 .astraea-command-input-wrap {
@@ -7956,13 +8088,16 @@ input[type="file"] {
   width: 100%;
   min-height: 72px;
   padding: 0 24px;
-  border: 1px solid rgba(124, 154, 255, 0.24);
+  border: 1px solid rgba(133, 167, 255, 0.26);
   border-radius: 22px;
-  background: rgba(8, 18, 46, 0.82);
+  background: rgba(8, 18, 46, 0.62);
   color: #eef4ff;
   font-size: 22px;
   outline: none;
-  box-shadow: inset 0 0 0 1px rgba(106, 136, 255, 0.08);
+  box-shadow:
+    inset 0 0 0 1px rgba(106, 136, 255, 0.06),
+    inset 0 12px 24px rgba(255,255,255,0.02),
+    0 0 0 1px rgba(76, 115, 255, 0.04);
 }
 
 .astraea-command-input::placeholder {
@@ -7971,7 +8106,9 @@ input[type="file"] {
 
 .astraea-command-input:focus {
   border-color: rgba(144, 173, 255, 0.62);
-  box-shadow: 0 0 0 4px rgba(111, 139, 255, 0.12);
+  box-shadow:
+    0 0 0 4px rgba(111, 139, 255, 0.12),
+    0 0 36px rgba(111, 139, 255, 0.12);
 }
 
 .astraea-command-card__helper {
@@ -8091,8 +8228,9 @@ input[type="file"] {
   padding: 0 18px;
   border-radius: 999px;
   border: 1px solid rgba(118, 154, 255, 0.24);
-  background: rgba(8, 18, 46, 0.74);
+  background: rgba(8, 18, 46, 0.5);
   color: #dce8ff;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
 }
 
 .astraea-command-card__actions {
@@ -8113,14 +8251,17 @@ input[type="file"] {
 
 .astraea-command-card__icon {
   border: 1px solid rgba(118, 154, 255, 0.22);
-  background: rgba(8, 18, 46, 0.76);
+  background: rgba(8, 18, 46, 0.56);
   color: #dbe6ff;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
 }
 
 .astraea-command-card__send {
   background: linear-gradient(135deg, rgba(246, 249, 255, 0.96), rgba(123, 140, 255, 0.96));
   color: #19204a;
-  box-shadow: 0 0 26px rgba(148, 169, 255, 0.42);
+  box-shadow:
+    0 0 26px rgba(148, 169, 255, 0.42),
+    0 0 54px rgba(112, 141, 255, 0.2);
 }
 
 .smart-route-shell {
@@ -8361,12 +8502,18 @@ input[type="file"] {
   text-align: left;
   border-radius: 20px;
   background:
-    radial-gradient(circle at 85% 10%, rgba(40, 230, 255, 0.08), transparent 20%),
-    linear-gradient(135deg, rgba(18, 38, 84, 0.78), rgba(8, 17, 40, 0.88));
+    radial-gradient(circle at 85% 10%, rgba(40, 230, 255, 0.12), transparent 20%),
+    linear-gradient(135deg, rgba(12, 24, 58, 0.45), rgba(7, 16, 40, 0.64));
+  border: 1px solid rgba(120, 160, 255, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 20px 50px rgba(0,0,0,0.22),
+    0 0 24px rgba(72,120,255,0.08);
+  backdrop-filter: blur(18px);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
 .astraea-quick-card strong,
-.astraea-quick-card small,
 .astraea-quick-card__arrow {
   display: block;
 }
@@ -8375,24 +8522,38 @@ input[type="file"] {
   margin-top: 16px;
   color: #f5f9ff;
   font-size: 22px;
-}
-
-.astraea-quick-card small {
-  margin-top: 10px;
-  color: rgba(214, 226, 255, 0.66);
-  font-size: 15px;
-  line-height: 1.6;
+  text-shadow: 0 0 18px rgba(105, 149, 255, 0.08);
 }
 
 .astraea-quick-card__icon {
   display: inline-grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  background: rgba(96, 138, 255, 0.16);
-  color: #a8dfff;
-  font-size: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  color: #eef6ff;
+  font-size: 28px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    0 10px 22px rgba(0,0,0,0.24),
+    0 0 22px rgba(90, 131, 255, 0.18);
+}
+
+.astraea-quick-card:nth-child(1) .astraea-quick-card__icon {
+  background: linear-gradient(135deg, rgba(72, 121, 255, 0.5), rgba(81, 218, 255, 0.22));
+}
+
+.astraea-quick-card:nth-child(2) .astraea-quick-card__icon {
+  background: linear-gradient(135deg, rgba(138, 106, 255, 0.5), rgba(112, 136, 255, 0.22));
+}
+
+.astraea-quick-card:nth-child(3) .astraea-quick-card__icon {
+  background: linear-gradient(135deg, rgba(61, 208, 198, 0.52), rgba(84, 224, 255, 0.2));
+}
+
+.astraea-quick-card:nth-child(4) .astraea-quick-card__icon {
+  background: linear-gradient(135deg, rgba(232, 170, 96, 0.5), rgba(150, 120, 255, 0.18));
 }
 
 .astraea-quick-card__arrow {
@@ -8401,6 +8562,15 @@ input[type="file"] {
   bottom: 16px;
   color: rgba(218, 229, 255, 0.8);
   font-size: 18px;
+}
+
+.astraea-quick-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(148, 186, 255, 0.34);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    0 28px 60px rgba(0,0,0,0.28),
+    0 0 34px rgba(88, 132, 255, 0.16);
 }
 
 .astraea-tool-rail {
@@ -8454,12 +8624,18 @@ input[type="file"] {
 .astraea-list-panel {
   padding: 20px;
   border-radius: 28px;
+  background: linear-gradient(135deg, rgba(12, 24, 58, 0.42), rgba(7, 16, 40, 0.58));
+  border: 1px solid rgba(120, 160, 255, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 20px 60px rgba(0,0,0,0.22);
+  backdrop-filter: blur(18px);
 }
 
 .astraea-list-panel--risk {
   background:
-    radial-gradient(circle at 80% 0%, rgba(255, 120, 98, 0.07), transparent 22%),
-    linear-gradient(135deg, rgba(20, 38, 84, 0.72), rgba(8, 17, 40, 0.86));
+    radial-gradient(circle at 80% 0%, rgba(255, 120, 98, 0.08), transparent 22%),
+    linear-gradient(135deg, rgba(12, 24, 58, 0.46), rgba(7, 16, 40, 0.6));
 }
 
 .astraea-list-panel__head {
@@ -8496,8 +8672,9 @@ input[type="file"] {
 .astraea-risk-row {
   padding: 18px 18px;
   border-radius: 18px;
-  border: 1px solid rgba(101, 149, 255, 0.16);
-  background: rgba(10, 21, 50, 0.7);
+  border: 1px solid rgba(101, 149, 255, 0.18);
+  background: rgba(10, 21, 50, 0.54);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
 }
 
 .astraea-investigation-row {
@@ -8592,8 +8769,12 @@ input[type="file"] {
   width: fit-content;
   border-radius: 18px;
   border: 1px solid rgba(101, 149, 255, 0.16);
-  background: rgba(8, 18, 46, 0.64);
+  background: rgba(8, 18, 46, 0.46);
   color: rgba(214, 226, 255, 0.76);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 16px 34px rgba(0,0,0,0.18);
+  backdrop-filter: blur(16px);
 }
 
 .astraea-home-caption span,
@@ -8608,6 +8789,15 @@ input[type="file"] {
 
 .astraea-home-caption p {
   max-width: 520px;
+}
+
+@keyframes astraea-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 @media (max-width: 1580px) {
@@ -8684,6 +8874,21 @@ input[type="file"] {
 
   .smart-route-hero h2 {
     font-size: 28px;
+  }
+
+  .app-shell {
+    padding-bottom: 96px;
+  }
+
+  .main-panel {
+    padding-bottom: 96px;
+  }
+
+  .global-demo-disclaimer {
+    bottom: 14px;
+    min-height: 34px;
+    padding: 0 14px;
+    font-size: 12px;
   }
 }
 
