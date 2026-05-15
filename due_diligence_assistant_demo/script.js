@@ -1,13 +1,52 @@
 const API_BASE = "";
+const DEMO_COMPANY_CODE = "COMP-001";
+const ASTRAEA_ASSISTANT_IMAGE = "./assets/astraea-assistant.png";
 
 const topSections = [
-  { id: "risk-view", title: "风险洞察", summary: "围绕客户全景数据形成风险专题洞察。" },
-  { id: "process-engine", title: "全流程引擎", summary: "围绕授信流程节点组织尽调、评级、方案、合同与贷后。" },
-  { id: "knowledge-base", title: "知识库", summary: "沉淀法律法规、行内制度和专家经验文件。" },
-  { id: "system-admin", title: "系统管理", summary: "管理用户、权限、菜单与操作日志。" },
+  { id: "home", title: "首页", summary: "以 Astraea 助手主视觉、任务输入与风险提醒构成首页首屏。" },
+  { id: "risk-map", title: "风险地图", summary: "从全国热力分布进入省级风险详情，再下钻到企业尽调。" },
+  { id: "due-task", title: "洞察任务", summary: "围绕数据搜集与报告生成两条主链，展示当前洞察任务进度。" },
+  { id: "enterprise-library", title: "企业画像", summary: "先从企业清单选择目标企业，再查看二维风险矩阵和关键风险构面。" },
+  { id: "report-center", title: "洞察报告", summary: "先展示各类报告入口与生成状态，再进入尽调报告详情。" },
+  { id: "watchlist", title: "监控预警", summary: "持续监控尽调企业、识别预警信号并触发风险复核建议。" },
+  { id: "knowledge-center", title: "知识中心", summary: "沉淀法律法规、行内制度和专家经验文件。" },
 ];
 
 const sidebarItems = {
+  home: [
+    { id: "overview", title: "助手首页" },
+    { id: "quick-start", title: "快捷任务" },
+  ],
+  "risk-map": [
+    { id: "national", title: "全国地图" },
+    { id: "industry", title: "行业热度" },
+    { id: "company-risk", title: "重点企业" },
+  ],
+  "due-task": [
+    { id: "execution", title: "执行进度" },
+    { id: "findings", title: "关键发现" },
+    { id: "materials", title: "材料状态" },
+  ],
+  "enterprise-library": [
+    { id: "portrait", title: "企业风险画像" },
+    { id: "companies", title: "企业列表" },
+    { id: "data-coverage", title: "数据完整度" },
+  ],
+  watchlist: [
+    { id: "live", title: "实时监控" },
+    { id: "alerts", title: "预警动态" },
+    { id: "recommendations", title: "助手建议" },
+  ],
+  "report-center": [
+    { id: "generation", title: "报告生成" },
+    { id: "review", title: "报告预审" },
+    { id: "evidence", title: "证据溯源" },
+  ],
+  "knowledge-center": [
+    { id: "laws", title: "法律法规" },
+    { id: "policies", title: "行内制度" },
+    { id: "experience", title: "专家经验" },
+  ],
   "risk-view": [
     { id: "basic-info", title: "基本信息" },
     { id: "operation-info", title: "经营情况" },
@@ -44,6 +83,73 @@ const sidebarItems = {
 const dueDiligenceTabs = [
   { id: "report-generate", title: "尽调报告生成" },
   { id: "report-review", title: "报告预审" },
+];
+
+const dueTaskStepBlueprints = [
+  { weight: 18, title: "主体与股权核验", tasks: ["工商信息核验", "股东穿透识别", "实际控制人确认"], runningDesc: "核验推进中" },
+  { weight: 20, title: "工商/司法数据归集", tasks: ["工商数据", "司法风险", "经营异常"], runningDesc: "数据归集中" },
+  { weight: 18, title: "财务与现金流分析", tasks: ["财务报表分析", "现金流健康度", "偿债能力评估"], runningDesc: "模型分析中" },
+  { weight: 14, title: "舆情与事件扫描", tasks: ["舆情监测", "重大事件", "负面信息识别"], runningDesc: "扫描处理中" },
+  { weight: 14, title: "关联网络穿透", tasks: ["关联企业识别", "关联交易挖掘", "复杂关系图谱"], runningDesc: "图谱构建中" },
+  { weight: 16, title: "生成初步结论", tasks: ["综合风险评估", "尽调初步结论", "建议与提示"], runningDesc: "结论整理中" },
+];
+
+const reportCenterCatalog = [
+  {
+    id: "due-diligence",
+    title: "尽调报告",
+    shortTitle: "尽调报告",
+    statusLabel: "已生成",
+    statusClass: "is-ready",
+    cardClass: "report-hub-primary",
+    companyListTitle: "尽调报告企业清单",
+    companyListSummary: "先选企业，再进入完整的尽调报告生成、编辑与预审工作台。",
+    detailSummary: "这是当前可编辑、可预审、可导出的完整报告链路。",
+  },
+  {
+    id: "credit-rating",
+    title: "信用评级",
+    shortTitle: "信用评级",
+    statusLabel: "生成中",
+    statusClass: "is-running",
+    cardClass: "report-hub-blue",
+    companyListTitle: "信用评级企业清单",
+    companyListSummary: "先选企业，再查看评级生成状态、风险分层和输出依据。",
+    detailSummary: "用于承接尽调结果，形成评级结论与评分解释。",
+  },
+  {
+    id: "credit-plan",
+    title: "授信方案",
+    shortTitle: "授信方案",
+    statusLabel: "待生成",
+    statusClass: "is-pending",
+    cardClass: "report-hub-purple",
+    companyListTitle: "授信方案企业清单",
+    companyListSummary: "先选企业，再查看额度建议、期限建议与缓释方案。",
+    detailSummary: "授信方案会基于评级和尽调结论联动额度、期限与缓释建议。",
+  },
+  {
+    id: "investigation-report",
+    title: "授信调查报告",
+    shortTitle: "调查报告",
+    statusLabel: "待生成",
+    statusClass: "is-pending",
+    cardClass: "report-hub-amber",
+    companyListTitle: "授信调查报告企业清单",
+    companyListSummary: "先选企业，再进入正式上报版调查报告的企业工作区。",
+    detailSummary: "作为正式上报版本，待尽调报告定稿后自动生成和编排。",
+  },
+  {
+    id: "contract-loan",
+    title: "合同与放款",
+    shortTitle: "合同放款",
+    statusLabel: "待生成",
+    statusClass: "is-pending",
+    cardClass: "report-hub-cyan",
+    companyListTitle: "合同与放款企业清单",
+    companyListSummary: "先选企业，再查看合同包、放款条件与核验清单。",
+    detailSummary: "授信审批通过后，这里会联动生成合同包与放款校验清单。",
+  },
 ];
 
 const customerSections = [
@@ -168,6 +274,763 @@ const statusPalette = {
   draft: { label: "草稿", className: "status-watch" },
 };
 
+const homeQuickActions = [
+  {
+    title: "发起风险洞察",
+    subtitle: "对企业发起风险洞察任务",
+    icon: "🏛",
+    action: "start-demo",
+  },
+  {
+    title: "发起投资尽调",
+    subtitle: "对目标企业进行投资尽调",
+    icon: "📈",
+    action: "go-section",
+    topSection: "enterprise-library",
+  },
+  {
+    title: "更新存量客户风险",
+    subtitle: "定期更新客户风险与经营状况",
+    icon: "🛡",
+    action: "go-section",
+    topSection: "watchlist",
+  },
+  {
+    title: "上传材料生成报告",
+    subtitle: "上传尽调材料，AI 生成报告",
+    icon: "📄",
+    action: "go-section",
+    topSection: "report-center",
+  },
+];
+
+const homeToolRailItems = [
+  { label: "智能问答", icon: "💬", action: "start-demo" },
+  { label: "行业洞察", icon: "📊", action: "go-section", topSection: "watchlist" },
+  { label: "政策法规", icon: "🔖", action: "go-section", topSection: "knowledge-center" },
+  { label: "更多工具", icon: "◫", action: "go-section", topSection: "report-center" },
+];
+
+const smartNavRouteMeta = {
+  "company-profile": {
+    path: "/company-profile",
+    label: "企业画像",
+    topSectionId: "enterprise-library",
+  },
+  "insight-tasks": {
+    path: "/insight-tasks",
+    label: "洞察任务",
+    topSectionId: "due-task",
+  },
+  "due-diligence-report": {
+    path: "/reports/due-diligence",
+    label: "尽调报告",
+    topSectionId: "report-center",
+  },
+  "watchlist-detail": {
+    path: "/watchlist",
+    label: "风险预警",
+    topSectionId: "watchlist",
+  },
+};
+
+const smartNavActionCatalog = [
+  { routeKey: "company-profile", label: "查看企业画像", description: "进入企业画像详情页" },
+  { routeKey: "insight-tasks", label: "查看洞察任务", description: "进入洞察任务详情页" },
+  { routeKey: "due-diligence-report", label: "查看尽调报告", description: "进入尽调报告详情页" },
+  { routeKey: "watchlist-detail", label: "查看风险预警", description: "进入监控预警详情页" },
+];
+
+const smartNavIntentKeywords = {
+  "due-diligence-report": ["报告", "尽调报告", "授信报告"],
+  "watchlist-detail": ["风险", "预警", "监控"],
+  "insight-tasks": ["洞察", "任务", "调查", "尽调任务", "授信尽调"],
+};
+
+const smartNavCompanies = [
+  {
+    id: "lingxi",
+    name: "深圳市灵犀微传感科技有限公司",
+    aliases: ["深圳灵犀微传感", "灵犀微传感", "灵犀微传感科技", "灵犀微传感公司", "灵犀"],
+    industry: "工业传感器 / 智能制造",
+    region: "深圳 · 南山区",
+    summary: "聚焦工业微型传感器、智能检测模组与制造现场感知系统。",
+    riskLevel: "高风险",
+    riskScore: 82,
+    profile: {
+      dataCompleteness: "89%",
+      updatedAt: "2026-05-15 10:20",
+      tags: ["现金流承压", "关联穿透", "授信尽调高频样本"],
+      highlights: [
+        "主营收入集中在工业传感器与检测模组，客户验证周期较长。",
+        "近一年存在回款拉长与短债承接压力，需要同步核验订单兑现质量。",
+        "关联网络较复杂，建议在尽调中优先复核实际控制链与担保线索。",
+      ],
+      dimensions: [
+        { title: "主体与治理", desc: "主体状态正常，实控链较清晰，但近两年有外部股东进入。" },
+        { title: "经营与订单", desc: "头部客户集中度偏高，订单延迟会直接影响收入与现金回笼。" },
+        { title: "财务与回款", desc: "利润与经营现金流存在偏离，回款节奏是当前最重要的验证点。" },
+      ],
+    },
+    tasks: {
+      status: "进行中",
+      progress: 72,
+      phase: "数据归集与交叉验证",
+      steps: [
+        { title: "主体与股权核验", status: "已完成", note: "工商、股东与实控链已完成初步穿透。" },
+        { title: "财务与回款验证", status: "进行中", note: "正在核验回款、应收账龄与现金流匹配度。" },
+        { title: "风险结论生成", status: "待开始", note: "待关键证据补齐后输出授信尽调结论。" },
+      ],
+      findings: ["回款周期拉长", "短债覆盖压力", "关联交易说明待补"],
+    },
+    report: {
+      status: "可查看",
+      updatedAt: "2026-05-15 10:35",
+      summary: "尽调报告已生成草稿，可继续编辑、预审与导出。",
+      sections: ["企业概况", "经营分析", "财务分析", "风险事项", "授信建议"],
+      highlights: ["已形成初步授信建议", "税票与回款差异需要补充说明", "担保线索已列入附注"],
+    },
+    watchlist: {
+      level: "高风险",
+      updatedAt: "2026-05-15 10:42",
+      summary: "已进入持续监测名单，重点观察回款、担保与舆情事件。",
+      alerts: [
+        { time: "10:16", title: "担保风险待核验", detail: "发现新增连带担保线索，需核验责任边界。" },
+        { time: "09:48", title: "回款周期拉长", detail: "核心客户回款较上月继续延后，建议关注现金回收。" },
+        { time: "08:35", title: "订单波动预警", detail: "新签订单节奏放缓，需结合产能利用率解释。" },
+      ],
+    },
+  },
+  {
+    id: "qimai",
+    name: "杭州启脉能源物联科技有限公司",
+    aliases: ["杭州启脉能源", "启脉能源", "启脉能源物联", "启脉物联", "启脉"],
+    industry: "能源物联 / 工业软件",
+    region: "杭州 · 余杭区",
+    summary: "提供储能场站监控、能源数据采集与设备联网运营服务。",
+    riskLevel: "中风险",
+    riskScore: 68,
+    profile: {
+      dataCompleteness: "84%",
+      updatedAt: "2026-05-15 09:50",
+      tags: ["项目制收入", "客户集中", "软件服务"],
+      highlights: [
+        "收入依赖项目交付与后续运维续费，季度波动相对明显。",
+        "能源数字化赛道景气度较高，但部分项目回款验收周期较长。",
+        "适合重点核验合同条款、项目验收与续费稳定性。",
+      ],
+      dimensions: [
+        { title: "业务模式", desc: "软硬件结合，项目交付与持续运维并行，收入确认口径要重点核验。" },
+        { title: "客户结构", desc: "客户集中在能源场站与工业园区，单一大客户影响较大。" },
+        { title: "经营稳定性", desc: "整体风险可控，但需要关注项目验收与回款节奏同步性。" },
+      ],
+    },
+    tasks: {
+      status: "待发起",
+      progress: 18,
+      phase: "任务待确认",
+      steps: [
+        { title: "任务创建", status: "待开始", note: "可直接发起授信尽调任务并带入企业参数。" },
+        { title: "材料归集", status: "待开始", note: "建议优先收集合同比对、验收单与回款摘要。" },
+        { title: "洞察结论", status: "待开始", note: "待任务启动后自动生成阶段性发现。" },
+      ],
+      findings: ["建议先核验项目回款", "关注单一客户依赖", "补充验收资料"],
+    },
+    report: {
+      status: "待生成",
+      updatedAt: "2026-05-15 09:40",
+      summary: "当前尚未生成正式尽调报告，建议先发起洞察任务。",
+      sections: ["企业概况", "项目结构", "客户与回款", "风险结论"],
+      highlights: ["报告模板已就绪", "需补充项目验收材料", "建议先完成基础尽调任务"],
+    },
+    watchlist: {
+      level: "中风险",
+      updatedAt: "2026-05-15 09:58",
+      summary: "建议纳入跟踪名单，持续观察项目验收与大客户续费情况。",
+      alerts: [
+        { time: "09:12", title: "验收进度提醒", detail: "两个重点项目尚未完成终验，影响确认回款节奏。" },
+        { time: "08:44", title: "客户集中监测", detail: "前两大客户占比偏高，建议持续观察续费稳定性。" },
+      ],
+    },
+  },
+  {
+    id: "huafeng",
+    name: "华丰电气集团有限公司",
+    aliases: ["华丰电气", "华丰集团", "华丰电气集团", "华丰"],
+    industry: "电气设备 / 工程集成",
+    region: "华东 · 制造基地",
+    summary: "从事成套电气设备、工程集成与工业配电系统交付。",
+    riskLevel: "高风险",
+    riskScore: 86,
+    profile: {
+      dataCompleteness: "81%",
+      updatedAt: "2026-05-15 09:18",
+      tags: ["工程回款慢", "杠杆偏高", "涉诉关注"],
+      highlights: [
+        "工程类项目账期长，资金占用与回款不确定性较高。",
+        "债务结构偏紧，需重点验证短债到期安排与续贷能力。",
+        "若用于授信审批，建议先完成诉讼与担保事项专项核验。",
+      ],
+      dimensions: [
+        { title: "订单与履约", desc: "工程项目周期长，合同执行与验收节点直接影响现金流。" },
+        { title: "财务与偿债", desc: "整体杠杆偏高，应重点看短债结构与经营现金回收。" },
+        { title: "公开风险", desc: "存在涉诉与工程争议线索，建议进入重点复核名单。" },
+      ],
+    },
+    tasks: {
+      status: "进行中",
+      progress: 64,
+      phase: "风险事项穿透",
+      steps: [
+        { title: "公开风险筛查", status: "已完成", note: "已识别涉诉与工程争议事件。" },
+        { title: "偿债压力评估", status: "进行中", note: "正在复核短债、续贷与工程回款承接情况。" },
+        { title: "授信建议形成", status: "待开始", note: "待风险事项确认后输出授信意见。" },
+      ],
+      findings: ["工程回款偏慢", "短债压力较高", "涉诉事项需专项说明"],
+    },
+    report: {
+      status: "预审中",
+      updatedAt: "2026-05-15 09:26",
+      summary: "尽调报告已进入预审，重点核对偿债分析与涉诉影响表述。",
+      sections: ["主体画像", "工程业务分析", "偿债能力", "风险事项", "预审意见"],
+      highlights: ["需补充涉诉金额口径", "缓释措施待补", "授信建议暂未定稿"],
+    },
+    watchlist: {
+      level: "高风险",
+      updatedAt: "2026-05-15 09:31",
+      summary: "属于重点监测样本，建议持续跟踪工程履约、涉诉与短债变化。",
+      alerts: [
+        { time: "09:05", title: "涉诉动态更新", detail: "新增工程结算争议，建议同步核验涉案金额。" },
+        { time: "08:27", title: "债务压力预警", detail: "短期债务集中到期，需关注续贷与现金归集安排。" },
+      ],
+    },
+  },
+];
+
+const homeRiskHotspots = [
+  {
+    id: "beijing",
+    label: "北京",
+    x: "73%",
+    y: "29%",
+    title: "北京区域风险扫描",
+    score: "62.4 / 100",
+    tone: "中等风险",
+    summary: "政策敏感行业融资活跃，但城投链条与房地产关联样本的解释压力上升。",
+    cities: [
+      { name: "朝阳区", value: "89.2" },
+      { name: "海淀区", value: "76.8" },
+      { name: "丰台区", value: "72.1" },
+    ],
+    industries: [
+      { name: "科技服务", value: "81.4" },
+      { name: "地产链", value: "73.2" },
+      { name: "供应链金融", value: "68.5" },
+    ],
+  },
+  {
+    id: "shenzhen",
+    label: "深圳",
+    x: "66%",
+    y: "68%",
+    title: "深圳尽调热点",
+    score: "78.9 / 100",
+    tone: "重点关注",
+    summary: "灵犀微传感、电子制造与跨境贸易样本风险热度较高，适合作为尽调入口。",
+    cities: [
+      { name: "南山区", value: "91.6" },
+      { name: "宝安区", value: "84.3" },
+      { name: "龙岗区", value: "76.5" },
+    ],
+    industries: [
+      { name: "电子元器件", value: "88.4" },
+      { name: "智能制造", value: "79.8" },
+      { name: "跨境贸易", value: "71.6" },
+    ],
+  },
+  {
+    id: "shanghai",
+    label: "上海",
+    x: "78%",
+    y: "46%",
+    title: "上海企业风险脉冲",
+    score: "67.1 / 100",
+    tone: "持续监测",
+    summary: "医药、消费和平台型企业样本较多，舆情与现金流波动需要同步观察。",
+    cities: [
+      { name: "浦东新区", value: "83.5" },
+      { name: "闵行区", value: "74.1" },
+      { name: "嘉定区", value: "65.8" },
+    ],
+    industries: [
+      { name: "医药制造", value: "82.1" },
+      { name: "消费零售", value: "70.4" },
+      { name: "平台服务", value: "66.7" },
+    ],
+  },
+  {
+    id: "chengdu",
+    label: "成都",
+    x: "45%",
+    y: "53%",
+    title: "成都区域预警",
+    score: "58.6 / 100",
+    tone: "平稳偏谨慎",
+    summary: "装备制造与新能源配套企业增长快，但补贴依赖和订单集中度值得复核。",
+    cities: [
+      { name: "高新区", value: "77.9" },
+      { name: "双流区", value: "69.2" },
+      { name: "龙泉驿区", value: "61.3" },
+    ],
+    industries: [
+      { name: "新能源配套", value: "79.6" },
+      { name: "装备制造", value: "72.8" },
+      { name: "汽车零部件", value: "63.9" },
+    ],
+  },
+];
+
+const riskMapRegionViews = {
+  beijing: {
+    id: "beijing",
+    name: "北京",
+    subtitle: "北京区域风险详情",
+    index: "62.4",
+    enterpriseCount: "1,248",
+    heat: "68.7",
+    alerts: "152",
+    summary:
+      "北京整体风险处于中高位，科技与地产相关样本的风险热度上升较快，朝阳区、海淀区聚集度更高。",
+    districts: [
+      { name: "朝阳区", score: "72.1", count: "412" },
+      { name: "海淀区", score: "68.9", count: "328" },
+      { name: "丰台区", score: "61.3", count: "214" },
+      { name: "通州区", score: "58.7", count: "162" },
+      { name: "昌平区", score: "55.2", count: "126" },
+    ],
+    industries: [
+      { name: "科技", score: "71.3", delta: "+6.1" },
+      { name: "房地产", score: "68.8", delta: "+5.4" },
+      { name: "医药", score: "61.7", delta: "+2.8" },
+      { name: "先进制造", score: "58.2", delta: "-1.3" },
+    ],
+    companies: [
+      { name: "某科技股份有限公司", district: "海淀区", industry: "科技", score: "78.6", tags: ["经营异常", "可追风险"] },
+      { name: "某置业集团有限公司", district: "朝阳区", industry: "房地产", score: "72.3", tags: ["债务逾期", "高杠杆"] },
+      { name: "某生物医药有限公司", district: "海淀区", industry: "医药", score: "65.1", tags: ["监管关注", "经营波动"] },
+      { name: "某智能制造有限公司", district: "通州区", industry: "先进制造", score: "59.4", tags: ["供应链风险", "涉诉"] },
+    ],
+    events: [
+      { time: "05-24 09:18", text: "北京某科技企业发生经营异常", district: "海淀区", level: "高风险" },
+      { time: "05-24 06:47", text: "朝阳区某房地产企业新增涉诉", district: "朝阳区", level: "高风险" },
+      { time: "05-23 23:15", text: "丰台区供应链企业现金归集紧张", district: "丰台区", level: "中风险" },
+      { time: "05-23 18:54", text: "昌平区部分企业涉及税务提示", district: "昌平区", level: "低风险" },
+    ],
+    guidance: "下一步可切换到企业尽调，对某个企业进行深入尽职调查并获取更全面的风险画像。",
+  },
+  shanghai: {
+    id: "shanghai",
+    name: "上海",
+    subtitle: "上海区域风险详情",
+    index: "67.1",
+    enterpriseCount: "1,036",
+    heat: "71.8",
+    alerts: "138",
+    summary:
+      "上海区域风险由平台服务、医药制造和外贸链路共同驱动，浦东新区和闵行区风险热度较高。",
+    districts: [
+      { name: "浦东新区", score: "74.6", count: "386" },
+      { name: "闵行区", score: "69.8", count: "242" },
+      { name: "嘉定区", score: "63.5", count: "188" },
+      { name: "徐汇区", score: "58.4", count: "142" },
+      { name: "宝山区", score: "54.9", count: "119" },
+    ],
+    industries: [
+      { name: "平台服务", score: "76.2", delta: "+4.8" },
+      { name: "医药制造", score: "73.4", delta: "+3.1" },
+      { name: "外贸供应链", score: "69.5", delta: "+5.2" },
+      { name: "消费零售", score: "62.8", delta: "-0.6" },
+    ],
+    companies: [
+      { name: "某平台科技有限公司", district: "浦东新区", industry: "平台服务", score: "79.2", tags: ["资金波动", "扩张压力"] },
+      { name: "某创新药企", district: "闵行区", industry: "医药制造", score: "72.4", tags: ["监管关注", "现金消耗"] },
+      { name: "某供应链集团", district: "嘉定区", industry: "外贸供应链", score: "67.8", tags: ["汇率风险", "涉诉"] },
+      { name: "某消费品牌公司", district: "徐汇区", industry: "消费零售", score: "58.9", tags: ["库存波动"] },
+    ],
+    events: [
+      { time: "05-24 10:01", text: "浦东新区平台企业新增资金链预警", district: "浦东新区", level: "高风险" },
+      { time: "05-24 08:42", text: "闵行区医药企业补充监管说明", district: "闵行区", level: "中风险" },
+      { time: "05-23 22:10", text: "嘉定区供应链企业出现跨境回款延迟", district: "嘉定区", level: "中风险" },
+      { time: "05-23 17:26", text: "徐汇区消费企业库存周转偏慢", district: "徐汇区", level: "低风险" },
+    ],
+    guidance: "上海区域更适合从平台企业和医药企业切入企业尽调，优先核验资金与合规链路。",
+  },
+  shenzhen: {
+    id: "shenzhen",
+    name: "深圳",
+    subtitle: "深圳区域风险详情",
+    index: "78.9",
+    enterpriseCount: "892",
+    heat: "82.6",
+    alerts: "166",
+    summary:
+      "深圳是当前最适合作为尽调入口的区域，电子制造、智能硬件和跨境贸易样本的风险强度最高。",
+    districts: [
+      { name: "南山区", score: "81.6", count: "298" },
+      { name: "宝安区", score: "78.4", count: "226" },
+      { name: "龙岗区", score: "72.9", count: "184" },
+      { name: "福田区", score: "69.2", count: "118" },
+      { name: "龙华区", score: "64.7", count: "96" },
+    ],
+    industries: [
+      { name: "电子制造", score: "85.3", delta: "+6.8" },
+      { name: "智能硬件", score: "80.7", delta: "+4.2" },
+      { name: "跨境贸易", score: "76.4", delta: "+5.7" },
+      { name: "新材料", score: "69.8", delta: "+2.3" },
+    ],
+    companies: [
+      { name: "深圳市灵犀微传感科技有限公司", district: "南山区", industry: "电子制造", score: "88.6", tags: ["尽调样本", "高风险"] },
+      { name: "某智能硬件公司", district: "宝安区", industry: "智能硬件", score: "77.2", tags: ["订单波动", "客户集中"] },
+      { name: "某跨境供应链企业", district: "龙岗区", industry: "跨境贸易", score: "74.1", tags: ["回款延迟", "汇率波动"] },
+      { name: "某新材料企业", district: "龙华区", industry: "新材料", score: "66.9", tags: ["毛利下滑"] },
+    ],
+    events: [
+      { time: "05-24 10:16", text: "灵犀微传感新增担保风险待核验", district: "南山区", level: "高风险" },
+      { time: "05-24 09:27", text: "宝安区硬件企业经营异常触发提醒", district: "宝安区", level: "高风险" },
+      { time: "05-23 21:08", text: "龙岗区跨境企业回款周期拉长", district: "龙岗区", level: "中风险" },
+      { time: "05-23 16:31", text: "龙华区材料企业客户集中度上升", district: "龙华区", level: "低风险" },
+    ],
+    guidance: "深圳详情页可直接联动到灵犀微传感尽调工作台，适合作为完整演示链路的起点。",
+  },
+  chengdu: {
+    id: "chengdu",
+    name: "成都",
+    subtitle: "成都区域风险详情",
+    index: "58.6",
+    enterpriseCount: "674",
+    heat: "63.2",
+    alerts: "94",
+    summary:
+      "成都区域整体风险相对温和，但新能源配套和装备制造企业的订单兑现与补贴依赖需要持续关注。",
+    districts: [
+      { name: "高新区", score: "69.1", count: "204" },
+      { name: "双流区", score: "63.8", count: "161" },
+      { name: "龙泉驿区", score: "61.4", count: "148" },
+      { name: "温江区", score: "55.2", count: "96" },
+      { name: "郫都区", score: "49.7", count: "65" },
+    ],
+    industries: [
+      { name: "新能源配套", score: "72.4", delta: "+3.6" },
+      { name: "装备制造", score: "68.1", delta: "+2.4" },
+      { name: "汽车零部件", score: "63.9", delta: "+1.8" },
+      { name: "软件服务", score: "54.2", delta: "-0.4" },
+    ],
+    companies: [
+      { name: "某新能源配套企业", district: "高新区", industry: "新能源配套", score: "73.4", tags: ["补贴依赖", "回款慢"] },
+      { name: "某装备制造公司", district: "双流区", industry: "装备制造", score: "67.3", tags: ["订单集中"] },
+      { name: "某汽车零部件企业", district: "龙泉驿区", industry: "汽车零部件", score: "62.6", tags: ["存货波动"] },
+      { name: "某软件服务商", district: "温江区", industry: "软件服务", score: "53.1", tags: ["经营平稳"] },
+    ],
+    events: [
+      { time: "05-24 08:36", text: "高新区新能源企业回款延迟", district: "高新区", level: "中风险" },
+      { time: "05-23 20:11", text: "双流区装备企业合同履约放缓", district: "双流区", level: "中风险" },
+      { time: "05-23 18:04", text: "龙泉驿区零部件企业库存上升", district: "龙泉驿区", level: "低风险" },
+      { time: "05-23 15:29", text: "温江区软件服务企业经营稳定", district: "温江区", level: "低风险" },
+    ],
+    guidance: "成都区域更适合演示区域筛选与轻量下钻，企业尽调可以从高新区新能源样本切入。",
+  },
+};
+
+const nationalRiskHotspots = [
+  { id: "beijing", label: "北京", score: "62.4", level: "中高风险", companies: 1248, x: "64%", y: "32%", glow: "#ff9f68" },
+  { id: "shanghai", label: "上海", score: "67.1", level: "中高风险", companies: 1036, x: "73%", y: "47%", glow: "#b788ff" },
+  { id: "shenzhen", label: "深圳", score: "78.9", level: "高风险", companies: 892, x: "61%", y: "68%", glow: "#ff7d6d" },
+  { id: "chengdu", label: "成都", score: "58.6", level: "中风险", companies: 674, x: "43%", y: "54%", glow: "#5fb8ff" },
+];
+
+const RISK_MAP_BASE_PATH = "/risk-map";
+
+const portraitRiskFilters = ["全部", "极高风险", "高风险", "中风险", "低风险", "信息不足"];
+
+const riskSeverityMeta = {
+  极高风险: { badgeClass: "risk-badge-extreme", toneClass: "severity-extreme", scoreClass: "score-extreme" },
+  高风险: { badgeClass: "risk-badge-high", toneClass: "severity-high", scoreClass: "score-high" },
+  中风险: { badgeClass: "risk-badge-medium", toneClass: "severity-medium", scoreClass: "score-medium" },
+  低风险: { badgeClass: "risk-badge-low", toneClass: "severity-low", scoreClass: "score-low" },
+  信息不足: { badgeClass: "risk-badge-unknown", toneClass: "severity-unknown", scoreClass: "score-unknown" },
+};
+
+const riskHouseBlueprint = [
+  {
+    id: "01",
+    title: "法律诉讼与执行风险",
+    layer: "pinnacle",
+    priority: 1,
+    overview: "关注诉讼、仲裁、执行、限制高消费与涉案金额传导。",
+    defaultEvidence: ["中国裁判文书网", "中国执行信息公开网", "企查查诉讼快照"],
+    defaultMetrics: ["涉诉案件数量", "涉案金额", "被执行信息数量"],
+    defaultAdvice: "优先核验案件进展、执行状态与是否已形成实质性偿债压力。",
+  },
+  {
+    id: "02",
+    title: "经营异常与失信风险",
+    layer: "pinnacle",
+    priority: 2,
+    overview: "关注经营异常名录、严重违法失信、行政提示与税务异常。",
+    defaultEvidence: ["国家企业信用信息公示系统", "行政处罚公开平台", "税务异常提示"],
+    defaultMetrics: ["经营异常次数", "失信记录", "行政提示数量"],
+    defaultAdvice: "核验异常是否已移出，评估异常对授信准入和合作稳定性的影响。",
+  },
+  {
+    id: "03",
+    title: "实控人与股权控制风险",
+    layer: "pinnacle",
+    priority: 3,
+    overview: "关注股权稳定性、实控链清晰度、控制权质押与代持疑点。",
+    defaultEvidence: ["工商股权穿透", "股权变更记录", "股权质押公告"],
+    defaultMetrics: ["股权变更次数", "实控链层级", "股权质押比例"],
+    defaultAdvice: "关注控制权稳定性与关键股东资金压力，必要时补充穿透核验。",
+  },
+  {
+    id: "04",
+    title: "偿债与现金流风险",
+    layer: "upper",
+    priority: 4,
+    overview: "关注短债覆盖、经营现金流、利息保障与流动性缺口。",
+    defaultEvidence: ["财务报表", "银行流水", "授信台账"],
+    defaultMetrics: ["经营现金流", "短期债务", "利息保障倍数"],
+    defaultAdvice: "优先核验现金回收节奏和债务结构，判断短期流动性是否承压。",
+  },
+  {
+    id: "05",
+    title: "财务质量风险",
+    layer: "upper",
+    priority: 5,
+    overview: "关注收入确认、税票回款勾稽、毛利波动与应收质量。",
+    defaultEvidence: ["近三年报表", "增值税发票摘要", "回款勾稽结果"],
+    defaultMetrics: ["毛利率波动", "应收账龄", "收入税票匹配度"],
+    defaultAdvice: "补充税票、合同与回款链路，验证利润质量与会计一致性。",
+  },
+  {
+    id: "06",
+    title: "关联网络风险",
+    layer: "upper",
+    priority: 6,
+    overview: "关注关联企业、资金往来、公允交易与隐性担保链条。",
+    defaultEvidence: ["关联方穿透图谱", "关联交易摘要", "司法关联网络"],
+    defaultMetrics: ["关联企业数量", "关联交易金额", "短期往来频次"],
+    defaultAdvice: "识别是否存在利益输送、循环交易或隐性担保安排。",
+  },
+  {
+    id: "07",
+    title: "合同履约与交易风险",
+    layer: "middle",
+    priority: 7,
+    overview: "关注合同违约、回款逾期、发货验收与历史争议。",
+    defaultEvidence: ["合同台账", "订单与出货记录", "客户对账单"],
+    defaultMetrics: ["逾期回款比例", "合同争议数量", "履约准时率"],
+    defaultAdvice: "对重点客户与大额合同做穿透核验，确认真实履约质量。",
+  },
+  {
+    id: "08",
+    title: "供应链与客户集中风险",
+    layer: "middle",
+    priority: 8,
+    overview: "关注单一客户依赖、关键原料替代性与上游稳定性。",
+    defaultEvidence: ["前五客户清单", "前五供应商清单", "采购结算摘要"],
+    defaultMetrics: ["前五客户集中度", "前五供应商集中度", "关键材料替代周期"],
+    defaultAdvice: "评估头部客户/供应商波动对收入兑现和生产连续性的影响。",
+  },
+  {
+    id: "09",
+    title: "行业与市场风险",
+    layer: "middle",
+    priority: 9,
+    overview: "关注行业景气度、价格竞争、政策扰动与替代风险。",
+    defaultEvidence: ["行业研究", "券商/咨询报告", "政策法规摘要"],
+    defaultMetrics: ["行业景气度", "价格波动", "市场份额变化"],
+    defaultAdvice: "结合行业周期与政策变化，判断企业中期增长与毛利空间。",
+  },
+  {
+    id: "10",
+    title: "主体身份与工商信息风险",
+    layer: "base",
+    priority: 10,
+    overview: "关注主体状态、统一社会信用代码、法定代表人和工商登记一致性。",
+    defaultEvidence: ["工商登记", "营业执照", "历史变更记录"],
+    defaultMetrics: ["主体状态", "工商变更次数", "信息一致性校验"],
+    defaultAdvice: "仅在主体异常、注销吊销或信息冲突时上调优先级。",
+  },
+  {
+    id: "11",
+    title: "资质许可与合规备案风险",
+    layer: "base",
+    priority: 11,
+    overview: "关注核心资质证照、行业许可、备案完整性与到期风险。",
+    defaultEvidence: ["资质证照", "许可备案", "年审记录"],
+    defaultMetrics: ["核心资质数量", "到期证照数量", "备案缺口"],
+    defaultAdvice: "对关键经营资质做逐项核验，确认是否存在准入或续展风险。",
+  },
+  {
+    id: "12",
+    title: "舆情与声誉风险",
+    layer: "base",
+    priority: 12,
+    overview: "关注媒体负面、社交平台扩散、客户投诉与品牌冲击。",
+    defaultEvidence: ["新闻舆情", "社交平台舆情", "投诉与公开问询"],
+    defaultMetrics: ["负面舆情数量", "热度峰值", "投诉趋势"],
+    defaultAdvice: "持续跟踪负面信息是否扩散为业务风险或合规事件。",
+  },
+];
+
+function createRiskModule(companyName, config) {
+  const blueprint = riskHouseBlueprint.find((item) => item.id === config.id);
+  return {
+    id: blueprint.id,
+    title: blueprint.title,
+    layer: blueprint.layer,
+    priority: blueprint.priority,
+    level: config.level,
+    score: config.score,
+    sufficiency: config.sufficiency,
+    summary: config.summary || `${companyName} 在${blueprint.title}维度${blueprint.overview}`,
+    evidenceSources: config.evidenceSources || blueprint.defaultEvidence,
+    keyMetrics: config.keyMetrics || blueprint.defaultMetrics,
+    aiInterpretation: config.aiInterpretation || `${companyName} 在${blueprint.title}维度呈现${config.level}特征，需要结合已归集证据持续校验。`,
+    recommendedAction: config.recommendedAction || blueprint.defaultAdvice,
+  };
+}
+
+function createPortraitCompany(company) {
+  return {
+    ...company,
+    modules: company.modules.map((item) => createRiskModule(company.name, item)),
+  };
+}
+
+const portraitWorkbenchCompanies = [
+  createPortraitCompany({
+    id: DEMO_COMPANY_CODE,
+    companyCode: DEMO_COMPANY_CODE,
+    name: "深圳市灵犀微传感科技有限公司",
+    industry: "工业传感器 / 智能制造",
+    riskLevel: "高风险",
+    riskScore: 82,
+    updatedAt: "2024-05-24 10:36",
+    tags: ["法律诉讼", "现金流承压", "关联穿透"],
+    modules: [
+      { id: "01", level: "高风险", score: 88, sufficiency: 0.92, summary: "涉诉金额较大，部分案件已进入执行阶段，是当前最需要优先关注的构面。", keyMetrics: ["公开风险事件 2 条", "涉案金额 3,482.6 万元", "执行案件 1 起"], evidenceSources: ["中国裁判文书网", "中国执行信息公开网", "企业舆情快照"], aiInterpretation: "涉诉金额较大且存在执行风险，说明交易纠纷已开始向现金回收与信用稳定性传导。", recommendedAction: "优先核验案件进展、和解可能性与涉诉资金是否已形成实际占用。" },
+      { id: "02", level: "中风险", score: 57, sufficiency: 0.74, summary: "暂无失信惩戒，但经营异常与税务提示仍需留档说明。", keyMetrics: ["经营异常 0 次", "税务提示 1 次", "行政提示 1 次"] },
+      { id: "03", level: "中风险", score: 61, sufficiency: 0.82, summary: "实控链较清晰，但近两年存在股权稀释和新增外部股东。", keyMetrics: ["股权变更 2 次", "质押比例 18%", "实控链层级 3 层"] },
+      { id: "04", level: "高风险", score: 84, sufficiency: 0.87, summary: "短期债务集中到期，经营现金流回正节奏慢，短债覆盖压力明显。", keyMetrics: ["经营现金流 -1,260 万元", "短期债务 5,400 万元", "利息保障倍数 1.3x"], evidenceSources: ["财务报表", "银行回款摘要", "授信台账"], aiInterpretation: "现金流风险高于利润表表现，说明企业可能依赖外部融资或延长付款周期维持周转。 " },
+      { id: "05", level: "高风险", score: 76, sufficiency: 0.91, summary: "收入、税票与回款之间存在需要解释的偏差，应收质量承压。", keyMetrics: ["收入税票匹配度 78%", "应收账龄 180 天以上占比 22%", "毛利率波动 +7.4pct"] },
+      { id: "06", level: "高风险", score: 79, sufficiency: 0.84, summary: "关联企业数量较多，短期资金往来和交叉担保线索需要继续穿透。", keyMetrics: ["关联企业 18 家", "短期往来 9 笔", "交叉担保线索 2 条"] },
+      { id: "07", level: "中风险", score: 64, sufficiency: 0.78, summary: "大额客户履约基本正常，但两笔合同回款进度低于计划。", keyMetrics: ["逾期回款比例 13%", "合同争议 1 起", "履约准时率 89%"] },
+      { id: "08", level: "中风险", score: 67, sufficiency: 0.8, summary: "核心客户和关键供应商集中度偏高，对回款和备货形成传导风险。", keyMetrics: ["前五客户集中度 71%", "前五供应商集中度 63%", "关键材料替代周期 5 个月"] },
+      { id: "09", level: "中风险", score: 58, sufficiency: 0.76, summary: "赛道景气度尚可，但价格竞争加剧，对毛利修复构成压力。", keyMetrics: ["行业景气度 67", "价格波动 +4.2%", "市场份额变化 -1.1pct"] },
+      { id: "10", level: "低风险", score: 29, sufficiency: 0.98, summary: "主体状态正常，工商登记与证照信息一致，不属于当前高优先级风险。", keyMetrics: ["主体状态 正常", "信息一致性 99%", "历史重大异常 0"] },
+      { id: "11", level: "信息不足", score: 46, sufficiency: 0.48, summary: "部分行业资质和备案材料未在当前资料包中完整提供，需补件。", keyMetrics: ["核心资质已见 2 项", "待补备案 3 项", "到期证照 1 项"], evidenceSources: ["现有 VDR 材料", "资质证照扫描件"], aiInterpretation: "当前并非确定性高风险，但资料缺口会直接影响准入判断与后续授信审批。", recommendedAction: "尽快补充核心资质、备案回执与年审记录，先解决信息不完整问题。" },
+      { id: "12", level: "低风险", score: 38, sufficiency: 0.7, summary: "舆情总体平稳，仅有零星行业性讨论，尚未形成持续负面冲击。", keyMetrics: ["负面舆情 3 条", "热度峰值 中", "客户投诉 0"] },
+    ],
+  }),
+  createPortraitCompany({
+    id: "RH-002",
+    companyCode: "RH-002",
+    name: "华星电气集团有限公司",
+    industry: "电气设备 / 工程总包",
+    riskLevel: "极高风险",
+    riskScore: 91,
+    updatedAt: "2024-05-24 10:12",
+    tags: ["执行风险", "高杠杆", "失信扩散"],
+    modules: [
+      { id: "01", level: "极高风险", score: 95, sufficiency: 0.95, summary: "多起涉诉已进入执行，涉案金额大，对回款与新增授信形成直接压制。", keyMetrics: ["执行案件 4 起", "涉案金额 2.37 亿元", "限制高消费 1 次"] },
+      { id: "02", level: "高风险", score: 84, sufficiency: 0.88, summary: "经营异常与行政提示并存，异常记录尚未完全消除。", keyMetrics: ["经营异常 2 次", "行政提示 3 次", "失信记录 1 条"] },
+      { id: "03", level: "高风险", score: 81, sufficiency: 0.82, summary: "控股股东股权质押比例高，控制权稳定性存在波动。", keyMetrics: ["质押比例 78.6%", "股权冻结线索 1 条", "实控链层级 5 层"] },
+      { id: "04", level: "高风险", score: 87, sufficiency: 0.9, summary: "短期债务高企，工程回款慢，流动性压力显著。", keyMetrics: ["经营现金流 -4,280 万元", "短债 3.1 亿元", "利息保障倍数 0.9x"] },
+      { id: "05", level: "中风险", score: 69, sufficiency: 0.85 },
+      { id: "06", level: "中风险", score: 63, sufficiency: 0.72 },
+      { id: "07", level: "中风险", score: 61, sufficiency: 0.78 },
+      { id: "08", level: "中风险", score: 66, sufficiency: 0.83 },
+      { id: "09", level: "中风险", score: 54, sufficiency: 0.76 },
+      { id: "10", level: "低风险", score: 33, sufficiency: 0.94 },
+      { id: "11", level: "低风险", score: 37, sufficiency: 0.68 },
+      { id: "12", level: "中风险", score: 57, sufficiency: 0.72 },
+    ],
+  }),
+  createPortraitCompany({
+    id: "RH-003",
+    companyCode: "RH-003",
+    name: "联创半导体（苏州）有限公司",
+    industry: "半导体 / 芯片封测",
+    riskLevel: "高风险",
+    riskScore: 79,
+    updatedAt: "2024-05-24 09:58",
+    tags: ["股权质押", "客户集中", "关联交易"],
+    modules: [
+      { id: "01", level: "中风险", score: 58, sufficiency: 0.84 },
+      { id: "02", level: "中风险", score: 55, sufficiency: 0.79 },
+      { id: "03", level: "高风险", score: 82, sufficiency: 0.86, summary: "关联网络复杂，存在多层股东与交叉任职，关联交易金额较高。", keyMetrics: ["关联企业 26 家", "交叉任职 7 人", "关联交易占收入 19%"] },
+      { id: "04", level: "中风险", score: 63, sufficiency: 0.82 },
+      { id: "05", level: "中风险", score: 68, sufficiency: 0.87 },
+      { id: "06", level: "高风险", score: 86, sufficiency: 0.9, summary: "关联网络风险是当前核心问题，多个关联节点同时参与采购与融资。 ", keyMetrics: ["核心关联节点 5 个", "短期往来 12 笔", "隐性担保线索 1 条"] },
+      { id: "07", level: "中风险", score: 59, sufficiency: 0.8 },
+      { id: "08", level: "高风险", score: 81, sufficiency: 0.88, summary: "前两大客户收入占比过高，一旦订单调整将直接压缩现金流。", keyMetrics: ["前两大客户占比 64%", "关键材料依赖 2 家", "替代周期 6 个月"] },
+      { id: "09", level: "中风险", score: 62, sufficiency: 0.81 },
+      { id: "10", level: "低风险", score: 31, sufficiency: 0.96 },
+      { id: "11", level: "信息不足", score: 44, sufficiency: 0.42, keyMetrics: ["核心资质已见 1 项", "待补备案 2 项", "到期证照 0"] },
+      { id: "12", level: "低风险", score: 35, sufficiency: 0.68 },
+    ],
+  }),
+  createPortraitCompany({
+    id: "RH-004",
+    companyCode: "RH-004",
+    name: "蓝海能源股份有限公司",
+    industry: "新能源 / 储能系统",
+    riskLevel: "高风险",
+    riskScore: 76,
+    updatedAt: "2024-05-24 08:44",
+    tags: ["现金流吃紧", "财务波动", "资质缺口"],
+    modules: [
+      { id: "01", level: "中风险", score: 52, sufficiency: 0.78 },
+      { id: "02", level: "低风险", score: 39, sufficiency: 0.74 },
+      { id: "03", level: "中风险", score: 56, sufficiency: 0.71 },
+      { id: "04", level: "极高风险", score: 92, sufficiency: 0.91, summary: "偿债与现金流风险显著偏高，经营现金流与短债覆盖严重不匹配。", keyMetrics: ["经营现金流 -8,600 万元", "短债 4.5 亿元", "货币资金/短债 0.34x"] },
+      { id: "05", level: "高风险", score: 85, sufficiency: 0.89, summary: "财务质量波动大，应收与存货同步抬升，利润含金量不足。", keyMetrics: ["应收增长 32%", "存货增长 28%", "毛利率波动 9.1pct"] },
+      { id: "06", level: "中风险", score: 61, sufficiency: 0.72 },
+      { id: "07", level: "中风险", score: 58, sufficiency: 0.79 },
+      { id: "08", level: "中风险", score: 65, sufficiency: 0.76 },
+      { id: "09", level: "中风险", score: 63, sufficiency: 0.77 },
+      { id: "10", level: "低风险", score: 27, sufficiency: 0.95 },
+      { id: "11", level: "信息不足", score: 48, sufficiency: 0.45, summary: "部分项目备案和能评材料尚未完整入库，资质覆盖度不足。", keyMetrics: ["待补备案 4 项", "已见许可 2 项", "年审回执缺失 1 项"] },
+      { id: "12", level: "中风险", score: 55, sufficiency: 0.73 },
+    ],
+  }),
+  createPortraitCompany({
+    id: "RH-005",
+    companyCode: "RH-005",
+    name: "云启智能装备有限公司",
+    industry: "高端装备 / 自动化",
+    riskLevel: "中风险",
+    riskScore: 63,
+    updatedAt: "2024-05-23 18:26",
+    tags: ["客户集中", "行业波动", "资质待补"],
+    modules: [
+      { id: "01", level: "低风险", score: 28, sufficiency: 0.88 },
+      { id: "02", level: "低风险", score: 31, sufficiency: 0.81 },
+      { id: "03", level: "中风险", score: 52, sufficiency: 0.7 },
+      { id: "04", level: "中风险", score: 59, sufficiency: 0.83 },
+      { id: "05", level: "中风险", score: 57, sufficiency: 0.84 },
+      { id: "06", level: "中风险", score: 54, sufficiency: 0.69 },
+      { id: "07", level: "低风险", score: 43, sufficiency: 0.76 },
+      { id: "08", level: "高风险", score: 74, sufficiency: 0.82, summary: "单一大客户依赖度偏高，若项目延期将影响收入兑现与产线开工。", keyMetrics: ["第一大客户占比 48%", "前五客户占比 79%", "关键供应商依赖 2 家"] },
+      { id: "09", level: "中风险", score: 62, sufficiency: 0.8 },
+      { id: "10", level: "低风险", score: 26, sufficiency: 0.94 },
+      { id: "11", level: "信息不足", score: 42, sufficiency: 0.43 },
+      { id: "12", level: "低风险", score: 37, sufficiency: 0.67 },
+    ],
+  }),
+];
+
 const localizedPhrases = {
   "Builds high-precision industrial sensors for battery and equipment clients.": "面向电池及装备客户提供高精度工业传感器。",
   "Industrial Sensors": "工业传感器",
@@ -248,8 +1111,15 @@ const localizedTokens = {
 };
 
 const state = {
-  topSectionId: "risk-view",
+  topSectionId: "home",
   activeSidebarBySection: {
+    home: "overview",
+    "risk-map": "national",
+    "due-task": "execution",
+    "enterprise-library": "portrait",
+    watchlist: "live",
+    "report-center": "generation",
+    "knowledge-center": "laws",
     "risk-view": "basic-info",
     "process-engine": "due-diligence",
     "knowledge-base": "laws",
@@ -260,13 +1130,34 @@ const state = {
   riskSearchKeyword: "",
   processSearchKeyword: "",
   knowledgeSearchKeyword: "",
+  portraitSearchKeyword: "",
+  portraitRiskFilter: "全部",
+  portraitView: "list",
+  portraitCompanyId: DEMO_COMPANY_CODE,
+  portraitLoadingCompanyCode: null,
+  portraitError: null,
   riskRecentCodes: [],
   processRecentCodes: [],
   dueDiligenceTabId: "report-generate",
+  riskMapRegionId: null,
+  taskBoardTab: "collection",
+  taskBoardView: "list",
+  taskBoardCompanyCode: DEMO_COMPANY_CODE,
+  taskBoardSearchKeyword: "",
+  reportCenterView: "hub",
+  reportCenterReportTypeId: "due-diligence",
+  reportCenterSearchKeyword: "",
+  reportCenterLoadingCompanyCode: null,
+  reportCenterError: null,
+  riskHouseFocusId: "01",
+  watchlistFocusCode: DEMO_COMPANY_CODE,
+  watchlistPanelMode: "overview",
   customerSectionId: "basic",
   reportVersionId: null,
   previewOpen: false,
   previewSectionId: null,
+  reportKnowledgeCollapsed: false,
+  reviewKnowledgeCollapsed: false,
   pendingDataSourceSelection: [],
   riskCompletionMode: null,
   riskCompletionMenuOpen: false,
@@ -282,16 +1173,26 @@ const state = {
   pendingKnowledgeVersionId: null,
   reportEditorText: "",
   reviewEditorText: "",
+  homeCommandInput: "",
+  homeCommandMessage: "",
+  homeCommandIsComposing: false,
   companies: [],
   meta: null,
   knowledgeBase: null,
   systemAdmin: null,
+  homeFeed: null,
   companyDetailCache: {},
   isGeneratingVersion: false,
   isRunningReview: false,
+  homeHotspotId: null,
+  smartNavContext: null,
 };
 
 const topbarNavEl = document.getElementById("topbar-nav");
+const topbarHeadingEl = document.getElementById("topbar-heading");
+const appFrameEl = document.querySelector(".app-frame");
+const workspaceEl = document.querySelector(".workspace");
+const sidebarEl = document.querySelector(".sidebar");
 const sidebarContextEl = document.getElementById("sidebar-context");
 const sidebarNavEl = document.getElementById("sidebar-nav");
 const sidebarNoteEl = document.getElementById("sidebar-note");
@@ -339,9 +1240,43 @@ function postJson(url, payload) {
   });
 }
 
+function renderShellIcon(key) {
+  const icons = {
+    home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V20h13V10.5"/><path d="M9.5 20v-5h5v5"/></svg>',
+    "risk-map": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m3 6 6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14"/><path d="M15 6v14"/></svg>',
+    "due-task": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="M8 16h5"/></svg>',
+    "enterprise-library": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 4 8v8l8 4 8-4V8z"/><path d="M4 8l8 4 8-4"/><path d="M12 12v8"/></svg>',
+    watchlist: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4a7 7 0 0 0-7 7c0 6-2 7-2 7h18s-2-1-2-7a7 7 0 0 0-7-7"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>',
+    "report-center": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v6h6"/><path d="M10 13h6"/><path d="M10 17h4"/></svg>',
+    "knowledge-center": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 5.5A2.5 2.5 0 0 1 8.5 3H20v16H8.5A2.5 2.5 0 0 0 6 21z"/><path d="M6 5.5V21"/><path d="M10 7h6"/><path d="M10 11h6"/></svg>',
+    "risk-view": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.5 2.8 8.6 7 10 4.2-1.4 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/></svg>',
+    "process-engine": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="17.5" r="2.5"/><path d="M9 6.5h6"/><path d="M6.5 9v6"/><path d="m17.5 9 0 3.5-5 5"/></svg>',
+  };
+  return `<span class="shell-icon" aria-hidden="true">${icons[key] || icons.home}</span>`;
+}
+
 function createStatusPill(key) {
   const item = statusPalette[key] || { label: key, className: "status-blue" };
-  return `<span class="status-pill ${item.className}">${item.label}</span>`;
+  return `<span class="status-pill risk-badge ${item.className}">${item.label}</span>`;
+}
+
+function renderKnowledgeFileOption(file, checked) {
+  return `
+    <label class="checkbox-item knowledge-file-option">
+      <input
+        type="checkbox"
+        data-knowledge-file-id="${file.id}"
+        ${checked ? "checked" : ""}
+      />
+      <div class="knowledge-file-copy">
+        <strong class="knowledge-file-name">${escapeHtml(file.name)}</strong>
+        <div class="knowledge-file-meta">
+          <span class="knowledge-file-description">${escapeHtml(file.description || "无说明")}</span>
+          <span class="knowledge-file-source">上传人 ${escapeHtml(file.owner)}</span>
+        </div>
+      </div>
+    </label>
+  `;
 }
 
 function compactText(value, fallback = "—") {
@@ -397,6 +1332,20 @@ function formatRecommendationStatus(value) {
   return mapping[String(value || "").toLowerCase()] || compactText(value, "—");
 }
 
+function formatGenerationModeLabel(value) {
+  const text = String(value || "").trim();
+  if (!text) return "—";
+  if (text === "skill_pipeline") return "双 Skill 生成";
+  if (text === "template") return "模板生成";
+  if (text.startsWith("deepseek")) return "DeepSeek 生成";
+  return text;
+}
+
+function formatVersionDisplayLabel(version) {
+  if (!version) return "—";
+  return `${version.version_label} · ${formatGenerationModeLabel(version.generation_mode)}`;
+}
+
 function toNumber(value) {
   const num = Number(value);
   return Number.isFinite(num) ? num : null;
@@ -425,6 +1374,192 @@ function formatPeriodLabel(periodCode) {
   const fullDateMatched = text.match(/^(\d{4})(\d{2})(\d{2})$/);
   if (fullDateMatched) return `${fullDateMatched[1]}-${fullDateMatched[2]}-${fullDateMatched[3]}`;
   return text;
+}
+
+function normalizeRiskRegionId(value) {
+  const key = String(value || "").trim().toLowerCase();
+  return riskMapRegionViews[key] ? key : null;
+}
+
+function getRiskMapPath(regionId = state.riskMapRegionId) {
+  const normalized = normalizeRiskRegionId(regionId);
+  return normalized ? `${RISK_MAP_BASE_PATH}/${normalized}` : RISK_MAP_BASE_PATH;
+}
+
+function normalizeSmartSearchText(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[（()）·,，。、“”"'‘’:：;；!！?？\s\-_/]/g, "");
+}
+
+function getSmartNavCompanyById(companyId) {
+  return smartNavCompanies.find((item) => item.id === companyId) || null;
+}
+
+function resolveSmartNavCompany(input) {
+  const normalizedInput = normalizeSmartSearchText(input);
+  if (!normalizedInput) return null;
+
+  let matched = null;
+  let highestScore = 0;
+
+  smartNavCompanies.forEach((company) => {
+    const searchTokens = [company.name, ...(company.aliases || [])]
+      .map(normalizeSmartSearchText)
+      .filter(Boolean);
+
+    searchTokens.forEach((token) => {
+      let score = 0;
+      if (normalizedInput === token) score = token.length + 100;
+      else if (normalizedInput.includes(token)) score = token.length + 40;
+      else if (token.includes(normalizedInput) && normalizedInput.length >= 2) score = normalizedInput.length;
+
+      if (score > highestScore) {
+        highestScore = score;
+        matched = company;
+      }
+    });
+  });
+
+  return matched;
+}
+
+function detectSmartNavRouteKey(input) {
+  const text = String(input || "").trim();
+  if (!text) return "company-profile";
+
+  if (smartNavIntentKeywords["due-diligence-report"].some((keyword) => text.includes(keyword))) {
+    return "due-diligence-report";
+  }
+  if (smartNavIntentKeywords["watchlist-detail"].some((keyword) => text.includes(keyword))) {
+    return "watchlist-detail";
+  }
+  if (
+    smartNavIntentKeywords["insight-tasks"].some((keyword) => text.includes(keyword))
+    || (/发起/.test(text) && /尽调/.test(text))
+    || (/尽调/.test(text) && !/报告/.test(text) && !/风险/.test(text) && !/预警/.test(text) && !/监控/.test(text))
+  ) {
+    return "insight-tasks";
+  }
+  return "company-profile";
+}
+
+function buildSmartNavActionSuggestions(company, preferredRouteKey = "company-profile") {
+  return smartNavActionCatalog.map((item) => ({
+    ...item,
+    company,
+    isPrimary: item.routeKey === preferredRouteKey,
+  }));
+}
+
+function resolveHomeSmartCommand(input = state.homeCommandInput) {
+  const trimmed = String(input || "").trim();
+  if (!trimmed) {
+    return {
+      input: "",
+      company: null,
+      routeKey: "company-profile",
+      suggestions: [],
+      message: "",
+    };
+  }
+
+  const company = resolveSmartNavCompany(trimmed);
+  const routeKey = detectSmartNavRouteKey(trimmed);
+  if (!company) {
+    return {
+      input: trimmed,
+      company: null,
+      routeKey,
+      suggestions: [],
+      message: "未找到匹配企业，请尝试输入企业全称或简称。",
+    };
+  }
+
+  return {
+    input: trimmed,
+    company,
+    routeKey,
+    suggestions: buildSmartNavActionSuggestions(company, routeKey),
+    message: "",
+  };
+}
+
+function getSmartNavContextCompany() {
+  if (!state.smartNavContext) return null;
+  return getSmartNavCompanyById(state.smartNavContext.companyId);
+}
+
+function buildSmartNavSearch(context = state.smartNavContext) {
+  if (!context) return "";
+  const params = new URLSearchParams();
+  if (context.companyId) params.set("companyId", context.companyId);
+  if (context.companyName) params.set("companyName", context.companyName);
+  if (context.rawInput) params.set("q", context.rawInput);
+  return params.toString() ? `?${params.toString()}` : "";
+}
+
+function getAppLocationFromState() {
+  if (state.smartNavContext?.routeKey && smartNavRouteMeta[state.smartNavContext.routeKey]) {
+    return {
+      pathname: smartNavRouteMeta[state.smartNavContext.routeKey].path,
+      search: buildSmartNavSearch(),
+    };
+  }
+  if (state.topSectionId === "risk-map") return getRiskMapPath();
+  return { pathname: "/", search: "" };
+}
+
+function syncLocationFromState(replace = false) {
+  if (typeof window === "undefined" || !window.history || !window.location) return;
+  const targetLocation = getAppLocationFromState();
+  const pathname = typeof targetLocation === "string" ? targetLocation : targetLocation.pathname;
+  const search = typeof targetLocation === "string" ? "" : targetLocation.search;
+  if (window.location.pathname === pathname && window.location.search === search) return;
+  const method = replace ? "replaceState" : "pushState";
+  window.history[method](
+    {
+      topSectionId: state.topSectionId,
+      riskMapRegionId: state.riskMapRegionId,
+      smartNavContext: state.smartNavContext,
+    },
+    "",
+    `${pathname}${search}`,
+  );
+}
+
+function applyRouteFromLocation(pathname = window.location.pathname, search = window.location.search) {
+  const currentPath = String(pathname || "/");
+  const smartEntry = Object.entries(smartNavRouteMeta).find(([, meta]) => meta.path === currentPath);
+  if (smartEntry) {
+    const [routeKey, meta] = smartEntry;
+    const params = new URLSearchParams(search || "");
+    const company = getSmartNavCompanyById(params.get("companyId")) || resolveSmartNavCompany(params.get("companyName"));
+    state.topSectionId = meta.topSectionId;
+    state.smartNavContext = {
+      routeKey,
+      companyId: company?.id || params.get("companyId") || "",
+      companyName: company?.name || params.get("companyName") || "目标企业",
+      rawInput: params.get("q") || "",
+    };
+    state.homeCommandInput = params.get("q") || company?.name || "";
+    state.homeCommandMessage = "";
+    state.riskMapRegionId = null;
+    state.previewOpen = false;
+    state.previewSectionId = null;
+    return;
+  }
+
+  if (currentPath === RISK_MAP_BASE_PATH || currentPath.startsWith(`${RISK_MAP_BASE_PATH}/`)) {
+    state.topSectionId = "risk-map";
+    state.riskMapRegionId = normalizeRiskRegionId(currentPath.slice(RISK_MAP_BASE_PATH.length + 1));
+    state.smartNavContext = null;
+    state.previewOpen = false;
+    state.previewSectionId = null;
+    return;
+  }
+  state.smartNavContext = null;
+  state.riskMapRegionId = null;
 }
 
 function getMetricMap(detail) {
@@ -468,7 +1603,7 @@ function getToneByStatus(status) {
 }
 
 function renderToneBadge(label, tone) {
-  return `<span class="analysis-badge analysis-badge-${tone}">${escapeHtml(label)}</span>`;
+  return `<span class="analysis-badge risk-badge analysis-badge-${tone}">${escapeHtml(label)}</span>`;
 }
 
 function dedupeBy(items, getKey) {
@@ -1068,6 +2203,14 @@ function getCurrentTopSection() {
   return topSections.find((item) => item.id === state.topSectionId) || topSections[0];
 }
 
+function getPrimaryNavSections() {
+  return topSections.filter((item) => item.id !== "risk-map");
+}
+
+function shouldHideGlobalSidebar() {
+  return false;
+}
+
 function getSidebarItems() {
   return sidebarItems[state.topSectionId] || [];
 }
@@ -1080,6 +2223,7 @@ function getActiveSidebarItem() {
 function getCurrentCompanyCode() {
   if (state.topSectionId === "risk-view") return state.riskViewCompanyCode;
   if (state.topSectionId === "process-engine") return state.processEngineCompanyCode;
+  if (state.topSectionId === "enterprise-library") return state.portraitCompanyId;
   return null;
 }
 
@@ -1090,7 +2234,13 @@ function getCurrentRecentCodes() {
 }
 
 function getCompanySummary(companyCode) {
-  return state.companies.find((item) => item.company_code === companyCode) || null;
+  return state.companies.find((item) => item.company_code === companyCode)
+    || portraitWorkbenchCompanies.find((item) => item.id === companyCode || item.companyCode === companyCode)
+    || null;
+}
+
+function getRealCompanySummary(companyCode) {
+  return getPortraitCompaniesSource().find((item) => item.company_code === companyCode || item.id === companyCode) || null;
 }
 
 function getCompanyDetail(companyCode) {
@@ -1167,7 +2317,12 @@ async function selectCompany(sectionId, companyCode) {
 async function searchCompany(sectionId) {
   const keyword = sectionId === "risk-view" ? state.riskSearchKeyword.trim() : state.processSearchKeyword.trim();
   if (!keyword) return;
-  const matched = state.companies.find((item) => item.name.includes(keyword));
+  const normalized = keyword.toLowerCase();
+  const matched = state.companies.find((item) => {
+    const companyName = String(item.name || "").toLowerCase();
+    const companyCode = String(item.company_code || "").toLowerCase();
+    return companyName.includes(normalized) || companyCode.includes(normalized);
+  });
   if (!matched) {
     window.alert("未找到匹配企业，请尝试点击下方示例企业。");
     return;
@@ -1177,59 +2332,75 @@ async function searchCompany(sectionId) {
 }
 
 function renderTopbar() {
-  topbarNavEl.innerHTML = topSections
-    .map(
-      (item) => `
-        <button
-          class="topbar-nav-item${item.id === state.topSectionId ? " is-active" : ""}"
-          type="button"
-          data-action="switch-top-section"
-          data-top-section="${item.id}"
-        >${item.title}</button>
-      `,
-    )
-    .join("");
+  topbarHeadingEl.innerHTML = `
+    <div class="topbar-brand-heading">
+      <img src="/assets/astraea-emblem.png" alt="Astraea 人像徽记" class="topbar-brand-emblem" />
+      <div class="topbar-brand-copy">
+        <h1 class="topbar-brand-wordmark">ASTRAEA</h1>
+        <p class="topbar-brand-subline">
+          <span class="topbar-brand-cn">风险先知</span>
+          <span class="topbar-brand-divider" aria-hidden="true"></span>
+          <span class="topbar-brand-en">Astraea Intelligence</span>
+        </p>
+      </div>
+    </div>
+  `;
+  topbarNavEl.innerHTML = "";
 }
 
 function renderSidebar() {
-  const topSection = getCurrentTopSection();
-  const activeSidebar = getActiveSidebarItem();
-  const currentCompanyCode = getCurrentCompanyCode();
-
-  if (topSection.id === "risk-view" || topSection.id === "process-engine") {
-    sidebarContextEl.innerHTML = "";
-    sidebarNoteEl.innerHTML = "";
-    sidebarContextEl.style.display = "none";
-    sidebarNoteEl.style.display = "none";
-  } else {
-    sidebarContextEl.style.display = "";
-    sidebarNoteEl.style.display = "";
-    sidebarContextEl.innerHTML = `
-      <p class="section-kicker">${topSection.title}</p>
-      <h2>${topSection.title}</h2>
-      <p>${topSection.summary}</p>
-    `;
-    const note = {
-      "knowledge-base": "知识库文件可上传、查看，并在尽调报告生成时按分类多选引用。",
-      "system-admin": "系统管理用于展示用户、权限、菜单、知识权限与日志等后台能力。",
-    }[topSection.id];
-
-    sidebarNoteEl.innerHTML = `
-      <p class="section-kicker">当前说明</p>
-      <p>${note}</p>
-      <p style="margin-top: 10px;"><strong>当前菜单：</strong>${activeSidebar.title}</p>
-    `;
+  if (shouldHideGlobalSidebar()) {
+    sidebarEl?.classList.add("is-hidden");
+    workspaceEl?.classList.add("is-fullwidth");
+    appFrameEl?.classList.add("app-frame-immersive");
+    if (sidebarContextEl) sidebarContextEl.innerHTML = "";
+    sidebarNavEl.innerHTML = "";
+    if (sidebarNoteEl) sidebarNoteEl.innerHTML = "";
+    return;
   }
 
-  sidebarNavEl.innerHTML = getSidebarItems()
+  sidebarEl?.classList.remove("is-hidden");
+  workspaceEl?.classList.remove("is-fullwidth");
+  appFrameEl?.classList.remove("app-frame-immersive");
+  if (sidebarContextEl) {
+    sidebarContextEl.style.display = "none";
+    sidebarContextEl.innerHTML = "";
+  }
+  if (sidebarNoteEl) {
+    sidebarNoteEl.style.display = "none";
+    sidebarNoteEl.innerHTML = "";
+  }
+
+  sidebarNavEl.innerHTML = getPrimaryNavSections()
     .map(
       (item) => `
-        <button
-          class="sidebar-nav-item${item.id === activeSidebar.id ? " is-active" : ""}"
-          type="button"
-          data-action="switch-sidebar-item"
-          data-sidebar-id="${item.id}"
-        >${item.title}</button>
+        <div class="sidebar-nav-group${item.id === state.topSectionId ? " is-active" : ""}">
+          <button
+            class="sidebar-nav-item${item.id === state.topSectionId ? " is-active" : ""}"
+            type="button"
+            data-action="switch-top-section"
+            data-top-section="${item.id}"
+          >
+            ${renderShellIcon(item.id)}
+            <span class="sidebar-nav-item__label">${item.title}</span>
+          </button>
+          ${item.id === "knowledge-center" && state.topSectionId === "knowledge-center"
+            ? `
+              <div class="sidebar-subnav" aria-label="知识中心分类">
+                ${getSidebarItems()
+                  .map((subItem) => `
+                    <button
+                      class="sidebar-subnav-item${subItem.id === getActiveSidebarItem().id ? " is-active" : ""}"
+                      type="button"
+                      data-action="switch-sidebar-item"
+                      data-sidebar-id="${subItem.id}"
+                    >${subItem.title}</button>
+                  `)
+                  .join("")}
+              </div>
+            `
+            : ""}
+        </div>
       `,
     )
     .join("");
@@ -1423,6 +2594,14 @@ function renderSystemToolbar() {
 }
 
 function renderToolbar() {
+  if (["home", "risk-map", "due-task", "enterprise-library", "watchlist", "report-center"].includes(state.topSectionId)) {
+    toolbarAreaEl.innerHTML = "";
+    return;
+  }
+  if (state.topSectionId === "knowledge-center") {
+    renderKnowledgeToolbar();
+    return;
+  }
   if (state.topSectionId === "risk-view") {
     renderSearchToolbar("risk-view", getActiveSidebarItem().title, "客户全景风险洞察，用于按专题查看主体、经营、财务、关联方和外部环境等风险信息。");
     return;
@@ -1872,7 +3051,7 @@ function renderKnowledgeChooser(version) {
       const categoryFiles = files.filter((item) => item.category === category.id);
       const selectedCount = categoryFiles.filter((item) => state.pendingKnowledgeSelection.includes(item.id)).length;
       return `
-        <article class="summary-card source-group-card">
+        <section class="knowledge-section-block">
           <div class="inline-head">
             <div>
               <h3>${category.title}</h3>
@@ -1885,25 +3064,11 @@ function renderKnowledgeChooser(version) {
           <div class="checkbox-group">
             ${categoryFiles.length
               ? categoryFiles
-                  .map(
-                    (file) => `
-                      <label class="checkbox-item">
-                        <input
-                          type="checkbox"
-                          data-knowledge-file-id="${file.id}"
-                          ${state.pendingKnowledgeSelection.includes(file.id) ? "checked" : ""}
-                        />
-                        <div>
-                          <strong>${escapeHtml(file.name)}</strong>
-                          <span>${escapeHtml(file.description || "无说明")} · 上传人 ${escapeHtml(file.owner)}</span>
-                        </div>
-                      </label>
-                    `,
-                  )
+                  .map((file) => renderKnowledgeFileOption(file, state.pendingKnowledgeSelection.includes(file.id)))
                   .join("")
               : '<div class="list-item">当前分类暂无文件</div>'}
           </div>
-        </article>
+        </section>
       `;
     })
     .join("");
@@ -1951,23 +3116,32 @@ function renderDataSourceChooser(detail) {
 function renderDueDiligenceReportGenerate(detail) {
   const version = getCurrentVersion(detail);
   const selectedKnowledge = getSelectedKnowledgeFiles();
+  const collapsed = state.reportKnowledgeCollapsed;
   return `
-    <div class="report-workspace-grid" style="margin-top: 20px;">
-      <div class="list-grid">
-        <article class="content-card">
+    <div class="report-workspace-grid${collapsed ? " is-compact" : ""}" style="margin-top: 20px;">
+      ${collapsed
+        ? ""
+        : `
+      <div class="list-grid report-left-column">
+        <article class="content-card knowledge-unified-card">
           <div class="inline-head">
             <div>
-              <h3>左侧选择知识库依据</h3>
-              <p>尽调报告默认调用全部结构化数据库内容，左侧仅保留知识库文件选择，作为写作口径和引用依据。</p>
+              <h3>知识库引用依据</h3>
+              <p>从左侧统一选择法律法规、行内制度和专家经验，作为尽调报告生成与预审时的参考口径和引用依据。</p>
             </div>
-            ${createStatusPill("open")}
+            <button class="ghost-action" type="button" data-action="toggle-knowledge-pane" data-pane="report">${collapsed ? "展开依据" : "收起依据"}</button>
           </div>
-          <div class="summary-stack" style="margin-top: 16px;">
-            <div class="summary-item"><strong>已选知识文件</strong><span>${selectedKnowledge.length} 份</span></div>
+          <div class="knowledge-unified-scroll">
+            <div class="summary-stack knowledge-unified-summary" style="margin-top: 16px;">
+              <div class="summary-item summary-item--selected-count"><strong>已选知识文件</strong><span>${selectedKnowledge.length} 份</span></div>
+              <div class="summary-item summary-item--helper"><strong>说明</strong><span>只会参考当前勾选的知识库文件，不会默认引用全部知识文件。</span></div>
+            </div>
+            <div class="divider"></div>
+            <div class="knowledge-unified-sections">
+              ${renderKnowledgeChooser(version)}
+            </div>
           </div>
-        </article>
-        ${renderKnowledgeChooser(version)}
-        <article class="summary-card">
+          <div class="divider"></div>
           <div class="inline-head">
             <div>
               <h3>生成动作</h3>
@@ -1981,6 +3155,7 @@ function renderDueDiligenceReportGenerate(detail) {
           </div>
         </article>
       </div>
+      `}
 
       <article class="content-card report-editor-panel">
         <div class="inline-head">
@@ -1997,21 +3172,16 @@ function renderDueDiligenceReportGenerate(detail) {
                 ${detail.report_versions
                   .map(
                     (item) => `
-                      <option value="${item.id}" ${item.id === version.id ? "selected" : ""}>${item.version_label}</option>
+                      <option value="${item.id}" ${item.id === version.id ? "selected" : ""}>${escapeHtml(formatVersionDisplayLabel(item))}</option>
                     `,
                   )
                   .join("")}
               </select>
+              <button class="ghost-action" type="button" data-action="toggle-knowledge-pane" data-pane="report">${collapsed ? "展开知识库依据" : "收起知识库依据"}</button>
               <button class="ghost-action" type="button" data-action="save-report-draft">保存修改</button>
               <a class="secondary-action" href="${version.pdf_url}" target="_blank" rel="noreferrer">下载 PDF</a>
             </div>
-            <div class="summary-stack" style="margin-top: 16px;">
-              <div class="summary-item"><strong>当前版本</strong><span>${escapeHtml(version.version_label)} · ${escapeHtml(version.created_at)}</span></div>
-              <div class="summary-item"><strong>生成依据</strong><span>${escapeHtml(version.based_on.join("；"))}</span></div>
-            </div>
-            <div class="divider"></div>
-            <h4>报告编辑画布</h4>
-            <textarea class="form-textarea report-canvas" id="report-editor-textarea">${escapeHtml(state.reportEditorText)}</textarea>
+            ${renderDocumentWorkspace(version, state.reportEditorText, "report-editor-textarea", "generated", "尽调报告画布")}
           `
           : '<div class="empty-state"><h3>尚未生成报告</h3><p>请先在左侧勾选内容并生成新版本。</p></div>'}
       </article>
@@ -2019,51 +3189,54 @@ function renderDueDiligenceReportGenerate(detail) {
   `;
 }
 
-function renderReviewSummary(version) {
-  if (!version?.review_result) {
-    return `
-      <article class="summary-card">
-        <h3>问题清单</h3>
-        <p>点击“生成风险提示清单”后，这里会输出需要做出什么判断、还缺什么数据以及建议完善方向。</p>
-      </article>
-    `;
-  }
-
+function renderReviewInsightsPanel(version, collapsed) {
+  const findings = version?.review_result?.findings || [];
   return `
-    <article class="summary-card">
-      <h3>预审总览</h3>
-      <div class="summary-stack" style="margin-top: 16px;">
-        <div class="summary-item"><strong>总体结论</strong><span>${escapeHtml(version.review_result.overall_result)}</span></div>
-        <div class="summary-item"><strong>清单生成时间</strong><span>${escapeHtml(version.review_result.reviewed_at)}</span></div>
-        <div class="summary-item"><strong>AI预审摘要</strong><span>${escapeHtml(version.review_result.review_summary || "已生成风险提示清单")}</span></div>
-        <div class="summary-item"><strong>重点关注</strong><span>高风险 ${version.review_result.counts.high} 条 / 关注 ${version.review_result.counts.medium} 条</span></div>
+    <article class="content-card review-insights-panel">
+      <div class="inline-head">
+        <div>
+          <h3>预审风险分析</h3>
+          <p>${version?.review_result ? "汇总预审结论与全部风险提示，便于客户经理集中查看与修改。" : "点击左侧底部按钮后，这里会输出预审总览与全部风险提示。"}</p>
+        </div>
+        <button class="ghost-action" type="button" data-action="toggle-knowledge-pane" data-pane="review">${collapsed ? "展开依据" : "收起依据"}</button>
       </div>
+      ${version?.review_result
+        ? `
+          <div class="review-insights-scroll">
+            <div class="summary-stack" style="margin-top: 16px;">
+              <div class="summary-item"><strong>总体结论</strong><span>${escapeHtml(version.review_result.overall_result)}</span></div>
+              <div class="summary-item"><strong>清单生成时间</strong><span>${escapeHtml(version.review_result.reviewed_at)}</span></div>
+              <div class="summary-item"><strong>AI预审摘要</strong><span>${escapeHtml(version.review_result.review_summary || "已生成风险提示清单")}</span></div>
+              <div class="summary-item"><strong>重点关注</strong><span>高风险 ${version.review_result.counts.high} 条 / 关注 ${version.review_result.counts.medium} 条</span></div>
+            </div>
+            <div class="divider"></div>
+            <div class="review-findings-stack">
+              ${findings.length
+                ? findings
+                    .map(
+                      (item, index) => `
+                        <article class="summary-card checklist-card">
+                          <div class="finding-head">
+                            <h3>提示 ${index + 1}</h3>
+                            ${createStatusPill(item.severity === "high" ? "pressure" : item.severity === "medium" ? "watch" : "stable")}
+                          </div>
+                          <p>${escapeHtml(item.issue)}</p>
+                          <div class="summary-stack" style="margin-top: 16px;">
+                            <div class="summary-item"><strong>需要判断</strong><span>${escapeHtml(item.judgement_focus || item.section_title || "—")}</span></div>
+                            <div class="summary-item"><strong>还需数据</strong><span>${escapeHtml(item.required_data || item.source_rule || "—")}</span></div>
+                            <div class="summary-item"><strong>建议完善方向</strong><span>${escapeHtml(item.improvement_direction || item.suggestion)}</span></div>
+                          </div>
+                        </article>
+                      `,
+                    )
+                    .join("")
+                : '<div class="summary-card"><h3>问题清单</h3><p>当前没有问题清单。</p></div>'}
+            </div>
+          </div>
+        `
+        : '<div class="summary-card" style="margin-top:16px;"><h3>问题清单</h3><p>点击左侧底部“生成风险提示清单”后，这里会统一展示预审总览与全部提示。</p></div>'}
     </article>
   `;
-}
-
-function renderReviewFindings(version) {
-  const findings = version.review_result?.findings || [];
-  return findings.length
-    ? findings
-        .map(
-          (item, index) => `
-            <article class="summary-card checklist-card">
-              <div class="finding-head">
-                <h3>提示 ${index + 1}</h3>
-                ${createStatusPill(item.severity === "high" ? "pressure" : item.severity === "medium" ? "watch" : "stable")}
-              </div>
-              <p>${escapeHtml(item.issue)}</p>
-              <div class="summary-stack" style="margin-top: 16px;">
-                <div class="summary-item"><strong>需要判断</strong><span>${escapeHtml(item.judgement_focus || item.section_title || "—")}</span></div>
-                <div class="summary-item"><strong>还需数据</strong><span>${escapeHtml(item.required_data || item.source_rule || "—")}</span></div>
-                <div class="summary-item"><strong>建议完善方向</strong><span>${escapeHtml(item.improvement_direction || item.suggestion)}</span></div>
-              </div>
-            </article>
-          `,
-        )
-        .join("")
-    : '<div class="summary-card"><h3>问题清单</h3><p>当前没有问题清单。</p></div>';
 }
 
 function renderReviewKnowledgeGroup(categoryId, title, description) {
@@ -2082,23 +3255,7 @@ function renderReviewKnowledgeGroup(categoryId, title, description) {
       </div>
       <div class="checkbox-group">
         ${files.length
-          ? files
-              .map(
-                (file) => `
-                  <label class="checkbox-item">
-                    <input
-                      type="checkbox"
-                      data-knowledge-file-id="${file.id}"
-                      ${state.pendingKnowledgeSelection.includes(file.id) ? "checked" : ""}
-                    />
-                    <div>
-                      <strong>${escapeHtml(file.name)}</strong>
-                      <span>${escapeHtml(file.description || "无说明")} · 上传人 ${escapeHtml(file.owner)}</span>
-                    </div>
-                  </label>
-                `,
-              )
-              .join("")
+          ? files.map((file) => renderKnowledgeFileOption(file, state.pendingKnowledgeSelection.includes(file.id))).join("")
           : '<div class="list-item">当前分类暂无文件</div>'}
       </div>
     </section>
@@ -2107,20 +3264,24 @@ function renderReviewKnowledgeGroup(categoryId, title, description) {
 
 function renderDueDiligenceReportReview(detail) {
   const version = getCurrentVersion(detail);
+  const collapsed = state.reviewKnowledgeCollapsed;
   if (!version) {
     return '<div class="empty-state"><h3>当前企业尚未生成尽调报告版本</h3><p>请先生成报告版本后再执行预审。</p></div>';
   }
 
   return `
-    <div class="review-workspace-grid" style="margin-top: 20px;">
+    <div class="review-workspace-grid${collapsed ? " is-compact" : ""}" style="margin-top: 20px;">
+      ${collapsed
+        ? ""
+        : `
       <article class="content-card review-left-panel">
         <section class="review-left-panel-head">
-          <h3>预审依据输入</h3>
-          <p>从现有知识库中直接勾选外规、银行内规和专家经验，作为预审依据。</p>
-          <div class="button-row" style="margin-top: 16px;">
-            <button class="primary-action" type="button" data-action="run-review" ${state.isRunningReview ? "disabled" : ""}>
-              ${state.isRunningReview ? "生成中..." : "生成风险提示清单"}
-            </button>
+          <div class="inline-head">
+            <div>
+              <h3>预审依据输入</h3>
+              <p>从现有知识库中直接勾选外规、银行内规和专家经验，作为预审依据。</p>
+            </div>
+            <button class="ghost-action" type="button" data-action="toggle-knowledge-pane" data-pane="review">收起依据</button>
           </div>
         </section>
         <div class="divider"></div>
@@ -2131,11 +3292,17 @@ function renderDueDiligenceReportReview(detail) {
           <div class="divider"></div>
           ${renderReviewKnowledgeGroup("experience", "专家经验", "从现有知识库中勾选专家经验文件，作为风险判断和完善方向的补充口径。")}
         </section>
+        <div class="divider"></div>
+        <div class="button-row">
+          <button class="primary-action" type="button" data-action="run-review" ${state.isRunningReview ? "disabled" : ""}>
+            ${state.isRunningReview ? "生成中..." : "生成风险提示清单"}
+          </button>
+        </div>
       </article>
+      `}
 
-      <div class="list-grid">
-        ${renderReviewSummary(version)}
-        ${renderReviewFindings(version)}
+      <div class="review-insights-column">
+        ${renderReviewInsightsPanel(version, collapsed)}
       </div>
 
       <article class="content-card report-editor-panel">
@@ -2151,7 +3318,7 @@ function renderDueDiligenceReportReview(detail) {
           <a class="secondary-action" href="${version.pdf_url}?variant=review" target="_blank" rel="noreferrer">下载 PDF</a>
         </div>
         <div class="divider"></div>
-        <textarea class="form-textarea report-canvas report-canvas-review" id="review-editor-textarea">${escapeHtml(state.reviewEditorText)}</textarea>
+        ${renderDocumentWorkspace(version, state.reviewEditorText, "review-editor-textarea", "review", "预审修订画布")}
       </article>
     </div>
   `;
@@ -2396,7 +3563,3145 @@ function renderSystemAdmin() {
   `;
 }
 
+function getDemoCompany() {
+  return getCompanySummary(DEMO_COMPANY_CODE) || state.companies[0] || null;
+}
+
+function getDemoDetail() {
+  return getCompanyDetail(DEMO_COMPANY_CODE) || getCompanyDetail(state.processEngineCompanyCode) || null;
+}
+
+function getRiskSeverity(level) {
+  return riskSeverityMeta[level] || riskSeverityMeta["中风险"];
+}
+
+function getCompanyRiskLevelLabel(company) {
+  if (!company) return null;
+  if (company.riskLevel) return compactText(company.riskLevel, null);
+  if (company.risk_level) return compactText(company.risk_level, null);
+  if (company.risk_level_label) return compactText(company.risk_level_label, null);
+  if (company.risk_tier) return formatRiskTier(company.risk_tier);
+  return null;
+}
+
+function getCompanyRiskScoreValue(company) {
+  const direct = company?.riskScore ?? company?.risk_score;
+  const num = toNumber(direct);
+  return num === null ? null : Math.round(num);
+}
+
+function getCompanyUpdatedAtValue(company) {
+  return company?.updatedAt || company?.updated_at || null;
+}
+
+function getCompanyRiskTags(company) {
+  if (Array.isArray(company?.tags)) return company.tags.filter(Boolean);
+  if (Array.isArray(company?.riskTags)) return company.riskTags.filter(Boolean);
+  if (Array.isArray(company?.risk_tags)) return company.risk_tags.filter(Boolean);
+  return [];
+}
+
+function getPortraitCompaniesSource() {
+  return Array.isArray(state.companies) ? state.companies : [];
+}
+
+function mapCompanyToPortraitListItem(company) {
+  if (!company) return null;
+  return {
+    ...company,
+    id: company.company_code || company.id,
+    companyCode: company.company_code || company.id,
+    industry: formatCompanyIndustry(company),
+    riskLevel: getCompanyRiskLevelLabel(company),
+    riskScore: getCompanyRiskScoreValue(company),
+    updatedAt: getCompanyUpdatedAtValue(company),
+    tags: getCompanyRiskTags(company),
+  };
+}
+
+function getPortraitModule(company, moduleId = state.riskHouseFocusId) {
+  return company?.modules?.find((item) => item.id === moduleId) || company?.modules?.[0] || null;
+}
+
+function getPortraitDefaultFocusId(company) {
+  if (!company?.modules?.length) return "01";
+  return [...company.modules]
+    .sort((a, b) => (b.score - a.score) || (a.priority - b.priority))[0]?.id || "01";
+}
+
+function getPortraitCompaniesFiltered() {
+  const keyword = state.portraitSearchKeyword.trim().toLowerCase();
+  return getPortraitCompaniesSource().map(mapCompanyToPortraitListItem).filter((item) => item).filter((item) => {
+    const keywordMatch = !keyword
+      || String(item.name || "").toLowerCase().includes(keyword)
+      || String(item.industry || "").toLowerCase().includes(keyword);
+    const riskMatch = state.portraitRiskFilter === "全部" || item.riskLevel === state.portraitRiskFilter;
+    return keywordMatch && riskMatch;
+  });
+}
+
+function estimatePortraitSufficiency(signals) {
+  const validCount = signals.filter((item) => {
+    if (item === null || item === undefined) return false;
+    if (Array.isArray(item)) return item.length > 0;
+    return true;
+  }).length;
+  return Number((validCount / Math.max(signals.length, 1)).toFixed(2));
+}
+
+function getPortraitLevelByScore(score, sufficiency = 1) {
+  if (sufficiency < 0.35) return "信息不足";
+  if (score >= 86) return "极高风险";
+  if (score >= 72) return "高风险";
+  if (score >= 55) return "中风险";
+  return "低风险";
+}
+
+function clampPortraitScore(score) {
+  return Math.max(26, Math.min(93, Math.round(score)));
+}
+
+function buildPortraitModulesFromDetail(company, detail) {
+  const metrics = getMetricMap(detail);
+  const publicRisks = detail.public_risks || [];
+  const validationFindings = detail.validation_findings || [];
+  const relatedCompanies = detail.related_companies || [];
+  const relatedTransactions = detail.related_transactions || [];
+  const shareholdingChanges = detail.shareholding_changes || [];
+  const people = detail.people || [];
+  const receivable = getReceivableSnapshot(detail, "accounts_receivable");
+  const bankSummary = detail.bank_summaries?.[0] || null;
+  const cases = detail.cases || [];
+  const contracts = detail.contracts || [];
+  const orders = detail.orders || [];
+  const profileAttributes = detail.profile_attributes || [];
+
+  const legalScore = clampPortraitScore(40 + publicRisks.length * 9 + cases.length * 6);
+  const complianceScore = clampPortraitScore(34 + validationFindings.filter((item) => item.status === "warn").length * 8 + validationFindings.filter((item) => item.status === "fail").length * 12);
+  const ownershipScore = clampPortraitScore(30 + relatedCompanies.length * 2 + shareholdingChanges.length * 6 + people.filter((item) => item.is_actual_controller).length * 8);
+  const cashflowScore = clampPortraitScore(
+    42
+    + ((toNumber(metrics.operating_cash_flow) ?? 0) < 0 ? 24 : 0)
+    + ((toNumber(metrics.asset_liability_ratio) ?? 0) > 0.65 ? 18 : 0)
+    + ((toNumber(metrics.interest_coverage_ratio) ?? 3) < 1.5 ? 12 : 0),
+  );
+  const revenueScore = clampPortraitScore(
+    38
+    + ((receivable?.overdue_over_90d_cny ?? 0) > 0 ? 18 : 0)
+    + ((receivable?.top5_ratio_pct ?? 0) > 0.6 ? 12 : 0)
+    + ((toNumber(metrics.gross_margin_pct) ?? 0) < 0.18 ? 10 : 0),
+  );
+  const relatedScore = clampPortraitScore(35 + relatedTransactions.length * 4 + relatedCompanies.length * 2);
+  const contractScore = clampPortraitScore(28 + Math.min(contracts.length, 6) * 5 + Math.min(orders.length, 6) * 3);
+  const supplyScore = clampPortraitScore(30 + ((receivable?.top5_ratio_pct ?? 0) > 0.65 ? 18 : 8));
+  const marketScore = clampPortraitScore(36 + (publicRisks.length ? 12 : 0));
+  const identityScore = clampPortraitScore(company.operating_status ? 28 : 48);
+  const licenseScore = clampPortraitScore(profileAttributes.length ? 44 : 56);
+  const reputationScore = clampPortraitScore(32 + Math.min(publicRisks.length, 4) * 8);
+
+  const configs = [
+    {
+      id: "01",
+      score: legalScore,
+      sufficiency: estimatePortraitSufficiency([publicRisks, cases]),
+      summary: publicRisks.length || cases.length
+        ? `共识别公开风险 ${publicRisks.length} 条、涉诉/案件 ${cases.length} 条，需要优先核验法律与执行风险。`
+        : "当前未读取到公开风险或案件记录，法律风险信号相对有限。",
+      keyMetrics: [`公开风险 ${publicRisks.length} 条`, `案件 ${cases.length} 条`, `重点核验 ${publicRisks[0]?.title || "暂无"}`],
+      evidenceSources: ["公开风险信息", "案件/涉诉记录", "尽调案例信息"],
+    },
+    {
+      id: "02",
+      score: complianceScore,
+      sufficiency: estimatePortraitSufficiency([validationFindings]),
+      summary: validationFindings.length
+        ? `共识别核验发现 ${validationFindings.length} 条，其中需关注或失败项 ${validationFindings.filter((item) => item.status !== "pass").length} 条。`
+        : "当前未读取到专项核验发现，合规核验信息仍待补充。",
+      keyMetrics: [`核验发现 ${validationFindings.length} 条`, `预警 ${validationFindings.filter((item) => item.status === "warn").length} 条`, `失败 ${validationFindings.filter((item) => item.status === "fail").length} 条`],
+      evidenceSources: ["校验发现清单", "尽调底稿"],
+    },
+    {
+      id: "03",
+      score: ownershipScore,
+      sufficiency: estimatePortraitSufficiency([relatedCompanies, shareholdingChanges, people]),
+      summary: `已识别关联企业 ${relatedCompanies.length} 家、股权变更 ${shareholdingChanges.length} 条、关键人员 ${people.length} 名。`,
+      keyMetrics: [`关联企业 ${relatedCompanies.length} 家`, `股权变更 ${shareholdingChanges.length} 条`, `关键人员 ${people.length} 名`],
+      evidenceSources: ["关联企业清单", "股权变更记录", "人员角色信息"],
+    },
+    {
+      id: "04",
+      score: cashflowScore,
+      sufficiency: estimatePortraitSufficiency([metrics.operating_cash_flow, metrics.asset_liability_ratio, metrics.interest_coverage_ratio]),
+      summary: "根据经营现金流、杠杆与利息保障倍数综合判断当前偿债与现金流风险。",
+      keyMetrics: [`经营现金流 ${formatCurrency(metrics.operating_cash_flow)}`, `资产负债率 ${formatPercent(metrics.asset_liability_ratio)}`, `利息保障倍数 ${formatMultiple(metrics.interest_coverage_ratio)}`],
+      evidenceSources: ["财务指标", "银行结算摘要"],
+    },
+    {
+      id: "05",
+      score: revenueScore,
+      sufficiency: estimatePortraitSufficiency([receivable, metrics.gross_margin_pct, metrics.net_profit]),
+      summary: "根据应收质量、客户集中度和毛利波动判断收入质量与回款压力。",
+      keyMetrics: [`应收账款 ${formatCurrency(metrics.accounts_receivable)}`, `前五客户集中度 ${formatPercent(receivable?.top5_ratio_pct)}`, `毛利率 ${formatPercent(metrics.gross_margin_pct)}`],
+      evidenceSources: ["财务指标", "应收快照", "订单与发票"],
+    },
+    {
+      id: "06",
+      score: relatedScore,
+      sufficiency: estimatePortraitSufficiency([relatedTransactions, relatedCompanies]),
+      summary: relatedTransactions.length
+        ? `已读取关联交易 ${relatedTransactions.length} 条，需重点核验关联往来与定价公允性。`
+        : "当前未读取到关联交易摘要，关联交易风险识别信息较少。",
+      keyMetrics: [`关联交易 ${relatedTransactions.length} 条`, `关联企业 ${relatedCompanies.length} 家`, `担保相关人员 ${people.filter((item) => item.is_guarantor).length} 名`],
+      evidenceSources: ["关联交易摘要", "关联企业清单"],
+    },
+    {
+      id: "07",
+      score: contractScore,
+      sufficiency: estimatePortraitSufficiency([contracts, orders]),
+      summary: `已读取合同 ${contracts.length} 份、订单 ${orders.length} 条，可据此查看履约与回款链路。`,
+      keyMetrics: [`合同 ${contracts.length} 份`, `订单 ${orders.length} 条`, `银行大额交易 ${bankSummary?.large_transaction_count ?? "—"} 笔`],
+      evidenceSources: ["合同清单", "订单数据", "银行摘要"],
+    },
+    {
+      id: "08",
+      score: supplyScore,
+      sufficiency: estimatePortraitSufficiency([receivable, orders]),
+      summary: "根据客户集中度、订单数量和回款表现判断供应链与客户集中风险。",
+      keyMetrics: [`前五客户集中度 ${formatPercent(receivable?.top5_ratio_pct)}`, `订单 ${orders.length} 条`, `回款异常 ${receivable?.overdue_over_90d_cny ? formatCurrency(receivable.overdue_over_90d_cny) : "—"}`],
+      evidenceSources: ["应收快照", "订单数据"],
+    },
+    {
+      id: "09",
+      score: marketScore,
+      sufficiency: estimatePortraitSufficiency([company.industry_category, publicRisks]),
+      summary: `企业所属行业为 ${formatCompanyIndustry(company)}，市场与行业风险结合公开风险事件综合判断。`,
+      keyMetrics: [`所属行业 ${formatCompanyIndustry(company)}`, `公开风险 ${publicRisks.length} 条`, `企业规模 ${compactText(localizeText(company.enterprise_scale), "—")}`],
+      evidenceSources: ["企业主体信息", "公开风险信息"],
+    },
+    {
+      id: "10",
+      score: identityScore,
+      sufficiency: estimatePortraitSufficiency([company.unified_social_credit_code, company.operating_status]),
+      summary: `主体状态为 ${compactText(localizeText(company.operating_status), "暂无数据")}，统一社会信用代码${company.unified_social_credit_code ? "已读取" : "未读取"}。`,
+      keyMetrics: [`主体状态 ${compactText(localizeText(company.operating_status), "暂无数据")}`, `统一社会信用代码 ${company.unified_social_credit_code ? "已读取" : "未读取"}`, `注册地 ${compactText(company.region_city || company.region_province, "暂无数据")}`],
+      evidenceSources: ["企业主体信息"],
+    },
+    {
+      id: "11",
+      score: licenseScore,
+      sufficiency: estimatePortraitSufficiency([profileAttributes]),
+      summary: profileAttributes.length
+        ? `已读取补充画像/资质属性 ${profileAttributes.length} 条，可继续核验资质许可与备案覆盖情况。`
+        : "当前未读取到资质许可或补充画像属性，合规资质维度信息不足。",
+      keyMetrics: [`画像属性 ${profileAttributes.length} 条`, `材料上传 ${detail.due_diligence_materials?.length ?? 0} 份`, `知识依据 ${state.knowledgeBase?.files?.length ?? 0} 份`],
+      evidenceSources: ["画像属性", "材料上传清单"],
+    },
+    {
+      id: "12",
+      score: reputationScore,
+      sufficiency: estimatePortraitSufficiency([publicRisks]),
+      summary: publicRisks.length
+        ? `当前根据公开风险与舆情类事件识别声誉影响，已归集 ${publicRisks.length} 条相关信息。`
+        : "当前未读取到舆情或公开风险信息，声誉风险信号较少。",
+      keyMetrics: [`公开风险 ${publicRisks.length} 条`, `重点事件 ${publicRisks[0]?.title || "暂无"}`, `最近更新 ${getCompanyUpdatedAtValue(company) || "暂无数据"}`],
+      evidenceSources: ["公开风险信息"],
+    },
+  ];
+
+  const modules = configs.map((config) => createRiskModule(company.name, {
+    ...config,
+    level: getPortraitLevelByScore(config.score, config.sufficiency),
+  }));
+  return modules;
+}
+
+function buildPortraitCompanyDetail(company, detail) {
+  const modules = buildPortraitModulesFromDetail(company, detail);
+  const derivedScore = modules.length ? Math.round(modules.reduce((sum, item) => sum + item.score, 0) / modules.length) : null;
+  return {
+    ...mapCompanyToPortraitListItem(company),
+    modules,
+    portraitScore: derivedScore,
+    riskLevel: getCompanyRiskLevelLabel(company) || getPortraitLevelByScore(derivedScore || 45, 1),
+  };
+}
+
+function renderRiskSeverityBadge(level) {
+  const severity = getRiskSeverity(level);
+  return `<span class="risk-badge ${severity.badgeClass}">${escapeHtml(level)}</span>`;
+}
+
+function formatCompanyIndustry(company) {
+  return compactText(company?.industry_label || company?.industry || company?.subindustry || company?.industry_category, "待补行业");
+}
+
+function formatCurrentDisplayTime(index = 0) {
+  const now = new Date();
+  const display = new Date(now);
+  display.setHours(9 + (index % 6), 8 + ((index * 11) % 50), 0, 0);
+  const year = display.getFullYear();
+  const month = String(display.getMonth() + 1).padStart(2, "0");
+  const day = String(display.getDate()).padStart(2, "0");
+  const hour = String(display.getHours()).padStart(2, "0");
+  const minute = String(display.getMinutes()).padStart(2, "0");
+  return `${year}-${month}-${day} ${hour}:${minute}`;
+}
+
+function getCompanyTaskUpdatedAt(company, index = 0) {
+  return company?.taskUpdatedAt
+    || company?.task_updated_at
+    || company?.lastUpdated
+    || company?.last_updated
+    || company?.reportUpdatedAt
+    || company?.report_updated_at
+    || company?.updatedAt
+    || company?.updated_at
+    || formatCurrentDisplayTime(index);
+}
+
+function hasCompletedDueTaskReport(company) {
+  const statusCandidates = [
+    company?.reportStatus,
+    company?.report_status,
+    company?.taskStatus,
+    company?.task_status,
+  ]
+    .filter(Boolean)
+    .map((item) => String(item).toLowerCase());
+  if (company?.reportGenerated === true || company?.report_generated === true || company?.hasReport === true || company?.has_report === true) {
+    return true;
+  }
+  if (statusCandidates.some((item) => ["completed", "generated", "done", "ready"].includes(item))) {
+    return true;
+  }
+  const detail = getCompanyDetail(company?.company_code);
+  if (detail?.report_generated === true || detail?.has_report === true || detail?.skill_pipeline) {
+    return true;
+  }
+  return company?.data_mode === "skill_poc";
+}
+
+function getSelectionCompanies() {
+  const source = state.companies?.length
+    ? state.companies
+    : portraitWorkbenchCompanies.map((item) => ({
+        company_code: item.companyCode || item.id,
+        name: item.name,
+        overview: item.modules.find((module) => module.summary)?.summary || "",
+        risk_tier: item.riskLevel,
+        subindustry: item.industry,
+        industry_category: item.industry,
+      }));
+
+  return dedupeBy(
+    source.map((company, index) => {
+      const companyCode = company.company_code || company.companyCode || company.id;
+      const portraitCompany = portraitWorkbenchCompanies.find((item) => item.companyCode === companyCode || item.id === companyCode);
+      return {
+        ...company,
+        company_code: companyCode,
+        industry_label: portraitCompany?.industry || company.subindustry || company.industry_category || company.industry,
+        risk_level_label: portraitCompany?.riskLevel || formatRiskTier(company.risk_tier),
+        riskScore: portraitCompany?.riskScore || getRiskScore(company),
+        updatedAt: getCompanyTaskUpdatedAt(company, index),
+        tags: portraitCompany?.tags || [],
+      };
+    }),
+    (item) => item.company_code,
+  );
+}
+
+function buildDueTaskTimeline(taskState, company) {
+  if (taskState.reportCompleted) {
+    return [
+      { time: "10:36:00", title: "尽调报告生成完成", note: "当前企业已进入可查看报告状态" },
+      { time: "10:31:00", title: "生成初步结论完成", note: "综合风险结论与建议已输出" },
+      { time: "10:26:00", title: "关联网络穿透完成", note: "关联企业、交易与担保链路已校验" },
+      { time: "10:21:00", title: "财务与现金流分析完成", note: "关键财务指标与回款链路已整合" },
+      { time: "10:16:00", title: "工商/司法数据归集完成", note: `${company?.name || "当前企业"} 相关主体底稿已归集` },
+    ];
+  }
+  return [
+    { time: "10:32:00", title: "生成初步结论处理中", note: "正在汇总前五步结论，等待生成最终报告" },
+    { time: "10:27:00", title: "关联网络穿透完成", note: "关联企业、交易与担保链路已校验" },
+    { time: "10:22:00", title: "舆情与事件扫描完成", note: "外部公开风险与事件线索已同步" },
+    { time: "10:17:00", title: "财务与现金流分析完成", note: "关键财务指标与现金流压力已评估" },
+    { time: "10:12:00", title: "工商/司法数据归集完成", note: `${company?.name || "当前企业"} 主体与底稿资料已齐备` },
+  ];
+}
+
+function buildDueTaskState(company, index = 0) {
+  const reportCompleted = hasCompletedDueTaskReport(company);
+  const riskScore = company.riskScore || 60;
+  const progress = reportCompleted ? 100 : 85;
+  const phase = reportCompleted ? "生成报告完成" : "生成初步结论中";
+  const step6State = reportCompleted ? "done" : "running";
+  const steps = dueTaskStepBlueprints.map((step, stepIndex) => {
+    const stepNumber = stepIndex + 1;
+    const stateName = stepNumber <= 5 ? "done" : step6State;
+    const pct = stateName === "done" ? 100 : 58;
+    return {
+      index: stepNumber,
+      title: step.title,
+      tasks: step.tasks,
+      pct,
+      state: stateName,
+      status: stateName === "done" ? "已完成" : "运行中",
+      desc: stateName === "done"
+        ? (stepNumber === 6 ? "报告生成完成" : "核验完成")
+        : "结论整理中",
+    };
+  });
+  return {
+    ...company,
+    reportCompleted,
+    progress,
+    phase,
+    highRiskCount: Math.max(1, Math.round(riskScore / 38)),
+    updatedAt: getCompanyTaskUpdatedAt(company, index),
+    actionLabel: reportCompleted ? "查看报告" : "进入任务",
+    liveLabel: reportCompleted ? "报告已生成" : "AI 自动尽调中",
+    steps,
+    timeline: buildDueTaskTimeline({ reportCompleted }, company),
+  };
+}
+
+function getDueTaskCompanies() {
+  return getSelectionCompanies().slice(0, 8).map((company, index) => buildDueTaskState(company, index));
+}
+
+function getDueTaskCompaniesFiltered() {
+  const keyword = state.taskBoardSearchKeyword.trim().toLowerCase();
+  return getDueTaskCompanies().filter((company) => {
+    const name = String(company.name || "").toLowerCase();
+    const industry = formatCompanyIndustry(company).toLowerCase();
+    const code = String(company.company_code || "").toLowerCase();
+    return !keyword || name.includes(keyword) || industry.includes(keyword) || code.includes(keyword);
+  });
+}
+
+function getSelectedDueTaskCompany() {
+  const companies = getDueTaskCompanies();
+  return companies.find((item) => item.company_code === state.taskBoardCompanyCode) || companies[0] || null;
+}
+
+function getSelectedReportConfig() {
+  return reportCenterCatalog.find((item) => item.id === state.reportCenterReportTypeId) || reportCenterCatalog[0];
+}
+
+function getReportCenterCompaniesFiltered() {
+  const keyword = state.reportCenterSearchKeyword.trim().toLowerCase();
+  const source = Array.isArray(state.companies) ? state.companies : [];
+  return source.filter((company) => {
+    const name = String(company.name || "").toLowerCase();
+    const industry = formatCompanyIndustry(company).toLowerCase();
+    const code = String(company.company_code || "").toLowerCase();
+    return !keyword || name.includes(keyword) || industry.includes(keyword) || code.includes(keyword);
+  });
+}
+
+function getReportCompanyStatus(config, company, index = 0) {
+  const cachedDetail = getCompanyDetail(company.company_code);
+  const hasReportVersion = Boolean(cachedDetail?.report_versions?.length);
+  if (config.id === "due-diligence") {
+    if (hasReportVersion) return { label: "已生成", className: "is-ready", note: "可编辑 / 可预审" };
+    if (company.data_mode === "skill_poc" || company.data_mode === "full_case") {
+      return { label: "可生成", className: "is-running", note: "资料已就绪" };
+    }
+    return { label: "待生成", className: "is-pending", note: "待补资料" };
+  }
+  if (config.id === "credit-rating") {
+    const score = getRiskScore(company);
+    return score >= 78
+      ? { label: "生成中", className: "is-running", note: "评分收敛中" }
+      : { label: "待队列", className: "is-pending", note: "等待尽调输入" };
+  }
+  if (config.id === "credit-plan") {
+    return company.recommendation_status === "approve"
+      ? { label: "可输出", className: "is-ready", note: "额度联动就绪" }
+      : { label: "待评级", className: "is-pending", note: "等待评级结果" };
+  }
+  if (config.id === "investigation-report") {
+    return index === 0
+      ? { label: "排版中", className: "is-running", note: "封面与目录生成中" }
+      : { label: "待定稿", className: "is-pending", note: "等待尽调定稿" };
+  }
+  return getRiskScore(company) >= 70
+    ? { label: "待校验", className: "is-running", note: "放款要件预组装" }
+    : { label: "待审批", className: "is-pending", note: "等待授信审批" };
+}
+
+function renderReportTemplatePreview(company, statusMeta, options = {}) {
+  const detailMode = Boolean(options.detail);
+  const title = options.title || "尽调报告";
+  const subtitle = options.subtitle || statusMeta.note || "待补资料";
+  const companyName = company?.name || "目标企业";
+  const industry = formatCompanyIndustry(company);
+  return `
+    <div class="report-template-preview${detailMode ? " report-template-preview--detail" : ""}">
+      <div class="report-template-preview__ambient"></div>
+      <div class="report-template-preview__glass">
+        <div class="report-template-preview__head">
+          <span class="report-template-preview__type">${escapeHtml(title)}</span>
+          <span class="report-template-preview__status ${statusMeta.className}">${escapeHtml(statusMeta.label)}</span>
+        </div>
+        <div class="report-template-preview__body">
+          <strong>${escapeHtml(companyName)}</strong>
+          <p>${escapeHtml(subtitle)}</p>
+          <div class="report-template-preview__lines">
+            <i></i><i></i><i></i><i></i>
+          </div>
+        </div>
+        <div class="report-template-preview__foot">
+          <span>${escapeHtml(industry)}</span>
+          ${company?.operating_status ? `<em>${escapeHtml(localizeText(company.operating_status))}</em>` : ""}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderReportCompanyCardSkeleton() {
+  return `
+    <div class="report-company-card report-company-card--skeleton" aria-hidden="true">
+      <div class="report-template-preview report-template-preview--skeleton">
+        <div class="report-template-preview__glass">
+          <div class="report-skeleton-line report-skeleton-line--short"></div>
+          <div class="report-skeleton-line report-skeleton-line--title"></div>
+          <div class="report-skeleton-line report-skeleton-line--mid"></div>
+          <div class="report-template-preview__lines">
+            <i></i><i></i><i></i><i></i>
+          </div>
+        </div>
+      </div>
+      <div class="report-company-card__meta">
+        <span class="report-skeleton-line report-skeleton-line--company"></span>
+        <span class="report-skeleton-line report-skeleton-line--meta"></span>
+      </div>
+    </div>
+  `;
+}
+
+function getRiskScore(company) {
+  const tier = company?.risk_tier || "";
+  if (tier === "medium_high" || tier === "high") return 88;
+  if (tier === "medium") return 72;
+  if (tier === "low") return 42;
+  return 62;
+}
+
+function getRiskTone(company) {
+  const tier = company?.risk_tier || "";
+  if (tier === "medium_high" || tier === "high") return "pressure";
+  if (tier === "medium") return "watch";
+  return "stable";
+}
+
+function getWatchIndustryGroup(industry = "") {
+  const text = String(industry || "");
+  if (/医药|医疗|生物|药|Healthcare|Medical/i.test(text)) {
+    return { label: "医药 / 生物医药", className: "industry-purple" };
+  }
+  if (/食品|酒|白酒|饮|Food|Beverage/i.test(text)) {
+    return { label: "食品酒饮", className: "industry-orange" };
+  }
+  if (/能源|新能源|储能|材料|Energy|Material/i.test(text)) {
+    return { label: "能源 / 材料", className: "industry-green" };
+  }
+  if (/工业|制造|传感|智能|装备|软件|半导体|芯片|汽车|Industrial|Manufacturing|Equipment|Software|SaaS|IoT/i.test(text)) {
+    return { label: "工业传感器 / 智能制造", className: "industry-cyan" };
+  }
+  return { label: "其他行业", className: "industry-slate" };
+}
+
+function getWatchRiskLevel(company, portraitCompany) {
+  if (portraitCompany?.riskLevel) return portraitCompany.riskLevel;
+  return formatRiskTier(company?.risk_tier);
+}
+
+function getWatchLatestEvent(company, portraitCompany) {
+  if (company?.company_code === DEMO_COMPANY_CODE) return "新增未披露担保风险待复核";
+  if (portraitCompany?.tags?.length) return `${portraitCompany.tags[0]}信号持续监测`;
+  const tier = company?.risk_tier || "";
+  if (tier === "medium_high" || tier === "high") return "新增高优先级风险事件";
+  if (tier === "medium") return "风险指标波动需跟踪";
+  return "无重大变化";
+}
+
+function buildWatchlistCompanies() {
+  const sourceCompanies = state.companies?.length
+    ? state.companies
+    : portraitWorkbenchCompanies.map((item) => ({
+      company_code: item.companyCode,
+      name: item.name,
+      subindustry: item.industry,
+      risk_tier: item.riskScore >= 80 ? "medium_high" : item.riskScore >= 60 ? "medium" : "low",
+    }));
+  const merged = sourceCompanies.map((company, index) => {
+    const portraitCompany = portraitWorkbenchCompanies.find((item) => item.companyCode === company.company_code || item.id === company.company_code);
+    const rawIndustry = portraitCompany?.industry || company.subindustry || company.industry_category || "其他行业";
+    const industry = localizedPhrases[rawIndustry] || rawIndustry;
+    const industryGroup = getWatchIndustryGroup(industry);
+    const score = portraitCompany?.riskScore || getRiskScore(company);
+    const radius = 12 + ((100 - score) * 0.46);
+    const angle = (-90 + index * 47) * (Math.PI / 180);
+    return {
+      code: company.company_code || portraitCompany?.companyCode || `watch-${index}`,
+      name: company.name || portraitCompany?.name || "未命名企业",
+      industry,
+      industryGroup,
+      riskLevel: getWatchRiskLevel(company, portraitCompany),
+      riskScore: score,
+      riskTone: getRiskTone(company),
+      latestEvent: getWatchLatestEvent(company, portraitCompany),
+      x: 50 + Math.cos(angle) * radius,
+      y: 50 + Math.sin(angle) * radius * 0.82,
+    };
+  });
+  return merged.sort((a, b) => b.riskScore - a.riskScore).slice(0, 10);
+}
+
+function renderWatchlistRadarPoint(item) {
+  const activeClass = item.code === state.watchlistFocusCode ? " is-active" : "";
+  const dimmedClass = getWatchlistMode() !== "overview" && item.code !== state.watchlistFocusCode ? " is-dimmed" : "";
+  const size = Math.max(13, Math.min(24, 10 + item.riskScore / 7));
+  return `
+    <button
+      class="watch-radar-point ${item.industryGroup.className} ${item.riskTone}${activeClass}${dimmedClass}"
+      type="button"
+      style="--x:${item.x.toFixed(1)}%; --y:${item.y.toFixed(1)}%; --point-size:${size.toFixed(1)}px;"
+      data-action="open-watchlist-company"
+      data-company-code="${escapeHtml(item.code)}"
+      aria-label="打开${escapeHtml(item.name)}风险详情"
+    >
+      <span class="watch-radar-point__core"></span>
+      <span class="watch-radar-point__tooltip">
+        <strong>${escapeHtml(item.name)}</strong>
+        <small>${escapeHtml(item.industry)}</small>
+        <em>${escapeHtml(item.riskLevel)} · ${escapeHtml(item.latestEvent)}</em>
+      </span>
+    </button>
+  `;
+}
+
+function renderWatchlistIndustryGroups(items) {
+  const groups = items.reduce((result, item) => {
+    const key = item.industryGroup.label;
+    if (!result.has(key)) result.set(key, { meta: item.industryGroup, items: [] });
+    result.get(key).items.push(item);
+    return result;
+  }, new Map());
+  return Array.from(groups.values())
+    .map((group) => `
+      <article class="watch-industry-group">
+        <div class="watch-industry-group__head">
+          <span class="watch-industry-dot ${group.meta.className}"></span>
+          <strong>${escapeHtml(group.meta.label)}</strong>
+        </div>
+        <div class="watch-industry-group__list">
+          ${group.items
+            .map((item) => `
+              <button
+                class="watch-company-row${item.code === state.watchlistFocusCode ? " is-active" : ""}"
+                type="button"
+                data-action="focus-watchlist-company"
+                data-company-code="${escapeHtml(item.code)}"
+              >
+                <span>
+                  <strong>${escapeHtml(item.name)}</strong>
+                  <small>${escapeHtml(item.latestEvent)}</small>
+                </span>
+                <em>${escapeHtml(item.riskLevel)}</em>
+              </button>
+            `)
+            .join("")}
+        </div>
+      </article>
+    `)
+    .join("");
+}
+
+function getWatchlistBaseCompany(companyCode) {
+  return getSelectionCompanies().find((item) => item.company_code === companyCode) || null;
+}
+
+function getWatchlistSeed(value = "") {
+  return Array.from(String(value)).reduce((sum, char, index) => sum + (char.charCodeAt(0) * (index + 3)), 0);
+}
+
+function clampWatchlistNumber(value, min, max) {
+  return Math.max(min, Math.min(max, Math.round(value)));
+}
+
+function offsetWatchlistDisplayTime(baseValue, hoursBack = 0) {
+  const fallback = new Date();
+  const baseDate = baseValue ? new Date(String(baseValue).replace(/-/g, "/")) : fallback;
+  const safeDate = Number.isNaN(baseDate.getTime()) ? fallback : baseDate;
+  safeDate.setHours(safeDate.getHours() - hoursBack);
+  const month = String(safeDate.getMonth() + 1).padStart(2, "0");
+  const day = String(safeDate.getDate()).padStart(2, "0");
+  const hour = String(safeDate.getHours()).padStart(2, "0");
+  const minute = String(safeDate.getMinutes()).padStart(2, "0");
+  return `${month}/${day} ${hour}:${minute}`;
+}
+
+function getWatchlistLevelByScore(score) {
+  return getPortraitLevelByScore(score, 1);
+}
+
+function getWatchlistPreviousLevel(currentScore, seed, alertCount = 0) {
+  const previousScore = clampWatchlistNumber(currentScore - (8 + (seed % 9) + alertCount * 3), 24, 90);
+  return getWatchlistLevelByScore(previousScore);
+}
+
+function buildWatchlistAlertFeed(item, baseCompany, detail, modules) {
+  const alerts = [];
+  const updatedAt = getCompanyUpdatedAtValue(baseCompany) || getCompanyTaskUpdatedAt(baseCompany);
+
+  (detail?.public_risks || []).slice(0, 2).forEach((risk, index) => {
+    alerts.push({
+      time: offsetWatchlistDisplayTime(updatedAt, index * 3),
+      severity: item.riskLevel,
+      title: compactText(risk.title, "公开风险事件"),
+      summary: compactText(risk.summary || risk.description || risk.source, item.latestEvent),
+    });
+  });
+
+  (detail?.validation_findings || []).filter((finding) => finding.status !== "pass").slice(0, 2).forEach((finding, index) => {
+    alerts.push({
+      time: offsetWatchlistDisplayTime(updatedAt, 5 + index * 2),
+      severity: finding.status === "fail" ? "高风险" : "中风险",
+      title: compactText(finding.title || finding.field_label, "核验预警"),
+      summary: compactText(finding.message || finding.description, "关键校验项出现异常，需要人工复核。"),
+    });
+  });
+
+  if (!alerts.length && modules.length) {
+    modules.slice(0, 3).forEach((module, index) => {
+      alerts.push({
+        time: offsetWatchlistDisplayTime(updatedAt, index * 4),
+        severity: module.level || item.riskLevel,
+        title: module.title,
+        summary: compactText(module.summary, item.latestEvent),
+      });
+    });
+  }
+
+  if (!alerts.length) {
+    alerts.push({
+      time: offsetWatchlistDisplayTime(updatedAt, 0),
+      severity: item.riskLevel,
+      title: "风险状态更新",
+      summary: item.latestEvent,
+    });
+  }
+
+  return alerts.slice(0, 5);
+}
+
+function buildWatchlistTrendData(item, peerMedianScore) {
+  const labels = ["3/25 - 3/31", "4/1 - 4/7", "4/8 - 4/14", "4/15 - 4/21", "4/22 - 4/28", "4/29 - 5/5", "5/6 - 5/12", "5/13 - 5/20"];
+  const seed = getWatchlistSeed(item.code);
+  const risk = labels.map((_, index) => {
+    if (index === labels.length - 1) return item.riskScore;
+    const drift = (labels.length - 1 - index) * 2.4;
+    const wave = ((seed + index * 7) % 9) - 4;
+    return clampWatchlistNumber(item.riskScore - drift + wave, 28, 96);
+  });
+  const alertHeat = labels.map((_, index) => {
+    const base = item.riskScore >= 80 ? 5 : item.riskScore >= 60 ? 4 : 2;
+    return clampWatchlistNumber(base + (((seed + index * 5) % 5) - 2), 1, 7);
+  });
+  const peer = labels.map((_, index) => clampWatchlistNumber(peerMedianScore + (((seed + index * 3) % 7) - 3), 24, 92));
+  return { labels, risk, alertHeat, peer };
+}
+
+function buildWatchlistSuggestions(item, modules, alertFeed) {
+  const moduleActions = modules.map((module) => ({
+    title: module.title,
+    text: compactText(module.recommendedAction || module.aiInterpretation, "建议围绕最新风险信号补充核验材料。"),
+  }));
+  const suggestions = [
+    {
+      title: "优先核验",
+      text: alertFeed[0]?.summary || `${item.name} 当前存在${item.riskLevel}信号，建议先复核最新预警所涉材料。`,
+    },
+    ...moduleActions.slice(0, 2),
+  ];
+  return suggestions.slice(0, 3);
+}
+
+function buildWatchlistPeerSnapshot(item, watched) {
+  const peers = watched.filter((peer) => peer.industryGroup.label === item.industryGroup.label);
+  const distribution = {
+    high: peers.filter((peer) => ["极高风险", "高风险"].includes(peer.riskLevel)).length,
+    medium: peers.filter((peer) => peer.riskLevel === "中风险").length,
+    low: peers.filter((peer) => ["低风险", "信息不足"].includes(peer.riskLevel)).length,
+  };
+  const peerMedianScore = peers.length
+    ? Math.round(peers.reduce((sum, peer) => sum + peer.riskScore, 0) / peers.length)
+    : item.riskScore;
+  return {
+    peers,
+    peerMedianScore,
+    ranking: `${peers.filter((peer) => peer.riskScore > item.riskScore).length + 1}/${peers.length || 1}`,
+    distribution,
+  };
+}
+
+function buildWatchlistInsight(item, watched) {
+  if (!item) return null;
+  const baseCompany = getWatchlistBaseCompany(item.code) || {
+    company_code: item.code,
+    name: item.name,
+    industry_label: item.industry,
+    risk_level_label: item.riskLevel,
+    riskScore: item.riskScore,
+    updatedAt: formatCurrentDisplayTime(),
+  };
+  const detail = getCompanyDetail(item.code);
+  const portraitDetail = detail ? buildPortraitCompanyDetail(baseCompany, detail) : null;
+  const modules = portraitDetail?.modules?.length
+    ? [...portraitDetail.modules].sort((a, b) => b.score - a.score)
+    : (portraitWorkbenchCompanies.find((company) => company.companyCode === item.code || company.id === item.code)?.modules || []);
+  const peerSnapshot = buildWatchlistPeerSnapshot(item, watched);
+  const alertFeed = buildWatchlistAlertFeed(item, baseCompany, detail, modules);
+  const seed = getWatchlistSeed(item.code);
+  const previousLevel = getWatchlistPreviousLevel(item.riskScore, seed, alertFeed.length);
+  const trend = buildWatchlistTrendData(item, peerSnapshot.peerMedianScore);
+  const reasons = modules.length
+    ? modules.slice(0, 3).map((module) => ({
+      title: module.title,
+      text: compactText(module.summary, "该维度需要持续观察。"),
+      severity: module.level || item.riskLevel,
+    }))
+    : [
+      { title: "最新预警事件", text: item.latestEvent, severity: item.riskLevel },
+      { title: "行业风险暴露", text: `${item.industry} 当前监测热度较高，需要同步观察同行业波动。`, severity: item.riskLevel },
+      { title: "风险跟踪建议", text: "建议结合尽调底稿与最新经营数据，核验风险是否向现金流或治理层面传导。", severity: "中风险" },
+    ];
+  return {
+    ...item,
+    baseCompany,
+    detail,
+    modules,
+    alertFeed,
+    reasons,
+    suggestions: buildWatchlistSuggestions(item, modules, alertFeed),
+    previousLevel,
+    levelChangeText: previousLevel === item.riskLevel ? `维持${item.riskLevel}` : `${previousLevel} → ${item.riskLevel}`,
+    updatedAt: getCompanyUpdatedAtValue(baseCompany) || formatCurrentDisplayTime(),
+    trend,
+    peerSnapshot,
+    riskBandLabel: item.riskScore >= 80 ? "中心高压区" : item.riskScore >= 60 ? "重点跟踪区" : "外围观察区",
+  };
+}
+
+function getWatchlistMode() {
+  return state.watchlistPanelMode || "overview";
+}
+
+function renderWatchlistCompanyList(items) {
+  return items
+    .map((item) => `
+      <button
+        class="watch-company-row${item.code === state.watchlistFocusCode ? " is-active" : ""}"
+        type="button"
+        data-action="focus-watchlist-company"
+        data-company-code="${escapeHtml(item.code)}"
+      >
+        <span>
+          <strong>${escapeHtml(item.name)}</strong>
+          <small>${escapeHtml(item.latestEvent)}</small>
+        </span>
+        <span class="watch-company-row__side">
+          <em>${escapeHtml(item.riskLevel)}</em>
+          <span class="watch-row-action">查看预警详情</span>
+          <span class="watch-row-action watch-row-action--accent">展开完整分析</span>
+        </span>
+      </button>
+    `)
+    .join("");
+}
+
+function renderWatchlistOverviewPanel(watched, focused) {
+  const groups = watched.reduce((result, item) => {
+    const key = item.industryGroup.label;
+    if (!result.has(key)) result.set(key, { meta: item.industryGroup, items: [] });
+    result.get(key).items.push(item);
+    return result;
+  }, new Map());
+  return `
+    <article class="glass-panel watchlist-side-panel watchlist-side-panel--overview watchlist-panel-enter">
+      <div class="watch-side-head">
+        <div>
+          <p class="section-kicker">Industry Groups</p>
+          <h3>行业企业清单</h3>
+        </div>
+        <span class="watch-side-count">共 ${watched.length} 家</span>
+      </div>
+      ${focused ? `
+        <article class="watch-overview-focus-card">
+          <div class="watch-overview-focus-card__head">
+            <div>
+              <span>当前高亮企业</span>
+              <strong>${escapeHtml(focused.name)}</strong>
+            </div>
+            ${renderRiskSeverityBadge(focused.riskLevel)}
+          </div>
+          <p>${escapeHtml(focused.latestEvent)}</p>
+          <div class="watch-overview-focus-card__actions">
+            <button class="ghost-action" type="button" data-action="open-watchlist-company" data-company-code="${escapeHtml(focused.code)}">查看预警详情</button>
+            <button class="primary-action" type="button" data-action="expand-watchlist-analysis" data-company-code="${escapeHtml(focused.code)}">展开完整预警分析</button>
+          </div>
+        </article>
+      ` : ""}
+      <div class="watchlist-side-scroll">
+        ${Array.from(groups.values())
+          .map((group) => `
+            <article class="watch-industry-group">
+              <div class="watch-industry-group__head">
+                <span class="watch-industry-dot ${group.meta.className}"></span>
+                <strong>${escapeHtml(group.meta.label)}</strong>
+              </div>
+              <div class="watch-industry-group__list">
+                ${renderWatchlistCompanyList(group.items)}
+              </div>
+            </article>
+          `)
+          .join("")}
+      </div>
+    </article>
+  `;
+}
+
+function renderWatchlistReasonRows(reasons) {
+  return reasons
+    .map((reason) => `
+      <article class="watch-reason-row">
+        <div class="watch-reason-row__head">
+          <strong>${escapeHtml(reason.title)}</strong>
+          ${renderRiskSeverityBadge(reason.severity)}
+        </div>
+        <p>${escapeHtml(reason.text)}</p>
+      </article>
+    `)
+    .join("");
+}
+
+function renderWatchlistSuggestionRows(suggestions) {
+  return suggestions
+    .map((item) => `
+      <article class="watch-suggestion-row">
+        <strong>${escapeHtml(item.title)}</strong>
+        <p>${escapeHtml(item.text)}</p>
+      </article>
+    `)
+    .join("");
+}
+
+function buildWatchlistAssistantSnapshot(watched, insight) {
+  const highRisk = watched.filter((item) => ["极高风险", "高风险"].includes(item.riskLevel));
+  const mediumRisk = watched.filter((item) => item.riskLevel === "中风险");
+  const focusItems = watched
+    .slice()
+    .sort((a, b) => b.riskScore - a.riskScore)
+    .slice(0, 2)
+    .map((item, index) => ({
+      ...item,
+      previousLevel: getWatchlistPreviousLevel(item.riskScore, getWatchlistSeed(item.code), index + 1),
+    }));
+  const recommendations = [
+    {
+      title: "重新发起尽调",
+      note: `针对 ${escapeHtml(insight?.name || focusItems[0]?.name || "当前企业")} 的新增风险信号快速发起复核。`,
+    },
+    {
+      title: "查看风险变化",
+      note: "查看企业风险趋势与关键事件的联动变化。",
+    },
+    {
+      title: "订阅周报",
+      note: "每周一 9:00 推送监控摘要与预警要点。",
+    },
+  ];
+  return {
+    reminderTitle: `已发现 ${focusItems.length} 家企业风险等级上升，建议优先复核`,
+    reminderText: `其中 ${highRisk.length || 1} 家处于高风险区，${mediumRisk.length || 1} 家处于重点跟踪区。`,
+    focusItems,
+    recommendations,
+  };
+}
+
+function renderWatchlistAssistantRail(watched, insight) {
+  const snapshot = buildWatchlistAssistantSnapshot(watched, insight);
+  return `
+    <aside class="watchlist-assistant-rail">
+      <article class="glass-panel watch-ai-card watch-ai-card--overview">
+        <div class="watch-ai-card__head">
+          <div>
+            <p class="section-kicker">Astraea 智能助手</p>
+            <h3>辅助监控</h3>
+          </div>
+          <span>实时监控中</span>
+        </div>
+        <div class="watch-ai-card__highlight">
+          <strong>${snapshot.reminderTitle}</strong>
+          <p>${snapshot.reminderText}</p>
+        </div>
+      </article>
+      <article class="glass-panel watch-ai-card watch-ai-card--stack watch-ai-card--focus">
+        <div class="watch-analysis-section-head">
+          <div>
+            <h3>重点关注</h3>
+            <p>优先查看最新风险等级抬升的企业。</p>
+          </div>
+        </div>
+        <div class="watch-ai-focus-list">
+          ${snapshot.focusItems
+            .map((item) => `
+              <button class="watch-ai-focus-item" type="button" data-action="focus-watchlist-company" data-company-code="${escapeHtml(item.code)}">
+                <div class="watch-ai-focus-item__head">
+                  ${renderRiskSeverityBadge(item.riskLevel)}
+                  <strong>${escapeHtml(item.name)}</strong>
+                </div>
+                <p>风险等级：${escapeHtml(item.previousLevel)} → ${escapeHtml(item.riskLevel)}</p>
+                <p>最新事件：${escapeHtml(item.latestEvent)}</p>
+              </button>
+            `)
+            .join("")}
+        </div>
+      </article>
+      <article class="glass-panel watch-ai-card watch-ai-card--stack watch-ai-card--recommend">
+        <div class="watch-analysis-section-head">
+          <div>
+            <h3>为你推荐</h3>
+            <p>结合当前监控结果给出下一步动作入口。</p>
+          </div>
+        </div>
+        <div class="watch-ai-recommend-list">
+          ${snapshot.recommendations
+            .map((item) => `
+              <button class="watch-ai-recommend-item" type="button">
+                <span class="watch-ai-recommend-item__icon">→</span>
+                <span>
+                  <strong>${item.title}</strong>
+                  <em>${item.note}</em>
+                </span>
+              </button>
+            `)
+            .join("")}
+        </div>
+      </article>
+      <article class="glass-panel watch-ai-input-card">
+        <div class="watch-ai-input-shell">
+          <span>向 Astraea 提问...</span>
+          <button type="button" aria-label="发送问题">➜</button>
+        </div>
+        <p>内容由 AI 生成，仅供参考</p>
+      </article>
+    </aside>
+  `;
+}
+
+function renderWatchlistDetailPanel(insight) {
+  if (!insight) return "";
+  return `
+    <article class="glass-panel watchlist-side-panel watchlist-side-panel--detail watchlist-panel-enter">
+      <div class="watch-detail-head">
+        <div>
+          <p class="section-kicker">Enterprise Focus</p>
+          <h3>企业风险详情</h3>
+        </div>
+        <button class="ghost-action" type="button" data-action="watchlist-back-overview">返回清单</button>
+      </div>
+      <div class="watch-detail-hero">
+        <div>
+          <div class="watch-detail-hero__title">
+            <strong>${escapeHtml(insight.name)}</strong>
+            ${renderRiskSeverityBadge(insight.riskLevel)}
+          </div>
+          <p>${escapeHtml(insight.industry)} · ${escapeHtml(insight.riskBandLabel)}</p>
+        </div>
+        <div class="watch-detail-score">
+          <span>风险指数</span>
+          <strong>${insight.riskScore}</strong>
+        </div>
+      </div>
+      <div class="summary-stack watch-detail-summary">
+        <div class="summary-item"><strong>当前风险等级</strong><span>${escapeHtml(insight.riskLevel)}</span></div>
+        <div class="summary-item"><strong>风险等级变化</strong><span>${escapeHtml(insight.levelChangeText)}</span></div>
+        <div class="summary-item"><strong>最新预警事件</strong><span>${escapeHtml(insight.alertFeed[0]?.title || insight.latestEvent)}</span></div>
+      </div>
+      <div class="divider"></div>
+      <section class="watch-detail-block">
+        <div class="watch-detail-block__head">
+          <h4>关键风险原因</h4>
+          <span>最近更新 ${escapeHtml(insight.updatedAt)}</span>
+        </div>
+        <div class="watch-detail-reasons">
+          ${renderWatchlistReasonRows(insight.reasons)}
+        </div>
+      </section>
+      <section class="watch-detail-block">
+        <div class="watch-detail-block__head">
+          <h4>AI处置建议</h4>
+          <span>聚焦最新预警链路</span>
+        </div>
+        <div class="watch-detail-suggestions">
+          ${renderWatchlistSuggestionRows(insight.suggestions)}
+        </div>
+      </section>
+      <div class="button-row watch-detail-actions">
+        <button class="primary-action" type="button" data-action="expand-watchlist-analysis">展开完整预警分析</button>
+      </div>
+    </article>
+  `;
+}
+
+function buildWatchlistChartLine(values, width, height, minValue, maxValue) {
+  const step = values.length > 1 ? width / (values.length - 1) : width;
+  return values
+    .map((value, index) => {
+      const x = Number((step * index).toFixed(2));
+      const safeMax = maxValue === minValue ? maxValue + 1 : maxValue;
+      const ratio = (value - minValue) / (safeMax - minValue);
+      const y = Number((height - (ratio * height)).toFixed(2));
+      return `${x},${y}`;
+    })
+    .join(" ");
+}
+
+function renderWatchlistTrendChart(insight) {
+  const width = 560;
+  const height = 220;
+  const allValues = [...insight.trend.risk, ...insight.trend.peer, ...insight.trend.alertHeat.map((value) => value * 12)];
+  const minValue = Math.min(...allValues, 0);
+  const maxValue = Math.max(...allValues, 100);
+  const riskPoints = buildWatchlistChartLine(insight.trend.risk, width, height, minValue, maxValue);
+  const peerPoints = buildWatchlistChartLine(insight.trend.peer, width, height, minValue, maxValue);
+  const alertPoints = buildWatchlistChartLine(insight.trend.alertHeat.map((value) => value * 12), width, height, minValue, maxValue);
+  return `
+    <div class="watch-trend-card">
+      <div class="watch-trend-card__head">
+        <div>
+          <h4>风险演变趋势</h4>
+          <p>近 8 周风险指数、预警强度与同行业中位风险走势。</p>
+        </div>
+        <div class="watch-trend-legend">
+          <span><i class="watch-trend-dot watch-trend-dot--risk"></i>企业风险指数</span>
+          <span><i class="watch-trend-dot watch-trend-dot--alert"></i>预警强度</span>
+          <span><i class="watch-trend-dot watch-trend-dot--peer"></i>同行业中位值</span>
+        </div>
+      </div>
+      <div class="watch-trend-chart-shell">
+        <svg viewBox="0 0 ${width} ${height}" class="watch-trend-chart" aria-hidden="true">
+          <g class="watch-trend-grid">
+            <line x1="0" y1="${height}" x2="${width}" y2="${height}"></line>
+            <line x1="0" y1="${height * 0.75}" x2="${width}" y2="${height * 0.75}"></line>
+            <line x1="0" y1="${height * 0.5}" x2="${width}" y2="${height * 0.5}"></line>
+            <line x1="0" y1="${height * 0.25}" x2="${width}" y2="${height * 0.25}"></line>
+            <line x1="0" y1="0" x2="${width}" y2="0"></line>
+          </g>
+          <polyline class="watch-trend-path watch-trend-path--peer" points="${peerPoints}"></polyline>
+          <polyline class="watch-trend-path watch-trend-path--alert" points="${alertPoints}"></polyline>
+          <polyline class="watch-trend-path watch-trend-path--risk" points="${riskPoints}"></polyline>
+        </svg>
+        <div class="watch-trend-axis">
+          ${insight.trend.labels.map((label) => `<span>${escapeHtml(label)}</span>`).join("")}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderWatchlistAlertTimeline(alertFeed) {
+  return `
+    <div class="watch-alert-list">
+      ${alertFeed
+        .map((alert) => `
+          <article class="watch-alert-item">
+            <div class="watch-alert-item__meta">
+              <span>${escapeHtml(alert.time)}</span>
+              ${renderRiskSeverityBadge(alert.severity)}
+            </div>
+            <strong>${escapeHtml(alert.title)}</strong>
+            <p>${escapeHtml(alert.summary)}</p>
+          </article>
+        `)
+        .join("")}
+    </div>
+  `;
+}
+
+function renderWatchlistAnalysisLayout(insight, watched) {
+  return `
+    <section class="watchlist-analysis-shell watchlist-panel-enter">
+      <div class="page-title-row watchlist-analysis-title">
+        <div>
+          <p class="section-kicker">Enterprise Warning Analysis</p>
+          <h2>${escapeHtml(insight.name)} · 企业级风险预警详情</h2>
+          <p>围绕当前企业呈现最新风险等级、预警动态、趋势变化和处置建议，保持与总览雷达联动。</p>
+        </div>
+        <div class="button-row">
+          <button class="ghost-action" type="button" data-action="collapse-watchlist-analysis">收起完整分析</button>
+          <button class="ghost-action" type="button" data-action="watchlist-back-overview">返回总览</button>
+        </div>
+      </div>
+      <div class="watchlist-analysis-layout">
+        <aside class="watchlist-analysis-left">
+          <article class="glass-panel watch-radar-card watch-radar-card--compact">
+            <div class="watch-radar-head">
+              <div>
+                <p class="section-kicker">Enterprise Locator</p>
+                <h3>当前企业定位</h3>
+              </div>
+              <div class="watch-radar-focus">
+                <span>所属行业</span>
+                <strong>${escapeHtml(insight.industry)}</strong>
+              </div>
+            </div>
+            <div class="watch-radar-stage watch-radar-stage--compact" aria-label="企业风险雷达缩略图">
+              <div class="watch-radar-grid"></div>
+              <div class="watch-radar-rings"><span></span><span></span><span></span><span></span></div>
+              <div class="watch-radar-axis watch-radar-axis--x"></div>
+              <div class="watch-radar-axis watch-radar-axis--y"></div>
+              <div class="watch-radar-sweep"></div>
+              <div class="watch-radar-center">
+                <strong>${escapeHtml(insight.riskLevel)}</strong>
+                <span>${escapeHtml(insight.riskBandLabel)}</span>
+              </div>
+              ${watched.map((peer) => renderWatchlistRadarPoint(peer)).join("")}
+            </div>
+          </article>
+          <article class="glass-panel watch-analysis-side-card">
+            <div class="watch-analysis-side-card__head">
+              <h4>企业定位摘要</h4>
+              <span>行业内排名 ${escapeHtml(insight.peerSnapshot.ranking)}</span>
+            </div>
+            <div class="summary-stack">
+              <div class="summary-item"><strong>企业名称</strong><span>${escapeHtml(insight.name)}</span></div>
+              <div class="summary-item"><strong>当前风险等级</strong><span>${escapeHtml(insight.riskLevel)}</span></div>
+              <div class="summary-item"><strong>最近更新</strong><span>${escapeHtml(insight.updatedAt)}</span></div>
+            </div>
+          </article>
+          <article class="glass-panel watch-analysis-side-card">
+            <div class="watch-analysis-side-card__head">
+              <h4>同行业风险分布</h4>
+              <span>${escapeHtml(insight.peerSnapshot.peers.length)} 家样本</span>
+            </div>
+            <div class="watch-peer-distribution">
+              <div class="watch-peer-distribution__row"><span>高风险</span><strong>${insight.peerSnapshot.distribution.high}</strong></div>
+              <div class="watch-peer-distribution__row"><span>中风险</span><strong>${insight.peerSnapshot.distribution.medium}</strong></div>
+              <div class="watch-peer-distribution__row"><span>低风险 / 观察</span><strong>${insight.peerSnapshot.distribution.low}</strong></div>
+            </div>
+          </article>
+        </aside>
+        <div class="watchlist-analysis-right">
+          <div class="watchlist-analysis-main">
+            <article class="glass-panel watch-analysis-overview-card">
+              <div class="watch-analysis-overview-card__head">
+                <div>
+                  <p class="section-kicker">Risk Overview</p>
+                  <h3>企业风险概览</h3>
+                </div>
+                ${renderRiskSeverityBadge(insight.riskLevel)}
+              </div>
+              <div class="watch-analysis-overview-grid">
+                <div class="watch-overview-metric">
+                  <span>风险等级变化</span>
+                  <strong>${escapeHtml(insight.levelChangeText)}</strong>
+                </div>
+                <div class="watch-overview-metric">
+                  <span>最新预警事件</span>
+                  <strong>${escapeHtml(insight.alertFeed[0]?.title || insight.latestEvent)}</strong>
+                </div>
+                <div class="watch-overview-metric">
+                  <span>关键风险原因</span>
+                  <strong>${escapeHtml(insight.reasons[0]?.title || "持续跟踪")}</strong>
+                </div>
+              </div>
+              <div class="watch-analysis-overview-note">
+                <p>${escapeHtml(insight.alertFeed[0]?.summary || insight.latestEvent)}</p>
+              </div>
+            </article>
+            <article class="glass-panel watch-analysis-events-card">
+              <div class="watch-analysis-section-head">
+                <div>
+                  <h3>预警动态</h3>
+                  <p>按最新时间汇总当前企业的关键预警事件与核验提示。</p>
+                </div>
+              </div>
+              ${renderWatchlistAlertTimeline(insight.alertFeed)}
+            </article>
+            <article class="glass-panel watch-analysis-trend-card">
+              ${renderWatchlistTrendChart(insight)}
+            </article>
+          </div>
+          <aside class="watchlist-analysis-assistant">
+            <article class="glass-panel watch-ai-card">
+              <div class="watch-ai-card__head">
+                <div>
+                  <p class="section-kicker">Astraea 智能助手</p>
+                  <h3>处置建议</h3>
+                </div>
+                <span>实时监控中</span>
+              </div>
+              <div class="watch-ai-card__highlight">
+                <strong>${escapeHtml(insight.reasons[0]?.title || "当前风险已更新")}</strong>
+                <p>${escapeHtml(insight.suggestions[0]?.text || "建议先补充最新异常所涉底稿，并复核影响范围。")}</p>
+              </div>
+            </article>
+            <article class="glass-panel watch-ai-card watch-ai-card--stack">
+              <div class="watch-analysis-section-head">
+                <div>
+                  <h3>AI建议面板</h3>
+                  <p>围绕当前企业给出优先复核路径。</p>
+                </div>
+              </div>
+              <div class="watch-detail-suggestions">
+                ${renderWatchlistSuggestionRows(insight.suggestions)}
+              </div>
+            </article>
+          </aside>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function buildMacroSignals() {
+  const companies = state.companies || [];
+  const highRisk = companies.filter((item) => ["medium_high", "high"].includes(item.risk_tier)).length;
+  const mediumRisk = companies.filter((item) => item.risk_tier === "medium").length;
+  const listed = companies.filter((item) => item.enterprise_scale === "listed").length;
+  const industries = Array.from(new Set(companies.map((item) => item.industry_category || item.subindustry).filter(Boolean)));
+  return { total: companies.length, highRisk, mediumRisk, listed, industries };
+}
+
+function renderAstraeaPersona(size = "large") {
+  return `
+    <div class="astraea-persona astraea-persona-${size}">
+      <img src="${ASTRAEA_ASSISTANT_IMAGE}" alt="Astraea AI 尽调助手" />
+      <div class="persona-orbit persona-orbit-one"></div>
+      <div class="persona-orbit persona-orbit-two"></div>
+    </div>
+  `;
+}
+
+function renderHomeHotspotPanel(hotspot) {
+  if (!hotspot) {
+    return `
+      <div class="macro-hover-empty">
+        <p class="section-kicker">区域风险洞察</p>
+        <h3>把鼠标移到地图热点上</h3>
+        <p>这里会展示对应区域的风险指数、重点城市和行业趋势。</p>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="macro-hover-card">
+      <div class="macro-hover-head">
+        <div>
+          <p class="section-kicker">${escapeHtml(hotspot.label)}</p>
+          <h3>${escapeHtml(hotspot.title)}</h3>
+        </div>
+        <div class="macro-hover-score">
+          <strong>${escapeHtml(hotspot.score)}</strong>
+          <span>${escapeHtml(hotspot.tone)}</span>
+        </div>
+      </div>
+      <p class="macro-hover-summary">${escapeHtml(hotspot.summary)}</p>
+      <div class="macro-hover-lists">
+        <div class="hover-list-card">
+          <h4>高风险城市 TOP3</h4>
+          ${hotspot.cities
+            .map(
+              (item, index) => `
+                <div class="hover-rank-row">
+                  <span>${index + 1}</span>
+                  <strong>${escapeHtml(item.name)}</strong>
+                  <em>${escapeHtml(item.value)}</em>
+                </div>
+              `,
+            )
+            .join("")}
+        </div>
+        <div class="hover-list-card">
+          <h4>行业风险热度</h4>
+          ${hotspot.industries
+            .map(
+              (item) => `
+                <div class="hover-bar-row">
+                  <span>${escapeHtml(item.name)}</span>
+                  <div class="hover-bar-track"><i style="width:${escapeHtml(item.value)}%"></i></div>
+                  <em>${escapeHtml(item.value)}</em>
+                </div>
+              `,
+            )
+            .join("")}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderHomeCommandSuggestions(resolution) {
+  if (!resolution.input) return "";
+
+  if (!resolution.company) {
+    return `
+      <div class="astraea-command-suggestion-layer is-empty">
+        <div class="astraea-command-suggestion-layer__hint">
+          <strong>未找到匹配企业</strong>
+          <span>未找到匹配企业，请尝试输入企业全称或简称。</span>
+        </div>
+        <div class="astraea-command-suggestion-layer__examples">
+          ${smartNavCompanies
+            .map(
+              (item) => `
+                <button
+                  class="astraea-command-example"
+                  type="button"
+                  data-action="fill-home-command-example"
+                  data-example="${escapeHtml(item.name)}"
+                >${escapeHtml(item.name)}</button>
+              `,
+            )
+            .join("")}
+        </div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="astraea-command-suggestion-layer">
+      <div class="astraea-command-suggestion-layer__company">
+        <div>
+          <span class="astraea-command-suggestion-layer__label">识别企业</span>
+          <strong>${escapeHtml(resolution.company.name)}</strong>
+        </div>
+        <span class="astraea-command-company-chip">${escapeHtml(resolution.company.industry)}</span>
+      </div>
+      <div class="astraea-command-suggestion-list">
+        ${resolution.suggestions
+          .map(
+            (item) => `
+              <button
+                class="astraea-command-suggestion${item.isPrimary ? " is-primary" : ""}"
+                type="button"
+                data-action="open-home-smart-route"
+                data-route-key="${item.routeKey}"
+                data-company-id="${resolution.company.id}"
+              >
+                <strong>${item.label}</strong>
+                <span>${item.description}</span>
+              </button>
+            `,
+          )
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
+function renderSmartRouteActionGrid(company, activeRouteKey) {
+  return `
+    <div class="smart-route-action-grid">
+      ${buildSmartNavActionSuggestions(company, activeRouteKey)
+        .map(
+          (item) => `
+            <button
+              class="smart-route-action-card${item.isPrimary ? " is-primary" : ""}"
+              type="button"
+              data-action="open-home-smart-route"
+              data-route-key="${item.routeKey}"
+              data-company-id="${company.id}"
+            >
+              <strong>${item.label}</strong>
+              <span>${item.description}</span>
+            </button>
+          `,
+        )
+        .join("")}
+    </div>
+  `;
+}
+
+function renderSmartRouteHero(company, routeKey, subtitle) {
+  const routeMeta = smartNavRouteMeta[routeKey];
+  return `
+    <section class="smart-route-hero glass-card neon-border">
+      <div class="smart-route-hero__copy">
+        <div class="smart-route-hero__eyebrow">
+          <span>${escapeHtml(routeMeta.label)}</span>
+          <span>${escapeHtml(company.region)}</span>
+        </div>
+        <h2>${escapeHtml(company.name)}</h2>
+        <p>${escapeHtml(subtitle || company.summary)}</p>
+        <div class="smart-route-hero__chips">
+          <span class="smart-route-chip">${escapeHtml(company.industry)}</span>
+          <span class="smart-route-chip">${escapeHtml(company.riskLevel)} · ${company.riskScore}/100</span>
+          <span class="smart-route-chip">前端 Mock 智能导航</span>
+        </div>
+      </div>
+      <div class="smart-route-hero__aside">
+        <strong>${escapeHtml(routeMeta.label)}</strong>
+        <span>基于企业别名与关键词规则匹配</span>
+      </div>
+    </section>
+  `;
+}
+
+function renderSmartCompanyProfile(company) {
+  return `
+    <section class="smart-route-shell">
+      ${renderSmartRouteHero(company, "company-profile", "已识别企业主体，默认进入企业画像详情页。")}
+      <div class="stats-grid smart-route-stats">
+        <article class="metric-card"><strong class="metric-value">${company.riskScore}</strong><span class="metric-label">画像评分</span></article>
+        <article class="metric-card"><strong class="metric-value">${escapeHtml(company.profile.dataCompleteness)}</strong><span class="metric-label">资料完整度</span></article>
+        <article class="metric-card"><strong class="metric-value">${escapeHtml(company.riskLevel)}</strong><span class="metric-label">风险等级</span></article>
+        <article class="metric-card"><strong class="metric-value">${escapeHtml(company.profile.updatedAt)}</strong><span class="metric-label">最近更新</span></article>
+      </div>
+      <div class="smart-route-layout">
+        <article class="glass-panel smart-route-main-panel">
+          <div class="smart-route-section-head">
+            <h3>画像摘要</h3>
+            <p>当前企业画像以主体、经营和财务三条主线展开。</p>
+          </div>
+          <div class="alert-stack">
+            ${company.profile.highlights
+              .map((item) => `<div class="alert-item medium"><strong>画像洞察</strong><span>${escapeHtml(item)}</span></div>`)
+              .join("")}
+          </div>
+          <div class="card-grid smart-route-dimension-grid">
+            ${company.profile.dimensions
+              .map(
+                (item) => `
+                  <article class="summary-card smart-route-summary-card">
+                    <strong>${escapeHtml(item.title)}</strong>
+                    <p>${escapeHtml(item.desc)}</p>
+                  </article>
+                `,
+              )
+              .join("")}
+          </div>
+        </article>
+        <aside class="glass-panel smart-route-side-panel">
+          <div class="smart-route-section-head">
+            <h3>可执行操作</h3>
+            <p>继续跳转到其他模块页面。</p>
+          </div>
+          <div class="smart-route-tag-list">
+            ${company.profile.tags.map((item) => `<span class="mini-tag">${escapeHtml(item)}</span>`).join("")}
+          </div>
+          ${renderSmartRouteActionGrid(company, "company-profile")}
+        </aside>
+      </div>
+    </section>
+  `;
+}
+
+function renderSmartInsightTasks(company) {
+  return `
+    <section class="smart-route-shell">
+      ${renderSmartRouteHero(company, "insight-tasks", `已识别为${smartNavRouteMeta["insight-tasks"].label}意图，系统会带入企业参数发起任务。`)}
+      <div class="stats-grid smart-route-stats">
+        <article class="metric-card"><strong class="metric-value">${company.tasks.progress}%</strong><span class="metric-label">任务进度</span></article>
+        <article class="metric-card"><strong class="metric-value">${escapeHtml(company.tasks.status)}</strong><span class="metric-label">任务状态</span></article>
+        <article class="metric-card"><strong class="metric-value">${escapeHtml(company.tasks.phase)}</strong><span class="metric-label">当前阶段</span></article>
+        <article class="metric-card"><strong class="metric-value">${company.tasks.findings.length}</strong><span class="metric-label">重点发现</span></article>
+      </div>
+      <div class="smart-route-layout">
+        <article class="glass-panel smart-route-main-panel">
+          <div class="smart-route-section-head">
+            <h3>任务步骤</h3>
+            <p>当前首页输入已作为智能任务入口，企业与任务意图会一起带入。</p>
+          </div>
+          <div class="smart-route-step-list">
+            ${company.tasks.steps
+              .map(
+                (item, index) => `
+                  <article class="smart-route-step-card">
+                    <span class="smart-route-step-card__index">${index + 1}</span>
+                    <div>
+                      <strong>${escapeHtml(item.title)}</strong>
+                      <em>${escapeHtml(item.status)}</em>
+                      <p>${escapeHtml(item.note)}</p>
+                    </div>
+                  </article>
+                `,
+              )
+              .join("")}
+          </div>
+        </article>
+        <aside class="glass-panel smart-route-side-panel">
+          <div class="smart-route-section-head">
+            <h3>当前发现</h3>
+            <p>适合作为继续下钻报告与预警的起点。</p>
+          </div>
+          <div class="suggestion-stack">
+            ${company.tasks.findings
+              .map((item) => `<div class="suggestion-card"><strong>任务提示</strong><span>${escapeHtml(item)}</span></div>`)
+              .join("")}
+          </div>
+          ${renderSmartRouteActionGrid(company, "insight-tasks")}
+        </aside>
+      </div>
+    </section>
+  `;
+}
+
+function renderSmartDueDiligenceReport(company) {
+  return `
+    <section class="smart-route-shell">
+      ${renderSmartRouteHero(company, "due-diligence-report", "已识别为尽调报告 / 授信报告意图，默认进入报告详情页。")}
+      <div class="stats-grid smart-route-stats">
+        <article class="metric-card"><strong class="metric-value">${escapeHtml(company.report.status)}</strong><span class="metric-label">报告状态</span></article>
+        <article class="metric-card"><strong class="metric-value">${escapeHtml(company.report.updatedAt)}</strong><span class="metric-label">最近更新时间</span></article>
+        <article class="metric-card"><strong class="metric-value">${company.report.sections.length}</strong><span class="metric-label">报告章节</span></article>
+        <article class="metric-card"><strong class="metric-value">${company.report.highlights.length}</strong><span class="metric-label">关键提示</span></article>
+      </div>
+      <div class="smart-route-layout">
+        <article class="glass-panel smart-route-main-panel">
+          <div class="smart-route-section-head">
+            <h3>报告概览</h3>
+            <p>${escapeHtml(company.report.summary)}</p>
+          </div>
+          <div class="smart-route-outline-grid">
+            ${company.report.sections
+              .map(
+                (item, index) => `
+                  <article class="summary-card smart-route-outline-card">
+                    <span>第 ${index + 1} 节</span>
+                    <strong>${escapeHtml(item)}</strong>
+                  </article>
+                `,
+              )
+              .join("")}
+          </div>
+        </article>
+        <aside class="glass-panel smart-route-side-panel">
+          <div class="smart-route-section-head">
+            <h3>报告提示</h3>
+            <p>当前为前端 mock 详情页，后续可再接真实报告工作台。</p>
+          </div>
+          <div class="alert-stack">
+            ${company.report.highlights
+              .map((item) => `<div class="alert-item medium"><strong>报告提示</strong><span>${escapeHtml(item)}</span></div>`)
+              .join("")}
+          </div>
+          ${renderSmartRouteActionGrid(company, "due-diligence-report")}
+        </aside>
+      </div>
+    </section>
+  `;
+}
+
+function renderSmartWatchlist(company) {
+  return `
+    <section class="smart-route-shell">
+      ${renderSmartRouteHero(company, "watchlist-detail", "已识别为风险 / 预警 / 监控意图，默认进入监控预警详情页。")}
+      <div class="stats-grid smart-route-stats">
+        <article class="metric-card"><strong class="metric-value">${escapeHtml(company.watchlist.level)}</strong><span class="metric-label">预警等级</span></article>
+        <article class="metric-card"><strong class="metric-value">${escapeHtml(company.watchlist.updatedAt)}</strong><span class="metric-label">最近监测</span></article>
+        <article class="metric-card"><strong class="metric-value">${company.watchlist.alerts.length}</strong><span class="metric-label">预警条目</span></article>
+        <article class="metric-card"><strong class="metric-value">${company.riskScore}</strong><span class="metric-label">风险评分</span></article>
+      </div>
+      <div class="smart-route-layout">
+        <article class="glass-panel smart-route-main-panel">
+          <div class="smart-route-section-head">
+            <h3>监控摘要</h3>
+            <p>${escapeHtml(company.watchlist.summary)}</p>
+          </div>
+          <div class="smart-route-alert-list">
+            ${company.watchlist.alerts
+              .map(
+                (item) => `
+                  <article class="smart-route-alert-card">
+                    <span>${escapeHtml(item.time)}</span>
+                    <strong>${escapeHtml(item.title)}</strong>
+                    <p>${escapeHtml(item.detail)}</p>
+                  </article>
+                `,
+              )
+              .join("")}
+          </div>
+        </article>
+        <aside class="glass-panel smart-route-side-panel">
+          <div class="smart-route-section-head">
+            <h3>下一步建议</h3>
+            <p>从监控预警可继续回到画像、任务或报告链路。</p>
+          </div>
+          <div class="suggestion-card">
+            <strong>优先动作</strong>
+            <span>建议先核验最新预警对应证据，再回到洞察任务或尽调报告完成闭环。</span>
+          </div>
+          ${renderSmartRouteActionGrid(company, "watchlist-detail")}
+        </aside>
+      </div>
+    </section>
+  `;
+}
+
+function renderSmartNavigationPage() {
+  const context = state.smartNavContext;
+  const company = getSmartNavContextCompany();
+  if (!context || !company) {
+    contentAreaEl.innerHTML = `
+      <section class="smart-route-shell">
+        <div class="empty-state">
+          <h3>未找到匹配企业</h3>
+          <p>未找到匹配企业，请尝试输入企业全称或简称。</p>
+        </div>
+      </section>
+    `;
+    return;
+  }
+
+  if (context.routeKey === "insight-tasks") {
+    contentAreaEl.innerHTML = renderSmartInsightTasks(company);
+    return;
+  }
+  if (context.routeKey === "due-diligence-report") {
+    contentAreaEl.innerHTML = renderSmartDueDiligenceReport(company);
+    return;
+  }
+  if (context.routeKey === "watchlist-detail") {
+    contentAreaEl.innerHTML = renderSmartWatchlist(company);
+    return;
+  }
+  contentAreaEl.innerHTML = renderSmartCompanyProfile(company);
+}
+
+function navigateToSmartRoute(routeKey, company, rawInput = state.homeCommandInput, replace = false) {
+  if (!company || !smartNavRouteMeta[routeKey]) return;
+  state.smartNavContext = {
+    routeKey,
+    companyId: company.id,
+    companyName: company.name,
+    rawInput: String(rawInput || "").trim(),
+  };
+  state.homeCommandMessage = "";
+  state.topSectionId = smartNavRouteMeta[routeKey].topSectionId;
+  state.previewOpen = false;
+  state.previewSectionId = null;
+  state.riskMapRegionId = null;
+  if (routeKey === "company-profile") state.activeSidebarBySection["enterprise-library"] = "portrait";
+  if (routeKey === "insight-tasks") state.activeSidebarBySection["due-task"] = "execution";
+  if (routeKey === "due-diligence-report") state.activeSidebarBySection["report-center"] = "generation";
+  if (routeKey === "watchlist-detail") state.activeSidebarBySection.watchlist = "alerts";
+  syncLocationFromState(replace);
+  render();
+}
+
+function bindHomeHotspots() {
+  const mapStage = contentAreaEl.querySelector(".macro-map-stage");
+  const panel = contentAreaEl.querySelector("#home-map-panel");
+  const hotspotButtons = [...contentAreaEl.querySelectorAll("[data-home-hotspot]")];
+  if (!mapStage || !panel || !hotspotButtons.length) return;
+
+  const renderPanel = (hotspotId) => {
+    state.homeHotspotId = hotspotId || null;
+    const hotspot = homeRiskHotspots.find((item) => item.id === state.homeHotspotId) || null;
+    panel.innerHTML = renderHomeHotspotPanel(hotspot);
+    hotspotButtons.forEach((button) => {
+      button.classList.toggle("is-active", button.dataset.homeHotspot === state.homeHotspotId);
+    });
+  };
+
+  hotspotButtons.forEach((button) => {
+    const hotspotId = button.dataset.homeHotspot;
+    button.addEventListener("mouseenter", () => renderPanel(hotspotId));
+    button.addEventListener("focus", () => renderPanel(hotspotId));
+    button.addEventListener("click", () => renderPanel(hotspotId));
+  });
+
+  mapStage.addEventListener("mouseleave", () => renderPanel(null));
+  renderPanel(state.homeHotspotId);
+}
+
+function renderHome() {
+  const company = getDemoCompany();
+  const recentInvestigations = state.homeFeed?.recentInvestigations || [];
+  const riskAlerts = state.homeFeed?.riskAlerts || [];
+  const commandResolution = resolveHomeSmartCommand();
+  const footerLabel = commandResolution.company
+    ? `已识别：${smartNavRouteMeta[commandResolution.routeKey].label}`
+    : state.homeCommandInput.trim()
+      ? "请先匹配企业"
+      : "本地 Mock 智能识别";
+  contentAreaEl.innerHTML = `
+    <section class="astraea-home">
+      <div class="astraea-home-stage">
+        <article class="astraea-portrait-panel glass-card neon-border">
+          <div class="astraea-portrait-panel__orbit astraea-portrait-panel__orbit--outer"></div>
+          <div class="astraea-portrait-panel__orbit astraea-portrait-panel__orbit--inner"></div>
+          <div class="astraea-portrait-panel__signals">
+            <span>风险评估</span>
+            <span>金融机构</span>
+            <span>尽职调查</span>
+            <span>区块风险图谱</span>
+          </div>
+          <div class="astraea-portrait-frame">
+            <img src="${ASTRAEA_ASSISTANT_IMAGE}" alt="Astraea AI 助手形象" class="astraea-portrait-image" />
+          </div>
+          <div class="astraea-portrait-copy">
+            <h2><span class="astraea-portrait-copy__wordmark">Astraea</span> <span class="astraea-portrait-copy__cn">阿斯特莱亚</span></h2>
+            <p>公正 · 智慧 · 洞察</p>
+          </div>
+        </article>
+
+        <div class="astraea-home-main">
+          <div class="astraea-home-hero">
+            <div class="astraea-home-copy">
+              <h1>今天要调查哪家企业？</h1>
+              <p>我将为您全方位收集、分析与研判，提供可靠的尽职调查洞察与建议。</p>
+            </div>
+
+            <div class="astraea-command-card glass-card neon-border">
+              <div class="astraea-command-input-wrap">
+                <input
+                  class="astraea-command-input"
+                  id="home-smart-nav-input"
+                  type="text"
+                  autocomplete="off"
+                  spellcheck="false"
+                  placeholder="输入企业名称，或直接描述任务：如“对深圳灵犀微传感发起授信尽调”"
+                  value="${escapeHtml(state.homeCommandInput)}"
+                />
+                <button class="astraea-command-card__send" type="button" data-action="submit-home-command" aria-label="开始搜索">➜</button>
+              </div>
+              <div class="astraea-command-card__helper">
+                支持企业全称、简称、模糊名称与自然语言任务识别。
+              </div>
+              ${renderHomeCommandSuggestions(commandResolution)}
+              <div class="astraea-command-card__footer">
+                <button class="astraea-command-card__select" type="button">${escapeHtml(footerLabel)}</button>
+                <div class="astraea-command-card__actions">
+                  <button class="astraea-command-card__icon" type="button" aria-label="上传附件">⎋</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="astraea-quick-grid">
+              ${homeQuickActions
+                .map(
+                  (item) => `
+                    <button
+                      class="astraea-quick-card glass-card"
+                      type="button"
+                      data-action="${item.action}"
+                      ${item.topSection ? `data-top-section="${item.topSection}"` : ""}
+                    >
+                      <span class="astraea-quick-card__icon">${item.icon}</span>
+                      <strong>${item.title}</strong>
+                      <small>${item.subtitle}</small>
+                      <span class="astraea-quick-card__arrow">→</span>
+                    </button>
+                  `,
+                )
+                .join("")}
+            </div>
+          </div>
+        </div>
+
+        <aside class="astraea-tool-rail glass-card">
+          ${homeToolRailItems
+            .map(
+              (item) => `
+                <button
+                  class="astraea-tool-rail__item"
+                  type="button"
+                  data-action="${item.action}"
+                  ${item.topSection ? `data-top-section="${item.topSection}"` : ""}
+                >
+                  <span class="astraea-tool-rail__icon">${item.icon}</span>
+                  <span class="astraea-tool-rail__label">${item.label}</span>
+                </button>
+              `,
+            )
+            .join("")}
+        </aside>
+      </div>
+
+      <div class="astraea-home-bottom">
+        <section class="astraea-list-panel glass-card">
+          <div class="astraea-list-panel__head">
+            <h3>最近调查</h3>
+            <button class="ghost-action" type="button" data-action="go-section" data-top-section="due-task">查看全部</button>
+          </div>
+          <div class="astraea-investigation-list">
+            ${recentInvestigations.length
+              ? recentInvestigations
+              .map(
+                (item) => `
+                  <article class="astraea-investigation-row">
+                    <div class="astraea-investigation-row__identity">
+                      <span class="astraea-investigation-row__mark">🏛</span>
+                      <div>
+                        <strong>${item.company}</strong>
+                        <div class="astraea-investigation-row__meta">
+                          <span class="risk-badge status-blue">${item.tag}</span>
+                          <span>${item.industry}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="astraea-investigation-row__status">
+                      <span class="astraea-status-dot${item.status.includes("已") ? " is-done" : ""}"></span>
+                      <span>${item.status}</span>
+                    </div>
+                    <time>${item.time}</time>
+                  </article>
+                `,
+              )
+              .join("")
+              : `<p class="astraea-list-empty">暂无最近调查记录</p>`}
+          </div>
+        </section>
+
+        <section class="astraea-list-panel glass-card astraea-list-panel--risk">
+          <div class="astraea-list-panel__head">
+            <h3>风险提醒</h3>
+            <button class="ghost-action" type="button" data-action="go-section" data-top-section="watchlist">查看全部</button>
+          </div>
+          <div class="astraea-risk-list">
+            ${riskAlerts.length
+              ? riskAlerts
+              .map(
+                (item) => `
+                  <article class="astraea-risk-row">
+                    <div class="astraea-risk-row__head">
+                      <span class="risk-badge ${item.levelClass}">${item.level}</span>
+                      <strong>${item.company}</strong>
+                      <time>${item.time}</time>
+                    </div>
+                    <p>${item.detail}</p>
+                  </article>
+                `,
+              )
+              .join("")
+              : `<p class="astraea-list-empty">暂无风险提醒</p>`}
+          </div>
+          <button class="astraea-risk-link" type="button" data-action="go-section" data-top-section="watchlist">订阅更多风险监控</button>
+        </section>
+      </div>
+
+      <div class="astraea-home-caption">
+        <span>推荐入口</span>
+        <strong>${escapeHtml(company?.name || "深圳市灵犀微传感科技有限公司")}</strong>
+        <p>已存在高风险预警与尽调报告样本，可直接进入完整演示链路。</p>
+        <button class="glow-button" type="button" data-action="start-demo">开始企业分析</button>
+      </div>
+    </section>
+  `;
+}
+
+function rerenderHomeCommandCard() {
+  if (state.topSectionId !== "home" || state.smartNavContext?.routeKey) return;
+  renderHome();
+  requestAnimationFrame(() => {
+    const input = document.getElementById("home-smart-nav-input");
+    if (!input) return;
+    const cursor = state.homeCommandInput.length;
+    input.focus();
+    input.setSelectionRange(cursor, cursor);
+  });
+}
+
+function isEditableEventTarget(target) {
+  if (!(target instanceof HTMLElement)) return false;
+  return target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName);
+}
+
+function renderChinaMapPlaceholder() {
+  return `
+    <svg class="china-map-visual" viewBox="0 0 960 720" aria-hidden="true">
+      <defs>
+        <linearGradient id="chinaStroke" x1="140" y1="110" x2="780" y2="590" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#79DEFF" />
+          <stop offset="0.56" stop-color="#7EA3FF" />
+          <stop offset="1" stop-color="#8D6CFF" />
+        </linearGradient>
+        <linearGradient id="chinaFill" x1="240" y1="120" x2="700" y2="580" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#6EA0FF" stop-opacity=".26" />
+          <stop offset="1" stop-color="#162D6A" stop-opacity=".10" />
+        </linearGradient>
+        <filter id="chinaGlow" x="0" y="0" width="960" height="720" filterUnits="userSpaceOnUse">
+          <feGaussianBlur stdDeviation="8" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+      <g filter="url(#chinaGlow)">
+        <path
+          d="M167 323L214 156L296 122L354 165L411 138L499 180L593 244L636 220L705 257L761 339L731 460L669 531L555 587L422 611L314 576L223 515L181 432L167 323Z"
+          fill="url(#chinaFill)"
+          stroke="url(#chinaStroke)"
+          stroke-width="4"
+          stroke-linejoin="round"
+        />
+        <path d="M665 404L776 390L807 465L729 510L665 404Z" fill="rgba(56,94,194,.18)" stroke="rgba(111,179,255,.42)" stroke-width="2"/>
+        <path d="M714 557L758 571L777 612L738 633L714 557Z" fill="rgba(56,94,194,.18)" stroke="rgba(111,179,255,.36)" stroke-width="2"/>
+      </g>
+    </svg>
+  `;
+}
+
+function renderChinaMapAsset() {
+  return `
+    <div class="china-map-asset" data-missing="false">
+      <img
+        class="china-map-image"
+        src="/assets/risk-map-china.png"
+        alt="中国风险热力地图底图"
+        onerror="this.parentElement.dataset.missing='true'"
+      />
+      <div class="china-map-image-overlay"></div>
+      <div class="china-map-fallback">${renderChinaMapPlaceholder()}</div>
+    </div>
+  `;
+}
+
+function renderNationalRiskNode(city) {
+  return `
+    <button
+      class="national-map-node"
+      type="button"
+      data-action="open-risk-region"
+      data-region-id="${city.id}"
+      style="left:${city.x}; top:${city.y}; --city-glow:${city.glow};"
+      aria-label="查看${escapeHtml(city.label)}区域风险详情"
+    >
+      <span class="national-map-node-label">${escapeHtml(city.label)}</span>
+      <span class="national-map-node-core"></span>
+      <span class="national-map-node-pulse"></span>
+      <span class="national-map-node-heat"></span>
+      <span class="national-map-tooltip">
+        <strong>${escapeHtml(city.label)}</strong>
+        <em>风险指数 ${escapeHtml(city.score)}</em>
+        <em>${escapeHtml(city.level)}</em>
+        <em>高风险企业 ${escapeHtml(city.companies)}</em>
+        <i>点击进入区域详情</i>
+      </span>
+    </button>
+  `;
+}
+
+function renderRiskMapRegionDetail(region) {
+  contentAreaEl.innerHTML = `
+    <section class="risk-map-screen region-risk-screen">
+      <div class="page-title-row">
+        <div>
+          <p class="section-kicker">全国风险地图 &gt; ${escapeHtml(region.name)}</p>
+          <h2>宏观风险地图 / ${escapeHtml(region.subtitle)}</h2>
+          <p>数据更新于 2024-05-24 10:30:00，可按区域、行业和风险等级进一步下钻。</p>
+        </div>
+        <div class="filter-pills">
+          <span>时间范围：近 7 日</span>
+          <span>行业：全部</span>
+          <span>风险等级：全部</span>
+          <button class="ghost-action" type="button" data-action="close-risk-region">返回全国</button>
+        </div>
+      </div>
+      <div class="region-hero-stats">
+        <article class="metric-card"><strong class="metric-value">${region.index}</strong><span class="metric-label">${escapeHtml(region.name)}区域风险指数</span></article>
+        <article class="metric-card"><strong class="metric-value">${region.enterpriseCount}</strong><span class="metric-label">高风险企业数</span></article>
+        <article class="metric-card"><strong class="metric-value">${region.heat}</strong><span class="metric-label">重点行业风险热度</span></article>
+        <article class="metric-card"><strong class="metric-value">${region.alerts}</strong><span class="metric-label">近 7 日预警</span></article>
+      </div>
+      <div class="region-risk-layout">
+        <article class="glass-panel region-map-card">
+          <div class="region-map-board">
+            ${renderChinaMapPlaceholder()}
+            ${region.districts
+              .map(
+                (district, index) => `
+                  <div class="region-node region-node-${index + 1}">
+                    <strong>${escapeHtml(district.name)}</strong>
+                    <span>风险指数 ${escapeHtml(district.score)}</span>
+                    <em>风险企业 ${escapeHtml(district.count)}</em>
+                  </div>
+                `,
+              )
+              .join("")}
+          </div>
+          <div class="region-map-footer">
+            <button class="primary-action" type="button" data-action="start-demo">切换到企业尽调</button>
+            <p>${escapeHtml(region.guidance)}</p>
+          </div>
+        </article>
+        <aside class="region-analysis-stack">
+          <article class="glass-panel region-overview-card">
+            <div class="inline-head">
+              <div>
+                <h3>${escapeHtml(region.name)}风险概览</h3>
+                <p>${escapeHtml(region.summary)}</p>
+              </div>
+              <div class="donut-score"><strong>${region.index}</strong><span>中高风险</span></div>
+            </div>
+          </article>
+          <article class="glass-panel ranking-card">
+            <h3>行业风险热度 TOP5</h3>
+            <div class="region-industry-grid">
+              ${region.industries
+                .map(
+                  (item) => `
+                    <div class="region-industry-card">
+                      <strong>${escapeHtml(item.name)}</strong>
+                      <span>风险指数 ${escapeHtml(item.score)}</span>
+                      <em>${escapeHtml(item.delta)}</em>
+                    </div>
+                  `,
+                )
+                .join("")}
+            </div>
+          </article>
+          <article class="glass-panel macro-trend-card">
+            <h3>宏观风险趋势卡片</h3>
+            <div class="macro-trend-mini">
+              <div class="mini-trend-line"></div>
+              <div class="mini-trend-metrics">
+                <span>近7日波动 +5.2</span>
+                <span>区域热度 ${escapeHtml(region.heat)}</span>
+                <span>预警密度 ${escapeHtml(region.alerts)}</span>
+              </div>
+            </div>
+          </article>
+          <article class="glass-panel table-card">
+            <h3>重点企业风险观察</h3>
+            <div class="table-stack">
+              <div class="table-head" style="--cols: 5;"><span>企业名称</span><span>区县</span><span>行业</span><span>风险指数</span><span>标签</span></div>
+              ${region.companies
+                .map(
+                  (item) => `
+                    <div class="table-row" style="--cols: 5;">
+                      <span>${escapeHtml(item.name)}</span>
+                      <span>${escapeHtml(item.district)}</span>
+                      <span>${escapeHtml(item.industry)}</span>
+                      <span>${escapeHtml(item.score)}</span>
+                      <span>${item.tags.map((tag) => `<i class="mini-tag">${escapeHtml(tag)}</i>`).join("")}</span>
+                    </div>
+                  `,
+                )
+                .join("")}
+            </div>
+          </article>
+        </aside>
+      </div>
+      <div class="region-bottom-grid">
+        <article class="glass-panel trend-card">
+          <div class="inline-head">
+            <div>
+              <h3>${escapeHtml(region.name)}区域风险趋势</h3>
+              <p>按周观察风险指数与高风险企业数变化。</p>
+            </div>
+            <div class="filter-pills"><span>近7日</span><span>近30日</span><span>近90日</span></div>
+          </div>
+          <div class="long-trend-chart"></div>
+        </article>
+        <article class="glass-panel event-card">
+          <div class="inline-head">
+            <div>
+              <h3>近期预警事件</h3>
+              <p>区域事件可直接转入企业尽调与报告复核。</p>
+            </div>
+          </div>
+          <div class="event-table">
+            ${region.events
+              .map(
+                (event) => `
+                  <div class="event-row">
+                    <span>${escapeHtml(event.time)}</span>
+                    <strong>${escapeHtml(event.text)}</strong>
+                    <em>${escapeHtml(event.district)}</em>
+                    <i>${escapeHtml(event.level)}</i>
+                  </div>
+                `,
+              )
+              .join("")}
+          </div>
+        </article>
+      </div>
+    </section>
+  `;
+}
+
+function renderMacroRiskMap() {
+  if (state.riskMapRegionId && riskMapRegionViews[state.riskMapRegionId]) {
+    renderRiskMapRegionDetail(riskMapRegionViews[state.riskMapRegionId]);
+    return;
+  }
+
+  const signals = buildMacroSignals();
+  contentAreaEl.innerHTML = `
+    <section class="risk-map-screen national-risk-screen">
+      <div class="page-title-row">
+        <div>
+          <p class="section-kicker">Macro Risk View</p>
+          <h2>全国风险地图</h2>
+          <p>从全国热力分布筛选重点区域，再点击某个省市进入区域风险详情页。</p>
+        </div>
+        <div class="filter-pills"><span>近 7 日</span><span>行业：全部</span><span>风险等级：全部</span></div>
+      </div>
+      <div class="risk-map-layout">
+        <article class="glass-panel china-map-card">
+          <div class="national-map-board">
+            <div class="national-map-grid"></div>
+            <div class="national-map-noise"></div>
+            <div class="national-map-radar-rings"><span></span><span></span><span></span></div>
+            <div class="national-map-radar-sweep"></div>
+            <div class="national-map-radar-glow national-map-radar-glow-a"></div>
+            <div class="national-map-radar-glow national-map-radar-glow-b"></div>
+            <div class="national-map-hud national-map-hud-left">
+              <span>全国风险热力分布</span>
+              <strong>4 个核心监测城市</strong>
+              <em>Hover 查看城市风险快照</em>
+            </div>
+            <div class="national-map-hud national-map-hud-right">
+              <span>风险情报雷达</span>
+              <strong>62.4 / 100</strong>
+              <em>热点沿京津冀、长三角与珠三角聚集</em>
+            </div>
+            <div class="national-map-spectrum">
+              <span>低</span>
+              <i></i>
+              <span>高</span>
+            </div>
+            ${renderChinaMapAsset()}
+            ${nationalRiskHotspots.map((city) => renderNationalRiskNode(city)).join("")}
+          </div>
+          <div class="national-map-footer">
+            <p>默认仅展示全国风险热力分布，不默认选中城市，也不默认显示 tooltip；将鼠标移入热点后再查看轻量详情。</p>
+            <button class="ghost-action" type="button" data-action="start-demo">直接进入企业尽调</button>
+          </div>
+        </article>
+        <aside class="map-side-stack">
+          <article class="glass-panel score-card">
+            <h3>区域风险指数</h3>
+            <div class="donut-score"><strong>62.4</strong><span>中高风险</span></div>
+            <div class="score-card-copy">
+              <p>全国风险热度主要集中于北京、上海与深圳三大经济带，成都作为中西部样本用于观察区域传导。</p>
+              <div class="score-card-chips">
+                <span>高风险企业 ${signals.highRisk}</span>
+                <span>重点城市 4</span>
+                <span>近7日升温</span>
+              </div>
+            </div>
+          </article>
+          <article class="glass-panel ranking-card">
+            <h3>高风险地区 TOP5</h3>
+            <div class="rank-list">
+              ${nationalRiskHotspots
+                .map(
+                  (item, index) => `
+                    <button class="rank-row" type="button" data-action="open-risk-region" data-region-id="${item.id}">
+                      <span>${index + 1}</span><strong>${escapeHtml(item.label)}</strong><em>${escapeHtml(item.score)}</em>
+                    </button>
+                  `,
+                )
+                .join("")}
+              <div class="rank-row rank-row-muted"><span>5</span><strong>武汉</strong><em>54.8</em></div>
+            </div>
+          </article>
+          <article class="glass-panel national-analysis-card">
+            <h3>行业风险热度 TOP5</h3>
+            <div class="heat-top-list">
+              <div class="heat-top-row"><strong>电子制造</strong><span>88.4</span><i style="width:88.4%"></i></div>
+              <div class="heat-top-row"><strong>平台服务</strong><span>82.1</span><i style="width:82.1%"></i></div>
+              <div class="heat-top-row"><strong>房地产链</strong><span>76.8</span><i style="width:76.8%"></i></div>
+              <div class="heat-top-row"><strong>医药制造</strong><span>71.7</span><i style="width:71.7%"></i></div>
+              <div class="heat-top-row"><strong>新能源配套</strong><span>69.6</span><i style="width:69.6%"></i></div>
+            </div>
+          </article>
+          <article class="glass-panel national-trend-card">
+            <h3>宏观风险趋势卡片</h3>
+            <div class="macro-trend-mini">
+              <div class="mini-trend-line"></div>
+              <div class="mini-trend-metrics">
+                <span>近7日预警升温</span>
+                <span>高风险企业 ${signals.highRisk}</span>
+                <span>行业覆盖 ${signals.industries.length}</span>
+              </div>
+            </div>
+            <div class="trend-card-foot">
+              <strong>情报判断</strong>
+              <p>当前全国风险呈东部高压、中西部扩散态势，适合从北京、上海、深圳三地优先下钻。</p>
+            </div>
+          </article>
+        </aside>
+      </div>
+      <div class="card-grid compact-grid">
+        <article class="metric-card"><strong class="metric-value">${signals.total}</strong><span class="metric-label">监测企业</span></article>
+        <article class="metric-card"><strong class="metric-value">${signals.highRisk}</strong><span class="metric-label">高风险企业</span></article>
+        <article class="metric-card"><strong class="metric-value">${signals.listed}</strong><span class="metric-label">上市公司样本</span></article>
+        <article class="metric-card"><strong class="metric-value">${signals.industries.length}</strong><span class="metric-label">行业分布</span></article>
+      </div>
+    </section>
+  `;
+}
+
+function renderDueTask() {
+  if (state.taskBoardView !== "detail") {
+    const companies = getDueTaskCompaniesFiltered();
+    contentAreaEl.innerHTML = `
+      <section class="due-task-screen task-board-selector-screen">
+        <div class="page-title-row report-title-row">
+          <div>
+            <p class="section-kicker">Task Board</p>
+            <h2>洞察任务企业清单</h2>
+            <p>先在任务清单中选择企业，再进入该企业的尽调执行工作台。</p>
+          </div>
+        </div>
+        <article class="glass-panel task-board-table-panel">
+          <div class="task-board-table-head">
+            <div>
+              <p class="section-kicker">Enterprise Queue</p>
+              <h3>待跟进企业</h3>
+              <p>支持按企业名或行业快速检索，列表直接展示任务进度与上次更新时间。</p>
+            </div>
+            <input
+              class="search-box task-board-search-input"
+              id="task-board-search-input"
+              placeholder="搜索企业名称或行业"
+              value="${escapeHtml(state.taskBoardSearchKeyword)}"
+            />
+          </div>
+          <div class="task-board-table">
+            <div class="task-board-table__header">
+              <span>企业名称</span>
+              <span>所属行业</span>
+              <span>任务进度</span>
+              <span>当前阶段</span>
+              <span>上次更新时间</span>
+              <span>操作</span>
+            </div>
+            ${companies.length
+              ? companies
+                  .map(
+                    (company) => `
+                      <button
+                        class="task-board-table__row"
+                        type="button"
+                        data-action="open-task-company"
+                        data-company-code="${company.company_code}"
+                      >
+                        <span class="task-board-company-cell">
+                          <strong>${escapeHtml(company.name)}</strong>
+                          ${renderRiskSeverityBadge(company.risk_level_label)}
+                        </span>
+                        <span>${escapeHtml(formatCompanyIndustry(company))}</span>
+                        <span>
+                          <span class="task-progress-inline">
+                            <i><b style="width:${company.progress}%;"></b></i>
+                            <strong>${company.progress}%</strong>
+                          </span>
+                        </span>
+                        <span>${escapeHtml(company.phase)}</span>
+                        <time>${company.updatedAt}</time>
+                        <span class="task-board-enter-link">${company.actionLabel}</span>
+                      </button>
+                    `,
+                  )
+                  .join("")
+              : '<div class="empty-state"><h3>未找到匹配企业</h3><p>请尝试调整搜索关键词。</p></div>'}
+          </div>
+        </article>
+      </section>
+    `;
+    return;
+  }
+
+  const company = getSelectedDueTaskCompany() || getDemoCompany();
+  const steps = company?.steps || [];
+  contentAreaEl.innerHTML = `
+    <section class="due-task-screen task-journey-screen">
+      <div class="task-board-layout">
+        <div class="task-main-column">
+          <div class="task-board-hero glass-panel">
+            <div>
+              <p class="section-kicker">Mission Brief</p>
+              <h2>尽调执行工作台 · ${escapeHtml(company?.name || "深圳市灵犀微传感科技有限公司")}</h2>
+              <p>任务已启动，Astraea 正在收集、分析与验证目标企业的关键经营、财务、司法与关联风险信息。</p>
+              <button class="portrait-back-inline" type="button" data-action="back-task-board-list">返回企业清单</button>
+            </div>
+            <div class="mission-brief-grid">
+              <div class="mission-brief-item"><span>任务类型</span><strong>授信尽调</strong></div>
+              <div class="mission-brief-item"><span>当前阶段</span><strong>${escapeHtml(company?.phase || "数据归集与分析")}</strong></div>
+              <div class="mission-brief-item"><span>知识依据</span><strong>${state.knowledgeBase?.files?.length || 0} 份</strong></div>
+              <div class="mission-brief-item"><span>风险关注</span><strong>${company?.highRiskCount || 2} 项高风险</strong></div>
+            </div>
+          </div>
+          <article class="glass-panel due-progress-workbench">
+            <div class="due-progress-head">
+              <div>
+                <h3>尽调执行进度</h3>
+                <p>Astraea 正按最优路径推进尽调工作</p>
+              </div>
+              <span class="due-progress-live">${escapeHtml(company?.liveLabel || "AI 自动尽调中")}</span>
+            </div>
+            <div class="due-flow-track" aria-label="尽调执行进度">
+              ${steps
+                .map(
+                  (step) => `
+                    <article class="due-flow-step is-${step.state}">
+                      <div class="due-flow-step__top">
+                        <span class="due-flow-step__index">${step.index}</span>
+                        <span class="due-flow-step__status">${step.status}</span>
+                      </div>
+                      <div class="due-flow-step__signal" style="--progress:${step.pct || 0}%;">
+                        <span class="due-flow-step__signal-core">
+                          ${step.state === "done" ? "✓" : step.state === "running" ? `${step.pct}%` : step.index === 4 ? "⌛" : step.index === 5 ? "◎" : "▤"}
+                        </span>
+                      </div>
+                      <div class="due-flow-step__body">
+                        <h3>${step.title}</h3>
+                        <strong>${step.desc}</strong>
+                        <ul>
+                          ${step.tasks.map((task) => `<li>${task}</li>`).join("")}
+                        </ul>
+                      </div>
+                    </article>
+                  `,
+                )
+                .join("")}
+            </div>
+          </article>
+          <div class="task-journey-bottom">
+            <article class="glass-panel task-insight-card">
+              <h3>关键发现</h3>
+              <div class="alert-stack">
+                <div class="alert-item high"><strong>${escapeHtml((company?.tags || [])[0] || "表外担保风险")}</strong><span>${escapeHtml(compactText(company?.overview || "存在未披露连带责任担保线索，需补充核验控保企业经营情况。"))}</span></div>
+                <div class="alert-item medium"><strong>${escapeHtml((company?.tags || [])[1] || "现金流偏弱")}</strong><span>当前任务进度 ${company?.progress || 85}% ，建议优先核验回款、应收账龄和短债承接压力。</span></div>
+                <div class="alert-item medium"><strong>${escapeHtml((company?.tags || [])[2] || "关联网络扩展")}</strong><span>当前阶段为「${escapeHtml(company?.phase || "生成初步结论中")}」，建议同步准备复核材料与结论口径。</span></div>
+              </div>
+            </article>
+            <article class="glass-panel task-suggestion-card">
+              <h3>Astraea助手建议</h3>
+                <div class="suggestion-card"><strong>优先核验高风险构面</strong><span>建议先围绕 ${escapeHtml((company?.tags || [])[0] || "高风险事项")} 补充关键证据，减少后续复核回退。</span></div>
+                <div class="suggestion-card"><strong>补充经营与回款链路</strong><span>建议同步准备合同、订单、发票和银行流水，便于后续报告直接引用。</span></div>
+              <div class="suggestion-card"><strong>${company?.reportCompleted ? "查看并复核报告" : "提前准备结论口径"}</strong><span>${company?.reportCompleted ? "当前企业尽调报告已生成，可直接进入报告工作台查看、编辑与预审。" : `当前任务已推进到 ${company?.phase || "生成初步结论中"}，可以同步整理风险结论与缓释建议草案。`}</span></div>
+            </article>
+          </div>
+        </div>
+        <aside class="task-side-column">
+          <article class="glass-panel astraea-assistant-panel">
+            <div class="assistant-panel-head">
+              <img src="${ASTRAEA_ASSISTANT_IMAGE}" alt="Astraea 助手头像" class="assistant-portrait-image" />
+              <div>
+                <h3>Astraea 阿斯特莱亚</h3>
+                <p>AI尽调助手</p>
+              </div>
+            </div>
+            <div class="assistant-quote-card">
+              ${company?.reportCompleted
+                ? "该企业尽调报告已生成，您现在可以直接查看报告内容，继续编辑、预审或导出。"
+                : `我正在为您收集、分析与验证该企业的多维信息，当前处于 ${escapeHtml(company?.phase || "生成初步结论中")} 阶段，将尽快为您呈现关键发现。`}
+            </div>
+          </article>
+          <article class="glass-panel task-side-timeline">
+            <h3>尽调动态</h3>
+            <div class="timeline-list">
+              ${(company?.timeline || [])
+                .map(
+                  (item) => `
+                    <div class="timeline-row">
+                      <span>${escapeHtml(item.time)}</span>
+                      <strong>${escapeHtml(item.title)}</strong>
+                      <em>${escapeHtml(item.note)}</em>
+                    </div>
+                  `,
+                )
+                .join("")}
+            </div>
+          </article>
+        </aside>
+      </div>
+    </section>
+  `;
+}
+
+function renderProcessEngineMaterials(detail, company) {
+  if (!detail) {
+    contentAreaEl.innerHTML = `<div class="empty-state"><h3>材料加载中</h3><p>请稍后重试。</p></div>`;
+    return;
+  }
+  contentAreaEl.innerHTML = `
+    <section class="due-task-screen">
+      <div class="page-title-row">
+        <div>
+          <p class="section-kicker">材料状态</p>
+          <h2>${escapeHtml(company?.name || "目标企业")} 尽调资料包</h2>
+          <p>展示数据库、mock VDR、上传材料与知识库引用的来源关系。</p>
+        </div>
+      </div>
+      ${renderDueDiligenceMaterials(detail)}
+    </section>
+  `;
+}
+
+function renderCompanyListPanel(selectedCompany, filteredCompanies, options = {}) {
+  const isListPage = options.variant === "full";
+  return `
+    <aside class="glass-card company-list-panel${isListPage ? " company-list-panel--full" : ""}">
+      <div class="company-list-panel__head">
+        <div>
+          <p class="section-kicker">Company List</p>
+          <h3>企业清单</h3>
+          <p>${isListPage ? "先选择需要查看的企业，进入后再查看风险矩阵与详情联动。" : "切换企业后查看二维风险矩阵与右侧风险详情。"}</p>
+        </div>
+      </div>
+      <div class="company-list-panel__controls">
+        <input
+          class="search-box portrait-search-input"
+          id="portrait-search-input"
+          placeholder="搜索企业名称或行业"
+          value="${escapeHtml(state.portraitSearchKeyword)}"
+        />
+        <div class="company-list-panel__filters">
+          ${portraitRiskFilters
+            .map(
+              (item) => `
+                <button
+                  class="pill-button${state.portraitRiskFilter === item ? " is-active" : ""}"
+                  type="button"
+                  data-action="set-portrait-risk-filter"
+                  data-risk-filter="${item}"
+                >${item}</button>
+              `,
+            )
+            .join("")}
+        </div>
+      </div>
+      <div class="company-list-panel__list">
+        ${filteredCompanies
+          .map((item) => {
+            const severity = item.riskLevel ? getRiskSeverity(item.riskLevel) : null;
+            return `
+              <button
+                class="company-list-item${selectedCompany && item.companyCode === selectedCompany.companyCode ? " is-active" : ""}"
+                type="button"
+                data-action="select-portrait-company"
+                data-portrait-company-id="${item.companyCode}"
+              >
+                <div class="company-list-item__row">
+                  <strong>${escapeHtml(item.name)}</strong>
+                  ${item.riskLevel ? renderRiskSeverityBadge(item.riskLevel) : ""}
+                </div>
+                <div class="company-list-item__row company-list-item__row--meta">
+                  <span>${escapeHtml(item.industry || "暂无数据")}</span>
+                  ${item.riskScore !== null && item.riskScore !== undefined
+                    ? `<span class="${severity?.scoreClass || ""}">${item.riskScore}/100</span>`
+                    : ""}
+                </div>
+                ${item.updatedAt
+                  ? `
+                    <div class="company-list-item__row company-list-item__row--time">
+                      <span>最近更新</span>
+                      <time>${item.updatedAt}</time>
+                    </div>
+                  `
+                  : ""}
+                ${item.tags.length
+                  ? `
+                    <div class="company-list-item__tags">
+                      ${item.tags.map((tag) => `<span class="mini-tag">${escapeHtml(tag)}</span>`).join("")}
+                    </div>
+                  `
+                  : ""}
+              </button>
+            `;
+          })
+          .join("")}
+      </div>
+    </aside>
+  `;
+}
+
+const portraitLayerLabels = {
+  pinnacle: "核心控制层",
+  upper: "财务经营层",
+  middle: "交易市场层",
+  base: "主体合规层",
+};
+
+function renderRiskMatrixBlock(module, activeModule) {
+  const severity = getRiskSeverity(module.level);
+  const metrics = module.keyMetrics.slice(0, 2);
+  return `
+    <button
+      class="risk-matrix-card ${severity.toneClass}${module.id === activeModule.id ? " is-active" : ""}"
+      type="button"
+      style="opacity:${Math.max(0.42, module.sufficiency)};"
+      data-action="focus-risk-house"
+      data-risk-house-id="${module.id}"
+      aria-label="查看${escapeHtml(module.title)}详情"
+    >
+      <span class="risk-matrix-card__top">
+        <em>${module.id}</em>
+        <i>${escapeHtml(portraitLayerLabels[module.layer] || "风险模块")}</i>
+      </span>
+      <strong>${escapeHtml(module.title)}</strong>
+      <span class="risk-matrix-card__meta">
+        ${renderRiskSeverityBadge(module.level)}
+        <small>评分 ${module.score}</small>
+      </span>
+      <span class="risk-matrix-card__metrics">
+        ${metrics.map((item) => `<b>${escapeHtml(item)}</b>`).join("")}
+      </span>
+      <span class="risk-matrix-card__sufficiency">
+        <i style="width:${Math.round(module.sufficiency * 100)}%;"></i>
+      </span>
+    </button>
+  `;
+}
+
+function renderRiskMatrix2D(selectedCompany, activeModule) {
+  const modules = [...selectedCompany.modules].sort((a, b) => a.priority - b.priority);
+  return `
+    <article class="glass-card risk-workbench-stage">
+      <div class="risk-workbench-stage__head">
+        <div>
+          <p class="section-kicker">2D Risk Matrix</p>
+          <h3>${escapeHtml(selectedCompany.name)}</h3>
+          <p>12 个风险模块按 Risk House 核心分类逻辑展开为 4×3 二维矩阵，点击模块查看评分、证据来源与 AI 解读。</p>
+        </div>
+        <div class="risk-workbench-stage__meta">
+          ${selectedCompany.riskLevel ? renderRiskSeverityBadge(selectedCompany.riskLevel) : ""}
+          ${selectedCompany.portraitScore !== null && selectedCompany.portraitScore !== undefined ? `<span>画像评分 ${selectedCompany.portraitScore}</span>` : ""}
+          ${selectedCompany.updatedAt ? `<span>更新于 ${selectedCompany.updatedAt}</span>` : ""}
+        </div>
+      </div>
+      <div class="risk-matrix2d" aria-label="二维风险矩阵">
+        ${modules.map((item) => renderRiskMatrixBlock(item, activeModule)).join("")}
+      </div>
+      ${renderRiskLegend()}
+    </article>
+  `;
+}
+
+function renderRiskLegend() {
+  return `
+    <div class="risk-legend">
+      <div class="risk-legend__group">
+        <strong>风险等级</strong>
+        <span class="risk-legend__item"><i class="severity-dot severity-dot--extreme"></i>极高风险</span>
+        <span class="risk-legend__item"><i class="severity-dot severity-dot--high"></i>高风险</span>
+        <span class="risk-legend__item"><i class="severity-dot severity-dot--medium"></i>中风险</span>
+        <span class="risk-legend__item"><i class="severity-dot severity-dot--low"></i>低风险</span>
+        <span class="risk-legend__item"><i class="severity-dot severity-dot--unknown"></i>信息不足</span>
+      </div>
+      <div class="risk-legend__group">
+        <strong>数据充分度</strong>
+        <span class="risk-legend__item">透明度越低，表示当前证据仍需补充。</span>
+      </div>
+    </div>
+  `;
+}
+
+function renderRiskDetailPanel(selectedCompany, activeModule) {
+  return `
+    <aside class="glass-card risk-detail-panel">
+      <div class="risk-detail-panel__head">
+        <p class="section-kicker">Risk Detail Panel</p>
+        <h3>${escapeHtml(selectedCompany.name)}</h3>
+        <strong>${escapeHtml(activeModule.title)}</strong>
+      </div>
+      <div class="risk-detail-panel__score">
+        <div>
+          <span>风险评分</span>
+          <strong>${activeModule.score}</strong>
+          <small>/100</small>
+        </div>
+        ${renderRiskSeverityBadge(activeModule.level)}
+      </div>
+      <div class="risk-detail-panel__stack">
+        <div class="risk-detail-card">
+          <span>风险说明</span>
+          <p>${escapeHtml(activeModule.summary)}</p>
+        </div>
+        <div class="risk-detail-card">
+          <span>关键指标</span>
+          <ul>${activeModule.keyMetrics.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+        <div class="risk-detail-card">
+          <span>主要证据来源</span>
+          <ul>${activeModule.evidenceSources.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+        </div>
+        <div class="risk-detail-card">
+          <span>AI 风险解读</span>
+          <p>${escapeHtml(activeModule.aiInterpretation)}</p>
+        </div>
+        <div class="risk-detail-card">
+          <span>建议动作</span>
+          <p>${escapeHtml(activeModule.recommendedAction)}</p>
+        </div>
+        <div class="risk-detail-card">
+          <span>数据充分度</span>
+          <p>${Math.round(activeModule.sufficiency * 100)}%</p>
+        </div>
+      </div>
+    </aside>
+  `;
+}
+
+function renderEnterpriseLibrary() {
+  const allCompaniesLoaded = Boolean(state.meta && Array.isArray(state.companies));
+  const filteredCompanies = getPortraitCompaniesFiltered();
+  if (!allCompaniesLoaded) {
+    contentAreaEl.innerHTML = `
+      <section class="portrait-screen risk-house-workbench">
+        <div class="page-title-row risk-workbench-title-row">
+          <div>
+            <p class="section-kicker">Enterprise List</p>
+            <h2>企业画像</h2>
+            <p>正在加载企业清单，请稍候。</p>
+          </div>
+        </div>
+        <div class="portrait-list-layout">
+          <aside class="glass-card company-list-panel company-list-panel--full">
+            <div class="company-list-panel__head">
+              <div>
+                <p class="section-kicker">Company List</p>
+                <h3>企业清单</h3>
+                <p>正在从后端读取真实企业列表。</p>
+              </div>
+            </div>
+            <div class="company-list-panel__list">
+              ${Array.from({ length: 6 }, (_, index) => `
+                <div class="company-list-item company-list-item--skeleton" aria-hidden="true">
+                  <div class="report-skeleton-line report-skeleton-line--company"></div>
+                  <div class="report-skeleton-line report-skeleton-line--meta"></div>
+                  ${index % 2 === 0 ? '<div class="report-skeleton-line report-skeleton-line--meta"></div>' : ""}
+                </div>
+              `).join("")}
+            </div>
+          </aside>
+        </div>
+      </section>
+    `;
+    return;
+  }
+
+  if (state.portraitError && state.portraitView === "detail") {
+    contentAreaEl.innerHTML = `
+      <section class="portrait-screen risk-house-workbench">
+        <div class="empty-state">
+          <h3>企业画像加载失败</h3>
+          <p>${escapeHtml(state.portraitError)}</p>
+          <div class="button-row" style="margin-top: 16px;">
+            <button class="primary-action" type="button" data-action="retry-portrait-company">重试</button>
+            <button class="ghost-action" type="button" data-action="back-portrait-list">返回企业清单</button>
+          </div>
+        </div>
+      </section>
+    `;
+    return;
+  }
+
+  if (!getPortraitCompaniesSource().length) {
+    contentAreaEl.innerHTML = `
+      <section class="portrait-screen risk-house-workbench">
+        <div class="empty-state">
+          <h3>暂无企业数据，请先完成企业录入或数据同步</h3>
+          <p>当前后端未返回任何企业记录，因此不展示前端示例企业。</p>
+        </div>
+      </section>
+    `;
+    return;
+  }
+
+  if (!filteredCompanies.length) {
+    contentAreaEl.innerHTML = `
+      <section class="portrait-screen risk-house-workbench">
+        <div class="empty-state">
+          <h3>未找到匹配企业</h3>
+          <p>请尝试调整企业名称关键字或风险等级筛选条件。</p>
+        </div>
+      </section>
+    `;
+    return;
+  }
+
+  const selectedCompany = filteredCompanies.find((item) => item.companyCode === state.portraitCompanyId)
+    || filteredCompanies[0];
+  if (state.portraitView !== "detail") {
+    contentAreaEl.innerHTML = `
+      <section class="portrait-screen risk-house-workbench">
+        <div class="page-title-row risk-workbench-title-row">
+          <div>
+            <p class="section-kicker">Enterprise List</p>
+            <h2>企业画像</h2>
+            <p>先在企业清单中选择目标企业，进入后查看二维风险矩阵与风险详情。</p>
+          </div>
+          <button class="secondary-action" type="button" data-action="go-section" data-top-section="report-center">导出画像报告</button>
+        </div>
+        <div class="portrait-list-layout">
+          ${renderCompanyListPanel(null, filteredCompanies, { variant: "full" })}
+        </div>
+      </section>
+    `;
+    return;
+  }
+  const detail = getCompanyDetail(selectedCompany.companyCode);
+  if (!detail || state.portraitLoadingCompanyCode === selectedCompany.companyCode) {
+    contentAreaEl.innerHTML = `
+      <section class="portrait-screen risk-house-workbench">
+        <div class="empty-state">
+          <h3>企业画像加载中</h3>
+          <p>正在根据企业真实 id 读取画像详情与风险矩阵。</p>
+          <div class="button-row" style="margin-top: 16px;">
+            <button class="ghost-action" type="button" data-action="back-portrait-list">返回企业清单</button>
+          </div>
+        </div>
+      </section>
+    `;
+    return;
+  }
+  const portraitDetail = buildPortraitCompanyDetail(selectedCompany, detail);
+  const activeModule = getPortraitModule(portraitDetail) || portraitDetail.modules[0];
+  contentAreaEl.innerHTML = `
+    <section class="portrait-screen risk-house-workbench">
+      <div class="page-title-row risk-workbench-title-row">
+        <div>
+          <p class="section-kicker">Enterprise Risk Matrix</p>
+          <h2>企业风险画像详情</h2>
+          <button class="portrait-back-inline" type="button" data-action="back-portrait-list">返回上一级</button>
+        </div>
+        <div class="risk-workbench-title-actions">
+          <button class="secondary-action" type="button" data-action="go-section" data-top-section="report-center">导出画像报告</button>
+        </div>
+      </div>
+      <div class="risk-workbench-layout risk-workbench-layout--detail">
+        ${renderRiskMatrix2D(portraitDetail, activeModule)}
+        ${renderRiskDetailPanel(portraitDetail, activeModule)}
+      </div>
+    </section>
+  `;
+}
+
+function renderWatchlist() {
+  const watched = buildWatchlistCompanies();
+  const focused = watched.find((item) => item.code === state.watchlistFocusCode) || watched[0];
+  if (focused && focused.code !== state.watchlistFocusCode) state.watchlistFocusCode = focused.code;
+  const mode = getWatchlistMode();
+  const insight = buildWatchlistInsight(focused, watched);
+  if (mode === "analysis" && insight) {
+    contentAreaEl.innerHTML = `
+      <section class="watchlist-screen watchlist-screen--analysis">
+        ${renderWatchlistAnalysisLayout(insight, watched)}
+      </section>
+    `;
+    return;
+  }
+  contentAreaEl.innerHTML = `
+    <section class="watchlist-screen">
+      <div class="watchlist-hero">
+        <div class="watchlist-portrait-card glass-card">
+          <img src="${ASTRAEA_ASSISTANT_IMAGE}" alt="Astraea 蓝绿色粒子风险监测画像" />
+        </div>
+        <div>
+          <p class="section-kicker">Astraea Watchlist</p>
+          <h2>AI 风险雷达监测中心</h2>
+          <p>以雷达距离表达风险强度，越靠近中心代表风险越高；行业用不同颜色区分，右侧清单可同步高亮雷达点。</p>
+        </div>
+      </div>
+      <div class="card-grid compact-grid">
+        <article class="metric-card"><strong class="metric-value">${watched.length}</strong><span class="metric-label">雷达监测企业</span></article>
+        <article class="metric-card"><strong class="metric-value">${watched.filter((item) => item.riskScore >= 80).length}</strong><span class="metric-label">中心高压信号</span></article>
+        <article class="metric-card"><strong class="metric-value">${watched.filter((item) => item.riskScore >= 60 && item.riskScore < 80).length}</strong><span class="metric-label">中圈跟踪信号</span></article>
+        <article class="metric-card"><strong class="metric-value">${new Set(watched.map((item) => item.industryGroup.label)).size}</strong><span class="metric-label">行业监测分组</span></article>
+      </div>
+      <div class="watchlist-layout">
+        <div class="watchlist-main-column">
+          <article class="glass-panel watch-radar-card">
+            <div class="watch-radar-head">
+              <div>
+                <p class="section-kicker">Risk Radar</p>
+                <h3>企业风险雷达</h3>
+              </div>
+              <div class="watch-radar-focus">
+              <span>当前高亮</span>
+              <strong>${escapeHtml(focused?.name || "暂无企业")}</strong>
+            </div>
+          </div>
+          <div class="watch-radar-stage" aria-label="企业风险雷达监测图">
+              <div class="watch-radar-grid"></div>
+              <div class="watch-radar-rings"><span></span><span></span><span></span><span></span></div>
+              <div class="watch-radar-axis watch-radar-axis--x"></div>
+              <div class="watch-radar-axis watch-radar-axis--y"></div>
+              <div class="watch-radar-sweep"></div>
+              <div class="watch-radar-center">
+                <strong>高风险</strong>
+                <span>中心区</span>
+              </div>
+              ${watched.map((item) => renderWatchlistRadarPoint(item)).join("")}
+            </div>
+            <div class="watch-radar-legend">
+              <span><i class="watch-industry-dot industry-cyan"></i>工业传感器 / 智能制造</span>
+              <span><i class="watch-industry-dot industry-purple"></i>医药 / 生物医药</span>
+              <span><i class="watch-industry-dot industry-orange"></i>食品酒饮</span>
+              <span><i class="watch-industry-dot industry-green"></i>能源 / 材料</span>
+              <span><i class="watch-industry-dot industry-slate"></i>其他行业</span>
+            </div>
+          </article>
+          <aside class="watchlist-main-lower watchlist-side watchlist-industry-side">
+            ${mode === "detail" && insight ? renderWatchlistDetailPanel(insight) : renderWatchlistOverviewPanel(watched, focused)}
+          </aside>
+        </div>
+        ${renderWatchlistAssistantRail(watched, insight)}
+      </div>
+    </section>
+  `;
+}
+
+function renderReportCenter() {
+  const selectedReport = getSelectedReportConfig();
+  const allCompaniesLoaded = Boolean(state.meta && Array.isArray(state.companies));
+  const reportCompanies = getReportCenterCompaniesFiltered();
+  const company = getCompanySummary(state.processEngineCompanyCode);
+  const detail = getCompanyDetail(state.processEngineCompanyCode);
+  const hasSearchKeyword = Boolean(state.reportCenterSearchKeyword.trim());
+
+  if (state.reportCenterView === "detail") {
+    if (!company) {
+      state.reportCenterView = "company-list";
+      renderReportCenter();
+      return;
+    }
+
+    if (selectedReport.id !== "due-diligence") {
+      const statusMeta = getReportCompanyStatus(selectedReport, company, 0);
+      contentAreaEl.innerHTML = `
+        <section class="report-center-screen">
+          <div class="page-title-row report-title-row">
+            <div>
+              <p class="section-kicker">洞察报告 / ${escapeHtml(selectedReport.title)}</p>
+              <h2>${escapeHtml(company.name)} · ${escapeHtml(selectedReport.title)}</h2>
+              <p>${escapeHtml(selectedReport.detailSummary)}</p>
+            </div>
+            <div class="button-row">
+              <button class="ghost-action" type="button" data-action="back-report-company-list">返回企业清单</button>
+              <button class="ghost-action" type="button" data-action="back-report-hub">返回报告类型</button>
+            </div>
+          </div>
+          <div class="report-company-detail-grid">
+            <article class="glass-panel report-company-sheet-panel">
+              ${renderReportTemplatePreview(company, statusMeta, {
+                detail: true,
+                title: selectedReport.title,
+                subtitle: statusMeta.note,
+              })}
+            </article>
+            <article class="glass-panel report-company-meta-panel">
+              <div class="summary-stack">
+                <div class="summary-item"><strong>当前状态</strong><span>${escapeHtml(statusMeta.label)} / ${escapeHtml(statusMeta.note)}</span></div>
+                <div class="summary-item"><strong>企业名称</strong><span>${escapeHtml(company.name)}</span></div>
+                ${formatCompanyIndustry(company) !== "待补行业" ? `<div class="summary-item"><strong>所属行业</strong><span>${escapeHtml(formatCompanyIndustry(company))}</span></div>` : ""}
+                ${company.operating_status ? `<div class="summary-item"><strong>经营状态</strong><span>${escapeHtml(localizeText(company.operating_status))}</span></div>` : ""}
+              </div>
+              <div class="alert-stack" style="margin-top: 18px;">
+                <div class="alert-item medium"><strong>当前说明</strong><span>${escapeHtml(selectedReport.detailSummary)}</span></div>
+                <div class="alert-item medium"><strong>下一步建议</strong><span>先完成该报告类型所需输入，再进入正式生成或审批流转。</span></div>
+              </div>
+            </article>
+          </div>
+        </section>
+      `;
+      return;
+    }
+
+    if (!detail) {
+      const statusMeta = getReportCompanyStatus(selectedReport, company, 0);
+      contentAreaEl.innerHTML = `
+        <section class="report-center-screen">
+          <div class="page-title-row report-title-row">
+            <div>
+              <p class="section-kicker">尽调报告 / 加载中</p>
+              <h2>${escapeHtml(company.name)} 尽调报告</h2>
+              <p>正在加载该企业的报告工作区，请稍候。</p>
+            </div>
+            <div class="button-row">
+              <button class="ghost-action" type="button" data-action="back-report-company-list">返回企业清单</button>
+              <button class="ghost-action" type="button" data-action="back-report-hub">返回报告类型</button>
+            </div>
+          </div>
+          <div class="report-company-detail-grid">
+            <article class="glass-panel report-company-sheet-panel">
+              ${renderReportTemplatePreview(company, statusMeta, { detail: true, title: "尽调报告", subtitle: "正在载入报告内容..." })}
+            </article>
+            <article class="glass-panel report-company-meta-panel">
+              <div class="empty-state">
+                <h3>报告数据加载中</h3>
+                <p>正在从后端读取该企业的报告版本、知识库引用和正文内容。</p>
+              </div>
+            </article>
+          </div>
+        </section>
+      `;
+      return;
+    }
+
+    syncSelectedVersion(detail);
+    syncKnowledgeSelection(detail);
+    const active = state.dueDiligenceTabId === "report-review" ? "review" : "generation";
+    const version = getCurrentVersion(detail);
+    contentAreaEl.innerHTML = `
+      <section class="report-center-screen">
+        <div class="page-title-row report-title-row">
+          <div>
+            <p class="section-kicker">洞察报告 / ${active === "review" ? "预审" : "尽调报告"}</p>
+            <h2>${escapeHtml(company.name)} 尽调报告</h2>
+            <p>这是当前唯一已开放的完整报告链路，支持生成、编辑、预审与证据溯源。</p>
+          </div>
+          <div class="button-row">
+            <button class="ghost-action" type="button" data-action="back-report-company-list">返回企业清单</button>
+            <button class="ghost-action" type="button" data-action="back-report-hub">返回报告类型</button>
+            ${renderAstraeaPersona("tiny")}
+          </div>
+        </div>
+        <div class="process-tab-strip">
+          <div class="tab-row">
+            <button class="tab-button${active === "generation" ? " is-active" : ""}" type="button" data-action="switch-report-pane" data-report-pane="generation">报告生成</button>
+            <button class="tab-button${active === "review" ? " is-active" : ""}" type="button" data-action="switch-report-pane" data-report-pane="review">报告预审</button>
+          </div>
+        </div>
+        ${active === "review" ? renderDueDiligenceReportReview(detail) : renderDueDiligenceReportGenerate(detail)}
+        ${version ? "" : '<div class="empty-state"><h3>暂无报告版本</h3><p>请先生成尽调报告。</p></div>'}
+      </section>
+    `;
+    return;
+  }
+
+  if (state.reportCenterView === "company-list") {
+    contentAreaEl.innerHTML = `
+      <section class="report-center-screen">
+        <div class="page-title-row report-title-row">
+          <div>
+            <p class="section-kicker">Report Company List</p>
+            <h2>${escapeHtml(selectedReport.companyListTitle)}</h2>
+            <p>${escapeHtml(selectedReport.companyListSummary)}</p>
+          </div>
+          <div class="button-row">
+            <button class="ghost-action" type="button" data-action="back-report-hub">返回报告类型</button>
+            <input
+              class="search-box report-center-search-input"
+              id="report-center-search-input"
+              placeholder="搜索企业名称或行业"
+              value="${escapeHtml(state.reportCenterSearchKeyword)}"
+            />
+          </div>
+        </div>
+        <article class="glass-panel report-company-selector-panel">
+          <div class="report-company-selector-head">
+            <div>
+              <p class="section-kicker">Enterprise Picker</p>
+              <h3>选择企业</h3>
+              <p>先选企业，再进入对应${escapeHtml(selectedReport.title)}工作区。清单顺序严格沿用后端接口返回顺序。</p>
+            </div>
+          </div>
+          <div class="report-company-grid">
+            ${!allCompaniesLoaded
+              ? Array.from({ length: 8 }, () => renderReportCompanyCardSkeleton()).join("")
+              : reportCompanies.length
+                ? reportCompanies
+                    .map((item, index) => {
+                      const statusMeta = getReportCompanyStatus(selectedReport, item, index);
+                      const isSelected = item.company_code === state.processEngineCompanyCode;
+                      const isLoading = item.company_code === state.reportCenterLoadingCompanyCode;
+                      return `
+                        <button
+                          class="report-company-card${isSelected ? " is-selected" : ""}${isLoading ? " is-loading" : ""}"
+                          type="button"
+                          data-action="open-report-company"
+                          data-company-code="${item.company_code}"
+                        >
+                          ${renderReportTemplatePreview(item, statusMeta, {
+                            title: selectedReport.title,
+                            subtitle: isLoading ? "正在打开报告工作台..." : statusMeta.note,
+                          })}
+                          <div class="report-company-card__meta">
+                            <strong>${escapeHtml(item.name)}</strong>
+                            ${formatCompanyIndustry(item) !== "待补行业" ? `<span>${escapeHtml(formatCompanyIndustry(item))}</span>` : ""}
+                            ${item.operating_status ? `<span class="report-company-card__aux">${escapeHtml(localizeText(item.operating_status))}</span>` : ""}
+                          </div>
+                        </button>
+                      `;
+                    })
+                    .join("")
+                : hasSearchKeyword
+                  ? '<div class="empty-state report-company-empty"><h3>未找到匹配企业</h3><p>请尝试更换公司名称或行业关键词。</p></div>'
+                  : '<div class="empty-state report-company-empty"><h3>暂无可展示企业</h3><p>请先完成企业录入或数据同步。</p></div>'}
+          </div>
+          ${state.reportCenterError ? `<div class="empty-state report-company-error"><h3>加载失败</h3><p>${escapeHtml(state.reportCenterError)}</p></div>` : ""}
+        </article>
+      </section>
+    `;
+    return;
+  }
+
+  contentAreaEl.innerHTML = `
+    <section class="report-center-screen">
+      <div class="page-title-row report-title-row">
+        <div>
+          <p class="section-kicker">Insight Reports</p>
+          <h2>洞察报告总览</h2>
+          <p>先选择报告类型，再进入对应企业清单，最后打开具体企业的报告工作台。</p>
+        </div>
+      </div>
+      <div class="report-hub-grid">
+        ${reportCenterCatalog
+          .map(
+            (item) => `
+              <button class="report-hub-card ${item.cardClass}" type="button" data-action="choose-report-type" data-report-type-id="${item.id}">
+                <span class="report-hub-status ${item.statusClass}">${item.statusLabel}</span>
+                <strong>${item.title}</strong>
+                <p>${item.companyListSummary}</p>
+              </button>
+            `,
+          )
+          .join("")}
+      </div>
+    </section>
+  `;
+}
+
 function renderContent() {
+  if (state.smartNavContext?.routeKey) {
+    renderSmartNavigationPage();
+    return;
+  }
+  if (state.topSectionId === "home") {
+    renderHome();
+    return;
+  }
+  if (state.topSectionId === "risk-map") {
+    renderMacroRiskMap();
+    return;
+  }
+  if (state.topSectionId === "due-task") {
+    renderDueTask();
+    return;
+  }
+  if (state.topSectionId === "enterprise-library") {
+    renderEnterpriseLibrary();
+    return;
+  }
+  if (state.topSectionId === "watchlist") {
+    renderWatchlist();
+    return;
+  }
+  if (state.topSectionId === "report-center") {
+    renderReportCenter();
+    return;
+  }
+  if (state.topSectionId === "knowledge-center") {
+    renderKnowledgeBase();
+    return;
+  }
   if (state.topSectionId === "risk-view") {
     renderRiskView();
     return;
@@ -2412,6 +6717,473 @@ function renderContent() {
   renderSystemAdmin();
 }
 
+function createDocumentAnchor(prefix, title, index) {
+  const slug = String(title || `section-${index + 1}`)
+    .toLowerCase()
+    .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return `${prefix}-${slug || `section-${index + 1}`}-${index + 1}`;
+}
+
+function renderRichInline(text) {
+  let html = escapeHtml(text || "");
+  html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
+  html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  html = html.replace(/\*([^*\n]+)\*/g, "<em>$1</em>");
+  html = html.replace(/\+\+([^+\n]+)\+\+/g, "<u>$1</u>");
+  html = html.replace(/==([^=\n]+)==/g, '<mark class="doc-highlight">$1</mark>');
+  html = html.replace(/\[([^[\]]+)\]/g, '<span class="doc-citation">[$1]</span>');
+  return html;
+}
+
+function parseMarkdownTableRows(lines) {
+  const rows = lines
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => line.replace(/^\|/, "").replace(/\|$/, "").split("|").map((cell) => cell.trim()));
+  if (rows.length >= 2 && rows[1].every((cell) => /^:?-{3,}:?$/.test(cell))) {
+    rows.splice(1, 1);
+  }
+  return rows;
+}
+
+function renderMarkdownTable(lines) {
+  const rows = parseMarkdownTableRows(lines);
+  if (!rows.length) return "";
+  const [headers, ...bodyRows] = rows;
+  return `
+    <div class="doc-table-wrap">
+      <table class="doc-table">
+        <thead>
+          <tr>${headers.map((cell) => `<th>${renderRichInline(cell)}</th>`).join("")}</tr>
+        </thead>
+        <tbody>
+          ${bodyRows
+            .map(
+              (row) => `
+                <tr>${headers.map((_, index) => `<td>${renderRichInline(row[index] || "")}</td>`).join("")}</tr>
+              `,
+            )
+            .join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderBlockParagraph(lines) {
+  return `<p>${renderRichInline(lines.join(" "))}</p>`;
+}
+
+function renderBlockList(items, ordered = false) {
+  const tag = ordered ? "ol" : "ul";
+  return `<${tag}>${items.map((item) => `<li>${renderRichInline(item)}</li>`).join("")}</${tag}>`;
+}
+
+function renderMarkdownBody(text) {
+  const lines = String(text || "").replace(/\r/g, "").split("\n");
+  const parts = [];
+  let paragraph = [];
+  let listItems = [];
+  let listOrdered = false;
+  let tableLines = [];
+
+  const flushParagraph = () => {
+    if (!paragraph.length) return;
+    parts.push(renderBlockParagraph(paragraph));
+    paragraph = [];
+  };
+
+  const flushList = () => {
+    if (!listItems.length) return;
+    parts.push(renderBlockList(listItems, listOrdered));
+    listItems = [];
+  };
+
+  const flushTable = () => {
+    if (!tableLines.length) return;
+    parts.push(renderMarkdownTable(tableLines));
+    tableLines = [];
+  };
+
+  lines.forEach((rawLine) => {
+    const line = rawLine.trim();
+    if (!line) {
+      flushParagraph();
+      flushList();
+      flushTable();
+      return;
+    }
+
+    if (line.startsWith("|")) {
+      flushParagraph();
+      flushList();
+      tableLines.push(line);
+      return;
+    }
+    flushTable();
+
+    if (line.startsWith("### ")) {
+      flushParagraph();
+      flushList();
+      parts.push(`<h3>${renderRichInline(line.replace(/^###\s+/, ""))}</h3>`);
+      return;
+    }
+    if (line.startsWith("#### ")) {
+      flushParagraph();
+      flushList();
+      parts.push(`<h4>${renderRichInline(line.replace(/^####\s+/, ""))}</h4>`);
+      return;
+    }
+
+    const orderedMatch = line.match(/^(\d+)\.\s+(.+)$/);
+    if (orderedMatch) {
+      flushParagraph();
+      if (listItems.length && !listOrdered) flushList();
+      listOrdered = true;
+      listItems.push(orderedMatch[2]);
+      return;
+    }
+
+    const unorderedMatch = line.match(/^[-*]\s+(.+)$/);
+    if (unorderedMatch) {
+      flushParagraph();
+      if (listItems.length && listOrdered) flushList();
+      listOrdered = false;
+      listItems.push(unorderedMatch[1]);
+      return;
+    }
+
+    flushList();
+    paragraph.push(line);
+  });
+
+  flushParagraph();
+  flushList();
+  flushTable();
+
+  return parts.join("");
+}
+
+function buildDocumentSections(text, fallbackSections = [], anchorPrefix = "doc") {
+  const normalized = String(text || "").replace(/\r/g, "").trim();
+  const lines = normalized ? normalized.split("\n") : [];
+  const headingPattern = /^(第[一二三四五六七八九十百0-9]+章)/;
+  const sections = [];
+  let current = null;
+
+  lines.forEach((rawLine) => {
+    const line = rawLine.trim();
+    if (!line || line.startsWith("# ")) return;
+    const normalizedHeading = line.startsWith("## ") ? line.replace(/^##\s+/, "") : line;
+    if (headingPattern.test(normalizedHeading)) {
+      if (current) sections.push(current);
+      current = {
+        title: normalizedHeading,
+        lines: [],
+      };
+      return;
+    }
+    if (!current) {
+      current = {
+        title: fallbackSections[0]?.title || "尽职调查报告正文",
+        lines: [],
+      };
+    }
+    current.lines.push(rawLine);
+  });
+
+  if (current) sections.push(current);
+
+  if (!sections.length && fallbackSections.length) {
+    return fallbackSections.map((section, index) => ({
+      id: section.id || `fallback-${index + 1}`,
+      title: section.title,
+      anchor: createDocumentAnchor(anchorPrefix, section.title, index),
+      html: renderMarkdownBody(section.content || ""),
+    }));
+  }
+
+  return sections.map((section, index) => ({
+    id: fallbackSections[index]?.id || `${anchorPrefix}-${index + 1}`,
+    title: section.title,
+    anchor: createDocumentAnchor(anchorPrefix, section.title, index),
+    html: renderMarkdownBody(section.lines.join("\n").trim()),
+  }));
+}
+
+function renderReportEditorToolbar(variant) {
+  const toolbarId = `report-editor-toolbar-${variant}`;
+  return `
+    <div class="report-editor-toolbar" id="${toolbarId}" data-report-toolbar="${variant}" aria-label="报告排版工具栏">
+      <select class="report-editor-select" data-report-command="formatBlock" data-report-variant="${variant}" title="标题级别">
+        <option value="p">正文</option>
+        <option value="h3">标题 1</option>
+        <option value="h4">标题 2</option>
+      </select>
+      <select class="report-editor-select" data-report-command="fontSize" data-report-variant="${variant}" title="字体大小">
+        <option value="3">16</option>
+        <option value="2">14</option>
+        <option value="4">18</option>
+        <option value="5">22</option>
+      </select>
+      <div class="report-editor-group" role="group" aria-label="字体样式">
+        <button class="report-editor-command" type="button" data-action="apply-report-format" data-report-command="bold" data-report-variant="${variant}" title="加粗"><strong>B</strong></button>
+        <button class="report-editor-command" type="button" data-action="apply-report-format" data-report-command="italic" data-report-variant="${variant}" title="斜体"><em>I</em></button>
+        <button class="report-editor-command" type="button" data-action="apply-report-format" data-report-command="underline" data-report-variant="${variant}" title="下划线"><u>U</u></button>
+      </div>
+      <div class="report-editor-group" role="group" aria-label="列表和对齐">
+        <button class="report-editor-command" type="button" data-action="apply-report-format" data-report-command="insertUnorderedList" data-report-variant="${variant}" title="项目列表">•</button>
+        <button class="report-editor-command" type="button" data-action="apply-report-format" data-report-command="insertOrderedList" data-report-variant="${variant}" title="编号列表">1.</button>
+        <button class="report-editor-command" type="button" data-action="apply-report-format" data-report-command="justifyLeft" data-report-variant="${variant}" title="左对齐">L</button>
+        <button class="report-editor-command" type="button" data-action="apply-report-format" data-report-command="justifyCenter" data-report-variant="${variant}" title="居中">C</button>
+        <button class="report-editor-command" type="button" data-action="apply-report-format" data-report-command="justifyRight" data-report-variant="${variant}" title="右对齐">R</button>
+      </div>
+      <label class="report-color-control" title="字体颜色">
+        <span>A</span>
+        <input type="color" value="#dbe8ff" data-report-command="foreColor" data-report-variant="${variant}" />
+      </label>
+      <label class="report-color-control" title="高亮色">
+        <span>H</span>
+        <input type="color" value="#3157ff" data-report-command="hiliteColor" data-report-variant="${variant}" />
+      </label>
+      <button class="report-editor-command report-editor-insert-table" type="button" data-action="apply-report-format" data-report-command="insertTable" data-report-variant="${variant}" title="插入表格">表格</button>
+    </div>
+  `;
+}
+
+function renderDocumentWorkspace(version, editorText, textareaId, variant = "generated", title = "报告编辑画布") {
+  const sections = buildDocumentSections(editorText, version?.section_list || [], `report-${variant}`);
+  const activeAnchor = sections.find((item) => item.anchor === state.previewSectionId)?.anchor || sections[0]?.anchor || "";
+  return `
+    <div class="report-document-shell">
+      <aside class="report-outline-panel" id="report-outline-${variant}">
+        <div class="report-outline-head">
+          <p class="section-kicker">目录导航</p>
+          <h4>章节</h4>
+        </div>
+        <div class="report-outline-list">
+          ${sections
+            .map(
+              (section) => `
+                <button
+                  class="report-outline-item${section.anchor === activeAnchor ? " is-active" : ""}"
+                  type="button"
+                  data-action="jump-report-section"
+                  data-report-anchor="${section.anchor}"
+                  data-report-variant="${variant}"
+                >${escapeHtml(section.title)}</button>
+              `,
+            )
+            .join("")}
+        </div>
+      </aside>
+      <div class="report-canvas-stage">
+        <div class="report-canvas-head">
+          <div>
+            <p class="section-kicker">文档画布</p>
+            <h4>${title}</h4>
+          </div>
+          <span class="report-editor-count">${editorText.length.toLocaleString()} 字</span>
+        </div>
+        ${renderReportEditorToolbar(variant)}
+        <article class="report-document-canvas" id="report-preview-${variant}">
+          ${sections
+            .map(
+              (section) => `
+                <section class="report-doc-section${section.anchor === activeAnchor ? " is-target" : ""}" id="${section.anchor}">
+                  <h2>${escapeHtml(section.title)}</h2>
+                  <div class="report-doc-body" contenteditable="true" spellcheck="false" data-report-body="true" data-report-variant="${variant}">${section.html || "<p>当前章节暂无正文。</p>"}</div>
+                </section>
+              `,
+            )
+            .join("")}
+        </article>
+      </div>
+      <textarea class="form-textarea report-canvas report-canvas-hidden${variant === "review" ? " report-canvas-review" : ""}" id="${textareaId}">${escapeHtml(editorText)}</textarea>
+    </div>
+  `;
+}
+
+function serializeInlineMarkdownFromNode(node) {
+  if (!node) return "";
+  if (node.nodeType === Node.TEXT_NODE) return node.textContent || "";
+  if (node.nodeType !== Node.ELEMENT_NODE) return "";
+  const element = node;
+  const text = Array.from(element.childNodes).map((child) => serializeInlineMarkdownFromNode(child)).join("");
+  if (element.classList.contains("doc-citation")) return text;
+  if (element.tagName === "STRONG" || element.tagName === "B") return `**${text}**`;
+  if (element.tagName === "EM" || element.tagName === "I") return `*${text}*`;
+  if (element.tagName === "U") return `++${text}++`;
+  if (element.tagName === "MARK" || element.classList.contains("doc-highlight")) return `==${text}==`;
+  if (element.tagName === "CODE") return `\`${text}\``;
+  if (element.tagName === "BR") return "\n";
+  return text;
+}
+
+function serializeTableMarkdown(tableEl) {
+  const headerCells = Array.from(tableEl.querySelectorAll("thead th")).map((cell) => serializeInlineMarkdownFromNode(cell).trim());
+  const bodyRows = Array.from(tableEl.querySelectorAll("tbody tr")).map((row) =>
+    Array.from(row.querySelectorAll("td")).map((cell) => serializeInlineMarkdownFromNode(cell).trim()),
+  );
+  if (!headerCells.length) return "";
+  const lines = [
+    `| ${headerCells.join(" | ")} |`,
+    `| ${headerCells.map(() => "---").join(" | ")} |`,
+    ...bodyRows.map((row) => `| ${headerCells.map((_, index) => row[index] || "").join(" | ")} |`),
+  ];
+  return lines.join("\n");
+}
+
+function serializeBlockMarkdownFromElement(element) {
+  if (!element) return "";
+  const tag = element.tagName;
+  if (tag === "P") return serializeInlineMarkdownFromNode(element).trim();
+  if (tag === "H3") return `### ${serializeInlineMarkdownFromNode(element).trim()}`;
+  if (tag === "H4") return `#### ${serializeInlineMarkdownFromNode(element).trim()}`;
+  if (tag === "UL") {
+    return Array.from(element.querySelectorAll(":scope > li"))
+      .map((item) => `- ${serializeInlineMarkdownFromNode(item).trim()}`)
+      .join("\n");
+  }
+  if (tag === "OL") {
+    return Array.from(element.querySelectorAll(":scope > li"))
+      .map((item, index) => `${index + 1}. ${serializeInlineMarkdownFromNode(item).trim()}`)
+      .join("\n");
+  }
+  if (element.classList.contains("doc-table-wrap")) {
+    const tableEl = element.querySelector("table");
+    return tableEl ? serializeTableMarkdown(tableEl) : "";
+  }
+  if (tag === "TABLE") return serializeTableMarkdown(element);
+  return serializeInlineMarkdownFromNode(element).trim();
+}
+
+function serializeDocumentWorkspaceToMarkdown(variant = "generated") {
+  const previewEl = document.getElementById(`report-preview-${variant}`);
+  if (!previewEl) return variant === "review" ? state.reviewEditorText : state.reportEditorText;
+  const sections = Array.from(previewEl.querySelectorAll(".report-doc-section"));
+  const blocks = sections.map((section) => {
+    const title = section.querySelector("h2")?.textContent?.trim() || "尽职调查报告正文";
+    const bodyEl = section.querySelector(".report-doc-body");
+    const bodyBlocks = bodyEl
+      ? Array.from(bodyEl.children)
+          .map((child) => serializeBlockMarkdownFromElement(child))
+          .filter(Boolean)
+          .join("\n\n")
+      : "";
+    return `## ${title}\n${bodyBlocks}`.trim();
+  });
+  return blocks.join("\n\n").trim();
+}
+
+function syncReportEditorTextFromWorkspace(variant = "generated") {
+  const markdown = serializeDocumentWorkspaceToMarkdown(variant);
+  if (variant === "review") {
+    state.reviewEditorText = markdown;
+  } else {
+    state.reportEditorText = markdown;
+  }
+  const textareaEl = document.getElementById(variant === "review" ? "review-editor-textarea" : "report-editor-textarea");
+  if (textareaEl) textareaEl.value = markdown;
+  const countEl = document.querySelector(`#report-editor-toolbar-${variant}`)?.previousElementSibling?.querySelector(".report-editor-count");
+  if (countEl) countEl.textContent = `${markdown.length.toLocaleString()} 字`;
+  if (state.previewOpen) renderPreviewDrawer();
+}
+
+function getActiveReportBody(variant = "generated") {
+  const selection = window.getSelection();
+  const selectedNode = selection?.anchorNode;
+  const selectedElement = selectedNode?.nodeType === Node.ELEMENT_NODE ? selectedNode : selectedNode?.parentElement;
+  const selectedBody = selectedElement?.closest?.(`[data-report-body="true"][data-report-variant="${variant}"]`);
+  if (selectedBody) return selectedBody;
+  const focusedBody = document.activeElement?.closest?.(`[data-report-body="true"][data-report-variant="${variant}"]`);
+  if (focusedBody) return focusedBody;
+  return document.querySelector(`[data-report-body="true"][data-report-variant="${variant}"]`);
+}
+
+function insertReportTable(variant = "generated") {
+  const tableHtml = `
+    <div class="doc-table-wrap">
+      <table class="doc-table">
+        <thead>
+          <tr><th>项目</th><th>内容</th><th>核查说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>待补充</td><td>待补充</td><td>待补充</td></tr>
+          <tr><td>待补充</td><td>待补充</td><td>待补充</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><br></p>
+  `;
+  document.execCommand("insertHTML", false, tableHtml);
+  syncReportEditorTextFromWorkspace(variant);
+}
+
+function applyReportEditorCommand(command, value, variant = "generated") {
+  const body = getActiveReportBody(variant);
+  if (!body) return;
+  body.focus();
+  if (command === "insertTable") {
+    insertReportTable(variant);
+    return;
+  }
+  if (command === "formatBlock") {
+    document.execCommand(command, false, value === "p" ? "p" : value);
+  } else {
+    document.execCommand(command, false, value || null);
+  }
+  syncReportEditorTextFromWorkspace(variant);
+}
+
+function scrollToReportAnchor(anchor, behavior = "smooth") {
+  if (!anchor) return;
+  requestAnimationFrame(() => {
+    const target = document.getElementById(anchor);
+    if (target) target.scrollIntoView({ behavior, block: "start" });
+  });
+}
+
+function updateDocumentWorkspace(variant = "generated") {
+  const detail = getCompanyDetail(state.processEngineCompanyCode);
+  const version = getCurrentVersion(detail);
+  if (!version) return;
+  const editorText = variant === "review" ? state.reviewEditorText : state.reportEditorText;
+  const sections = buildDocumentSections(editorText, version.section_list || [], `report-${variant}`);
+  const outlineListEl = document.querySelector(`#report-outline-${variant} .report-outline-list`);
+  const previewEl = document.getElementById(`report-preview-${variant}`);
+  const textareaEl = document.getElementById(variant === "review" ? "review-editor-textarea" : "report-editor-textarea");
+  if (!outlineListEl || !previewEl) return;
+  const activeAnchor = sections.find((item) => item.anchor === state.previewSectionId)?.anchor || sections[0]?.anchor || "";
+  if (!state.previewSectionId && activeAnchor) state.previewSectionId = activeAnchor;
+  outlineListEl.innerHTML = sections
+    .map(
+      (section) => `
+        <button
+          class="report-outline-item${section.anchor === activeAnchor ? " is-active" : ""}"
+          type="button"
+          data-action="jump-report-section"
+          data-report-anchor="${section.anchor}"
+          data-report-variant="${variant}"
+        >${escapeHtml(section.title)}</button>
+      `,
+    )
+    .join("");
+  previewEl.innerHTML = sections
+    .map(
+      (section) => `
+        <section class="report-doc-section${section.anchor === activeAnchor ? " is-target" : ""}" id="${section.anchor}">
+          <h2>${escapeHtml(section.title)}</h2>
+          <div class="report-doc-body" contenteditable="true" spellcheck="false" data-report-body="true" data-report-variant="${variant}">${section.html || "<p>当前章节暂无正文。</p>"}</div>
+        </section>
+      `,
+    )
+    .join("");
+  if (textareaEl) textareaEl.value = editorText;
+  if (state.previewOpen) renderPreviewDrawer();
+}
+
 function renderPreviewDrawer() {
   const detail = getCompanyDetail(state.processEngineCompanyCode);
   const version = getCurrentVersion(detail);
@@ -2420,33 +7192,39 @@ function renderPreviewDrawer() {
     return;
   }
   previewOverlayEl.classList.remove("is-hidden");
-  previewTitleEl.textContent = `${detail.company.name} · ${version.version_label}`;
-  previewOutlineEl.innerHTML = version.section_list
+  previewTitleEl.textContent = `${detail.company.name} · ${formatVersionDisplayLabel(version)}`;
+  const drawerText = state.dueDiligenceTabId === "report-review"
+    ? state.reviewEditorText || version.review_edit_text || version.full_text || ""
+    : state.reportEditorText || version.full_text || "";
+  const sections = buildDocumentSections(drawerText, version.section_list || [], "preview");
+  const activeAnchor = sections.find((item) => item.anchor === state.previewSectionId)?.anchor || sections[0]?.anchor || "";
+  previewOutlineEl.innerHTML = sections
     .map(
       (section) => `
         <button
-          class="preview-nav-item${section.id === state.previewSectionId ? " is-active" : ""}"
+          class="preview-nav-item${section.anchor === activeAnchor ? " is-active" : ""}"
           type="button"
-          data-action="switch-preview-section"
-          data-preview-section="${section.id}"
+          data-action="jump-report-section"
+          data-report-anchor="${section.anchor}"
+          data-report-variant="preview"
         >${escapeHtml(section.title)}</button>
       `,
     )
     .join("");
-  previewArticleEl.innerHTML = version.section_list
+  previewArticleEl.innerHTML = sections
     .map(
       (section, index) => `
-        <section class="preview-section${section.id === state.previewSectionId ? " is-target" : ""}" id="preview-${section.id}">
+        <section class="preview-section${section.anchor === activeAnchor ? " is-target" : ""}" id="preview-${section.anchor}">
           <h4>${index + 1}. ${escapeHtml(section.title)}</h4>
-          <p>${escapeHtml(section.content)}</p>
+          <div class="preview-section-body">${section.html}</div>
         </section>
       `,
     )
     .join("");
-  if (state.previewSectionId) {
-    const target = document.getElementById(`preview-${state.previewSectionId}`);
+  requestAnimationFrame(() => {
+    const target = document.getElementById(`preview-${activeAnchor}`);
     if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
+  });
 }
 
 function renderCompletionModal() {
@@ -2498,6 +7276,7 @@ function render() {
   renderContent();
   renderPreviewDrawer();
   renderCompletionModal();
+  syncLocationFromState(true);
 }
 
 async function handleGenerateVersion() {
@@ -2579,10 +7358,233 @@ document.addEventListener("click", async (event) => {
   if (!target) return;
 
   const action = target.dataset.action;
-  if (action === "switch-top-section") {
+	  const resetTopLevelViews = () => {
+	    state.previewOpen = false;
+	    state.previewSectionId = null;
+	    state.riskMapRegionId = null;
+	    state.reportCenterView = "hub";
+	    state.reportCenterLoadingCompanyCode = null;
+      state.reportCenterError = null;
+	    state.taskBoardView = "list";
+	    state.portraitView = "list";
+      state.watchlistPanelMode = "overview";
+      state.smartNavContext = null;
+	  };
+  if (action === "submit-home-command") {
+    if (state.homeCommandIsComposing) return;
+    const resolution = resolveHomeSmartCommand();
+    if (!resolution.company) {
+      state.homeCommandMessage = "未找到匹配企业，请尝试输入企业全称或简称。";
+      rerenderHomeCommandCard();
+      return;
+    }
+    navigateToSmartRoute(resolution.routeKey, resolution.company);
+    return;
+  }
+  if (action === "open-home-smart-route") {
+    const company = getSmartNavCompanyById(target.dataset.companyId);
+    navigateToSmartRoute(target.dataset.routeKey, company);
+    return;
+  }
+  if (action === "fill-home-command-example") {
+    state.homeCommandInput = target.dataset.example || "";
+    state.homeCommandMessage = "";
+    rerenderHomeCommandCard();
+    return;
+  }
+  if (action === "go-section") {
     state.topSectionId = target.dataset.topSection;
+    resetTopLevelViews();
+    if (state.topSectionId === "report-center") state.reportCenterView = "hub";
+    syncLocationFromState();
+    render();
+    return;
+  }
+  if (action === "start-demo") {
+    state.riskViewCompanyCode = DEMO_COMPANY_CODE;
+    state.processEngineCompanyCode = DEMO_COMPANY_CODE;
+    state.taskBoardCompanyCode = DEMO_COMPANY_CODE;
+    state.topSectionId = "due-task";
+    state.taskBoardTab = "collection";
+    resetTopLevelViews();
+    state.taskBoardView = "detail";
+    rememberCompany("risk-view", DEMO_COMPANY_CODE);
+    rememberCompany("process-engine", DEMO_COMPANY_CODE);
+    await ensureCompanyDetail(DEMO_COMPANY_CODE);
+    syncLocationFromState();
+    render();
+    return;
+  }
+	  if (action === "open-company") {
+	    const code = target.dataset.companyCode || DEMO_COMPANY_CODE;
+	    state.topSectionId = "enterprise-library";
+	    state.portraitCompanyId = code;
+	    resetTopLevelViews();
+	    state.portraitView = "detail";
+      state.portraitLoadingCompanyCode = code;
+      state.portraitError = null;
+	    syncLocationFromState();
+	    render();
+      try {
+        await ensureCompanyDetail(code);
+        const company = mapCompanyToPortraitListItem(getRealCompanySummary(code));
+        if (!company) throw new Error("当前企业不在后端企业清单中");
+        state.riskHouseFocusId = getPortraitDefaultFocusId(buildPortraitCompanyDetail(company, getCompanyDetail(code)));
+      } catch (error) {
+        state.portraitError = error.message || "企业画像详情加载失败";
+      } finally {
+        state.portraitLoadingCompanyCode = null;
+        render();
+      }
+	    return;
+	  }
+  if (action === "switch-report-pane") {
+    state.topSectionId = "report-center";
+    state.reportCenterView = "detail";
+    state.reportCenterReportTypeId = "due-diligence";
+    state.dueDiligenceTabId = target.dataset.reportPane === "review" ? "report-review" : "report-generate";
+    render();
+    return;
+  }
+	  if (action === "open-risk-region") {
+	    state.topSectionId = "risk-map";
+	    state.riskMapRegionId = normalizeRiskRegionId(target.dataset.regionId) || "beijing";
     state.previewOpen = false;
     state.previewSectionId = null;
+    syncLocationFromState();
+	    render();
+	    return;
+	  }
+	  if (action === "focus-watchlist-company") {
+	    const code = target.dataset.companyCode || DEMO_COMPANY_CODE;
+	    state.topSectionId = "watchlist";
+	    state.watchlistFocusCode = code;
+      state.watchlistPanelMode = "detail";
+      render();
+      await ensureCompanyDetail(code).catch(() => {});
+      render();
+	    return;
+	  }
+	  if (action === "open-watchlist-company") {
+	    const code = target.dataset.companyCode || DEMO_COMPANY_CODE;
+	    state.watchlistFocusCode = code;
+	    state.topSectionId = "watchlist";
+      state.watchlistPanelMode = "detail";
+      render();
+	    await ensureCompanyDetail(code).catch(() => {});
+	    render();
+	    return;
+	  }
+    if (action === "watchlist-back-overview") {
+      state.topSectionId = "watchlist";
+      state.watchlistPanelMode = "overview";
+      render();
+      return;
+    }
+    if (action === "expand-watchlist-analysis") {
+      if (target.dataset.companyCode) state.watchlistFocusCode = target.dataset.companyCode;
+      state.topSectionId = "watchlist";
+      state.watchlistPanelMode = "analysis";
+      render();
+      return;
+    }
+    if (action === "collapse-watchlist-analysis") {
+      state.topSectionId = "watchlist";
+      state.watchlistPanelMode = "detail";
+      render();
+      return;
+    }
+	  if (action === "close-risk-region") {
+	    state.topSectionId = "risk-map";
+	    state.riskMapRegionId = null;
+    syncLocationFromState();
+    render();
+    return;
+  }
+  if (action === "switch-task-board") {
+    state.taskBoardTab = target.dataset.taskBoard || "collection";
+    render();
+    return;
+  }
+	  if (action === "focus-risk-house") {
+	    state.topSectionId = "enterprise-library";
+	    state.portraitView = "detail";
+	    state.riskHouseFocusId = target.dataset.riskHouseId || "01";
+	    render();
+	    return;
+	  }
+  if (action === "open-task-company") {
+    state.topSectionId = "due-task";
+    state.taskBoardCompanyCode = target.dataset.companyCode || DEMO_COMPANY_CODE;
+    state.taskBoardView = "detail";
+    state.previewOpen = false;
+    state.previewSectionId = null;
+    render();
+    return;
+  }
+  if (action === "back-task-board-list") {
+    state.topSectionId = "due-task";
+    state.taskBoardView = "list";
+    state.previewOpen = false;
+    state.previewSectionId = null;
+    render();
+    return;
+  }
+  if (action === "choose-report-type" || action === "open-report-detail") {
+    state.topSectionId = "report-center";
+    state.reportCenterReportTypeId = target.dataset.reportTypeId || "due-diligence";
+    state.reportCenterView = "company-list";
+    state.previewOpen = false;
+    state.previewSectionId = null;
+    render();
+    return;
+  }
+  if (action === "open-report-company") {
+    const companyCode = target.dataset.companyCode || DEMO_COMPANY_CODE;
+    state.topSectionId = "report-center";
+    state.processEngineCompanyCode = companyCode;
+    state.reportCenterView = "detail";
+    state.reportCenterLoadingCompanyCode = companyCode;
+    state.reportCenterError = null;
+    state.dueDiligenceTabId = "report-generate";
+    render();
+    try {
+      await ensureCompanyDetail(companyCode);
+      const reportDetail = getCompanyDetail(companyCode);
+      syncSelectedVersion(reportDetail);
+      syncKnowledgeSelection(reportDetail);
+      rememberCompany("process-engine", companyCode);
+    } catch (error) {
+      state.reportCenterError = error.message || "加载企业报告失败";
+      state.reportCenterView = "company-list";
+    } finally {
+      state.reportCenterLoadingCompanyCode = null;
+      render();
+    }
+    return;
+  }
+  if (action === "back-report-company-list") {
+    state.topSectionId = "report-center";
+    state.reportCenterView = "company-list";
+    state.previewOpen = false;
+    state.previewSectionId = null;
+    render();
+    return;
+  }
+  if (action === "back-report-hub") {
+    state.topSectionId = "report-center";
+    state.reportCenterView = "hub";
+    state.previewOpen = false;
+    state.previewSectionId = null;
+    syncLocationFromState();
+    render();
+    return;
+  }
+  if (action === "switch-top-section") {
+    state.topSectionId = target.dataset.topSection;
+    resetTopLevelViews();
+    if (state.topSectionId === "report-center") state.reportCenterView = "hub";
+    syncLocationFromState();
     render();
     return;
   }
@@ -2648,6 +7650,63 @@ document.addEventListener("click", async (event) => {
     render();
     return;
   }
+	  if (action === "select-portrait-company") {
+	    state.topSectionId = "enterprise-library";
+	    state.portraitView = "detail";
+	    state.portraitCompanyId = target.dataset.portraitCompanyId || DEMO_COMPANY_CODE;
+      state.portraitLoadingCompanyCode = state.portraitCompanyId;
+      state.portraitError = null;
+	    render();
+      try {
+        await ensureCompanyDetail(state.portraitCompanyId);
+        const company = mapCompanyToPortraitListItem(getRealCompanySummary(state.portraitCompanyId));
+        if (!company) throw new Error("当前企业不在后端企业清单中");
+        state.riskHouseFocusId = getPortraitDefaultFocusId(buildPortraitCompanyDetail(company, getCompanyDetail(state.portraitCompanyId)));
+      } catch (error) {
+        state.portraitError = error.message || "企业画像详情加载失败";
+      } finally {
+        state.portraitLoadingCompanyCode = null;
+        render();
+      }
+	    return;
+	  }
+	  if (action === "back-portrait-list") {
+	    state.topSectionId = "enterprise-library";
+	    state.portraitView = "list";
+      state.portraitLoadingCompanyCode = null;
+      state.portraitError = null;
+	    render();
+	    return;
+	  }
+  if (action === "retry-portrait-company") {
+    const companyCode = state.portraitCompanyId;
+    if (!companyCode) return;
+    state.portraitLoadingCompanyCode = companyCode;
+    state.portraitError = null;
+    render();
+    try {
+      await refreshCompanyDetail(companyCode);
+      const company = mapCompanyToPortraitListItem(getRealCompanySummary(companyCode));
+      if (!company) throw new Error("当前企业不在后端企业清单中");
+      state.riskHouseFocusId = getPortraitDefaultFocusId(buildPortraitCompanyDetail(company, getCompanyDetail(companyCode)));
+    } catch (error) {
+      state.portraitError = error.message || "企业画像详情加载失败";
+    } finally {
+      state.portraitLoadingCompanyCode = null;
+      render();
+    }
+    return;
+  }
+  if (action === "set-portrait-risk-filter") {
+    state.portraitRiskFilter = target.dataset.riskFilter || "全部";
+    const candidates = getPortraitCompaniesFiltered();
+    if (!candidates.some((item) => item.companyCode === state.portraitCompanyId)) {
+      state.portraitCompanyId = candidates[0]?.companyCode || DEMO_COMPANY_CODE;
+      state.riskHouseFocusId = getPortraitDefaultFocusId(candidates[0]);
+    }
+    render();
+    return;
+  }
   if (action === "reset-company-search") {
     if (target.dataset.sectionId === "risk-view") state.riskViewCompanyCode = null;
     if (target.dataset.sectionId === "process-engine") state.processEngineCompanyCode = null;
@@ -2666,6 +7725,15 @@ document.addEventListener("click", async (event) => {
     state.dueDiligenceTabId = target.dataset.ddTab;
     state.previewOpen = false;
     state.previewSectionId = null;
+    render();
+    return;
+  }
+  if (action === "toggle-knowledge-pane") {
+    if (target.dataset.pane === "review") {
+      state.reviewKnowledgeCollapsed = !state.reviewKnowledgeCollapsed;
+    } else {
+      state.reportKnowledgeCollapsed = !state.reportKnowledgeCollapsed;
+    }
     render();
     return;
   }
@@ -2694,6 +7762,10 @@ document.addEventListener("click", async (event) => {
     await handleSaveReportDraft("review");
     return;
   }
+  if (action === "apply-report-format") {
+    applyReportEditorCommand(target.dataset.reportCommand, target.dataset.reportValue, target.dataset.reportVariant || "generated");
+    return;
+  }
   if (action === "toggle-source-group") {
     const group = reportDataSourceGroups.find((item) => item.id === target.dataset.sourceGroup);
     if (!group) return;
@@ -2716,8 +7788,14 @@ document.addEventListener("click", async (event) => {
     return;
   }
   if (action === "open-preview") {
+    const detail = getCompanyDetail(state.processEngineCompanyCode);
+    const version = getCurrentVersion(detail);
+    const currentText = state.dueDiligenceTabId === "report-review"
+      ? state.reviewEditorText || version?.review_edit_text || version?.full_text || ""
+      : state.reportEditorText || version?.full_text || "";
+    const sections = buildDocumentSections(currentText, version?.section_list || [], "preview");
     state.previewOpen = true;
-    state.previewSectionId = getCurrentVersion()?.section_list?.[0]?.id || null;
+    state.previewSectionId = sections[0]?.anchor || null;
     renderPreviewDrawer();
     return;
   }
@@ -2727,9 +7805,20 @@ document.addEventListener("click", async (event) => {
     renderPreviewDrawer();
     return;
   }
-  if (action === "switch-preview-section") {
-    state.previewSectionId = target.dataset.previewSection;
-    renderPreviewDrawer();
+  if (action === "switch-preview-section") return;
+  if (action === "jump-report-section") {
+    state.previewSectionId = target.dataset.reportAnchor || null;
+    const variant = target.dataset.reportVariant || "generated";
+    if (variant === "preview") {
+      renderPreviewDrawer();
+      requestAnimationFrame(() => {
+        const previewTarget = document.getElementById(`preview-${state.previewSectionId}`);
+        if (previewTarget) previewTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    } else {
+      updateDocumentWorkspace(variant);
+      scrollToReportAnchor(state.previewSectionId);
+    }
     return;
   }
   if (action === "preview-finding") {
@@ -2739,8 +7828,36 @@ document.addEventListener("click", async (event) => {
   }
 });
 
+document.addEventListener("mousedown", (event) => {
+  if (event.target.closest(".report-editor-command")) {
+    event.preventDefault();
+  }
+});
+
 document.addEventListener("input", (event) => {
   const target = event.target;
+  if (target.id === "home-smart-nav-input") {
+    state.homeCommandInput = target.value;
+    state.homeCommandMessage = "";
+    if (state.homeCommandIsComposing || event.isComposing) return;
+    rerenderHomeCommandCard();
+    return;
+  }
+  if (target.id === "portrait-search-input") {
+    state.portraitSearchKeyword = target.value;
+    const candidates = getPortraitCompaniesFiltered();
+    if (candidates.length && !candidates.some((item) => item.companyCode === state.portraitCompanyId)) {
+      state.portraitCompanyId = candidates[0].companyCode;
+      state.riskHouseFocusId = getPortraitDefaultFocusId(candidates[0]);
+    }
+    render();
+    return;
+  }
+  if (target.matches("[data-report-body='true']")) {
+    const variant = target.dataset.reportVariant || "generated";
+    syncReportEditorTextFromWorkspace(variant);
+    return;
+  }
   if (target.matches("[data-editable-field]")) {
     const value = target.textContent.trim();
     const originalValue = target.dataset.originalValue.trim();
@@ -2761,6 +7878,16 @@ document.addEventListener("input", (event) => {
     state.processSearchKeyword = target.value;
     return;
   }
+  if (target.id === "task-board-search-input") {
+    state.taskBoardSearchKeyword = target.value;
+    renderDueTask();
+    return;
+  }
+  if (target.id === "report-center-search-input") {
+    state.reportCenterSearchKeyword = target.value;
+    renderReportCenter();
+    return;
+  }
   if (target.id === "knowledge-search-input") {
     state.knowledgeSearchKeyword = target.value;
     renderKnowledgeBase();
@@ -2768,10 +7895,12 @@ document.addEventListener("input", (event) => {
   }
   if (target.id === "report-editor-textarea") {
     state.reportEditorText = target.value;
+    updateDocumentWorkspace("generated");
     return;
   }
   if (target.id === "review-editor-textarea") {
     state.reviewEditorText = target.value;
+    updateDocumentWorkspace("review");
   }
 });
 
@@ -2822,6 +7951,11 @@ document.addEventListener("change", async (event) => {
     return;
   }
 
+  if (target.matches("[data-report-command]")) {
+    applyReportEditorCommand(target.dataset.reportCommand, target.value, target.dataset.reportVariant || "generated");
+    return;
+  }
+
   if (target.matches("[data-material-bucket]")) {
     const [file] = target.files || [];
     if (!file || !state.processEngineCompanyCode) return;
@@ -2867,9 +8001,43 @@ document.addEventListener("change", async (event) => {
   }
 });
 
-document.addEventListener("keydown", async (event) => {
-  if (event.key !== "Enter") return;
+document.addEventListener("compositionstart", (event) => {
   const target = event.target;
+  if (target.id !== "home-smart-nav-input") return;
+  state.homeCommandIsComposing = true;
+});
+
+document.addEventListener("compositionend", (event) => {
+  const target = event.target;
+  if (target.id !== "home-smart-nav-input") return;
+  state.homeCommandIsComposing = false;
+  state.homeCommandInput = target.value;
+  state.homeCommandMessage = "";
+  rerenderHomeCommandCard();
+});
+
+document.addEventListener("keydown", async (event) => {
+  const target = event.target;
+  const isImeComposition = state.homeCommandIsComposing || event.isComposing || event.keyCode === 229;
+
+  if (target.id === "home-smart-nav-input") {
+    if (event.key !== "Enter") return;
+    if (isImeComposition) return;
+    event.preventDefault();
+    const resolution = resolveHomeSmartCommand(target.value);
+    if (!resolution.company) {
+      state.homeCommandMessage = "未找到匹配企业，请尝试输入企业全称或简称。";
+      rerenderHomeCommandCard();
+      return;
+    }
+    navigateToSmartRoute(resolution.routeKey, resolution.company, target.value);
+    return;
+  }
+  if (isEditableEventTarget(target) && !["risk-view-search-input", "process-engine-search-input", "task-board-search-input", "report-center-search-input"].includes(target.id)) {
+    return;
+  }
+  if (event.key !== "Enter") return;
+  if (event.isComposing || event.keyCode === 229) return;
   if (target.id === "risk-view-search-input") {
     event.preventDefault();
     await searchCompany("risk-view");
@@ -2878,21 +8046,47 @@ document.addEventListener("keydown", async (event) => {
     event.preventDefault();
     await searchCompany("process-engine");
   }
+  if (target.id === "task-board-search-input" || target.id === "report-center-search-input") {
+    event.preventDefault();
+  }
 });
 
 async function init() {
-  const [meta, companies, knowledgeBase, systemAdmin] = await Promise.all([
+  render();
+  const [meta, companies, knowledgeBase, systemAdmin, homeFeed] = await Promise.all([
     fetchJson("/api/meta"),
     fetchJson("/api/companies"),
     fetchJson("/api/knowledge-files"),
     fetchJson("/api/system-admin"),
+    fetchJson("/api/home-feed"),
   ]);
   state.meta = meta;
   state.companies = companies;
   state.knowledgeBase = knowledgeBase;
   state.systemAdmin = systemAdmin;
+  state.homeFeed = homeFeed;
+  if (companies.length && !companies.some((item) => item.company_code === state.portraitCompanyId)) {
+    state.portraitCompanyId = companies[0].company_code;
+  }
+  if (companies.some((item) => item.company_code === DEMO_COMPANY_CODE)) {
+    state.riskViewCompanyCode = DEMO_COMPANY_CODE;
+    state.processEngineCompanyCode = DEMO_COMPANY_CODE;
+    state.taskBoardCompanyCode = DEMO_COMPANY_CODE;
+    rememberCompany("risk-view", DEMO_COMPANY_CODE);
+    rememberCompany("process-engine", DEMO_COMPANY_CODE);
+    await ensureCompanyDetail(DEMO_COMPANY_CODE);
+    syncSelectedVersion(getCompanyDetail(DEMO_COMPANY_CODE));
+    syncKnowledgeSelection(getCompanyDetail(DEMO_COMPANY_CODE));
+  }
+  applyRouteFromLocation();
   render();
 }
+
+window.addEventListener("popstate", () => {
+  if (!state.meta) return;
+  applyRouteFromLocation();
+  render();
+});
 
 init().catch((error) => {
   console.error(error);

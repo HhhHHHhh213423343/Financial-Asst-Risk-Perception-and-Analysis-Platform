@@ -9,12 +9,14 @@ __pycache__/
 due_diligence_assistant_demo/.local_config.json
 
 # Local agent/editor state
+.agent/
 .golutra/
 .omx/
 .sixth/
 
 # Dependency folders
 node_modules
+.venv/
 
 # Runtime logs and temporary files
 *.log

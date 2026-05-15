@@ -1,0 +1,234 @@
+:root {
+  color: #edf6ff;
+  background: #030915;
+  font-family:
+    Inter, "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 22% 4%, rgba(41, 231, 255, 0.12), transparent 30%),
+    radial-gradient(circle at 84% 10%, rgba(255, 143, 66, 0.1), transparent 24%),
+    linear-gradient(135deg, #030915 0%, #071127 56%, #020611 100%);
+}
+
+button {
+  font: inherit;
+}
+
+.svg-preview-page {
+  width: min(1540px, calc(100vw - 48px));
+  margin: 0 auto;
+  padding: 32px 0;
+}
+
+.svg-preview-hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 22px;
+}
+
+.preview-kicker {
+  margin: 0;
+  color: #78dfff;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.svg-preview-hero h1 {
+  margin: 8px 0 0;
+  font-size: clamp(34px, 5vw, 64px);
+  line-height: 1;
+}
+
+.svg-preview-hero p:not(.preview-kicker) {
+  max-width: 720px;
+  margin: 14px 0 0;
+  color: rgba(218, 230, 255, 0.72);
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.preview-summary {
+  display: grid;
+  gap: 8px;
+  min-width: 260px;
+  padding: 18px 20px;
+  border: 1px solid rgba(130, 176, 255, 0.18);
+  background: rgba(8, 18, 44, 0.72);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(18px);
+}
+
+.preview-summary span {
+  color: rgba(218, 230, 255, 0.62);
+}
+
+.preview-summary strong {
+  color: #ffffff;
+  font-size: 24px;
+}
+
+.svg-preview-workbench {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 22px;
+  align-items: start;
+}
+
+.svg-preview-stage,
+.svg-preview-detail {
+  border: 1px solid rgba(130, 176, 255, 0.16);
+  background:
+    linear-gradient(180deg, rgba(10, 22, 52, 0.76), rgba(5, 12, 30, 0.68));
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+}
+
+.svg-preview-stage {
+  padding: 16px;
+}
+
+.risk-house-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 480px;
+}
+
+.risk-block-svg {
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    filter 160ms ease;
+  outline: none;
+}
+
+.risk-block-svg polygon {
+  transition:
+    opacity 160ms ease,
+    stroke-opacity 160ms ease,
+    stroke-width 160ms ease;
+}
+
+.risk-block-svg:focus-visible polygon:nth-of-type(3) {
+  stroke: rgba(255, 255, 255, 0.96);
+  stroke-width: 4;
+}
+
+.risk-block-svg__index {
+  fill: rgba(237, 246, 255, 0.76);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: 0;
+  pointer-events: none;
+}
+
+.risk-block-svg__name {
+  fill: #f7fbff;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: 0;
+  pointer-events: none;
+}
+
+.risk-house-svg__legend text {
+  fill: rgba(221, 232, 255, 0.76);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.svg-preview-detail {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+}
+
+.svg-preview-detail h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 28px;
+  line-height: 1.35;
+}
+
+.detail-score {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid rgba(120, 223, 255, 0.18);
+  background: rgba(4, 12, 30, 0.52);
+}
+
+.detail-score strong {
+  color: #ffffff;
+  font-size: 64px;
+  line-height: 1;
+}
+
+.detail-score span,
+.svg-preview-detail dt {
+  color: rgba(218, 230, 255, 0.6);
+}
+
+.svg-preview-detail dl {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+
+.svg-preview-detail dl div {
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(130, 176, 255, 0.12);
+}
+
+.svg-preview-detail dt {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.svg-preview-detail dd {
+  margin: 8px 0 0;
+  color: rgba(237, 246, 255, 0.86);
+  line-height: 1.7;
+}
+
+@media (max-width: 1120px) {
+  .svg-preview-workbench,
+  .svg-preview-hero {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 680px) {
+  .svg-preview-page {
+    width: min(100vw - 24px, 1540px);
+    padding: 18px 0;
+  }
+
+  .svg-preview-stage {
+    padding: 8px;
+    overflow-x: auto;
+  }
+
+  .risk-house-svg {
+    min-width: 820px;
+  }
+}

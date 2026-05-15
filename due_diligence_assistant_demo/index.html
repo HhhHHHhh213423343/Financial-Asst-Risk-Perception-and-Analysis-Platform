@@ -3,29 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>风险感知与分析平台 Demo</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <title>Astraea 风险先知 POC</title>
+    <link rel="icon" href="/assets/logo.png" />
+    <link rel="stylesheet" href="/styles.css" />
   </head>
-  <body>
+  <body class="astraea-page">
+    <div class="cosmic-background" aria-hidden="true">
+      <div class="cosmic-background__mesh"></div>
+      <div class="cosmic-background__glow cosmic-background__glow--blue"></div>
+      <div class="cosmic-background__glow cosmic-background__glow--violet"></div>
+      <div class="cosmic-background__glow cosmic-background__glow--cyan"></div>
+      <div class="cosmic-background__stars"></div>
+    </div>
+
     <div class="app-shell">
       <div class="app-frame">
         <header class="topbar">
-          <div class="topbar-brand">
-            <img src="./assets/logo.png" alt="风险感知与分析平台" class="brand-logo" />
-            <div>
-              <p class="brand-kicker">Demo</p>
-              <h1>风险感知与分析平台</h1>
+          <div class="topbar-heading" id="topbar-heading"></div>
+
+          <div class="topbar-main">
+            <nav class="topbar-nav" id="topbar-nav" aria-label="二级导航"></nav>
+
+            <div class="topbar-actions">
+              <button class="glow-button glow-button--ghost" type="button">新手引导</button>
+              <button class="topbar-icon-button" type="button" aria-label="通知中心">
+                <span class="topbar-icon-button__badge">3</span>
+                <span class="topbar-icon">N</span>
+              </button>
+              <div class="topbar-user glass-card">
+                <div class="topbar-user__avatar">张</div>
+                <div>
+                  <strong>张明远</strong>
+                  <span>数据经理</span>
+                </div>
+              </div>
             </div>
           </div>
-
-          <nav class="topbar-nav" id="topbar-nav" aria-label="一级主导航"></nav>
         </header>
 
         <div class="workspace">
           <aside class="sidebar">
-            <div class="sidebar-context" id="sidebar-context"></div>
-            <nav class="sidebar-nav" id="sidebar-nav" aria-label="二级菜单"></nav>
-            <div class="sidebar-note" id="sidebar-note"></div>
+            <nav class="sidebar-nav" id="sidebar-nav" aria-label="一级主导航"></nav>
           </aside>
 
           <main class="main-panel">
@@ -66,6 +84,6 @@
       </div>
     </div>
 
-    <script src="./script.js"></script>
+    <script src="/script.js"></script>
   </body>
 </html>

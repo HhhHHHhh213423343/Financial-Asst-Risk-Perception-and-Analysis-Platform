@@ -4,6 +4,7 @@ import json
 import hashlib
 import mimetypes
 import os
+import re
 import sqlite3
 import ssl
 from cgi import FieldStorage
@@ -53,6 +54,15 @@ PDF_FONT_PATHS = [
 REPORT_RUNTIME: dict[str, dict] = {}
 DUE_DILIGENCE_MATERIALS_RUNTIME: dict[str, dict] = {}
 KNOWLEDGE_BASE_RUNTIME: dict[str, object] = {"initialized": False, "next_id": 1, "files": []}
+SKILL_POC_COMPANY_CODE = "COMP-001"
+SKILL_PIPELINE_BINDINGS = {
+    SKILL_POC_COMPANY_CODE: {
+        "label": "灵犀微传感双 Skill POC",
+        "skills": ["auditing-data", "writing-report"],
+        "mock_vdr_dir": PROJECT_ROOT / ".agent" / "mock_vdr" / "lingxi-sensors",
+        "company_name": "深圳市灵犀微传感科技有限公司",
+    }
+}
 MATERIAL_BUCKET_TITLES = {
     "application": "授信申请材料",
     "financial": "财务与经营材料",
@@ -1254,6 +1264,476 @@ def load_public_enrichment(company_code: str) -> dict:
     return payload
 
 
+def get_skill_pipeline_binding(company_code: str) -> dict | None:
+    binding = SKILL_PIPELINE_BINDINGS.get(company_code)
+    if not binding:
+        return None
+    return {
+        "company_code": company_code,
+        "label": binding["label"],
+        "skills": list(binding["skills"]),
+        "mock_vdr_dir": str(binding["mock_vdr_dir"]),
+        "entry_mode": "auditing_then_writing",
+    }
+
+
+def get_skill_dir(skill_name: str) -> Path:
+    return PROJECT_ROOT / ".agent" / "skills" / skill_name
+
+
+def load_skill_file(skill_name: str, filename: str = "SKILL.md") -> str:
+    path = get_skill_dir(skill_name) / filename
+    return read_text_file(path)
+
+
+def read_text_file(path: Path) -> str:
+    return path.read_text(encoding="utf-8") if path.exists() else ""
+
+
+def parse_markdown_table(md_text: str) -> list[list[str]]:
+    rows: list[list[str]] = []
+    for raw_line in md_text.splitlines():
+        line = raw_line.strip()
+        if not line.startswith("|"):
+            continue
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        if all(re.fullmatch(r"-+", cell) for cell in cells):
+            continue
+        rows.append(cells)
+    return rows
+
+
+def parse_money_amount(text: str) -> int | None:
+    match = re.search(r"([0-9][0-9,]*)\s*RMB", text)
+    if not match:
+        return None
+    return int(match.group(1).replace(",", ""))
+
+
+def parse_percentage_amount(text: str) -> float | None:
+    match = re.search(r"([0-9]+(?:\.[0-9]+)?)%", text)
+    if not match:
+        return None
+    return float(match.group(1))
+
+
+def load_antigravity_mock_pack(company_code: str) -> dict:
+    binding = SKILL_PIPELINE_BINDINGS[company_code]
+    base = binding["mock_vdr_dir"]
+    business_license_text = read_text_file(base / "business_license.md")
+    shareholding_text = read_text_file(base / "shareholding_register.md")
+    financial_text = read_text_file(base / "financial_statements.md")
+    electricity_text = read_text_file(base / "electricity_bills_2025.txt")
+    contract_text = read_text_file(base / "top_customer_contracts.md")
+    bank_text = read_text_file(base / "bank_statement_summary.md")
+    tax_text = read_text_file(base / "tax_filing_summary.md")
+    board_text = read_text_file(base / "board_meeting_minutes_secret.md")
+    litigation_text = read_text_file(base / "litigation_and_penalties.md")
+    interview_text = read_text_file(base / "management_interview_notes.md")
+
+    table_rows = parse_markdown_table(financial_text)
+    income_rows = {
+        row[0]: {
+            "revenue": int(row[1]),
+            "gross_profit": int(row[2]),
+            "net_profit": int(row[3]),
+            "revenue_growth_pct": float(row[4].replace("%", "")),
+        }
+        for row in table_rows
+        if len(row) >= 5 and row[0] in {"2024", "2025"}
+    }
+
+    top_clients = []
+    for line in financial_text.splitlines():
+        if not line.strip().startswith("- Client"):
+            continue
+        name_match = re.search(r":\s*(.+?)\s+\(", line)
+        revenue_match = re.search(r"贡献收入:\s*([0-9,]+)\s*RMB", line)
+        share_match = re.search(r"占比:\s*([0-9.]+)%", line)
+        if not name_match:
+            continue
+        top_clients.append(
+            {
+                "name": name_match.group(1).strip(),
+                "revenue": int(revenue_match.group(1).replace(",", "")) if revenue_match else 0,
+                "share_pct": float(share_match.group(1)) if share_match else 0.0,
+            }
+        )
+
+    assets_match = re.search(r"Total Assets:\s*([0-9,]+)\s*RMB", financial_text)
+    liabilities_match = re.search(r"Total Liabilities:\s*([0-9,]+)\s*RMB", financial_text)
+    asset_ratio_match = re.search(r"Asset-Liability Ratio:\s*([0-9.]+)%", financial_text)
+
+    month_lines = re.findall(r"([A-Z][a-z]{2}) 2025:\s*([0-9,]+)\s*kWh", electricity_text)
+    total_2024_match = re.search(r"Total 2024 Consumption:\s*([0-9,]+)\s*kWh", electricity_text)
+    total_2025_match = re.search(r"Total 2025 Consumption:\s*([0-9,]+)\s*kWh", electricity_text)
+    power_ratio_match = re.search(r"Calculated Power Fluctuating Ratio:\s*\+?([0-9.]+)%", electricity_text)
+
+    meeting_date_match = re.search(r"会议时间：([0-9]{4}\s*年\s*[0-9]{1,2}\s*月\s*[0-9]{1,2}\s*日)", board_text)
+    directors_match = re.search(r"参会董事：(.+)", board_text)
+    guarantee_term_match = re.search(r"([0-9]+)\s*年期企业贷款", board_text)
+    guarantee_amount_match = re.search(r"申请的\s*([0-9,]+)\s*RMB", board_text)
+    related_customer_match = re.search(r"与 “(.+?)” (?:的常年战略|执行年度框架)", board_text)
+    guaranteed_company_match = re.search(r"兄弟企业 “(.+?)”", board_text)
+    legal_rep_match = re.search(r"法定代表人：(.+)", business_license_text)
+    established_match = re.search(r"成立日期：([0-9]{4}年[0-9]{2}月[0-9]{2}日)", business_license_text)
+    registered_capital_match = re.search(r"注册资本：([0-9,]+)\s*RMB", business_license_text)
+    annual_receipts_match = re.search(r"2025 年可识别客户销售回款合计：([0-9,]+)\s*RMB", bank_text)
+    q4_booked_match = re.search(r"Q4 财务确认收入：([0-9,]+)\s*RMB", bank_text)
+    q4_receipts_match = re.search(r"Q4 银行实际回款：([0-9,]+)\s*RMB", bank_text)
+    tax_declared_match = re.search(r"2025 年累计申报收入：([0-9,]+)\s*RMB", tax_text)
+
+    directors = []
+    for raw_item in (directors_match.group(1) if directors_match else "").split("、"):
+        item = raw_item.strip()
+        if not item:
+            continue
+        person_match = re.match(r"(.+?)(?:（持股([0-9]+)%）)?$", item)
+        if not person_match:
+            continue
+        directors.append(
+            {
+                "full_name": person_match.group(1).strip(),
+                "equity_ratio": (float(person_match.group(2)) / 100) if person_match.group(2) else 0.0,
+            }
+        )
+
+    return {
+        "base_dir": base,
+        "company_name": binding.get("company_name", "目标公司"),
+        "business_license_text": business_license_text,
+        "shareholding_text": shareholding_text,
+        "financial_text": financial_text,
+        "electricity_text": electricity_text,
+        "contract_text": contract_text,
+        "bank_text": bank_text,
+        "tax_text": tax_text,
+        "board_text": board_text,
+        "litigation_text": litigation_text,
+        "interview_text": interview_text,
+        "income_rows": income_rows,
+        "top_clients": top_clients,
+        "total_assets": int(assets_match.group(1).replace(",", "")) if assets_match else 0,
+        "total_liabilities": int(liabilities_match.group(1).replace(",", "")) if liabilities_match else 0,
+        "asset_liability_ratio_pct": float(asset_ratio_match.group(1)) if asset_ratio_match else 0.0,
+        "monthly_power_kwh": [{"month": month, "value": int(value.replace(",", ""))} for month, value in month_lines],
+        "power_2024_kwh": int(total_2024_match.group(1).replace(",", "")) if total_2024_match else 0,
+        "power_2025_kwh": int(total_2025_match.group(1).replace(",", "")) if total_2025_match else 0,
+        "power_growth_pct": float(power_ratio_match.group(1)) if power_ratio_match else 0.0,
+        "meeting_date": meeting_date_match.group(1).replace(" ", "") if meeting_date_match else "2025年10月15日",
+        "directors": directors,
+        "director_name": directors[0]["full_name"] if directors else "实际控制人",
+        "related_customer_name": related_customer_match.group(1).strip() if related_customer_match else (top_clients[0]["name"] if top_clients else "核心客户"),
+        "guaranteed_company_name": guaranteed_company_match.group(1).strip() if guaranteed_company_match else "关联兄弟企业",
+        "guarantee_amount_rmb": int(guarantee_amount_match.group(1).replace(",", "")) if guarantee_amount_match else 0,
+        "guarantee_term_years": int(guarantee_term_match.group(1)) if guarantee_term_match else 3,
+        "legal_representative": legal_rep_match.group(1).strip() if legal_rep_match else "",
+        "established_on_text": established_match.group(1) if established_match else "",
+        "registered_capital_rmb": int(registered_capital_match.group(1).replace(",", "")) if registered_capital_match else 0,
+        "annual_receipts_rmb": int(annual_receipts_match.group(1).replace(",", "")) if annual_receipts_match else 0,
+        "q4_booked_revenue_rmb": int(q4_booked_match.group(1).replace(",", "")) if q4_booked_match else 0,
+        "q4_receipts_rmb": int(q4_receipts_match.group(1).replace(",", "")) if q4_receipts_match else 0,
+        "tax_declared_revenue_rmb": int(tax_declared_match.group(1).replace(",", "")) if tax_declared_match else 0,
+    }
+
+
+def build_antigravity_audit_summary(company_code: str) -> dict:
+    pack = load_antigravity_mock_pack(company_code)
+    revenue_2024 = pack["income_rows"].get("2024", {}).get("revenue", 0)
+    revenue_2025 = pack["income_rows"].get("2025", {}).get("revenue", 0)
+    revenue_growth_pct = ((revenue_2025 - revenue_2024) * 100 / revenue_2024) if revenue_2024 else 0.0
+    top_customer = pack["top_clients"][0] if pack["top_clients"] else {"name": "", "revenue": 0, "share_pct": 0.0}
+    source_prefix = f".agent/mock_vdr/{pack['base_dir'].name}"
+
+    findings = []
+    if revenue_growth_pct > 15 and pack["power_growth_pct"] < 3:
+        findings.append(
+            {
+                "severity": "高",
+                "finding_title": "主营业务收入真实性存疑",
+                "problem_definition": "收入增幅明显高于用电量增幅，经营增长与物理产能代理指标未同步。",
+                "financial_impact": f"新增收入 {revenue_2025 - revenue_2024} 元仍需补充产能支持、外协支撑或收入确认时点说明。",
+                "evidence_chain": [
+                    f"2024 年收入为 {revenue_2024} 元，2025 年收入为 {revenue_2025} 元。",
+                    f"2024 年总用电量为 {pack['power_2024_kwh']} 千瓦时，2025 年总用电量为 {pack['power_2025_kwh']} 千瓦时。",
+                ],
+                "source_refs": [
+                    {"file": f"{source_prefix}/financial_statements.md", "line_hint": "Income Statement Highlights"},
+                    {"file": f"{source_prefix}/electricity_bills_2025.txt", "line_hint": "Calculated Power Fluctuating Ratio"},
+                ],
+            }
+        )
+
+    if (
+        top_customer["name"]
+        and top_customer["name"] in pack["board_text"]
+        and (
+            top_customer["name"] in pack["shareholding_text"]
+            or "家庭关联方" in pack["board_text"]
+            or "家庭控制" in pack["board_text"]
+        )
+        and "No related-party transactions requiring special disclosure" in pack["financial_text"]
+    ):
+        findings.append(
+            {
+                "severity": "高",
+                "finding_title": "未披露重大关联交易风险",
+                "problem_definition": "第一大客户与实控人家庭存在控制重合，但对外口径未充分披露关联关系。",
+                "financial_impact": f"至少 {top_customer['revenue']} 元收入涉及关联交易公允性、客户独立性和定价合理性复核。",
+                "evidence_chain": [
+                    f"{top_customer['name']} 贡献收入 {top_customer['revenue']} 元，占 2025 年收入的 {top_customer['share_pct']:.1f}%。",
+                    f"内部材料显示 {top_customer['name']} 由 {pack['director_name']} 家庭控制。",
+                ],
+                "source_refs": [
+                    {"file": f"{source_prefix}/financial_statements.md", "line_hint": "Top Revenue Contributors (2025)"},
+                    {"file": f"{source_prefix}/shareholding_register.md", "line_hint": "实控人及家庭对外控制企业"},
+                    {"file": f"{source_prefix}/board_meeting_minutes_secret.md", "line_hint": "议题一：关于核心客户关系说明"},
+                ],
+            }
+        )
+
+    if (
+        pack["guarantee_amount_rmb"]
+        and "连带责任担保" in pack["board_text"]
+        and ("暂不在对外资产负债表" in pack["board_text"] or "不对外披露" in pack["board_text"])
+    ):
+        findings.append(
+            {
+                "severity": "高",
+                "finding_title": "未披露表外连带责任风险",
+                "problem_definition": "公司已批准对关联兄弟企业提供全额连带责任担保，但要求财务不对外披露。",
+                "financial_impact": f"潜在或有负债敞口为 {pack['guarantee_amount_rmb']} 元，后续可能引发代偿、资产冻结及诉讼风险。",
+                "evidence_chain": [
+                    f"董事会批准为关联企业提供 {pack['guarantee_amount_rmb']} 元、期限 {pack['guarantee_term_years']} 年的全额连带责任担保。",
+                    "被担保企业已出现民间借贷利息逾期。",
+                    "会议纪要明确要求财务暂不对外披露该或有负债。",
+                ],
+                "source_refs": [
+                    {"file": f"{source_prefix}/board_meeting_minutes_secret.md", "line_hint": "议题二：关于兄弟企业授信担保安排"},
+                    {"file": f"{source_prefix}/board_meeting_minutes_secret.md", "line_hint": "会议记录补充"},
+                ],
+            }
+        )
+
+    if pack["annual_receipts_rmb"] and pack["tax_declared_revenue_rmb"]:
+        findings.append(
+            {
+                "severity": "中",
+                "finding_title": "收入回款税票勾稽差异",
+                "problem_definition": "财务报表收入高于可识别银行回款及税务申报收入。",
+                "financial_impact": (
+                    f"2025 年财务收入较可识别回款高 {revenue_2025 - pack['annual_receipts_rmb']} 元，"
+                    f"较税务申报收入高 {revenue_2025 - pack['tax_declared_revenue_rmb']} 元。"
+                ),
+                "evidence_chain": [
+                    f"2025 年可识别银行回款为 {pack['annual_receipts_rmb']} 元。",
+                    f"2025 年税务申报收入为 {pack['tax_declared_revenue_rmb']} 元。",
+                ],
+                "source_refs": [
+                    {"file": f"{source_prefix}/bank_statement_summary.md", "line_hint": "全年回款口径汇总"},
+                    {"file": f"{source_prefix}/tax_filing_summary.md", "line_hint": "增值税申报口径"},
+                ],
+            }
+        )
+
+    return {
+        "company_name": pack["company_name"],
+        "analysis_scope": source_prefix,
+        "computed_metrics": {
+            "revenue_2024_rmb": revenue_2024,
+            "revenue_2025_rmb": revenue_2025,
+            "revenue_growth_pct": round(revenue_growth_pct, 1),
+            "power_consumption_2024_kwh": pack["power_2024_kwh"],
+            "power_consumption_2025_kwh": pack["power_2025_kwh"],
+            "power_usage_growth_pct": round(pack["power_growth_pct"], 1),
+            "largest_customer_name": top_customer["name"],
+            "largest_customer_revenue_rmb": top_customer["revenue"],
+            "largest_customer_revenue_share_pct": top_customer["share_pct"],
+            "undisclosed_guarantee_amount_rmb": pack["guarantee_amount_rmb"],
+            "bank_receipts_2025_rmb": pack["annual_receipts_rmb"],
+            "tax_filed_revenue_2025_rmb": pack["tax_declared_revenue_rmb"],
+        },
+        "overall_risk_level": "高" if any(item["severity"] == "高" for item in findings) else "中",
+        "findings": findings,
+        "writer_handoff": {
+            "report_title": "尽职调查报告",
+            "must_highlight_first": [item["finding_title"] for item in findings if item["severity"] == "高"],
+        },
+    }
+
+
+def build_antigravity_report_markdown(company_code: str, version_number: int, detail: dict | None = None) -> str:
+    audit = build_antigravity_audit_summary(company_code)
+    pack = load_antigravity_mock_pack(company_code)
+    metrics = audit["computed_metrics"]
+    findings = {item["finding_title"]: item for item in audit["findings"]}
+    high_count = sum(1 for item in audit["findings"] if item["severity"] == "高")
+    medium_count = sum(1 for item in audit["findings"] if item["severity"] == "中")
+    source_prefix = audit["analysis_scope"]
+    revenue_issue = findings.get("主营业务收入真实性存疑", {})
+    related_issue = findings.get("未披露重大关联交易风险", {})
+    liability_issue = findings.get("未披露表外连带责任风险", {})
+    cash_tax_issue = findings.get("收入回款税票勾稽差异", {})
+    company_name = detail.get("company", {}).get("name") if detail else audit["company_name"]
+
+    return "\n".join(
+        [
+            "# 尽职调查报告",
+            "",
+            "## 第一章 基本情况与历史沿革核查",
+            "### 风险定性",
+            (
+                f"{company_name}营业执照显示法定代表人为 {pack['legal_representative']}，成立日期为 {pack['established_on_text']}，注册资本 {pack['registered_capital_rmb']} 元。"
+                "根据当前材料，基础工商口径已形成初步画像，但实控人家庭对外控制企业较多，主体独立性仍需结合历史沿革、关联控制链条和治理安排进一步核查"
+                f" [{source_prefix}/business_license.md] [{source_prefix}/shareholding_register.md]。"
+            ),
+            "",
+            "### 核查证据",
+            "| 项目 | 内容 | 核查说明 |",
+            "| --- | --- | --- |",
+            f"| 企业名称 | {company_name} | 已同步基础主体信息 |",
+            f"| 法定代表人 | {pack['legal_representative']} | 待补充任职与治理稳定性说明 |",
+            f"| 成立日期 | {pack['established_on_text']} | 可继续核对历史沿革材料 |",
+            f"| 注册资本 | {pack['registered_capital_rmb']} 元 | 需结合章程和工商档案复核 |",
+            "",
+            "### 财务与合规影响评估",
+            "若主体沿革、关联控制链条及治理独立性披露不充分，可能影响授信准入、关联交易识别以及后续责任承担判断。",
+            "",
+            "### 补充尽调建议",
+            "建议补充工商底档、章程、历次股权变更材料及实际控制人说明。",
+            "",
+            "## 第二章 主营业务与经营模式深挖",
+            "### 风险定性",
+            (
+                f"2025 年收入同比增长 {metrics['revenue_growth_pct']:.1f}%，同期总用电量仅增长 {metrics['power_usage_growth_pct']:.1f}%，"
+                "经营增长与物理世界代理指标存在明显背离。若管理层关于委外加工的解释缺少合同、结算单与入库单支持，则主营业务收入真实性仍需进一步核验"
+                f" [{source_prefix}/financial_statements.md] [{source_prefix}/electricity_bills_2025.txt] [{source_prefix}/management_interview_notes.md]。"
+            ),
+            "",
+            "### 核查证据",
+            "| 核查维度 | 2024 年 | 2025 年 | 变动情况 |",
+            "| --- | --- | --- | --- |",
+            f"| 营业收入 | {metrics['revenue_2024_rmb']} 元 | {metrics['revenue_2025_rmb']} 元 | {metrics['revenue_growth_pct']:.1f}% |",
+            f"| 总用电量 | {metrics['power_consumption_2024_kwh']} 千瓦时 | {metrics['power_consumption_2025_kwh']} 千瓦时 | {metrics['power_usage_growth_pct']:.1f}% |",
+            "",
+            "### 财务与合规影响评估",
+            (
+                f"2025 年新增收入规模为 {metrics['revenue_2025_rmb'] - metrics['revenue_2024_rmb']} 元，但同期用电量仅增加 "
+                f"{metrics['power_consumption_2025_kwh'] - metrics['power_consumption_2024_kwh']} 千瓦时。"
+                "若无充分的外协、产能外移或跨期确认说明，则收入增长的真实性、可持续性及第一还款来源稳定性将受到影响。"
+            ),
+            "",
+            "### 补充尽调建议",
+            "建议补充外协加工合同、结算单、仓储入库单、验收单及核心客户回款凭证。",
+            "",
+            "## 第三章 财务与会计主要数据指标评析",
+            "### 风险定性",
+            (
+                f"第一大客户 {metrics['largest_customer_name']} 贡献收入 {metrics['largest_customer_revenue_rmb']} 元，占比 "
+                f"{metrics['largest_customer_revenue_share_pct']:.1f}%。同时，2025 年报表收入高于可识别回款及税务申报收入，当前财务质量判断仍需以勾稽核验结果为基础"
+                f" [{source_prefix}/financial_statements.md] [{source_prefix}/bank_statement_summary.md] [{source_prefix}/tax_filing_summary.md]。"
+            ),
+            "",
+            "### 核查证据",
+            "| 指标 | 数值 | 关注点 |",
+            "| --- | --- | --- |",
+            f"| 2025 年营业收入 | {metrics['revenue_2025_rmb']} 元 | 需核验真实性与持续性 |",
+            f"| 2025 年可识别回款 | {metrics['bank_receipts_2025_rmb']} 元 | 低于报表收入 |",
+            f"| 2025 年税务申报收入 | {metrics['tax_filed_revenue_2025_rmb']} 元 | 低于报表收入 |",
+            f"| 第四季度财务确认收入 | {pack['q4_booked_revenue_rmb']} 元 | 需与跨期回款对照 |",
+            f"| 第四季度银行实际回款 | {pack['q4_receipts_rmb']} 元 | 与报表收入存在差异 |",
+            "",
+            "| 勾稽维度 | 财务口径 | 外部/交叉口径 | 差异说明 |",
+            "| --- | --- | --- | --- |",
+            f"| 收入与回款 | {metrics['revenue_2025_rmb']} 元 | {metrics['bank_receipts_2025_rmb']} 元 | 差额 {metrics['revenue_2025_rmb'] - metrics['bank_receipts_2025_rmb']} 元 |",
+            f"| 收入与税票 | {metrics['revenue_2025_rmb']} 元 | {metrics['tax_filed_revenue_2025_rmb']} 元 | 差额 {metrics['revenue_2025_rmb'] - metrics['tax_filed_revenue_2025_rmb']} 元 |",
+            "",
+            "### 财务与合规影响评估",
+            (
+                f"{cash_tax_issue.get('problem_definition', '当前收入、回款及税票之间存在勾稽差异')}。"
+                "如差异来源于跨期确认、未回款应收集中或申报时点差异，应提供完整桥接解释；否则将影响对收入质量、现金转化能力和还款来源真实性的判断。"
+            ),
+            "",
+            "### 补充尽调建议",
+            "建议补充税会差异桥接表、2026 年 1 月回款对账单、主要客户回款台账及收入确认政策说明。",
+            "",
+            "## 第四章 资产结构穿透与资金独立性分析",
+            "### 风险定性",
+            (
+                f"除收入真实性外，核心客户 {metrics['largest_customer_name']} 与实控人家庭控制关系重合，说明交易独立性与主体独立性存在交叉风险。"
+                "若关联客户交易占比较高但未单列披露，将放大资金回收、定价公允性和关联占用识别难度"
+                f" [{source_prefix}/financial_statements.md] [{source_prefix}/shareholding_register.md] [{source_prefix}/board_meeting_minutes_secret.md]。"
+            ),
+            "",
+            "### 核查证据",
+            "| 资产/资金事项 | 当前情况 | 关注点 | 风险结论 |",
+            "| --- | --- | --- | --- |",
+            f"| 第一大客户收入占比 | {metrics['largest_customer_revenue_share_pct']:.1f}% | 集中度偏高且存在关联控制重合 | 持续关注 |",
+            f"| 第一大客户收入金额 | {metrics['largest_customer_revenue_rmb']} 元 | 需复核交易公允性与独立性 | 持续关注 |",
+            "",
+            "### 财务与合规影响评估",
+            (
+                f"{related_issue.get('problem_definition', '关联交易和控制链条存在交叉风险')}。"
+                "若核心客户兼具关联属性，相关收入质量、回款独立性及未来持续合作稳定性均需在授信判断中从严审视。"
+            ),
+            "",
+            "### 补充尽调建议",
+            "建议补充关联交易披露说明、定价依据、独立性承诺及关联资金往来说明。",
+            "",
+            "## 第五章 有息债务期限结构与表外负债排查",
+            "### 风险定性",
+            (
+                f"董事会纪要显示，公司已批准为兄弟企业 {pack['guaranteed_company_name']} 提供 {metrics['undisclosed_guarantee_amount_rmb']} 元全额连带责任担保，"
+                "且要求财务不对外披露。该事项已超出一般日常经营事项范围，属于需要单独识别的重大或有负债风险"
+                f" [{source_prefix}/board_meeting_minutes_secret.md]。"
+            ),
+            "",
+            "### 核查证据",
+            "| 债务/担保事项 | 涉及对象 | 金额 | 是否披露 | 核查结论 |",
+            "| --- | --- | --- | --- | --- |",
+            f"| 连带责任担保 | {pack['guaranteed_company_name']} | {metrics['undisclosed_guarantee_amount_rmb']} 元 | 否 | 重大关注 |",
+            "",
+            "### 财务与合规影响评估",
+            (
+                f"{liability_issue.get('problem_definition', '存在未披露表外连带责任风险')}。"
+                "被担保主体已出现逾期迹象，意味着该担保可能从潜在责任向实际代偿压力转化，并对短期偿债能力、资产保全及诉讼风险形成冲击"
+                f" [{source_prefix}/litigation_and_penalties.md]。"
+            ),
+            "",
+            "### 补充尽调建议",
+            "建议立即补充担保合同原件、董事会决议原件、被担保企业债务情况及后续整改计划。",
+            "",
+            "## 第六章 初步尽调结论与补件建议",
+            "### 风险定性",
+            (
+                f"本次审阅识别出 {high_count} 项高风险事项"
+                f"{f'及 {medium_count} 项中风险事项' if medium_count else ''}。"
+                f"{revenue_issue.get('finding_title', '收入真实性风险')}、{related_issue.get('finding_title', '关联交易风险')}、"
+                f"{liability_issue.get('finding_title', '表外负债风险')} 同时存在，说明经营真实性、治理独立性和债务完整性三个维度出现联动问题。"
+            ),
+            "",
+            "### 核查证据",
+            "| 待补材料 | 影响章节 | 影响判断 | 紧急程度 |",
+            "| --- | --- | --- | --- |",
+            "| 外协合同与结算单 | 第二章 | 收入真实性与业务闭环 | 高 |",
+            "| 回款台账与税会桥接表 | 第三章 | 现金回收质量与财务勾稽 | 高 |",
+            "| 关联交易披露与定价说明 | 第四章 | 主体独立性与交易公允性 | 高 |",
+            "| 担保合同及整改材料 | 第五章 | 或有负债与偿债能力 | 高 |",
+            "",
+            "### 财务与合规影响评估",
+            "在关键资料尚未补齐前，现阶段难以形成无保留正面结论。若上述风险未能被充分解释或缓释，可能直接影响授信准入、额度安排与缓释条件设计。",
+            "",
+            "### 补充尽调建议",
+            (
+                "建议补件后再审。建议先完成外协与回款补证、关联交易专项说明、担保敞口核验及管理层补充说明，再进入下一轮人工复核"
+                f" [{source_prefix}/management_interview_notes.md] [{source_prefix}/bank_statement_summary.md] [{source_prefix}/board_meeting_minutes_secret.md]。"
+            ),
+            "",
+            f"版本标识：V{version_number}",
+        ]
+    )
+
+
 def extract_docx_text(path: Path) -> str:
     document = Document(str(path))
     paragraphs = [paragraph.text.strip() for paragraph in document.paragraphs if paragraph.text.strip()]
@@ -1549,6 +2029,146 @@ def build_pdf_bytes(title: str, version_label: str, full_text: str) -> bytes:
             cursor_y -= leading
         return cursor_y
 
+    def draw_table(table_lines: list[str]) -> float:
+        nonlocal cursor_y
+        rows = []
+        for line in table_lines:
+            cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+            rows.append(cells)
+        if len(rows) >= 2 and all(re.fullmatch(r":?-{3,}:?", cell or "") for cell in rows[1]):
+            rows.pop(1)
+        if not rows:
+            return cursor_y
+
+        col_count = max(len(row) for row in rows)
+        normalized_rows = [row + [""] * (col_count - len(row)) for row in rows]
+        table_width = margin_right - margin_x
+        col_width = table_width / max(col_count, 1)
+        font_size = 9
+        line_height = 13
+
+        for row_index, row in enumerate(normalized_rows):
+            wrapped_cells = [
+                wrap_lines(cell, max(6, int((col_width - 18) / max(font_size * 0.9, 1)))) or [""]
+                for cell in row
+            ]
+            row_height = max(len(cell_lines) for cell_lines in wrapped_cells) * line_height + 12
+            if cursor_y - row_height < 72:
+                cursor_y = new_page("尽职调查报告")
+            for col_index, cell_lines in enumerate(wrapped_cells):
+                x = margin_x + col_index * col_width
+                y = cursor_y
+                if row_index == 0:
+                    pdf.setFillColorRGB(0.95, 0.97, 0.92)
+                    pdf.rect(x, y - row_height, col_width, row_height, fill=1, stroke=0)
+                pdf.setStrokeColorRGB(0.82, 0.88, 0.78)
+                pdf.rect(x, y - row_height, col_width, row_height, fill=0, stroke=1)
+                pdf.setFillColorRGB(0.07, 0.19, 0.13 if row_index == 0 else 0.22)
+                pdf.setFont(font_name, font_size)
+                text_y = y - 10
+                for cell_line in cell_lines:
+                    pdf.drawString(x + 8, text_y, cell_line)
+                    text_y -= line_height
+            cursor_y -= row_height
+        cursor_y -= 10
+        pdf.setFillColorRGB(0.22, 0.29, 0.24)
+        return cursor_y
+
+    def draw_markdown_content(text: str) -> float:
+        nonlocal cursor_y
+        lines = text.replace("\r", "").split("\n")
+        paragraph: list[str] = []
+        table_lines: list[str] = []
+        list_items: list[str] = []
+        ordered_list = False
+
+        def flush_paragraph() -> None:
+            nonlocal cursor_y, paragraph
+            if not paragraph:
+                return
+            draw_paragraph(" ".join(paragraph), font_size=11, leading=20)
+            cursor_y -= 4
+            paragraph = []
+
+        def flush_table() -> None:
+            nonlocal table_lines
+            if not table_lines:
+                return
+            draw_table(table_lines)
+            table_lines = []
+
+        def flush_list() -> None:
+            nonlocal cursor_y, list_items
+            if not list_items:
+                return
+            for index, item in enumerate(list_items, start=1):
+                marker = f"{index}. " if ordered_list else "• "
+                draw_paragraph(f"{marker}{item}", font_size=11, leading=20)
+            cursor_y -= 4
+            list_items = []
+
+        for raw_line in lines:
+            line = raw_line.strip()
+            if not line:
+                flush_paragraph()
+                flush_list()
+                flush_table()
+                continue
+            if line.startswith("|"):
+                flush_paragraph()
+                flush_list()
+                table_lines.append(line)
+                continue
+            flush_table()
+
+            if line.startswith("### "):
+                flush_paragraph()
+                flush_list()
+                if cursor_y < 100:
+                    cursor_y = new_page("尽职调查报告")
+                pdf.setFont(font_name, 13)
+                pdf.setFillColorRGB(0.07, 0.19, 0.13)
+                pdf.drawString(margin_x, cursor_y, line.replace("### ", "", 1))
+                cursor_y -= 24
+                pdf.setFillColorRGB(0.22, 0.29, 0.24)
+                continue
+            if line.startswith("#### "):
+                flush_paragraph()
+                flush_list()
+                if cursor_y < 92:
+                    cursor_y = new_page("尽职调查报告")
+                pdf.setFont(font_name, 12)
+                pdf.setFillColorRGB(0.16, 0.25, 0.19)
+                pdf.drawString(margin_x, cursor_y, line.replace("#### ", "", 1))
+                cursor_y -= 22
+                pdf.setFillColorRGB(0.22, 0.29, 0.24)
+                continue
+
+            ordered_match = re.match(r"^(\d+)\.\s+(.+)$", line)
+            unordered_match = re.match(r"^[-*]\s+(.+)$", line)
+            if ordered_match:
+                flush_paragraph()
+                if list_items and not ordered_list:
+                    flush_list()
+                ordered_list = True
+                list_items.append(ordered_match.group(2))
+                continue
+            if unordered_match:
+                flush_paragraph()
+                if list_items and ordered_list:
+                    flush_list()
+                ordered_list = False
+                list_items.append(unordered_match.group(1))
+                continue
+
+            flush_list()
+            paragraph.append(line)
+
+        flush_paragraph()
+        flush_list()
+        flush_table()
+        return cursor_y
+
     pdf.setTitle(f"{title}-{version_label}")
     pdf.setFillColorRGB(0.07, 0.19, 0.13)
     pdf.setFont(font_name, 24)
@@ -1567,15 +2187,21 @@ def build_pdf_bytes(title: str, version_label: str, full_text: str) -> bytes:
     draw_paragraph("本报告基于企业结构化数据、补充尽调材料、知识库引用文件及公开信息补全结果生成，用于银行内部授信尽职调查参考。", font_size=12, leading=22)
     cursor_y -= 12
 
+    section_heading_pattern = re.compile(r"^(?:第[一二三四五六七八九十百0-9]+章|[一二三四五六七八九十]+、)")
     sections = []
     current_title = None
     current_lines: list[str] = []
-    for raw_line in full_text.replace("\r", "").split("\n"):
+    normalized_lines = full_text.replace("\r", "").split("\n")
+    for raw_line in normalized_lines:
         line = raw_line.strip()
         if not line:
             current_lines.append("")
             continue
-        if line.startswith("一、") or line.startswith("二、") or line.startswith("三、") or line.startswith("四、") or line.startswith("五、") or line.startswith("六、") or line.startswith("七、") or line.startswith("八、") or line.startswith("九、") or line.startswith("十、"):
+        if line.startswith("# "):
+            continue
+        if line.startswith("## "):
+            line = line.replace("## ", "", 1).strip()
+        if section_heading_pattern.match(line):
             if current_title:
                 sections.append((current_title, "\n".join(current_lines).strip()))
             current_title = line
@@ -1584,6 +2210,8 @@ def build_pdf_bytes(title: str, version_label: str, full_text: str) -> bytes:
             current_lines.append(line)
     if current_title:
         sections.append((current_title, "\n".join(current_lines).strip()))
+    if not sections and full_text.strip():
+        sections = [("尽职调查报告正文", full_text.strip())]
 
     if sections:
         cursor_y = new_page("目录")
@@ -1599,17 +2227,18 @@ def build_pdf_bytes(title: str, version_label: str, full_text: str) -> bytes:
             pdf.drawString(margin_x, cursor_y, f"{index}. {section_title}")
             cursor_y -= 20
 
-    cursor_y = new_page("尽职调查报告")
-    for section_title, section_body in sections:
-        if cursor_y < 96:
-            cursor_y = new_page("尽职调查报告")
-        pdf.setFont(font_name, 16)
-        pdf.setFillColorRGB(0.07, 0.19, 0.13)
-        pdf.drawString(margin_x, cursor_y, section_title)
-        cursor_y -= 26
-        pdf.setFillColorRGB(0.22, 0.29, 0.24)
-        draw_paragraph(section_body, font_size=11, leading=20)
-        cursor_y -= 10
+    if sections:
+        cursor_y = new_page("尽职调查报告")
+        for section_title, section_body in sections:
+            if cursor_y < 96:
+                cursor_y = new_page("尽职调查报告")
+            pdf.setFont(font_name, 16)
+            pdf.setFillColorRGB(0.07, 0.19, 0.13)
+            pdf.drawString(margin_x, cursor_y, section_title)
+            cursor_y -= 26
+            pdf.setFillColorRGB(0.22, 0.29, 0.24)
+            draw_markdown_content(section_body)
+            cursor_y -= 10
 
     pdf.save()
     return buffer.getvalue()
@@ -1686,72 +2315,101 @@ def build_fallback_report_sections(detail: dict, version_number: int) -> tuple[l
     company = detail["company"]
     case_info = detail.get("case_info") or {}
     recommendation = detail.get("recommendation") or {}
-    industry_profile = detail.get("industry_profile") or {}
     metrics = metric_map(detail.get("latest_metrics") or [])
     top_findings = detail.get("validation_findings") or []
-    latest_public_risk = (detail.get("public_risks") or [None])[0]
     guarantee = (detail.get("guarantees") or [None])[0]
 
     sections = [
         {
-            "id": "customer-profile",
-            "title": "客户概况",
+            "id": "basic-history",
+            "title": "第一章 基本情况与历史沿革核查",
             "content": (
-                f"{company['name']}，位于 {company.get('region_province') or '—'}"
-                f"{company.get('region_city') or ''}，所属行业为 "
-                f"{company.get('subindustry') or company.get('industry_category') or '—'}。"
-                f" 本次为尽调报告 {version_number} 版，围绕客户准入、经营稳定性与风险特征形成统一画像。"
+                "### 风险定性\n"
+                f"{company['name']}位于 {company.get('region_province') or '—'}{company.get('region_city') or ''}，所属行业为 "
+                f"{company.get('subindustry') or company.get('industry_category') or '—'}。根据当前已获取资料，主体基础信息已同步，但历史沿革、治理结构和实控链条仍需进一步核实。\n\n"
+                "### 核查证据\n"
+                f"| 项目 | 当前信息 | 核查说明 |\n| --- | --- | --- |\n| 企业名称 | {company['name']} | 已同步 |\n"
+                f"| 所在地区 | {(company.get('region_province') or '—')}{company.get('region_city') or ''} | 可继续补充工商底稿 |\n"
+                f"| 所属行业 | {company.get('subindustry') or company.get('industry_category') or '—'} | 可继续结合公开信息补全 |\n\n"
+                "### 财务与合规影响评估\n主体沿革和治理信息若存在缺口，可能影响授信准入与独立性判断。\n\n"
+                "### 补充尽调建议\n建议补充工商档案、章程、股权变更与实际控制人说明。"
             ),
         },
         {
             "id": "operation-analysis",
-            "title": "经营分析",
+            "title": "第二章 主营业务与经营模式深挖",
             "content": (
-                f"企业当前经营状态为 {company.get('operating_status') or '—'}，"
-                f"授信申请产品为 {case_info.get('product_type') or '—'}，"
-                f"第一还款来源为 {case_info.get('primary_repayment_source') or '—'}。"
-                f" 当前已接入 {len(detail.get('contracts') or [])} 份合同、{len(detail.get('orders') or [])} 条订单和"
-                f" {len(detail.get('invoices') or [])} 张发票，可用于验证业务闭环。"
+                "### 风险定性\n"
+                f"企业当前经营状态为 {company.get('operating_status') or '—'}，授信申请产品为 {case_info.get('product_type') or '—'}，"
+                f"第一还款来源为 {case_info.get('primary_repayment_source') or '—'}。但业务闭环仍需结合合同、订单、发票与回款链路核验。\n\n"
+                "### 核查证据\n"
+                f"| 维度 | 当前情况 | 风险提示 |\n| --- | --- | --- |\n| 合同数据 | {len(detail.get('contracts') or [])} 份 | 需验证真实性 |\n"
+                f"| 订单数据 | {len(detail.get('orders') or [])} 条 | 需验证履约情况 |\n"
+                f"| 发票数据 | {len(detail.get('invoices') or [])} 张 | 需验证与回款匹配度 |\n\n"
+                "### 财务与合规影响评估\n业务闭环支撑不足时，将削弱主营业务真实性和第一还款来源稳定性的判断。\n\n"
+                "### 补充尽调建议\n建议补充核心客户合同、验收单和回款凭证。"
             ),
         },
         {
             "id": "financial-analysis",
-            "title": "财务分析",
+            "title": "第三章 财务与会计主要数据指标评析",
             "content": (
-                f"最新口径下营业收入 {format_currency(metrics.get('revenue'))}，净利润 "
-                f"{format_currency(metrics.get('net_profit'))}，货币资金 {format_currency(metrics.get('cash'))}。"
-                f" 应收账款 {format_currency(metrics.get('accounts_receivable'))}，"
-                f"存货 {format_currency(metrics.get('inventory'))}，建议结合回款节奏持续关注现金回收质量。"
+                "### 风险定性\n"
+                f"最新口径下营业收入 {format_currency(metrics.get('revenue'))}，净利润 {format_currency(metrics.get('net_profit'))}，货币资金 {format_currency(metrics.get('cash'))}。"
+                f"应收账款 {format_currency(metrics.get('accounts_receivable'))}，存货 {format_currency(metrics.get('inventory'))}，需关注利润与现金回收是否匹配。\n\n"
+                "### 核查证据\n"
+                f"| 指标 | 当前值 | 关注点 |\n| --- | --- | --- |\n| 营业收入 | {format_currency(metrics.get('revenue'))} | 需核验真实性 |\n"
+                f"| 净利润 | {format_currency(metrics.get('net_profit'))} | 需结合现金流判断 |\n"
+                f"| 货币资金 | {format_currency(metrics.get('cash'))} | 需关注可支配性 |\n"
+                f"| 应收账款 | {format_currency(metrics.get('accounts_receivable'))} | 需关注账龄 |\n"
+                f"| 存货 | {format_currency(metrics.get('inventory'))} | 需关注周转 |\n\n"
+                "### 财务与合规影响评估\n若收入、利润与现金流偏离，或应收、存货上升明显，将影响对偿债能力和经营质量的判断。\n\n"
+                "### 补充尽调建议\n建议补充近三年报表明细、流水、税票及往来账龄分析。"
             ),
         },
         {
-            "id": "industry-environment",
-            "title": "行业与外部环境",
+            "id": "asset-independence",
+            "title": "第四章 资产结构穿透与资金独立性分析",
             "content": (
-                f"行业生命周期判断为 {industry_profile.get('lifecycle_stage') or '—'}，"
-                f"政策方向为 {industry_profile.get('policy_direction') or '—'}。"
-                f" 如存在外部事件，则最近公开风险为：{compact_text(latest_public_risk.get('title') if latest_public_risk else '暂无重大公开风险')}。"
+                "### 风险定性\n"
+                f"当前货币资金为 {format_currency(metrics.get('cash'))}，应收账款为 {format_currency(metrics.get('accounts_receivable'))}，存货为 {format_currency(metrics.get('inventory'))}。"
+                "若存在资金受限、关联占用或资产质量偏弱情形，将直接影响流动性判断。\n\n"
+                "### 核查证据\n"
+                f"| 资产/资金事项 | 当前情况 | 关注点 | 风险结论 |\n| --- | --- | --- | --- |\n| 货币资金 | {format_currency(metrics.get('cash'))} | 可支配性待核实 | 持续关注 |\n"
+                f"| 应收账款 | {format_currency(metrics.get('accounts_receivable'))} | 账龄待补充 | 持续关注 |\n"
+                f"| 存货 | {format_currency(metrics.get('inventory'))} | 周转与跌价待补充 | 持续关注 |\n\n"
+                "### 财务与合规影响评估\n资产质量和资金独立性若存在问题，将削弱短期偿债保障和主体独立性判断。\n\n"
+                "### 补充尽调建议\n建议补充资产权属、盘点记录和银行受限说明。"
             ),
         },
         {
-            "id": "collateral-mitigation",
-            "title": "抵质押与缓释",
+            "id": "debt-guarantee",
+            "title": "第五章 有息债务期限结构与表外负债排查",
             "content": (
-                f"当前授信缓释要求为 {recommendation.get('guarantee_requirement') or '—'}。"
-                f" 已登记担保措施 {len(detail.get('guarantees') or [])} 项，"
-                f"其中重点抵质押物为 {compact_text((guarantee or {}).get('asset_name') or (guarantee or {}).get('guarantee_type') or '待补充')}。"
-                f" 建议继续核验权属、评估值与可执行性。"
+                "### 风险定性\n"
+                f"当前授信缓释要求为 {recommendation.get('guarantee_requirement') or '—'}，已登记担保措施 {len(detail.get('guarantees') or [])} 项。"
+                f"重点抵质押物暂识别为 {compact_text((guarantee or {}).get('asset_name') or (guarantee or {}).get('guarantee_type') or '待补充')}，仍需核验可执行性。\n\n"
+                "### 核查证据\n"
+                f"| 担保/债务事项 | 当前情况 | 风险提示 |\n| --- | --- | --- |\n| 担保措施数量 | {len(detail.get('guarantees') or [])} 项 | 需核验真实性与足值性 |\n"
+                f"| 重点押品 | {compact_text((guarantee or {}).get('asset_name') or (guarantee or {}).get('guarantee_type') or '待补充')} | 需核验权属、评估值与处置性 |\n\n"
+                "### 财务与合规影响评估\n担保、押品或潜在或有负债披露不充分时，将影响第二还款来源判断和缓释有效性。\n\n"
+                "### 补充尽调建议\n建议补充借款合同、担保合同、押品权属及评估材料。"
             ),
         },
         {
             "id": "risk-conclusion",
-            "title": "风险结论",
+            "title": "第六章 初步尽调结论与补件建议",
             "content": (
-                f"当前风险分层为 {company.get('risk_tier') or '—'}，授信建议状态为 "
-                f"{recommendation.get('recommendation_status') or '—'}。"
-                f" 核验发现共 {len(top_findings)} 条，需重点关注："
-                f"{compact_text(top_findings[0].get('finding_title') if top_findings else '当前暂无高优先级异常')}。"
-                f" 本版报告建议结合内外规预审结果后再形成最终审批意见。"
+                "### 风险定性\n"
+                f"当前风险分层为 {company.get('risk_tier') or '—'}，授信建议状态为 {recommendation.get('recommendation_status') or '—'}。"
+                f"核验发现共 {len(top_findings)} 条，需重点关注 {compact_text(top_findings[0].get('finding_title') if top_findings else '资料完整性与关键风险点仍待补充')}。\n\n"
+                "### 核查证据\n"
+                "| 待补材料 | 影响章节 | 影响判断 | 紧急程度 |\n| --- | --- | --- | --- |\n"
+                "| 主体与治理补充材料 | 第一章 | 主体独立性与治理稳定性 | 高 |\n"
+                "| 核心业务闭环与回款材料 | 第二、三章 | 经营真实性与还款来源 | 高 |\n"
+                "| 担保与押品完整材料 | 第五章 | 风险缓释有效性 | 中 |\n\n"
+                "### 财务与合规影响评估\n关键资料未补齐前，当前尽调结论仍应保持审慎。\n\n"
+                "### 补充尽调建议\n建议补件后再审，并结合后续内外规预审结果形成最终审批意见。"
             ),
         },
     ]
@@ -1774,6 +2432,50 @@ REPORT_SYSTEM_PROMPT = (
     "你是银行公司授信尽职调查报告撰写助手。你必须以正式、审慎、客观、完整的中文输出报告。"
     "不得虚构事实，缺失信息要明确写待补充核实。报告必须章节完整、前后判断一致、风险与结论呼应。"
 )
+SKILL_PIPELINE_REPORT_SYSTEM_PROMPT = (
+    "你是一名银行授信尽职调查报告主笔。"
+    "你必须严格遵循用户提供的 auditing-data 技能、writing-report 技能和 Markdown 模板要求输出正式尽调报告。"
+    "你输出的必须是纯中文 Markdown 长文本，结构完整，表格表头为中文，判断审慎，结论与证据一致。"
+    "不得输出解释性前言，不得输出 JSON，不得忽略高风险 findings。"
+)
+REPORT_MARKDOWN_TEMPLATE = """# 尽职调查报告
+
+## 第一章 基本情况与历史沿革核查
+### 风险定性
+### 核查证据
+### 财务与合规影响评估
+### 补充尽调建议
+
+## 第二章 主营业务与经营模式深挖
+### 风险定性
+### 核查证据
+### 财务与合规影响评估
+### 补充尽调建议
+
+## 第三章 财务与会计主要数据指标评析
+### 风险定性
+### 核查证据
+### 财务与合规影响评估
+### 补充尽调建议
+
+## 第四章 资产结构穿透与资金独立性分析
+### 风险定性
+### 核查证据
+### 财务与合规影响评估
+### 补充尽调建议
+
+## 第五章 有息债务期限结构与表外负债排查
+### 风险定性
+### 核查证据
+### 财务与合规影响评估
+### 补充尽调建议
+
+## 第六章 初步尽调结论与补件建议
+### 风险定性
+### 核查证据
+### 财务与合规影响评估
+### 补充尽调建议
+"""
 REVIEW_SYSTEM_PROMPT = (
     "你是银行公司授信尽职调查预审助手。你需要基于尽调报告正文、企业结构化数据、法律法规、行内制度和专家经验，"
     "输出严谨、可执行、面向客户经理的风险提示清单。不得虚构未提供的依据，不得忽略已经提供的文件。"
@@ -1841,6 +2543,7 @@ def build_ai_input_payload(detail: dict, company_code: str, knowledge_files: lis
             for item in trim_list(serialize_material_files(company_code), 12)
         ],
         "public_info_enrichment": public_info,
+        "selected_knowledge_file_names": [item["name"] for item in knowledge_files],
         "knowledge_files": [
             {
                 "id": item["id"],
@@ -1850,14 +2553,14 @@ def build_ai_input_payload(detail: dict, company_code: str, knowledge_files: lis
                 "description": item["description"],
                 "content_text": compact_text(item.get("content_text", ""), 1200),
             }
-            for item in trim_list(knowledge_files, 6)
+            for item in trim_list(knowledge_files, 12)
         ],
         "selected_data_sources": summarize_selected_data_sources(selected_data_source_ids or []),
     }
     return {
         key: value
         for key, value in payload.items()
-        if key in {"selected_data_sources", "knowledge_files"} or key in selected
+        if key in {"selected_data_sources", "knowledge_files", "selected_knowledge_file_names"} or key in selected
     }
 
 
@@ -1878,47 +2581,49 @@ def build_due_diligence_prompt(detail: dict, company_code: str, version_number: 
         "6. 输出必须是完整长报告，不是提纲，不是摘要。",
         "7. 报告要贴近银行授信尽调场景，而不是债券承销场景。",
         "8. 知识库文件只作为写作口径、合规依据、风险提示参考，不能捏造其中不存在的结论。",
-        "9. 如果引用知识库内容，应以“根据《文件名》要求/口径”这样的方式自然融入，不要大段照抄。",
-        "10. 对无法确认的事项，要使用审慎措辞，例如“需进一步核实”“建议补充提供”“目前未见充分证据支持”“需结合后续审查进一步判断”。",
-        "11. 如果存在公开信息补全层，请充分吸收企业画像、年报链接摘要、行业洞察、治理摘要、公开风险和年度财务概览，扩充报告的背景描述与分析深度。",
-        "12. 各章节优先输出 2-4 段完整中文正文；对数据较丰富的章节，可增加“小结”段落，增强报告完整性。",
+        "9. 只能参考本次明确选中的知识库文件；未选中的知识库文件不得自行假定或引用。",
+        "10. 如果引用知识库内容，应以“根据《文件名》要求/口径”这样的方式自然融入，不要大段照抄。",
+        "11. 对无法确认的事项，要使用审慎措辞，例如“需进一步核实”“建议补充提供”“目前未见充分证据支持”“需结合后续审查进一步判断”。",
+        "12. 如果存在公开信息补全层，请充分吸收企业画像、年报链接摘要、行业洞察、治理摘要、公开风险和年度财务概览，扩充报告的背景描述与分析深度。",
+        "13. 全文必须使用纯中文，不得输出英文章节名、英文表头、英文风险标签。",
+        "14. 各章节必须展开为完整自然段，不能只写一句判断。",
+        "15. 报告需要适度穿插 Markdown 表格，表格承载事实，正文承载判断。",
         "",
         "输出格式要求：",
         "- 使用 Markdown 输出。",
         "- 一级标题固定为：# 尽职调查报告。",
         "- 报告必须包含以下章节，并按此顺序输出。",
         "- 每章都要有完整正文，不能只列要点。",
+        "- 每章必须固定包含四个子标题：### 风险定性、### 核查证据、### 财务与合规影响评估、### 补充尽调建议。",
         "- 最后一章必须输出明确的尽调结论与建议方向。",
         "",
         "报告章节结构如下：",
         "# 尽职调查报告",
-        "## 一、引言",
-        "## 二、客户基本情况",
-        "## 三、历史沿革、股权结构与公司治理",
-        "## 四、主营业务与经营情况",
-        "## 五、行业与外部环境分析",
-        "## 六、财务与现金流分析",
-        "## 七、真实性核验与交叉验证",
-        "## 八、授信需求、还款来源与风险缓释措施",
-        "## 九、主要风险点",
-        "## 十、尽调结论与建议",
+        "## 第一章 基本情况与历史沿革核查",
+        "## 第二章 主营业务与经营模式深挖",
+        "## 第三章 财务与会计主要数据指标评析",
+        "## 第四章 资产结构穿透与资金独立性分析",
+        "## 第五章 有息债务期限结构与表外负债排查",
+        "## 第六章 初步尽调结论与补件建议",
         "",
         "章节展开要求：",
         "- 每个章节必须有完整自然段，不允许只写一句话。",
-        "- 对上市公司或公开资料较丰富的客户，应充分利用公开信息补全层，补写发展历程、治理结构、行业位置、公开风险和年报摘要。",
-        "- 在财务与现金流分析章节，应优先结合近年财务概览、财务指标、现金流、应收、存货、勾稽检查进行较充分描述。",
-        "- 在主营业务与经营情况章节，如交易闭环数据不足，可结合公开信息补全层中的企业简介、行业洞察、年报摘要进行补充，但必须明确属于公开信息口径。",
-        "- 在主要风险点章节，至少输出 4-6 个风险点，每个风险点都要写清事实、影响和建议。",
-        "- 在尽调结论与建议章节，必须输出综合判断、建议补充材料清单、建议进入下一步审查还是继续补件。",
+        "- 对上市公司或公开资料较丰富的客户，应充分利用公开信息补全层补写背景、治理、行业和公开风险信息。",
+        "- 在第三章至少插入 2 张表格，优先包含核心财务指标表、收入回款税票勾稽表。",
+        "- 在第五章至少插入 1 张表格，优先包含债务结构表或担保/或有事项表。",
+        "- 全文至少输出 3 张 Markdown 表格。",
+        "- 缺资料时不得略过章节，必须写明当前缺口及其对判断的影响。",
+        "- 在第六章必须输出综合判断、建议补充材料清单，以及“建议进入下一步审查 / 建议补件后再审 / 现阶段暂不建议推进”三选一结论。",
         "",
         "写作要求补充：",
         "1. 不得输出“模型认为”“AI判断”等措辞。",
         "2. 不要写空洞套话，要尽量结合输入数据。",
         "3. 对没有数据支撑的章节，简洁写明“资料待进一步补充核实”，但如果公开信息补全层中有相关内容，应优先吸收后再写。",
         "4. 如果知识库文件与企业情况有关联，可自然引用，例如“根据《对公授信准入政策（2026版）》相关口径……”。",
-        "5. 如果规则核验命中异常，必须在“真实性核验与交叉验证”以及“主要风险点”中呼应。",
+        "5. 如果规则核验命中异常，必须在相应章节中呼应，并同时写清事实、影响和建议。",
         "6. 全文结论要前后一致，不能前面写风险高、后面又直接建议通过。",
         "7. 输出必须是完整正文，不要输出 JSON，不要输出解释说明，不要输出“以下是报告”。",
+        "8. 表格表头必须使用中文，不得出现 Metric、Revenue、Change 等英文表头。",
         "",
         "后续预审视角补充：",
         "生成正文时，请尽量让下列判断点在报告中有事实依据、判断过程或待补数据提示，便于后续预审同步完成。",
@@ -1928,6 +2633,12 @@ def build_due_diligence_prompt(detail: dict, company_code: str, version_number: 
         ],
         "",
         f"当前生成版本：V{version_number}",
+        "",
+        "本次已明确选中的知识库文件如下，写作时只能参考这些文件：",
+        "；".join(payload.get("selected_knowledge_file_names") or ["本次未选择知识库文件"]),
+        "",
+        "请严格参考以下 Markdown 模板骨架组织正文：",
+        REPORT_MARKDOWN_TEMPLATE,
         "",
         "下面是本次生成报告的输入数据，请严格基于这些数据写作：",
         "",
@@ -1957,6 +2668,89 @@ def build_due_diligence_prompt(detail: dict, company_code: str, version_number: 
         json_block("validation_findings", payload.get("validation_findings")),
         json_block("due_diligence_materials", payload.get("due_diligence_materials")),
         json_block("public_info_enrichment", payload.get("public_info_enrichment")),
+        json_block("selected_knowledge_file_names", payload.get("selected_knowledge_file_names")),
+        json_block("knowledge_files", payload.get("knowledge_files")),
+        "",
+        "如果某一字段为空，请按“资料待进一步补充核实”处理，不得编造。",
+        "现在开始直接输出完整《尽职调查报告》正文。",
+    ]
+    return "\n".join(sections)
+
+
+def build_skill_pipeline_report_prompt(
+    detail: dict,
+    company_code: str,
+    version_number: int,
+    knowledge_files: list[dict],
+    selected_data_source_ids: list[str] | None = None,
+) -> str:
+    payload = build_ai_input_payload(detail, company_code, knowledge_files, selected_data_source_ids)
+    audit_summary = build_antigravity_audit_summary(company_code)
+    auditing_skill = load_skill_file("auditing-data")
+    writing_skill = load_skill_file("writing-report")
+    template_text = load_skill_file("writing-report", "REPORT_TEMPLATE.md") or REPORT_MARKDOWN_TEMPLATE
+
+    sections = [
+        "请根据以下三份说明共同完成报告生成：",
+        "1. auditing-data：定义审计阶段输出了哪些 findings，以及这些 findings 应如何被吸收。",
+        "2. writing-report：定义了尽调报告的文风、章节、表格和锚点规则。",
+        "3. REPORT_TEMPLATE.md：定义了最终报告的 Markdown 结构骨架。",
+        "",
+        "写作硬约束：",
+        "1. 必须输出纯中文 Markdown。",
+        "2. 必须完整输出 6 章，且每章包含“风险定性 / 核查证据 / 财务与合规影响评估 / 补充尽调建议”。",
+        "3. 必须穿插表格，尤其在财务勾稽、关联关系、债务担保、补件建议处。",
+        "4. 必须优先吸收审计结果中的高风险 findings。",
+        "5. 关键风险判断后要自然附上底稿锚点路径。",
+        "6. 缺资料时不能跳过章节，必须写明资料缺口和建议补件。",
+        "7. 不得输出英文章节名、英文表头、英文风险标题。",
+        "8. 只能参考本次已明确选中的知识库文件；未选中的知识库文件不得自行引用。",
+        "",
+        f"当前公司：{detail.get('company', {}).get('name') or company_code}",
+        f"当前生成版本：V{version_number}",
+        "本次已明确选中的知识库文件：",
+        "；".join(payload.get("selected_knowledge_file_names") or ["本次未选择知识库文件"]),
+        "",
+        "以下为审计技能说明：",
+        auditing_skill,
+        "",
+        "以下为写稿技能说明：",
+        writing_skill,
+        "",
+        "以下为报告模板：",
+        template_text,
+        "",
+        "以下为本轮审计结果（写稿时必须优先吸收）：",
+        json_block("audit_summary", audit_summary),
+        "",
+        "以下为本轮写稿可使用的业务输入：",
+        json_block("selected_data_sources", payload.get("selected_data_sources")),
+        json_block("company", payload.get("company")),
+        json_block("case_info", payload.get("case_info")),
+        json_block("recommendation", payload.get("recommendation")),
+        json_block("people", payload.get("people")),
+        json_block("related_companies", payload.get("related_companies")),
+        json_block("shareholding_changes", payload.get("shareholding_changes")),
+        json_block("profile_attributes", payload.get("profile_attributes")),
+        json_block("latest_metrics", payload.get("latest_metrics")),
+        json_block("recent_metric_history", payload.get("recent_metric_history")),
+        json_block("reconciliation_checks", payload.get("reconciliation_checks")),
+        json_block("tax_invoice_checks", payload.get("tax_invoice_checks")),
+        json_block("tax_filings", payload.get("tax_filings")),
+        json_block("bank_summaries", payload.get("bank_summaries")),
+        json_block("credit_history", payload.get("credit_history")),
+        json_block("contracts", payload.get("contracts")),
+        json_block("orders", payload.get("orders")),
+        json_block("invoices", payload.get("invoices")),
+        json_block("related_transactions", payload.get("related_transactions")),
+        json_block("guarantees", payload.get("guarantees")),
+        json_block("industry_profile", payload.get("industry_profile")),
+        json_block("peer_comparisons", payload.get("peer_comparisons")),
+        json_block("public_risks", payload.get("public_risks")),
+        json_block("validation_findings", payload.get("validation_findings")),
+        json_block("due_diligence_materials", payload.get("due_diligence_materials")),
+        json_block("public_info_enrichment", payload.get("public_info_enrichment")),
+        json_block("selected_knowledge_file_names", payload.get("selected_knowledge_file_names")),
         json_block("knowledge_files", payload.get("knowledge_files")),
         "",
         "如果某一字段为空，请按“资料待进一步补充核实”处理，不得编造。",
@@ -2200,6 +2994,19 @@ def build_generation_basis(detail: dict, knowledge_files: list[dict], company_co
     return basis
 
 
+def build_skill_generation_basis(detail: dict, company_code: str, knowledge_files: list[dict], selected_data_source_ids: list[str] | None = None) -> list[str]:
+    binding = SKILL_PIPELINE_BINDINGS.get(company_code)
+    base_basis = build_generation_basis(detail, knowledge_files, company_code, selected_data_source_ids)
+    if not binding:
+        return base_basis
+    skill_basis = [
+        f"已调用 Skill Pipeline：{binding['skills'][0]} -> {binding['skills'][1]}",
+        f"Mock VDR 目录：{binding['mock_vdr_dir']}",
+        "审计阶段先输出结构化 findings，再由 DeepSeek 按 skill 说明书生成风险前置长文本报告" if get_deepseek_api_key() else "当前未检测到 DeepSeek Key，已退回本地模板生成",
+    ]
+    return skill_basis + base_basis
+
+
 def build_review_result(detail: dict, version: dict) -> dict:
     files = version["review_files"]
     internal_files = [item for item in files if item["category"] == "internal"]
@@ -2251,6 +3058,50 @@ def build_review_result(detail: dict, version: dict) -> dict:
     }
 
 
+def generate_report_with_skill_pipeline(
+    company_code: str,
+    version_number: int,
+    detail: dict | None = None,
+    knowledge_files: list[dict] | None = None,
+    selected_data_source_ids: list[str] | None = None,
+) -> tuple[list[dict], str]:
+    if not get_skill_pipeline_binding(company_code):
+        raise RuntimeError(f"No skill pipeline configured for {company_code}")
+    detail = detail or get_company_detail_base_payload(company_code)
+    if detail is None:
+        raise RuntimeError(f"Company detail not found for {company_code}")
+
+    if not get_deepseek_api_key():
+        markdown = build_antigravity_report_markdown(company_code, version_number, detail)
+        sections, full_text = parse_markdown_report(markdown)
+        if not sections:
+            raise RuntimeError("Skill pipeline fallback returned no report sections")
+        return sections, full_text
+
+    prompt = build_skill_pipeline_report_prompt(
+        detail,
+        company_code,
+        version_number,
+        knowledge_files or [],
+        selected_data_source_ids,
+    )
+    response = call_deepseek_chat(
+        [{"role": "user", "content": prompt}],
+        system_prompt=SKILL_PIPELINE_REPORT_SYSTEM_PROMPT,
+        model=DEEPSEEK_MODEL,
+    )
+    markdown = (
+        response.get("choices", [{}])[0]
+        .get("message", {})
+        .get("content", "")
+        .strip()
+    )
+    sections, full_text = parse_markdown_report(markdown)
+    if not sections:
+        raise RuntimeError("Skill pipeline DeepSeek output could not be parsed into report sections")
+    return sections, full_text
+
+
 def serialize_material_files(company_code: str) -> list[dict]:
     runtime = ensure_material_runtime(company_code)
     return runtime["files"]
@@ -2261,7 +3112,19 @@ def ensure_report_runtime(company_code: str, detail: dict) -> dict:
     if runtime:
         return runtime
 
-    sections, full_text, based_on = build_fallback_report_sections(detail, 1)
+    if get_skill_pipeline_binding(company_code):
+        sections, full_text = generate_report_with_skill_pipeline(
+            company_code,
+            1,
+            detail,
+            [],
+            get_all_report_data_source_ids(),
+        )
+        based_on = build_skill_generation_basis(detail, company_code, [], get_all_report_data_source_ids())
+        generation_mode = "skill_pipeline"
+    else:
+        sections, full_text, based_on = build_fallback_report_sections(detail, 1)
+        generation_mode = "template"
     runtime = {
         "next_version": 2,
         "versions": [
@@ -2279,7 +3142,7 @@ def ensure_report_runtime(company_code: str, detail: dict) -> dict:
                 "review_result": None,
                 "review_edit_text": full_text,
                 "review_saved_at": None,
-                "generation_mode": "template",
+                "generation_mode": generation_mode,
             }
         ],
     }
@@ -2322,7 +3185,7 @@ def get_companies_payload() -> dict:
     for item in companies:
         workbook_info = workbook_index["companies"].get(item["company_code"], {})
         item["workbook_sheet_count"] = len(workbook_info.get("sheet_counts", {}))
-        item["data_mode"] = (
+        item["data_mode"] = "skill_poc" if get_skill_pipeline_binding(item["company_code"]) else (
             "public_pack" if item.get("recommendation_status") == "public_pack_only" else "full_case"
         )
     return {
@@ -2330,6 +3193,92 @@ def get_companies_payload() -> dict:
         "excel_path": workbook_index["path"],
         "sheet_names": workbook_index["sheet_names"],
         "companies": companies,
+    }
+
+
+def build_home_feed_payload() -> dict:
+    stage_labels = {
+        "report_review": "洞察复核中",
+        "committee_ready": "洞察已完成",
+        "supplement_pending": "待补充资料",
+        "data_pack_ready": "数据包就绪",
+    }
+    severity_labels = {
+        "high": ("高风险", "status-pressure"),
+        "medium": ("中风险", "status-watch"),
+        "low": ("低风险", "status-blue"),
+    }
+
+    with get_connection() as conn:
+        recent_investigations = fetch_all(
+            conn,
+            """
+            SELECT
+              c.company_code,
+              c.name,
+              COALESCE(c.subindustry, c.industry_category, '所属行业') AS industry,
+              d.product_type,
+              d.current_stage,
+              d.application_date
+            FROM due_diligence_cases d
+            JOIN companies c ON c.id = d.company_id
+            WHERE d.product_type != 'listed_company_public_pack'
+            ORDER BY d.application_date DESC, d.created_at DESC
+            LIMIT 3
+            """,
+        )
+
+        risk_alerts = fetch_all(
+            conn,
+            """
+            SELECT
+              c.company_code,
+              c.name,
+              e.severity,
+              e.title,
+              e.summary,
+              e.event_date
+            FROM public_risk_events e
+            JOIN companies c ON c.id = e.company_id
+            ORDER BY
+              CASE e.severity
+                WHEN 'high' THEN 3
+                WHEN 'medium' THEN 2
+                ELSE 1
+              END DESC,
+              e.event_date DESC,
+              e.id DESC
+            LIMIT 3
+            """,
+        )
+
+    investigations_payload = [
+        {
+            "company": item["name"],
+            "tag": "风险洞察" if item.get("product_type") == "micro_enterprise_credit" else "企业洞察",
+            "industry": item.get("industry") or "所属行业",
+            "status": stage_labels.get(item.get("current_stage"), item.get("current_stage") or "进行中"),
+            "time": item.get("application_date") or "—",
+        }
+        for item in recent_investigations
+    ]
+
+    alerts_payload = []
+    for item in risk_alerts:
+        level, level_class = severity_labels.get(item.get("severity"), ("风险关注", "status-blue"))
+        alerts_payload.append(
+            {
+                "company": item["name"],
+                "level": level,
+                "levelClass": level_class,
+                "detail": item.get("summary") or item.get("title") or "请进入企业详情查看最新风险动态。",
+                "time": item.get("event_date") or "—",
+            }
+        )
+
+    return {
+        "recentInvestigations": investigations_payload,
+        "riskAlerts": alerts_payload,
     }
 
 
@@ -2852,14 +3801,17 @@ def get_company_detail_payload(company_code: str) -> dict | None:
     detail["report_versions"] = [
         serialize_report_version(company_code, version) for version in runtime["versions"]
     ]
+    skill_binding = get_skill_pipeline_binding(company_code)
+    deepseek_configured = bool(get_deepseek_api_key())
     detail["ai_capability"] = {
-        "provider": "DeepSeek",
-        "configured": bool(get_deepseek_api_key()),
-        "mode": "server_env",
-        "model": DEEPSEEK_MODEL,
+        "provider": "Skill Pipeline + DeepSeek" if skill_binding else "DeepSeek",
+        "configured": deepseek_configured if skill_binding else deepseek_configured,
+        "mode": "skill_pipeline_via_deepseek" if skill_binding and deepseek_configured else "skill_pipeline_fallback" if skill_binding else "server_env",
+        "model": f"auditing-data -> writing-report -> {DEEPSEEK_MODEL}" if skill_binding and deepseek_configured else "auditing-data -> writing-report (fallback)" if skill_binding else DEEPSEEK_MODEL,
         "generate_endpoint": f"/api/company/{quote(company_code)}/report-versions",
         "review_endpoint": f"/api/company/{quote(company_code)}/report-versions/{{version_id}}/review",
     }
+    detail["skill_pipeline"] = skill_binding
     detail["due_diligence_materials"] = serialize_material_files(company_code)
     return detail
 
@@ -2869,14 +3821,28 @@ def create_report_version(company_code: str, knowledge_file_ids: list[str] | Non
     if detail is None:
         return None
 
+    detail = supplement_poc_detail(detail)
     runtime = ensure_report_runtime(company_code, detail)
     version_number = runtime["next_version"]
     knowledge_map = knowledge_file_map()
     selected_ids = knowledge_file_ids or []
     selected_files = [knowledge_map[file_id] for file_id in selected_ids if file_id in knowledge_map]
     selected_data_ids = resolve_selected_data_source_ids(data_source_ids)
-    sections, full_text = generate_report_with_deepseek(detail, company_code, version_number, selected_files, selected_data_ids)
-    based_on = build_generation_basis(detail, selected_files, company_code, selected_data_ids)
+    skill_binding = get_skill_pipeline_binding(company_code)
+    if skill_binding:
+        sections, full_text = generate_report_with_skill_pipeline(
+            company_code,
+            version_number,
+            detail,
+            selected_files,
+            selected_data_ids,
+        )
+        based_on = build_skill_generation_basis(detail, company_code, selected_files, selected_data_ids)
+        generation_mode = f"skill_pipeline::{DEEPSEEK_MODEL}" if get_deepseek_api_key() else "skill_pipeline::fallback"
+    else:
+        sections, full_text = generate_report_with_deepseek(detail, company_code, version_number, selected_files, selected_data_ids)
+        based_on = build_generation_basis(detail, selected_files, company_code, selected_data_ids)
+        generation_mode = DEEPSEEK_MODEL
     new_version = {
         "id": f"v{version_number}",
         "version_label": f"V{version_number}",
@@ -2891,7 +3857,7 @@ def create_report_version(company_code: str, knowledge_file_ids: list[str] | Non
         "review_result": None,
         "review_edit_text": full_text,
         "review_saved_at": None,
-        "generation_mode": DEEPSEEK_MODEL,
+        "generation_mode": generation_mode,
     }
     runtime["versions"].append(new_version)
     runtime["next_version"] += 1
@@ -3075,6 +4041,8 @@ class DemoRequestHandler(SimpleHTTPRequestHandler):
             return self.respond_json(build_system_admin_payload())
         if path == "/api/companies":
             return self.respond_json(get_companies_payload()["companies"])
+        if path == "/api/home-feed":
+            return self.respond_json(build_home_feed_payload())
         if "/report-versions/" in path and path.endswith("/pdf"):
             company_code, version_id = self.parse_version_path(path, suffix="/pdf")
             if not company_code or not version_id:
@@ -3107,6 +4075,8 @@ class DemoRequestHandler(SimpleHTTPRequestHandler):
             return self.respond_json(payload)
 
         if path == "/":
+            self.path = "/index.html"
+        elif not (ROOT / path.lstrip("/")).exists():
             self.path = "/index.html"
         return super().do_GET()
 
