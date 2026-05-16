@@ -72,8 +72,8 @@ MATERIAL_BUCKET_TITLES = {
     "manager-notes": "客户经理补充说明",
 }
 KNOWLEDGE_CATEGORY_TITLES = {
-    "laws": "法律法规",
-    "policies": "行内制度",
+    "laws": "外部法规",
+    "policies": "内部制度",
     "experience": "专家经验",
 }
 REPORT_DATA_SOURCE_GROUPS = [
@@ -226,7 +226,7 @@ REVIEW_JUDGEMENT_GUIDANCE = [
         "id": "compliance-boundary",
         "severity": "medium",
         "source_type": "内外规符合性",
-        "judgement_focus": "需判断业务是否符合外规、行内制度和准入口径要求。",
+        "judgement_focus": "需判断业务是否符合外规、内部制度和准入口径要求。",
         "required_data": "外规文件、银行内规、准入政策、行业限制清单、产品适配口径。",
         "improvement_direction": "在报告结论里明确列出符合项、待补项和需人工审批判断项。",
     },
@@ -2430,7 +2430,7 @@ def build_fallback_report_sections(detail: dict, version_number: int) -> tuple[l
 
 
 REPORT_SYSTEM_PROMPT = (
-    "你是银行公司授信尽职调查报告撰写助手。你必须以正式、审慎、客观、完整的中文输出报告。"
+    "你是银行公司授信尽职调查报告撰写智能体。你必须以正式、审慎、客观、完整的中文输出报告。"
     "不得虚构事实，缺失信息要明确写待补充核实。报告必须章节完整、前后判断一致、风险与结论呼应。"
 )
 SKILL_PIPELINE_REPORT_SYSTEM_PROMPT = (
@@ -2478,7 +2478,7 @@ REPORT_MARKDOWN_TEMPLATE = """# 尽职调查报告
 ### 补充尽调建议
 """
 REVIEW_SYSTEM_PROMPT = (
-    "你是银行公司授信尽职调查预审助手。你需要基于尽调报告正文、企业结构化数据、法律法规、行内制度和专家经验，"
+    "你是银行公司授信尽职调查预审智能体。你需要基于尽调报告正文、企业结构化数据、外部法规、内部制度和专家经验，"
     "输出严谨、可执行、面向客户经理的风险提示清单。不得虚构未提供的依据，不得忽略已经提供的文件。"
 )
 
@@ -2767,7 +2767,7 @@ def build_due_diligence_prompt(detail: dict, company_code: str, version_number: 
     payload = build_ai_input_payload(detail, company_code, knowledge_files, selected_data_source_ids)
     references = build_reference_catalog(detail, company_code, knowledge_files, selected_data_source_ids)
     sections = [
-        "你是银行公司金融授信条线的高级尽职调查报告撰写助手。",
+        "你是银行公司金融授信条线的高级尽职调查报告撰写智能体。",
         "",
         "你的任务是：",
         "基于输入的企业结构化数据、客户经理补充材料摘要、知识库引用文件摘要、规则核验结果，生成一份正式、专业、审慎、可用于银行内部授信审查流转的《尽职调查报告》。",
@@ -3066,11 +3066,11 @@ def generate_report_with_deepseek(detail: dict, company_code: str, version_numbe
 def build_review_prompt(detail: dict, company_code: str, version: dict, report_text: str, knowledge_files: list[dict]) -> str:
     payload = build_ai_input_payload(detail, company_code, knowledge_files, version.get("selected_data_source_ids"))
     sections = [
-        "你是银行授信尽调预审助手，请基于当前尽调报告正文、结构化企业数据、已选法律法规、已选行内制度、已选专家经验，输出一份预审风险提示清单。",
+        "你是银行授信尽调预审智能体，请基于当前尽调报告正文、结构化企业数据、已选外部法规、已选内部制度、已选专家经验，输出一份预审风险提示清单。",
         "",
         "你的任务要求：",
         "1. 必须识别当前报告中需要补充判断、需要补充数据、需要修订表述的地方。",
-        "2. 已经提供的法律法规、行内制度、专家经验文件，视为“已选依据”，不得错误输出成“未上传”“未提供”。",
+        "2. 已经提供的外部法规、内部制度、专家经验文件，视为“已选依据”，不得错误输出成“未上传”“未提供”。",
         "3. 风险提示必须贴近银行客户经理实际工作，语言明确、简洁、可执行。",
         "4. 优先关注：主体准入、治理结构、经营真实性、还款来源、财务质量、行业政策、关联交易、担保缓释、合规边界、资料缺口、结论一致性。",
         "5. 不要重复同一问题；每条提示应聚焦一个核心判断点。",
@@ -3089,7 +3089,7 @@ def build_review_prompt(detail: dict, company_code: str, version: dict, report_t
         '      "judgement_focus": "客户经理需要做出的判断",',
         '      "required_data": "若还需数据，写清楚；若当前资料基本够用，可写“现有资料可支持初判，建议补充xx增强结论”",',
         '      "improvement_direction": "建议如何修改报告或补充分析",',
-        '      "source_type": "法律法规|行内制度|专家经验|结构化数据|综合判断",',
+        '      "source_type": "外部法规|内部制度|专家经验|结构化数据|综合判断",',
         '      "source_basis": "命中的依据文件名或数据点" ',
         "    }",
         "  ]",
@@ -4444,7 +4444,7 @@ class DemoRequestHandler(SimpleHTTPRequestHandler):
             try:
                 result = call_deepseek_chat(
                     [{"role": "user", "content": payload.get("prompt", "请返回“DeepSeek连接正常”。")}],
-                    system_prompt="你是银行信贷尽调助手，请用简洁中文回答。",
+                    system_prompt="你是银行信贷尽调智能体，请用简洁中文回答。",
                 )
             except Exception as error:
                 return self.respond_json({"error": str(error)}, status=502)

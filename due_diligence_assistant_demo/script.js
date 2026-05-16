@@ -5,18 +5,18 @@ const ASTRAEA_ASSISTANT_IMAGE = ASTRAEA_PERSONA_IMAGE;
 const ASTRAEA_HOME_ASSISTANT_IMAGE = ASTRAEA_PERSONA_IMAGE;
 
 const topSections = [
-  { id: "home", title: "首页", summary: "以 Astraea 助手主视觉、任务输入与风险提醒构成首页首屏。" },
+  { id: "home", title: "首页", summary: "以 Astraea 风险先知主视觉、任务输入与风险提醒构成首页首屏。" },
   { id: "risk-map", title: "风险地图", summary: "从全国热力分布进入省级风险详情，再下钻到企业尽调。" },
   { id: "due-task", title: "洞察任务", summary: "围绕数据搜集与报告生成两条主链，展示当前洞察任务进度。" },
   { id: "enterprise-library", title: "企业画像", summary: "先从企业清单选择目标企业，再查看二维风险矩阵和关键风险构面。" },
   { id: "report-center", title: "洞察报告", summary: "先展示各类报告入口与生成状态，再进入尽调报告详情。" },
   { id: "watchlist", title: "监控预警", summary: "持续监控尽调企业、识别预警信号并触发风险复核建议。" },
-  { id: "knowledge-center", title: "知识中心", summary: "沉淀法律法规、行内制度和专家经验文件。" },
+  { id: "knowledge-center", title: "知识中心", summary: "沉淀外部法规、内部制度和专家经验文件。" },
 ];
 
 const sidebarItems = {
   home: [
-    { id: "overview", title: "助手首页" },
+    { id: "overview", title: "风险先知首页" },
     { id: "quick-start", title: "快捷任务" },
   ],
   "risk-map": [
@@ -37,7 +37,7 @@ const sidebarItems = {
   watchlist: [
     { id: "live", title: "实时监控" },
     { id: "alerts", title: "预警动态" },
-    { id: "recommendations", title: "助手建议" },
+    { id: "recommendations", title: "风险先知建议" },
   ],
   "report-center": [
     { id: "generation", title: "报告生成" },
@@ -45,8 +45,8 @@ const sidebarItems = {
     { id: "evidence", title: "证据溯源" },
   ],
   "knowledge-center": [
-    { id: "laws", title: "法律法规" },
-    { id: "policies", title: "行内制度" },
+    { id: "laws", title: "外部法规" },
+    { id: "policies", title: "内部制度" },
     { id: "experience", title: "专家经验" },
   ],
   "risk-view": [
@@ -68,8 +68,8 @@ const sidebarItems = {
     { id: "post-loan", title: "贷后管理" },
   ],
   "knowledge-base": [
-    { id: "laws", title: "法律法规" },
-    { id: "policies", title: "行内制度" },
+    { id: "laws", title: "外部法规" },
+    { id: "policies", title: "内部制度" },
     { id: "experience", title: "专家经验" },
   ],
   "system-admin": [
@@ -88,8 +88,8 @@ const dueDiligenceTabs = [
 ];
 
 const dueTaskStepBlueprints = [
-  { weight: 18, title: "主体与股权核验", tasks: ["工商信息核验", "股东穿透识别", "实际控制人确认"], runningDesc: "核验推进中" },
   { weight: 20, title: "工商/司法数据归集", tasks: ["工商数据", "司法风险", "经营异常"], runningDesc: "数据归集中" },
+  { weight: 18, title: "主体与股权核验", tasks: ["工商信息核验", "股权穿透", "实际控制人确认"], runningDesc: "核验推进中" },
   { weight: 18, title: "财务与现金流分析", tasks: ["财务报表分析", "现金流健康度", "偿债能力评估"], runningDesc: "模型分析中" },
   { weight: 14, title: "舆情与事件扫描", tasks: ["舆情监测", "重大事件", "负面信息识别"], runningDesc: "扫描处理中" },
   { weight: 14, title: "关联网络穿透", tasks: ["关联企业识别", "关联交易挖掘", "复杂关系图谱"], runningDesc: "图谱构建中" },
@@ -1152,6 +1152,7 @@ const state = {
   reportCenterView: "hub",
   reportCenterReportTypeId: "due-diligence",
   reportCenterSearchKeyword: "",
+  reportSearchKeyword: "",
   reportCenterLoadingCompanyCode: null,
   reportCenterError: null,
   riskHouseFocusId: "01",
@@ -3401,7 +3402,7 @@ function renderDueDiligenceReportGenerate(detail) {
           <div class="inline-head">
             <div>
               <h3>知识库引用依据</h3>
-              <p>从左侧统一选择法律法规、行内制度和专家经验，作为尽调报告生成与预审时的参考口径和引用依据。</p>
+              <p>从左侧统一选择外部法规、内部制度和专家经验，作为尽调报告生成与预审时的参考口径和引用依据。</p>
             </div>
             <button class="ghost-action" type="button" data-action="toggle-knowledge-pane" data-pane="report">${collapsed ? "展开依据" : "收起依据"}</button>
           </div>
@@ -3451,6 +3452,14 @@ function renderDueDiligenceReportGenerate(detail) {
                   )
                   .join("")}
               </select>
+              <input
+                class="search-box report-document-search-input"
+                id="report-search-input"
+                type="search"
+                placeholder="搜索章节或正文"
+                value="${escapeHtml(state.reportSearchKeyword)}"
+              />
+              <button class="ghost-action" type="button" data-action="search-report" data-report-variant="generated">搜索</button>
               <button class="ghost-action" type="button" data-action="toggle-knowledge-pane" data-pane="report">${collapsed ? "展开知识库依据" : "收起知识库依据"}</button>
               <button class="ghost-action" type="button" data-action="toggle-report-references">${sourceOpen ? "收起溯源" : "展开溯源"}</button>
               <button class="ghost-action" type="button" data-action="toggle-report-immersive">${immersive ? "退出沉浸" : "沉浸模式"}</button>
@@ -3563,9 +3572,9 @@ function renderDueDiligenceReportReview(detail) {
         </section>
         <div class="divider"></div>
         <section class="review-knowledge-panel">
-          ${renderReviewKnowledgeGroup("laws", "法律法规", "从现有知识库中勾选监管政策、行业规范和名单类文件，作为外规审查依据。")}
+          ${renderReviewKnowledgeGroup("laws", "外部法规", "从现有知识库中勾选监管政策、行业规范和名单类文件，作为外规审查依据。")}
           <div class="divider"></div>
-          ${renderReviewKnowledgeGroup("policies", "行内制度", "从现有知识库中勾选内部授信政策、准入标准和审批口径文件，作为内规审查依据。")}
+          ${renderReviewKnowledgeGroup("policies", "内部制度", "从现有知识库中勾选内部授信政策、准入标准和审批口径文件，作为内规审查依据。")}
           <div class="divider"></div>
           ${renderReviewKnowledgeGroup("experience", "专家经验", "从现有知识库中勾选专家经验文件，作为风险判断和完善方向的补充口径。")}
         </section>
@@ -3803,7 +3812,7 @@ function renderSystemAdmin() {
     );
   } else if (active === "knowledge-permissions") {
     html = renderSystemTable(
-      ["角色", "法律法规", "行内制度", "专家经验"],
+      ["角色", "外部法规", "内部制度", "专家经验"],
       (data.knowledge_permissions || []).map(
         (item) => `
           <div class="table-row" style="--cols: 4;">
@@ -4817,7 +4826,7 @@ function renderWatchlistAssistantRail(watched, insight) {
       <article class="glass-panel watch-ai-card watch-ai-card--overview">
         <div class="watch-ai-card__head">
           <div>
-            <p class="section-kicker">Astraea 智能助手</p>
+            <p class="section-kicker">Astraea 风险先知</p>
             <h3>辅助监控</h3>
           </div>
           <span>实时监控中</span>
@@ -5119,7 +5128,7 @@ function renderWatchlistAnalysisLayout(insight, watched) {
             <article class="glass-panel watch-ai-card">
               <div class="watch-ai-card__head">
                 <div>
-                  <p class="section-kicker">Astraea 智能助手</p>
+                  <p class="section-kicker">Astraea 风险先知</p>
                   <h3>处置建议</h3>
                 </div>
                 <span>实时监控中</span>
@@ -5159,7 +5168,7 @@ function buildMacroSignals() {
 function renderAstraeaPersona(size = "large") {
   return `
     <div class="astraea-persona astraea-persona-${size}">
-      <img src="${ASTRAEA_ASSISTANT_IMAGE}" alt="Astraea AI 尽调助手" />
+      <img src="${ASTRAEA_ASSISTANT_IMAGE}" alt="Astraea 风险先知" />
       <div class="persona-orbit persona-orbit-one"></div>
       <div class="persona-orbit persona-orbit-two"></div>
     </div>
@@ -5611,7 +5620,7 @@ function renderHome() {
             <span>区块风险图谱</span>
           </div>
           <div class="astraea-portrait-frame">
-            <img src="${ASTRAEA_HOME_ASSISTANT_IMAGE}" alt="Astraea 首页助手形象" class="astraea-portrait-image astraea-portrait-image--uploaded" />
+            <img src="${ASTRAEA_HOME_ASSISTANT_IMAGE}" alt="Astraea 首页风险先知形象" class="astraea-portrait-image astraea-portrait-image--uploaded" />
           </div>
           <div class="astraea-portrait-copy">
             <h2><span class="astraea-portrait-copy__wordmark">Astraea</span> <span class="astraea-portrait-copy__cn">阿斯特莱亚</span></h2>
@@ -5622,8 +5631,8 @@ function renderHome() {
         <div class="astraea-home-main">
           <div class="astraea-home-hero">
             <div class="astraea-home-copy">
-              <h1>有什么金融资产风险分析需求？</h1>
-              <p>Astraea 将协助你识别企业、资产与区域风险信号，生成可追溯的尽调洞察。</p>
+              <h1>请告诉我您的输入目标企业或风控指令</h1>
+              <p>ASTRAEA为您前瞻洞悉全维度潜在风险，生成可追溯的尽调洞察。</p>
             </div>
 
             <div class="astraea-command-card glass-card neon-border">
@@ -6175,12 +6184,15 @@ function renderDueTask() {
   const steps = company?.steps || [];
   contentAreaEl.innerHTML = `
     <section class="due-task-screen task-journey-screen">
+      <div class="task-detail-title">
+        <p class="section-kicker">Mission Brief</p>
+        <h2>尽调执行工作台</h2>
+      </div>
       <div class="task-board-layout">
         <div class="task-main-column">
           <div class="task-board-hero glass-panel">
             <div>
-              <p class="section-kicker">Mission Brief</p>
-              <h2>尽调执行工作台 · ${escapeHtml(company?.name || "深圳市灵犀微传感科技有限公司")}</h2>
+              <h2>${escapeHtml(company?.name || "深圳市灵犀微传感科技有限公司")}</h2>
               <p>任务已启动，Astraea 正在收集、分析与验证目标企业的关键经营、财务、司法与关联风险信息。</p>
               <button class="portrait-back-inline" type="button" data-action="back-task-board-list">返回企业清单</button>
             </div>
@@ -6236,7 +6248,7 @@ function renderDueTask() {
               </div>
             </article>
             <article class="glass-panel task-suggestion-card">
-              <h3>Astraea助手建议</h3>
+              <h3>Astraea风险先知建议</h3>
                 <div class="suggestion-card"><strong>优先核验高风险构面</strong><span>建议先围绕 ${escapeHtml((company?.tags || [])[0] || "高风险事项")} 补充关键证据，减少后续复核回退。</span></div>
                 <div class="suggestion-card"><strong>补充经营与回款链路</strong><span>建议同步准备合同、订单、发票和银行流水，便于后续报告直接引用。</span></div>
               <div class="suggestion-card"><strong>${company?.reportCompleted ? "查看并复核报告" : "提前准备结论口径"}</strong><span>${company?.reportCompleted ? "当前企业尽调报告已生成，可直接进入报告工作台查看、编辑与预审。" : `当前任务已推进到 ${company?.phase || "生成初步结论中"}，可以同步整理风险结论与缓释建议草案。`}</span></div>
@@ -6246,10 +6258,10 @@ function renderDueTask() {
         <aside class="task-side-column">
           <article class="glass-panel astraea-assistant-panel">
             <div class="assistant-panel-head">
-              <img src="${ASTRAEA_ASSISTANT_IMAGE}" alt="Astraea 助手头像" class="assistant-portrait-image" />
+              <img src="${ASTRAEA_ASSISTANT_IMAGE}" alt="Astraea 风险先知头像" class="assistant-portrait-image" />
               <div>
                 <h3>Astraea 阿斯特莱亚</h3>
-                <p>AI尽调助手</p>
+                <p>AI风险先知</p>
               </div>
             </div>
             <div class="assistant-quote-card">
@@ -7512,6 +7524,32 @@ function scrollToReportAnchor(anchor, behavior = "smooth") {
   });
 }
 
+function runReportSearch(variant = "generated") {
+  const inputEl = document.getElementById("report-search-input");
+  const keyword = (inputEl?.value || state.reportSearchKeyword || "").trim().toLowerCase();
+  state.reportSearchKeyword = inputEl?.value || state.reportSearchKeyword;
+  if (!keyword) {
+    inputEl?.focus();
+    return;
+  }
+
+  syncReportEditorTextFromWorkspace(variant);
+  const previewEl = document.getElementById(`report-preview-${variant}`);
+  const sections = Array.from(previewEl?.querySelectorAll(".report-doc-section") || []);
+  const matchedSection = sections.find((section) => (section.textContent || "").toLowerCase().includes(keyword));
+
+  if (!matchedSection) {
+    inputEl?.setCustomValidity(`未找到“${inputEl?.value || state.reportSearchKeyword}”`);
+    inputEl?.reportValidity();
+    window.setTimeout(() => inputEl?.setCustomValidity(""), 1800);
+    return;
+  }
+
+  state.previewSectionId = matchedSection.id;
+  updateDocumentWorkspace(variant);
+  scrollToReportAnchor(matchedSection.id);
+}
+
 function focusReportReference(referenceId, variant = "generated") {
   if (!referenceId) return;
   state.activeReferenceId = referenceId;
@@ -8149,6 +8187,10 @@ document.addEventListener("click", async (event) => {
     render();
     return;
   }
+  if (action === "search-report") {
+    runReportSearch(target.dataset.reportVariant || "generated");
+    return;
+  }
   if (action === "focus-reference") {
     const variant = target.dataset.reportVariant || "generated";
     focusReportReference(target.dataset.referenceId, variant);
@@ -8316,6 +8358,10 @@ document.addEventListener("input", (event) => {
     renderReportCenter();
     return;
   }
+  if (target.id === "report-search-input") {
+    state.reportSearchKeyword = target.value;
+    return;
+  }
   if (target.id === "knowledge-search-input") {
     state.knowledgeSearchKeyword = target.value;
     renderKnowledgeBase();
@@ -8462,7 +8508,7 @@ document.addEventListener("keydown", async (event) => {
     await navigateToSmartRoute(resolution.routeKey, resolution.company, target.value);
     return;
   }
-  if (isEditableEventTarget(target) && !["risk-view-search-input", "process-engine-search-input", "task-board-search-input", "report-center-search-input"].includes(target.id)) {
+  if (isEditableEventTarget(target) && !["risk-view-search-input", "process-engine-search-input", "task-board-search-input", "report-center-search-input", "report-search-input"].includes(target.id)) {
     return;
   }
   if (event.key !== "Enter") return;
@@ -8477,6 +8523,10 @@ document.addEventListener("keydown", async (event) => {
   }
   if (target.id === "task-board-search-input" || target.id === "report-center-search-input") {
     event.preventDefault();
+  }
+  if (target.id === "report-search-input") {
+    event.preventDefault();
+    runReportSearch("generated");
   }
 });
 

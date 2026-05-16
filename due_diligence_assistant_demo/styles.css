@@ -25,7 +25,8 @@
   --muted: #607066;
   --border: #d7e5ca;
   --shadow: 0 18px 40px rgba(10, 17, 12, 0.1);
-  --font-sans: "Alibaba PuHuiTi 3.0", "Alibaba PuHuiTi", "PingFang SC", "Source Han Sans SC", "Microsoft YaHei", sans-serif;
+  --font-sans: "Noto Sans S Chinese Medium", "Noto Sans SC Medium", "Noto Sans CJK SC Medium", "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", sans-serif;
+  --font-logo: "Alibaba PuHuiTi 3.0", "Alibaba PuHuiTi", "PingFang SC", "Source Han Sans SC", "Microsoft YaHei", sans-serif;
   --radius-card-lg: 16px;
   --radius-card: 12px;
   --radius-control: 10px;
@@ -118,6 +119,7 @@ textarea {
   margin: 0;
   font-size: 28px;
   line-height: 1.15;
+  font-family: var(--font-logo);
 }
 
 .topbar-nav {
@@ -1664,6 +1666,12 @@ textarea {
 
 .report-editor-panel > .inline-head p {
   color: #91a7c9;
+}
+
+.report-document-search-input {
+  flex: 1 1 260px;
+  min-width: 220px;
+  max-width: 360px;
 }
 
 .report-document-shell {
@@ -4526,6 +4534,18 @@ input[type="file"] {
   gap: 20px;
 }
 
+.task-detail-title {
+  margin-bottom: 18px;
+  padding-left: 8px;
+}
+
+.task-detail-title h2 {
+  margin: 8px 0 0;
+  color: var(--astraea-text-strong);
+  font-size: 34px;
+  line-height: 1.18;
+}
+
 .task-main-column,
 .task-side-column {
   display: grid;
@@ -4537,6 +4557,13 @@ input[type="file"] {
   grid-template-columns: minmax(0, 1fr) 360px;
   align-items: center;
   gap: 20px;
+}
+
+.task-board-hero h2 {
+  margin: 0;
+  color: var(--astraea-text-strong);
+  font-size: 30px;
+  line-height: 1.28;
 }
 
 .mission-brief-grid {
@@ -5241,6 +5268,12 @@ input[type="file"] {
   border-radius: 14px;
   background: rgba(10, 24, 58, .72);
   margin-top: 12px;
+}
+
+.task-insight-card > h3,
+.task-suggestion-card > h3,
+.task-side-timeline > h3 {
+  padding-left: 18px;
 }
 
 .suggestion-card span { margin: 8px 0 12px; }
@@ -7345,7 +7378,7 @@ body::before {
 .topbar-brand-wordmark {
   margin: 0;
   color: #f7fbff;
-  font-family: var(--font-sans);
+  font-family: var(--font-logo);
   font-size: 33px;
   line-height: 0.94;
   letter-spacing: 0.09em;
@@ -7364,6 +7397,7 @@ body::before {
 }
 
 .topbar-brand-cn {
+  font-family: var(--font-logo);
   color: rgba(225, 241, 255, 0.9);
   font-size: 14px;
   letter-spacing: 0.18em;
@@ -7378,6 +7412,7 @@ body::before {
 }
 
 .topbar-brand-en {
+  font-family: var(--font-logo);
   color: rgba(215, 231, 255, 0.82);
   font-size: 13px;
   letter-spacing: 0.08em;
@@ -8849,7 +8884,8 @@ input[type="file"] {
 .astraea-quick-card strong {
   margin-top: 10px;
   color: #f5f9ff;
-  font-size: 22px;
+  font-size: 18px;
+  line-height: 1.35;
   text-shadow: 0 0 18px rgba(105, 149, 255, 0.08);
 }
 
@@ -10026,8 +10062,8 @@ td {
 }
 
 body {
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 17px;
+  line-height: 1.65;
 }
 
 .app-frame,
@@ -10123,12 +10159,14 @@ body {
 }
 
 .astraea-home-copy h1 {
-  font-size: clamp(40px, 3.2vw, 52px);
-  line-height: 1.16;
+  font-size: clamp(30px, 2.4vw, 38px);
+  line-height: 1.2;
   font-weight: 700;
 }
 
 .astraea-home-copy p {
+  font-size: clamp(24px, 2vw, 30px);
+  line-height: 1.45;
   font-weight: 500;
 }
 
@@ -10145,7 +10183,7 @@ body {
 .task-board-enter-link,
 .report-outline-item,
 .preview-nav-item {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .sidebar-nav-item__label,
@@ -10167,7 +10205,7 @@ body {
 .report-company-card__aux,
 .knowledge-file-description,
 .knowledge-file-source {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .sidebar-pro-card span,
@@ -10180,7 +10218,7 @@ body {
 .brand-kicker,
 .astraea-command-card__helper,
 .astraea-command-suggestion-layer__label {
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .sidebar-nav-item,
@@ -10205,7 +10243,21 @@ body {
 .report-company-card__meta,
 .watch-company-row,
 .knowledge-file-meta {
-  line-height: 1.6;
+  line-height: 1.65;
+}
+
+.report-doc-body {
+  font-size: var(--report-body-font-size, 18px);
+}
+
+.report-doc-body h3,
+.preview-section-body h3 {
+  font-size: var(--report-h3-font-size, 24px);
+}
+
+.report-doc-body h4,
+.preview-section-body h4 {
+  font-size: var(--report-h4-font-size, 20px);
 }
 
 @media (max-width: 1600px) {
@@ -10248,5 +10300,106 @@ body {
   .risk-legend {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 1500px) {
+  .app-shell {
+    padding: 16px;
+    padding-bottom: 88px;
+  }
+
+  .app-frame {
+    min-height: calc(100vh - 32px);
+  }
+
+  .topbar {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    gap: 14px;
+    padding: 14px 18px;
+  }
+
+  .topbar-main {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .topbar-actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .workspace {
+    grid-template-columns: 200px minmax(0, 1fr);
+  }
+
+  .sidebar {
+    padding: 14px 10px;
+  }
+
+  .sidebar-nav-item {
+    padding: 0 12px;
+  }
+
+  .main-panel {
+    padding: 22px 22px 96px;
+  }
+
+  .toolbar-grid,
+  .risk-toolbar-grid,
+  .three-col-grid,
+  .task-journey-bottom,
+  .watch-analysis-layout,
+  .report-company-detail-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .report-workspace-grid,
+  .review-workspace-grid,
+  .report-workspace-grid.has-reference-panel,
+  .report-workspace-grid.is-compact.has-reference-panel,
+  .review-workspace-grid.is-compact {
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+    min-height: 0;
+  }
+
+  .report-document-shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .report-outline-panel {
+    height: auto;
+    max-height: 240px;
+  }
+
+  .risk-workbench-layout,
+  .risk-workbench-layout--detail {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 1120px) {
+  .workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .main-panel {
+    padding: 18px 18px 96px;
+  }
+
+  .stats-grid,
+  .card-grid,
+  .field-grid,
+  .two-col-grid,
+  .report-hub-grid,
+  .company-list-panel--full .company-list-panel__list {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
