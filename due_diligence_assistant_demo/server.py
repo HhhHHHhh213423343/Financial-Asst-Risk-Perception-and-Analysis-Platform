@@ -2303,6 +2303,7 @@ def serialize_report_version(company_code: str, version: dict) -> dict:
             if file_id in knowledge_map
         ],
         "selected_data_source_ids": version.get("selected_data_source_ids", get_all_report_data_source_ids()),
+        "references": version.get("references") or [],
         "review_result": serialize_review_result(version.get("review_result")),
         "generation_mode": version.get("generation_mode", "template"),
         "review_edit_text": version.get("review_edit_text", version.get("full_text", "")),
@@ -2506,6 +2507,204 @@ def summarize_selected_data_sources(selected_ids: list[str]) -> list[dict]:
     return groups
 
 
+def build_reference_catalog(
+    detail: dict,
+    company_code: str,
+    knowledge_files: list[dict],
+    selected_data_source_ids: list[str] | None = None,
+) -> list[dict]:
+    refs: list[dict] = []
+    seen: set[tuple[str, str, str]] = set()
+
+    def add_ref(
+        source_type: str,
+        title: str,
+        locator: str = "",
+        excerpt: str = "",
+        source_path: str = "",
+        source_id: str = "",
+    ) -> None:
+        key = (source_type, source_path or source_id or title, locator)
+        if key in seen:
+            return
+        seen.add(key)
+        refs.append(
+            {
+                "id": f"R{len(refs) + 1}",
+                "source_type": compact_text(source_type, 60),
+                "title": compact_text(title, 120),
+                "locator": compact_text(locator, 120),
+                "excerpt": compact_text(excerpt, 260),
+                "source_path": source_path,
+                "source_id": source_id,
+            }
+        )
+
+    for item in knowledge_files:
+        category_title = KNOWLEDGE_CATEGORY_TITLES.get(item.get("category"), "知识库文件")
+        locator = "；".join(
+            part
+            for part in [
+                item.get("owner") and f"上传人：{item.get('owner')}",
+                item.get("uploaded_at") and f"上传时间：{item.get('uploaded_at')}",
+            ]
+            if part
+        )
+        add_ref(
+            category_title,
+            item.get("name") or "知识库文件",
+            locator=locator or "知识库文件",
+            excerpt=item.get("description") or item.get("content_text") or "",
+            source_path=item.get("stored_name", ""),
+            source_id=item.get("id", ""),
+        )
+
+    if get_skill_pipeline_binding(company_code):
+        audit_summary = build_antigravity_audit_summary(company_code)
+        for finding in audit_summary.get("findings", []):
+            finding_title = finding.get("finding_title") or "审计发现"
+            evidence = "；".join(finding.get("evidence_chain") or [])
+            for source in finding.get("source_refs") or []:
+                source_path = source.get("file", "")
+                source_name = Path(source_path).name
+                source_title_map = {
+                    "business_license.md": "营业执照资料",
+                    "financial_statements.md": "财务报表数据",
+                    "electricity_bills_2025.txt": "用电量核验材料",
+                    "board_meeting_minutes_secret.md": "董事会会议纪要",
+                    "shareholding_register.md": "股东名册与实控关系",
+                    "bank_statement_summary.md": "银行流水摘要",
+                    "tax_filing_summary.md": "纳税申报摘要",
+                    "top_customer_contracts.md": "主要客户合同资料",
+                    "management_interview_notes.md": "管理层访谈纪要",
+                    "litigation_and_penalties.md": "诉讼处罚材料",
+                }
+                add_ref(
+                    "底稿材料",
+                    source_title_map.get(source_name, source_name or source_path or "业务底稿"),
+                    locator=source.get("line_hint") or "原始底稿锚点",
+                    excerpt=f"{finding_title}：{evidence}",
+                    source_path=source_path,
+                    source_id=finding_title,
+                )
+
+    selected_source_ids = set(resolve_selected_data_source_ids(selected_data_source_ids))
+    company = detail.get("company") or {}
+    case_info = detail.get("case_info") or {}
+    recommendation = detail.get("recommendation") or {}
+    metrics = {item.get("metric_code"): item.get("value") for item in detail.get("latest_metrics") or []}
+    data_reference_specs = {
+        "company": (
+            "主体信息表数据",
+            "企业主体信息",
+            "企业主体基础字段",
+            f"企业名称：{company.get('name') or '—'}；成立时间：{company.get('established_on') or '—'}；注册资本：{format_currency(company.get('registered_capital_cny'))}；经营状态：{company.get('operating_status') or '—'}。",
+        ),
+        "case_info": (
+            "授信申请信息",
+            "案例与授信申请信息",
+            "案件与产品字段",
+            f"案例编号：{case_info.get('case_no') or '—'}；申请产品：{case_info.get('product_type') or '—'}；申请金额：{format_currency(case_info.get('requested_amount_cny'))}。",
+        ),
+        "people": (
+            "核心人员表数据",
+            "核心人员与角色信息",
+            "人员角色明细",
+            f"已纳入 {len(detail.get('people') or [])} 条核心人员/担保人/管理层角色记录。",
+        ),
+        "profile_attributes": (
+            "补充画像字段",
+            "补充画像属性",
+            "客户画像明细",
+            f"已纳入 {len(detail.get('profile_attributes') or [])} 条客户画像属性，用于补充主体、经营和管理特征。",
+        ),
+        "contracts": ("合同数据表", "合同数据", "合同清单", f"已纳入 {len(detail.get('contracts') or [])} 份合同数据，用于核验主营业务和客户关系。"),
+        "orders": ("订单数据表", "订单数据", "订单清单", f"已纳入 {len(detail.get('orders') or [])} 条订单数据，用于核验业务闭环。"),
+        "invoices": ("发票数据表", "发票数据", "发票清单", f"已纳入 {len(detail.get('invoices') or [])} 张发票数据，用于核验收入与税票一致性。"),
+        "bank_summaries": ("回款流水摘要表", "银行摘要与回款", "银行流水摘要", f"已纳入 {len(detail.get('bank_summaries') or [])} 条银行摘要，用于核验回款和现金流。"),
+        "related_transactions": ("关联交易明细表", "关联交易摘要", "关联交易记录", f"已纳入 {len(detail.get('related_transactions') or [])} 条关联交易摘要，用于识别关联交易风险。"),
+        "latest_metrics": (
+            "核心财务指标表数据",
+            "最新核心财务指标",
+            "财务指标快照",
+            f"营业收入：{format_currency(metrics.get('revenue'))}；净利润：{format_currency(metrics.get('net_profit'))}；货币资金：{format_currency(metrics.get('cash'))}；应收账款：{format_currency(metrics.get('accounts_receivable'))}。",
+        ),
+        "recent_metric_history": ("近年财务趋势表", "近年财务趋势", "年度财务指标", f"已纳入 {len(detail.get('recent_metric_history') or [])} 条近年财务趋势数据。"),
+        "reconciliation_checks": ("收入回款税票勾稽表", "勾稽检查结果", "财务勾稽核验", f"已纳入 {len(detail.get('reconciliation_checks') or [])} 条勾稽检查结果，用于核验收入、回款和报表一致性。"),
+        "tax_invoice_checks": ("税票一致性核验表", "税票一致性核验", "税票核验记录", f"已纳入 {len(detail.get('tax_invoice_checks') or [])} 条税票一致性核验结果。"),
+        "tax_filings": ("纳税申报摘要表", "纳税申报摘要", "税务申报记录", f"已纳入 {len(detail.get('tax_filings') or [])} 条纳税申报摘要。"),
+        "credit_history": ("信用历史摘要表", "信用历史摘要", "征信/授信历史记录", f"已纳入 {len(detail.get('credit_history') or [])} 条信用历史记录。"),
+        "related_companies": ("关联公司关系表", "关联公司关系", "关联公司清单", f"已纳入 {len(detail.get('related_companies') or [])} 条关联公司关系。"),
+        "shareholding_changes": ("股权变更记录表", "股权变更记录", "股权变更清单", f"已纳入 {len(detail.get('shareholding_changes') or [])} 条股权变更记录。"),
+        "industry_profile": ("行业画像数据", "行业画像", "行业与政策字段", compact_text((detail.get("industry_profile") or {}).get("policy_direction") or (detail.get("industry_profile") or {}).get("industry_summary"), 220)),
+        "peer_comparisons": ("同业比较表", "同业比较", "同业比较记录", f"已纳入 {len(detail.get('peer_comparisons') or [])} 条同业比较数据。"),
+        "public_risks": ("公开风险事件表", "公开风险事件", "公开风险记录", f"已纳入 {len(detail.get('public_risks') or [])} 条公开风险事件。"),
+        "public_info_enrichment": ("公开信息补全层", "公开信息补全层", "公开资料摘要", "已纳入企业画像、治理摘要、公开风险、行业洞察和年度财务概览等公开信息补全内容。"),
+        "guarantees": ("担保与抵质押表", "担保与抵质押信息", "担保/押品记录", f"已纳入 {len(detail.get('guarantees') or [])} 条担保与抵质押记录。"),
+        "due_diligence_materials": ("尽调补充材料清单", "尽调补充材料", "客户经理上传材料", f"已纳入 {len(serialize_material_files(company_code))} 份尽调补充材料。"),
+        "validation_findings": ("核验发现清单", "核验发现", "系统核验结果", f"已纳入 {len(detail.get('validation_findings') or [])} 条核验发现，用于定位异常和补件要求。"),
+        "recommendation": (
+            "授信建议与缓释要求",
+            "授信建议与缓释要求",
+            "授信建议字段",
+            f"建议状态：{recommendation.get('recommendation_status') or '—'}；缓释要求：{compact_text(recommendation.get('guarantee_requirement'), 120)}。",
+        ),
+    }
+
+    for source_id, spec in data_reference_specs.items():
+        if source_id not in selected_source_ids:
+            continue
+        title, source_type, locator, excerpt = spec
+        add_ref(
+            source_type,
+            title,
+            locator=locator,
+            excerpt=excerpt,
+            source_id=source_id,
+        )
+
+    if not refs:
+        company_name = detail.get("company", {}).get("name") or company_code
+        add_ref(
+            "报告生成依据",
+            f"{company_name}基础尽调数据",
+            locator="系统默认输入",
+            excerpt="当前版本基于企业结构化数据、补充材料和已选知识文件生成。",
+            source_id=company_code,
+        )
+    return refs
+
+
+def reference_catalog_prompt_block(references: list[dict]) -> str:
+    return json_block("reference_catalog", references)
+
+
+def normalize_reference_markers(text: str, references: list[dict]) -> str:
+    normalized = text or ""
+    for ref in references:
+        marker = f"[{ref['id']}]"
+        candidates = [
+            ref.get("source_path", ""),
+            ref.get("source_id", ""),
+            ref.get("title", ""),
+        ]
+        for candidate in candidates:
+            candidate = str(candidate or "").strip()
+            if candidate:
+                normalized = normalized.replace(f"[{candidate}]", marker)
+    return normalized
+
+
+def normalize_report_section_references(sections: list[dict], references: list[dict]) -> list[dict]:
+    return [
+        {
+            **section,
+            "content": normalize_reference_markers(section.get("content", ""), references),
+        }
+        for section in sections
+    ]
+
+
 def build_ai_input_payload(detail: dict, company_code: str, knowledge_files: list[dict], selected_data_source_ids: list[str] | None = None) -> dict:
     public_info = load_public_enrichment(company_code)
     selected = set(resolve_selected_data_source_ids(selected_data_source_ids))
@@ -2566,6 +2765,7 @@ def build_ai_input_payload(detail: dict, company_code: str, knowledge_files: lis
 
 def build_due_diligence_prompt(detail: dict, company_code: str, version_number: int, knowledge_files: list[dict], selected_data_source_ids: list[str] | None = None) -> str:
     payload = build_ai_input_payload(detail, company_code, knowledge_files, selected_data_source_ids)
+    references = build_reference_catalog(detail, company_code, knowledge_files, selected_data_source_ids)
     sections = [
         "你是银行公司金融授信条线的高级尽职调查报告撰写助手。",
         "",
@@ -2588,6 +2788,8 @@ def build_due_diligence_prompt(detail: dict, company_code: str, version_number: 
         "13. 全文必须使用纯中文，不得输出英文章节名、英文表头、英文风险标签。",
         "14. 各章节必须展开为完整自然段，不能只写一句判断。",
         "15. 报告需要适度穿插 Markdown 表格，表格承载事实，正文承载判断。",
+        "16. 关键事实、风险判断和补件建议必须在句末加入引用编号，例如“……需进一步核实[R1]”。",
+        "17. 引用编号只能来自下方 reference_catalog，不得输出裸文件路径，不得自造不存在的引用编号。",
         "",
         "输出格式要求：",
         "- 使用 Markdown 输出。",
@@ -2624,6 +2826,7 @@ def build_due_diligence_prompt(detail: dict, company_code: str, version_number: 
         "6. 全文结论要前后一致，不能前面写风险高、后面又直接建议通过。",
         "7. 输出必须是完整正文，不要输出 JSON，不要输出解释说明，不要输出“以下是报告”。",
         "8. 表格表头必须使用中文，不得出现 Metric、Revenue、Change 等英文表头。",
+        "9. 使用引用时统一写成 [R1]、[R2]，同一句可使用多个编号，例如 [R2][R5]。",
         "",
         "后续预审视角补充：",
         "生成正文时，请尽量让下列判断点在报告中有事实依据、判断过程或待补数据提示，便于后续预审同步完成。",
@@ -2642,6 +2845,7 @@ def build_due_diligence_prompt(detail: dict, company_code: str, version_number: 
         "",
         "下面是本次生成报告的输入数据，请严格基于这些数据写作：",
         "",
+        reference_catalog_prompt_block(references),
         json_block("selected_data_sources", payload.get("selected_data_sources")),
         json_block("company", payload.get("company")),
         json_block("case_info", payload.get("case_info")),
@@ -2686,6 +2890,7 @@ def build_skill_pipeline_report_prompt(
 ) -> str:
     payload = build_ai_input_payload(detail, company_code, knowledge_files, selected_data_source_ids)
     audit_summary = build_antigravity_audit_summary(company_code)
+    references = build_reference_catalog(detail, company_code, knowledge_files, selected_data_source_ids)
     auditing_skill = load_skill_file("auditing-data")
     writing_skill = load_skill_file("writing-report")
     template_text = load_skill_file("writing-report", "REPORT_TEMPLATE.md") or REPORT_MARKDOWN_TEMPLATE
@@ -2701,10 +2906,12 @@ def build_skill_pipeline_report_prompt(
         "2. 必须完整输出 6 章，且每章包含“风险定性 / 核查证据 / 财务与合规影响评估 / 补充尽调建议”。",
         "3. 必须穿插表格，尤其在财务勾稽、关联关系、债务担保、补件建议处。",
         "4. 必须优先吸收审计结果中的高风险 findings。",
-        "5. 关键风险判断后要自然附上底稿锚点路径。",
+        "5. 关键风险判断后要自然附上 reference_catalog 中的引用编号。",
         "6. 缺资料时不能跳过章节，必须写明资料缺口和建议补件。",
         "7. 不得输出英文章节名、英文表头、英文风险标题。",
         "8. 只能参考本次已明确选中的知识库文件；未选中的知识库文件不得自行引用。",
+        "9. 最终正文里的来源锚点必须统一输出为 reference_catalog 中的 [R1]、[R2] 编号，不得输出裸文件路径。",
+        "10. 对收入真实性、关联交易、担保、债务、资产瑕疵等关键判断，句末必须附至少一个 [R] 编号。",
         "",
         f"当前公司：{detail.get('company', {}).get('name') or company_code}",
         f"当前生成版本：V{version_number}",
@@ -2722,6 +2929,9 @@ def build_skill_pipeline_report_prompt(
         "",
         "以下为本轮审计结果（写稿时必须优先吸收）：",
         json_block("audit_summary", audit_summary),
+        "",
+        "以下为本轮可使用的引用目录，正文只能使用这些编号：",
+        reference_catalog_prompt_block(references),
         "",
         "以下为本轮写稿可使用的业务输入：",
         json_block("selected_data_sources", payload.get("selected_data_sources")),
@@ -2832,6 +3042,7 @@ def parse_json_response_text(text: str) -> dict:
 
 def generate_report_with_deepseek(detail: dict, company_code: str, version_number: int, knowledge_files: list[dict], selected_data_source_ids: list[str] | None = None) -> tuple[list[dict], str]:
     prompt = build_due_diligence_prompt(detail, company_code, version_number, knowledge_files, selected_data_source_ids)
+    references = build_reference_catalog(detail, company_code, knowledge_files, selected_data_source_ids)
     response = call_deepseek_chat(
         [{"role": "user", "content": prompt}],
         system_prompt=REPORT_SYSTEM_PROMPT,
@@ -2845,6 +3056,7 @@ def generate_report_with_deepseek(detail: dict, company_code: str, version_numbe
     )
     if not content:
         raise RuntimeError("DeepSeek 未返回报告正文")
+    content = normalize_reference_markers(content, references)
     sections, full_text = parse_markdown_report(content)
     if not sections:
         raise RuntimeError("DeepSeek 返回内容无法解析为报告章节")
@@ -3073,6 +3285,8 @@ def generate_report_with_skill_pipeline(
 
     if not get_deepseek_api_key():
         markdown = build_antigravity_report_markdown(company_code, version_number, detail)
+        references = build_reference_catalog(detail, company_code, knowledge_files or [], selected_data_source_ids)
+        markdown = normalize_reference_markers(markdown, references)
         sections, full_text = parse_markdown_report(markdown)
         if not sections:
             raise RuntimeError("Skill pipeline fallback returned no report sections")
@@ -3096,6 +3310,8 @@ def generate_report_with_skill_pipeline(
         .get("content", "")
         .strip()
     )
+    references = build_reference_catalog(detail, company_code, knowledge_files or [], selected_data_source_ids)
+    markdown = normalize_reference_markers(markdown, references)
     sections, full_text = parse_markdown_report(markdown)
     if not sections:
         raise RuntimeError("Skill pipeline DeepSeek output could not be parsed into report sections")
@@ -3113,6 +3329,7 @@ def ensure_report_runtime(company_code: str, detail: dict) -> dict:
         return runtime
 
     if get_skill_pipeline_binding(company_code):
+        references = build_reference_catalog(detail, company_code, [], get_all_report_data_source_ids())
         sections, full_text = generate_report_with_skill_pipeline(
             company_code,
             1,
@@ -3120,10 +3337,13 @@ def ensure_report_runtime(company_code: str, detail: dict) -> dict:
             [],
             get_all_report_data_source_ids(),
         )
+        sections = normalize_report_section_references(sections, references)
+        full_text = normalize_reference_markers(full_text, references)
         based_on = build_skill_generation_basis(detail, company_code, [], get_all_report_data_source_ids())
         generation_mode = "skill_pipeline"
     else:
         sections, full_text, based_on = build_fallback_report_sections(detail, 1)
+        references = build_reference_catalog(detail, company_code, [], get_all_report_data_source_ids())
         generation_mode = "template"
     runtime = {
         "next_version": 2,
@@ -3138,6 +3358,7 @@ def ensure_report_runtime(company_code: str, detail: dict) -> dict:
                 "full_text": full_text,
                 "knowledge_file_ids": [],
                 "selected_data_source_ids": get_all_report_data_source_ids(),
+                "references": references,
                 "review_files": [],
                 "review_result": None,
                 "review_edit_text": full_text,
@@ -3828,6 +4049,7 @@ def create_report_version(company_code: str, knowledge_file_ids: list[str] | Non
     selected_ids = knowledge_file_ids or []
     selected_files = [knowledge_map[file_id] for file_id in selected_ids if file_id in knowledge_map]
     selected_data_ids = resolve_selected_data_source_ids(data_source_ids)
+    references = build_reference_catalog(detail, company_code, selected_files, selected_data_ids)
     skill_binding = get_skill_pipeline_binding(company_code)
     if skill_binding:
         sections, full_text = generate_report_with_skill_pipeline(
@@ -3837,10 +4059,14 @@ def create_report_version(company_code: str, knowledge_file_ids: list[str] | Non
             selected_files,
             selected_data_ids,
         )
+        sections = normalize_report_section_references(sections, references)
+        full_text = normalize_reference_markers(full_text, references)
         based_on = build_skill_generation_basis(detail, company_code, selected_files, selected_data_ids)
         generation_mode = f"skill_pipeline::{DEEPSEEK_MODEL}" if get_deepseek_api_key() else "skill_pipeline::fallback"
     else:
         sections, full_text = generate_report_with_deepseek(detail, company_code, version_number, selected_files, selected_data_ids)
+        sections = normalize_report_section_references(sections, references)
+        full_text = normalize_reference_markers(full_text, references)
         based_on = build_generation_basis(detail, selected_files, company_code, selected_data_ids)
         generation_mode = DEEPSEEK_MODEL
     new_version = {
@@ -3853,6 +4079,7 @@ def create_report_version(company_code: str, knowledge_file_ids: list[str] | Non
         "full_text": full_text,
         "knowledge_file_ids": [item["id"] for item in selected_files],
         "selected_data_source_ids": selected_data_ids,
+        "references": references,
         "review_files": [],
         "review_result": None,
         "review_edit_text": full_text,
@@ -3938,8 +4165,20 @@ def link_knowledge_files(company_code: str, version_id: str, file_ids: list[str]
     version = find_version(company_code, version_id)
     if version is None:
         return None
-    knowledge_ids = set(knowledge_file_map().keys())
+    knowledge_map = knowledge_file_map()
+    knowledge_ids = set(knowledge_map.keys())
     version["knowledge_file_ids"] = [file_id for file_id in file_ids if file_id in knowledge_ids]
+    detail = get_company_detail_base_payload(company_code)
+    if detail is None:
+        return None
+    detail = supplement_poc_detail(detail)
+    selected_files = [knowledge_map[file_id] for file_id in version["knowledge_file_ids"] if file_id in knowledge_map]
+    version["references"] = build_reference_catalog(
+        detail,
+        company_code,
+        selected_files,
+        version.get("selected_data_source_ids"),
+    )
     return serialize_report_version(company_code, version)
 
 

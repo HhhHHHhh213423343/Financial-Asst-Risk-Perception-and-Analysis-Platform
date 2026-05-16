@@ -1,6 +1,8 @@
 const API_BASE = "";
 const DEMO_COMPANY_CODE = "COMP-001";
-const ASTRAEA_ASSISTANT_IMAGE = "./assets/astraea-assistant.png";
+const ASTRAEA_PERSONA_IMAGE = "./assets/astraea-home-assistant.png";
+const ASTRAEA_ASSISTANT_IMAGE = ASTRAEA_PERSONA_IMAGE;
+const ASTRAEA_HOME_ASSISTANT_IMAGE = ASTRAEA_PERSONA_IMAGE;
 
 const topSections = [
   { id: "home", title: "首页", summary: "以 Astraea 助手主视觉、任务输入与风险提醒构成首页首屏。" },
@@ -276,29 +278,29 @@ const statusPalette = {
 
 const homeQuickActions = [
   {
-    title: "发起风险洞察",
+    title: "风险洞察",
     subtitle: "对企业发起风险洞察任务",
-    icon: "🏛",
+    icon: "risk",
     action: "start-demo",
   },
   {
-    title: "发起投资尽调",
+    title: "企业画像",
     subtitle: "对目标企业进行投资尽调",
-    icon: "📈",
+    icon: "profile",
     action: "go-section",
     topSection: "enterprise-library",
   },
   {
-    title: "更新存量客户风险",
+    title: "存量巡检",
     subtitle: "定期更新客户风险与经营状况",
-    icon: "🛡",
+    icon: "watch",
     action: "go-section",
     topSection: "watchlist",
   },
   {
-    title: "上传材料生成报告",
+    title: "报告预审",
     subtitle: "上传尽调材料，AI 生成报告",
-    icon: "📄",
+    icon: "report",
     action: "go-section",
     topSection: "report-center",
   },
@@ -1159,6 +1161,10 @@ const state = {
   reportVersionId: null,
   previewOpen: false,
   previewSectionId: null,
+  reportReferencesOpen: false,
+  reportImmersiveMode: false,
+  reportCanvasZoom: 100,
+  activeReferenceId: null,
   reportKnowledgeCollapsed: false,
   reviewKnowledgeCollapsed: false,
   pendingDataSourceSelection: [],
@@ -1199,6 +1205,7 @@ const sidebarEl = document.querySelector(".sidebar");
 const sidebarContextEl = document.getElementById("sidebar-context");
 const sidebarNavEl = document.getElementById("sidebar-nav");
 const sidebarNoteEl = document.getElementById("sidebar-note");
+const sidebarFooterEl = document.getElementById("sidebar-footer");
 const toolbarAreaEl = document.getElementById("toolbar-area");
 const contentAreaEl = document.getElementById("content-area");
 const previewOverlayEl = document.getElementById("preview-overlay");
@@ -1256,6 +1263,28 @@ function renderShellIcon(key) {
     "process-engine": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="6.5" r="2.5"/><circle cx="6.5" cy="17.5" r="2.5"/><path d="M9 6.5h6"/><path d="M6.5 9v6"/><path d="m17.5 9 0 3.5-5 5"/></svg>',
   };
   return `<span class="shell-icon" aria-hidden="true">${icons[key] || icons.home}</span>`;
+}
+
+function renderSidebarUtilityIcon(kind) {
+  const icons = {
+    workspace: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7v7H4z"/><path d="M13 4h7v7h-7z"/><path d="M4 13h7v7H4z"/><path d="M16.5 13v7"/><path d="M13 16.5h7"/></svg>',
+    settings: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1 1 0 0 0 .2 1.1l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1 1 0 0 0-1.1-.2 1 1 0 0 0-.6.9V20a2 2 0 1 1-4 0v-.2a1 1 0 0 0-.6-.9 1 1 0 0 0-1.1.2l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1 1 0 0 0 .2-1.1 1 1 0 0 0-.9-.6H4a2 2 0 1 1 0-4h.2a1 1 0 0 0 .9-.6 1 1 0 0 0-.2-1.1l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1 1 0 0 0 1.1.2 1 1 0 0 0 .6-.9V4a2 2 0 1 1 4 0v.2a1 1 0 0 0 .6.9 1 1 0 0 0 1.1-.2l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1 1 0 0 0-.2 1.1 1 1 0 0 0 .9.6H20a2 2 0 1 1 0 4h-.2a1 1 0 0 0-.9.6z"/></svg>',
+    logout: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>',
+    diamond: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12l4 5-10 11L2 9z"/><path d="m6 4 6 16 6-16"/><path d="M2 9h20"/></svg>',
+  };
+  return `<span class="sidebar-utility-icon" aria-hidden="true">${icons[kind] || icons.workspace}</span>`;
+}
+
+function renderFancyFeatureIcon(kind) {
+  const icons = {
+    risk: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.5 2.8 8.6 7 10 4.2-1.4 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/></svg>',
+    profile: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V18a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v1.5"/><circle cx="12" cy="8" r="3.2"/><path d="M18.5 6.5h1.5"/><path d="M19.25 5.75v1.5"/></svg>',
+    watch: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a7 7 0 0 0-7 7c0 6-2 7-2 7h18s-2-1-2-7a7 7 0 0 0-7-7"/><path d="M10 20a2 2 0 0 0 4 0"/><path d="M12 8v3l2 1.5"/></svg>',
+    report: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v6h6"/><path d="M10 13h6"/><path d="M10 17h4"/></svg>',
+    company: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M6 18V9l6-4 6 4v9"/><path d="M9 11h.01"/><path d="M12 11h.01"/><path d="M15 11h.01"/><path d="M9 14h.01"/><path d="M12 14h.01"/><path d="M15 14h.01"/></svg>',
+    attachment: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 13.5 15 9a3 3 0 1 1 4.2 4.2l-7.1 7.1a5 5 0 1 1-7.1-7.1l8-8"/></svg>',
+  };
+  return `<span class="fancy-feature-icon" aria-hidden="true">${icons[kind] || icons.company}</span>`;
 }
 
 function createStatusPill(key) {
@@ -1323,6 +1352,15 @@ function formatRiskTier(value) {
     pressure: "高风险",
   };
   return mapping[String(value || "").toLowerCase()] || compactText(value, "未分层");
+}
+
+function formatOperatingStatus(value) {
+  const text = compactText(localizeText(value), "—");
+  if (text === "—") return text;
+  if (/(开业|存续|在营|在册|正常经营|正常上市经营)/.test(text)) {
+    return "存续（在营、开业、在册）";
+  }
+  return text;
 }
 
 function formatRecommendationStatus(value) {
@@ -2524,6 +2562,7 @@ function renderSidebar() {
     if (sidebarContextEl) sidebarContextEl.innerHTML = "";
     sidebarNavEl.innerHTML = "";
     if (sidebarNoteEl) sidebarNoteEl.innerHTML = "";
+    if (sidebarFooterEl) sidebarFooterEl.innerHTML = "";
     return;
   }
 
@@ -2572,6 +2611,31 @@ function renderSidebar() {
       `,
     )
     .join("");
+
+  if (sidebarFooterEl) {
+    sidebarFooterEl.innerHTML = `
+      <div class="sidebar-pro-card glass-card">
+        <div class="sidebar-pro-card__head">
+          ${renderSidebarUtilityIcon("diamond")}
+          <div>
+            <strong>Astraea Pro</strong>
+            <span>智能洞察，高效先行</span>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar-utility-row" aria-label="侧边栏工具按钮">
+        <button class="sidebar-utility-button" type="button" aria-label="工作台">
+          ${renderSidebarUtilityIcon("workspace")}
+        </button>
+        <button class="sidebar-utility-button" type="button" aria-label="设置">
+          ${renderSidebarUtilityIcon("settings")}
+        </button>
+        <button class="sidebar-utility-button" type="button" aria-label="退出">
+          ${renderSidebarUtilityIcon("logout")}
+        </button>
+      </div>
+    `;
+  }
 }
 
 function renderSearchToolbar(sectionId, title, subtitle) {
@@ -2945,7 +3009,7 @@ function renderRiskView() {
           "经营能力",
           "围绕经营状态、企业规模和第一还款来源看经营稳定性。",
           [
-            { label: "经营状态", value: compactText(detail.company.operating_status) },
+            { label: "经营状态", value: formatOperatingStatus(detail.company.operating_status) },
             { label: "企业规模", value: compactText(detail.company.enterprise_scale || "—") },
             { label: "申请产品", value: compactText(detail.case_info?.product_type || "—") },
             { label: "第一还款来源", value: compactText(detail.case_info?.primary_repayment_source || "—") },
@@ -3071,7 +3135,7 @@ function getCustomerSectionPayload(detail, sectionId) {
     operation: {
       title: "经营情况",
       items: [
-        { label: "经营状态", value: compactText(company.operating_status) },
+        { label: "经营状态", value: formatOperatingStatus(company.operating_status) },
         { label: "企业规模", value: compactText(company.enterprise_scale || "—") },
         { label: "第一还款来源", value: compactText(caseInfo.primary_repayment_source || "—") },
         { label: "合同数量", value: `${detail.contracts.length} 份` },
@@ -3281,13 +3345,55 @@ function renderDataSourceChooser(detail) {
     .join("");
 }
 
+function renderReportReferencePanel(version, editorText, variant = "generated") {
+  const references = getReportReferences(version);
+  const usage = getReferenceUsageMap(editorText);
+  return `
+    <aside class="report-reference-panel${state.reportReferencesOpen ? " is-open" : ""}">
+      <div class="inline-head">
+        <div>
+          <h3>溯源</h3>
+          <p>查看当前版本关键判断对应的知识库、底稿与结构化数据来源。</p>
+        </div>
+        <button class="ghost-action" type="button" data-action="toggle-report-references">${state.reportReferencesOpen ? "收起" : "展开"}</button>
+      </div>
+      <div class="report-reference-list">
+        ${references.length
+          ? references
+              .map((ref) => {
+                const used = Boolean(usage[ref.id]);
+                return `
+                  <button
+                    class="report-reference-item${state.activeReferenceId === ref.id ? " is-active" : ""}${used ? "" : " is-unused"}"
+                    type="button"
+                    data-action="focus-reference"
+                    data-reference-id="${escapeHtml(ref.id)}"
+                    data-report-variant="${variant}"
+                  >
+                    <span class="report-reference-id">${escapeHtml(ref.id)}</span>
+                    <strong>${escapeHtml(ref.title || ref.id)}</strong>
+                    <em>${escapeHtml(ref.source_type || "来源")}${ref.locator ? `｜${escapeHtml(ref.locator)}` : ""}</em>
+                    <small>${escapeHtml(ref.excerpt || "暂无来源摘要。")}</small>
+                    <span class="report-reference-state">${used ? `正文使用 ${usage[ref.id]} 次` : "未在正文使用"}</span>
+                  </button>
+                `;
+              })
+              .join("")
+          : '<div class="empty-state"><h3>暂无结构化溯源</h3><p>历史版本会降级展示生成依据和知识库文件。</p></div>'}
+      </div>
+    </aside>
+  `;
+}
+
 function renderDueDiligenceReportGenerate(detail) {
   const version = getCurrentVersion(detail);
   const selectedKnowledge = getSelectedKnowledgeFiles();
   const collapsed = state.reportKnowledgeCollapsed;
+  const immersive = state.reportImmersiveMode;
+  const sourceOpen = state.reportReferencesOpen;
   return `
-    <div class="report-workspace-grid${collapsed ? " is-compact" : ""}" style="margin-top: 20px;">
-      ${collapsed
+    <div class="report-workspace-grid${collapsed || immersive ? " is-compact" : ""}${sourceOpen ? " has-reference-panel" : ""}${immersive ? " is-immersive" : ""}" style="margin-top: ${immersive ? "0" : "20px"};">
+      ${collapsed || immersive
         ? ""
         : `
       <div class="list-grid report-left-column">
@@ -3346,13 +3452,16 @@ function renderDueDiligenceReportGenerate(detail) {
                   .join("")}
               </select>
               <button class="ghost-action" type="button" data-action="toggle-knowledge-pane" data-pane="report">${collapsed ? "展开知识库依据" : "收起知识库依据"}</button>
+              <button class="ghost-action" type="button" data-action="toggle-report-references">${sourceOpen ? "收起溯源" : "展开溯源"}</button>
+              <button class="ghost-action" type="button" data-action="toggle-report-immersive">${immersive ? "退出沉浸" : "沉浸模式"}</button>
               <button class="ghost-action" type="button" data-action="save-report-draft">保存修改</button>
-              <a class="secondary-action" href="${version.pdf_url}" target="_blank" rel="noreferrer">下载 PDF</a>
+              <a class="secondary-action" href="${version.pdf_url}" target="_blank" rel="noreferrer">导出</a>
             </div>
             ${renderDocumentWorkspace(version, state.reportEditorText, "report-editor-textarea", "generated", "尽调报告画布")}
           `
           : '<div class="empty-state"><h3>尚未生成报告</h3><p>请先在左侧勾选内容并生成新版本。</p></div>'}
       </article>
+      ${version && sourceOpen ? renderReportReferencePanel(version, state.reportEditorText, "generated") : ""}
     </div>
   `;
 }
@@ -3483,7 +3592,7 @@ function renderDueDiligenceReportReview(detail) {
         </div>
         <div class="button-row" style="margin-top: 16px;">
           <button class="ghost-action" type="button" data-action="save-review-draft">保存修改</button>
-          <a class="secondary-action" href="${version.pdf_url}?variant=review" target="_blank" rel="noreferrer">下载 PDF</a>
+          <a class="secondary-action" href="${version.pdf_url}?variant=review" target="_blank" rel="noreferrer">导出</a>
         </div>
         <div class="divider"></div>
         ${renderDocumentWorkspace(version, state.reviewEditorText, "review-editor-textarea", "review", "预审修订画布")}
@@ -3950,8 +4059,8 @@ function buildPortraitModulesFromDetail(company, detail) {
       id: "10",
       score: identityScore,
       sufficiency: estimatePortraitSufficiency([company.unified_social_credit_code, company.operating_status]),
-      summary: `主体状态为 ${compactText(localizeText(company.operating_status), "暂无数据")}，统一社会信用代码${company.unified_social_credit_code ? "已读取" : "未读取"}。`,
-      keyMetrics: [`主体状态 ${compactText(localizeText(company.operating_status), "暂无数据")}`, `统一社会信用代码 ${company.unified_social_credit_code ? "已读取" : "未读取"}`, `注册地 ${compactText(company.region_city || company.region_province, "暂无数据")}`],
+      summary: `主体状态为 ${formatOperatingStatus(company.operating_status) === "—" ? "暂无数据" : formatOperatingStatus(company.operating_status)}，统一社会信用代码${company.unified_social_credit_code ? "已读取" : "未读取"}。`,
+      keyMetrics: [`主体状态 ${formatOperatingStatus(company.operating_status) === "—" ? "暂无数据" : formatOperatingStatus(company.operating_status)}`, `统一社会信用代码 ${company.unified_social_credit_code ? "已读取" : "未读取"}`, `注册地 ${compactText(company.region_city || company.region_province, "暂无数据")}`],
       evidenceSources: ["企业主体信息"],
     },
     {
@@ -4222,7 +4331,7 @@ function renderReportTemplatePreview(company, statusMeta, options = {}) {
         </div>
         <div class="report-template-preview__foot">
           <span>${escapeHtml(industry)}</span>
-          ${company?.operating_status ? `<em>${escapeHtml(localizeText(company.operating_status))}</em>` : ""}
+          ${company?.operating_status ? `<em>${escapeHtml(formatOperatingStatus(company.operating_status))}</em>` : ""}
         </div>
       </div>
     </div>
@@ -5489,15 +5598,10 @@ function renderHome() {
   const recentInvestigations = state.homeFeed?.recentInvestigations || [];
   const riskAlerts = state.homeFeed?.riskAlerts || [];
   const commandResolution = resolveHomeSmartCommand();
-  const footerLabel = commandResolution.company
-    ? `已识别：${smartNavRouteMeta[commandResolution.routeKey].label}`
-    : state.homeCommandInput.trim()
-      ? "请先匹配企业"
-      : "本地 Mock 智能识别";
   contentAreaEl.innerHTML = `
     <section class="astraea-home">
       <div class="astraea-home-stage">
-        <article class="astraea-portrait-panel glass-card neon-border">
+        <article class="astraea-portrait-panel astraea-portrait-panel--composite glass-card neon-border">
           <div class="astraea-portrait-panel__orbit astraea-portrait-panel__orbit--outer"></div>
           <div class="astraea-portrait-panel__orbit astraea-portrait-panel__orbit--inner"></div>
           <div class="astraea-portrait-panel__signals">
@@ -5507,7 +5611,7 @@ function renderHome() {
             <span>区块风险图谱</span>
           </div>
           <div class="astraea-portrait-frame">
-            <img src="${ASTRAEA_ASSISTANT_IMAGE}" alt="Astraea AI 助手形象" class="astraea-portrait-image" />
+            <img src="${ASTRAEA_HOME_ASSISTANT_IMAGE}" alt="Astraea 首页助手形象" class="astraea-portrait-image astraea-portrait-image--uploaded" />
           </div>
           <div class="astraea-portrait-copy">
             <h2><span class="astraea-portrait-copy__wordmark">Astraea</span> <span class="astraea-portrait-copy__cn">阿斯特莱亚</span></h2>
@@ -5518,7 +5622,7 @@ function renderHome() {
         <div class="astraea-home-main">
           <div class="astraea-home-hero">
             <div class="astraea-home-copy">
-              <h1>今天，我们从哪项风险开始洞察？</h1>
+              <h1>有什么金融资产风险分析需求？</h1>
               <p>Astraea 将协助你识别企业、资产与区域风险信号，生成可追溯的尽调洞察。</p>
             </div>
 
@@ -5540,9 +5644,8 @@ function renderHome() {
               </div>
               ${renderHomeCommandSuggestions(commandResolution)}
               <div class="astraea-command-card__footer">
-                <button class="astraea-command-card__select" type="button">${escapeHtml(footerLabel)}</button>
                 <div class="astraea-command-card__actions">
-                  <button class="astraea-command-card__icon" type="button" aria-label="上传附件">⎋</button>
+                  <button class="astraea-command-card__icon" type="button" aria-label="上传链接">${renderFancyFeatureIcon("attachment")}</button>
                 </div>
               </div>
             </div>
@@ -5557,7 +5660,7 @@ function renderHome() {
                       data-action="${item.action}"
                       ${item.topSection ? `data-top-section="${item.topSection}"` : ""}
                     >
-                      <span class="astraea-quick-card__icon">${item.icon}</span>
+                      <span class="astraea-quick-card__icon astraea-quick-card__icon--${item.icon}">${renderFancyFeatureIcon(item.icon)}</span>
                       <strong>${item.title}</strong>
                       <span class="astraea-quick-card__arrow">→</span>
                     </button>
@@ -5600,7 +5703,7 @@ function renderHome() {
                 (item) => `
                   <article class="astraea-investigation-row">
                     <div class="astraea-investigation-row__identity">
-                      <span class="astraea-investigation-row__mark">🏛</span>
+                      <span class="astraea-investigation-row__mark">${renderFancyFeatureIcon("company")}</span>
                       <div>
                         <strong>${item.company}</strong>
                         <div class="astraea-investigation-row__meta">
@@ -6035,7 +6138,6 @@ function renderDueTask() {
             <div class="task-board-table__header">
               <span>企业名称</span>
               <span>所属行业</span>
-              <span>任务进度</span>
               <span>当前阶段</span>
               <span>上次更新时间</span>
               <span>操作</span>
@@ -6052,15 +6154,8 @@ function renderDueTask() {
                       >
                         <span class="task-board-company-cell">
                           <strong>${escapeHtml(company.name)}</strong>
-                          ${renderRiskSeverityBadge(company.risk_level_label)}
                         </span>
                         <span>${escapeHtml(formatCompanyIndustry(company))}</span>
-                        <span>
-                          <span class="task-progress-inline">
-                            <i><b style="width:${company.progress}%;"></b></i>
-                            <strong>${company.progress}%</strong>
-                          </span>
-                        </span>
                         <span>${escapeHtml(company.phase)}</span>
                         <time>${company.updatedAt}</time>
                         <span class="task-board-enter-link">${company.actionLabel}</span>
@@ -6561,9 +6656,6 @@ function renderWatchlist() {
   contentAreaEl.innerHTML = `
     <section class="watchlist-screen">
       <div class="watchlist-hero">
-        <div class="watchlist-portrait-card glass-card">
-          <img src="${ASTRAEA_ASSISTANT_IMAGE}" alt="Astraea 蓝绿色粒子风险监测画像" />
-        </div>
         <div>
           <p class="section-kicker">Astraea Watchlist</p>
           <h2>AI 风险雷达监测中心</h2>
@@ -6662,7 +6754,7 @@ function renderReportCenter() {
                 <div class="summary-item"><strong>当前状态</strong><span>${escapeHtml(statusMeta.label)} / ${escapeHtml(statusMeta.note)}</span></div>
                 <div class="summary-item"><strong>企业名称</strong><span>${escapeHtml(company.name)}</span></div>
                 ${formatCompanyIndustry(company) !== "待补行业" ? `<div class="summary-item"><strong>所属行业</strong><span>${escapeHtml(formatCompanyIndustry(company))}</span></div>` : ""}
-                ${company.operating_status ? `<div class="summary-item"><strong>经营状态</strong><span>${escapeHtml(localizeText(company.operating_status))}</span></div>` : ""}
+                ${company.operating_status ? `<div class="summary-item"><strong>经营状态</strong><span>${escapeHtml(formatOperatingStatus(company.operating_status))}</span></div>` : ""}
               </div>
               <div class="alert-stack" style="margin-top: 18px;">
                 <div class="alert-item medium"><strong>当前说明</strong><span>${escapeHtml(selectedReport.detailSummary)}</span></div>
@@ -6710,8 +6802,10 @@ function renderReportCenter() {
     syncKnowledgeSelection(detail);
     const active = state.dueDiligenceTabId === "report-review" ? "review" : "generation";
     const version = getCurrentVersion(detail);
+    const immersive = active === "generation" && state.reportImmersiveMode && version;
     contentAreaEl.innerHTML = `
-      <section class="report-center-screen">
+      <section class="report-center-screen${immersive ? " report-center-screen--immersive" : ""}">
+        ${immersive ? "" : `
         <div class="page-title-row report-title-row">
           <div>
             <p class="section-kicker">洞察报告 / ${active === "review" ? "预审" : "尽调报告"}</p>
@@ -6724,12 +6818,15 @@ function renderReportCenter() {
             ${renderAstraeaPersona("tiny")}
           </div>
         </div>
+        `}
+        ${immersive ? "" : `
         <div class="process-tab-strip">
           <div class="tab-row">
             <button class="tab-button${active === "generation" ? " is-active" : ""}" type="button" data-action="switch-report-pane" data-report-pane="generation">报告生成</button>
             <button class="tab-button${active === "review" ? " is-active" : ""}" type="button" data-action="switch-report-pane" data-report-pane="review">报告预审</button>
           </div>
         </div>
+        `}
         ${active === "review" ? renderDueDiligenceReportReview(detail) : renderDueDiligenceReportGenerate(detail)}
         ${version ? "" : '<div class="empty-state"><h3>暂无报告版本</h3><p>请先生成尽调报告。</p></div>'}
       </section>
@@ -6787,7 +6884,7 @@ function renderReportCenter() {
                           <div class="report-company-card__meta">
                             <strong>${escapeHtml(item.name)}</strong>
                             ${formatCompanyIndustry(item) !== "待补行业" ? `<span>${escapeHtml(formatCompanyIndustry(item))}</span>` : ""}
-                            ${item.operating_status ? `<span class="report-company-card__aux">${escapeHtml(localizeText(item.operating_status))}</span>` : ""}
+                            ${item.operating_status ? `<span class="report-company-card__aux">${escapeHtml(formatOperatingStatus(item.operating_status))}</span>` : ""}
                           </div>
                         </button>
                       `;
@@ -6882,14 +6979,79 @@ function createDocumentAnchor(prefix, title, index) {
   return `${prefix}-${slug || `section-${index + 1}`}-${index + 1}`;
 }
 
+function getReportReferences(version) {
+  const references = Array.isArray(version?.references) ? version.references : [];
+  if (references.length) return references;
+  const fallback = [];
+  (version?.knowledge_files || []).forEach((file, index) => {
+    fallback.push({
+      id: `R${fallback.length + 1}`,
+      source_type: file.category_title || localizeText(file.category) || "知识库文件",
+      title: file.name || `知识库文件 ${index + 1}`,
+      locator: file.owner ? `上传人：${file.owner}` : "知识库文件",
+      excerpt: file.description || file.content_text || "该文件已作为当前版本的知识库引用依据。",
+      source_path: file.stored_name || "",
+      source_id: file.id || "",
+    });
+  });
+  (version?.based_on || []).forEach((item) => {
+    if (/skill pipeline|mock vdr|deepseek|fallback|\.agent|模型|生成模式/i.test(String(item || ""))) return;
+    fallback.push({
+      id: `R${fallback.length + 1}`,
+      source_type: "生成依据",
+      title: item,
+      locator: "历史版本降级来源",
+      excerpt: item,
+      source_path: "",
+      source_id: "",
+    });
+  });
+  return fallback;
+}
+
+function getReferenceById(referenceId, version = getCurrentVersion()) {
+  return getReportReferences(version).find((item) => item.id === referenceId) || null;
+}
+
+function getReferenceUsageMap(text = "") {
+  const usage = {};
+  String(text || "").replace(/\[(R\d+)\]/g, (_, id) => {
+    usage[id] = (usage[id] || 0) + 1;
+    return _;
+  });
+  return usage;
+}
+
+function renderReferencePopover(ref) {
+  if (!ref) return "";
+  return `
+    <span class="doc-citation-popover" role="tooltip">
+      <strong>${escapeHtml(ref.title || ref.id)}</strong>
+      <span>${escapeHtml(ref.source_type || "来源")}${ref.locator ? `｜${escapeHtml(ref.locator)}` : ""}</span>
+      <em>${escapeHtml(ref.excerpt || "暂无来源摘要。")}</em>
+    </span>
+  `;
+}
+
 function renderRichInline(text) {
   let html = escapeHtml(text || "");
+  const referenceTokens = [];
   html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
   html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   html = html.replace(/\*([^*\n]+)\*/g, "<em>$1</em>");
   html = html.replace(/\+\+([^+\n]+)\+\+/g, "<u>$1</u>");
   html = html.replace(/==([^=\n]+)==/g, '<mark class="doc-highlight">$1</mark>');
+  html = html.replace(/\[(R\d+)\]/g, (_match, refId) => {
+    const ref = getReferenceById(refId);
+    const title = ref ? `${ref.title}：${ref.excerpt || ""}` : `引用 ${refId}`;
+    const token = `__REFERENCE_TOKEN_${referenceTokens.length}__`;
+    referenceTokens.push(`<button class="doc-citation doc-citation--reference" type="button" data-action="focus-reference" data-reference-id="${refId}" title="${escapeHtml(title)}">[${refId}]${renderReferencePopover(ref)}</button>`);
+    return token;
+  });
   html = html.replace(/\[([^[\]]+)\]/g, '<span class="doc-citation">[$1]</span>');
+  referenceTokens.forEach((markup, index) => {
+    html = html.replace(`__REFERENCE_TOKEN_${index}__`, markup);
+  });
   return html;
 }
 
@@ -7069,10 +7231,56 @@ function buildDocumentSections(text, fallbackSections = [], anchorPrefix = "doc"
   }));
 }
 
+function clampReportCanvasZoom(value) {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return 100;
+  return Math.min(140, Math.max(80, numeric));
+}
+
+function getReportZoomStyle(variant = "generated") {
+  if (variant !== "generated" || !state.reportImmersiveMode) return "";
+  const zoom = clampReportCanvasZoom(state.reportCanvasZoom) / 100;
+  const pageWidth = Math.round(1040 * zoom);
+  const paddingY = Math.round(32 * zoom);
+  const paddingX = Math.round(38 * zoom);
+  const bodySize = Math.round(16 * zoom * 10) / 10;
+  const titleSize = Math.round(30 * zoom * 10) / 10;
+  const h3Size = Math.round(22 * zoom * 10) / 10;
+  const h4Size = Math.round(18 * zoom * 10) / 10;
+  const tablePaddingY = Math.round(13 * zoom);
+  const tablePaddingX = Math.round(14 * zoom);
+  return [
+    `--report-page-width:${pageWidth}px`,
+    `--report-page-max-width:${pageWidth}px`,
+    `--report-page-padding-y:${paddingY}px`,
+    `--report-page-padding-x:${paddingX}px`,
+    `--report-body-font-size:${bodySize}px`,
+    `--report-title-font-size:${titleSize}px`,
+    `--report-h3-font-size:${h3Size}px`,
+    `--report-h4-font-size:${h4Size}px`,
+    `--report-table-padding-y:${tablePaddingY}px`,
+    `--report-table-padding-x:${tablePaddingX}px`,
+  ].join(";");
+}
+
+function renderReportZoomControl(variant = "generated") {
+  if (variant !== "generated" || !state.reportImmersiveMode) return "";
+  const zoom = clampReportCanvasZoom(state.reportCanvasZoom);
+  return `
+    <div class="report-zoom-control" role="group" aria-label="沉浸画布缩放">
+      <button class="report-editor-command" type="button" data-action="adjust-report-zoom" data-zoom-command="out" title="缩小画布">-</button>
+      <span class="report-zoom-value">${zoom}%</span>
+      <button class="report-editor-command" type="button" data-action="adjust-report-zoom" data-zoom-command="in" title="放大画布">+</button>
+      <button class="report-editor-command report-zoom-reset" type="button" data-action="adjust-report-zoom" data-zoom-command="reset" title="恢复默认比例">重置</button>
+    </div>
+  `;
+}
+
 function renderReportEditorToolbar(variant) {
   const toolbarId = `report-editor-toolbar-${variant}`;
   return `
     <div class="report-editor-toolbar" id="${toolbarId}" data-report-toolbar="${variant}" aria-label="报告排版工具栏">
+      ${renderReportZoomControl(variant)}
       <select class="report-editor-select" data-report-command="formatBlock" data-report-variant="${variant}" title="标题级别">
         <option value="p">正文</option>
         <option value="h3">标题 1</option>
@@ -7112,8 +7320,9 @@ function renderReportEditorToolbar(variant) {
 function renderDocumentWorkspace(version, editorText, textareaId, variant = "generated", title = "报告编辑画布") {
   const sections = buildDocumentSections(editorText, version?.section_list || [], `report-${variant}`);
   const activeAnchor = sections.find((item) => item.anchor === state.previewSectionId)?.anchor || sections[0]?.anchor || "";
+  const zoomStyle = getReportZoomStyle(variant);
   return `
-    <div class="report-document-shell">
+    <div class="report-document-shell"${zoomStyle ? ` style="${zoomStyle}"` : ""}>
       <aside class="report-outline-panel" id="report-outline-${variant}">
         <div class="report-outline-head">
           <p class="section-kicker">目录导航</p>
@@ -7168,6 +7377,7 @@ function serializeInlineMarkdownFromNode(node) {
   if (node.nodeType !== Node.ELEMENT_NODE) return "";
   const element = node;
   const text = Array.from(element.childNodes).map((child) => serializeInlineMarkdownFromNode(child)).join("");
+  if (element.classList.contains("doc-citation--reference")) return `[${element.dataset.referenceId || text.replace(/\[|\]/g, "")}]`;
   if (element.classList.contains("doc-citation")) return text;
   if (element.tagName === "STRONG" || element.tagName === "B") return `**${text}**`;
   if (element.tagName === "EM" || element.tagName === "I") return `*${text}*`;
@@ -7299,6 +7509,21 @@ function scrollToReportAnchor(anchor, behavior = "smooth") {
   requestAnimationFrame(() => {
     const target = document.getElementById(anchor);
     if (target) target.scrollIntoView({ behavior, block: "start" });
+  });
+}
+
+function focusReportReference(referenceId, variant = "generated") {
+  if (!referenceId) return;
+  state.activeReferenceId = referenceId;
+  state.reportReferencesOpen = true;
+  requestAnimationFrame(() => {
+    const chip = document.querySelector(`#report-preview-${variant} [data-reference-id="${referenceId}"]`);
+    if (chip) {
+      chip.scrollIntoView({ behavior: "smooth", block: "center" });
+      chip.classList.add("is-pulsing");
+      setTimeout(() => chip.classList.remove("is-pulsing"), 1400);
+      chip.focus?.({ preventScroll: true });
+    }
   });
 }
 
@@ -7518,6 +7743,9 @@ document.addEventListener("click", async (event) => {
 	  const resetTopLevelViews = () => {
 	    state.previewOpen = false;
 	    state.previewSectionId = null;
+      state.reportReferencesOpen = false;
+      state.reportImmersiveMode = false;
+      state.activeReferenceId = null;
 	    state.riskMapRegionId = null;
 	    state.reportCenterView = "hub";
 	    state.reportCenterLoadingCompanyCode = null;
@@ -7600,6 +7828,7 @@ document.addEventListener("click", async (event) => {
     state.reportCenterView = "detail";
     state.reportCenterReportTypeId = "due-diligence";
     state.dueDiligenceTabId = target.dataset.reportPane === "review" ? "report-review" : "report-generate";
+    if (state.dueDiligenceTabId === "report-review") state.reportImmersiveMode = false;
     render();
     return;
   }
@@ -7704,6 +7933,9 @@ document.addEventListener("click", async (event) => {
     state.reportCenterLoadingCompanyCode = companyCode;
     state.reportCenterError = null;
     state.dueDiligenceTabId = "report-generate";
+    state.reportImmersiveMode = false;
+    state.reportReferencesOpen = false;
+    state.activeReferenceId = null;
     render();
     try {
       await ensureCompanyDetail(companyCode);
@@ -7725,6 +7957,9 @@ document.addEventListener("click", async (event) => {
     state.reportCenterView = "company-list";
     state.previewOpen = false;
     state.previewSectionId = null;
+    state.reportImmersiveMode = false;
+    state.reportReferencesOpen = false;
+    state.activeReferenceId = null;
     render();
     return;
   }
@@ -7733,6 +7968,9 @@ document.addEventListener("click", async (event) => {
     state.reportCenterView = "hub";
     state.previewOpen = false;
     state.previewSectionId = null;
+    state.reportImmersiveMode = false;
+    state.reportReferencesOpen = false;
+    state.activeReferenceId = null;
     syncLocationFromState();
     render();
     return;
@@ -7882,7 +8120,40 @@ document.addEventListener("click", async (event) => {
     state.dueDiligenceTabId = target.dataset.ddTab;
     state.previewOpen = false;
     state.previewSectionId = null;
+    state.reportImmersiveMode = false;
+    state.activeReferenceId = null;
     render();
+    return;
+  }
+  if (action === "toggle-report-references") {
+    state.reportReferencesOpen = !state.reportReferencesOpen;
+    render();
+    return;
+  }
+  if (action === "toggle-report-immersive") {
+    state.reportImmersiveMode = !state.reportImmersiveMode;
+    if (state.reportImmersiveMode) {
+      state.dueDiligenceTabId = "report-generate";
+      state.reportKnowledgeCollapsed = true;
+      state.reportCanvasZoom = clampReportCanvasZoom(state.reportCanvasZoom);
+    }
+    render();
+    return;
+  }
+  if (action === "adjust-report-zoom") {
+    const command = target.dataset.zoomCommand;
+    const current = clampReportCanvasZoom(state.reportCanvasZoom);
+    if (command === "in") state.reportCanvasZoom = clampReportCanvasZoom(current + 10);
+    if (command === "out") state.reportCanvasZoom = clampReportCanvasZoom(current - 10);
+    if (command === "reset") state.reportCanvasZoom = 100;
+    render();
+    return;
+  }
+  if (action === "focus-reference") {
+    const variant = target.dataset.reportVariant || "generated";
+    focusReportReference(target.dataset.referenceId, variant);
+    render();
+    focusReportReference(target.dataset.referenceId, variant);
     return;
   }
   if (action === "toggle-knowledge-pane") {
@@ -8103,6 +8374,7 @@ document.addEventListener("change", async (event) => {
 
   if (target.id === "report-version-select") {
     state.reportVersionId = target.value;
+    state.activeReferenceId = null;
     syncKnowledgeSelection(getCompanyDetail(state.processEngineCompanyCode));
     render();
     return;
