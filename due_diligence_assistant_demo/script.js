@@ -768,48 +768,48 @@ const riskSeverityMeta = {
 const riskHouseBlueprint = [
   {
     id: "01",
-    title: "法律诉讼与执行风险",
-    layer: "pinnacle",
+    title: "主体身份与工商稳定性风险",
+    layer: "micro",
     priority: 1,
-    overview: "关注诉讼、仲裁、执行、限制高消费与涉案金额传导。",
-    defaultEvidence: ["中国裁判文书网", "中国执行信息公开网", "企查查诉讼快照"],
-    defaultMetrics: ["涉诉案件数量", "涉案金额", "被执行信息数量"],
-    defaultAdvice: "优先核验案件进展、执行状态与是否已形成实质性偿债压力。",
+    overview: "关注主体状态、统一社会信用代码、法定代表人和工商登记一致性。",
+    defaultEvidence: ["工商登记", "营业执照", "历史变更记录"],
+    defaultMetrics: ["主体状态", "工商变更次数", "信息一致性校验"],
+    defaultAdvice: "仅在主体异常、注销吊销或信息冲突时上调优先级。",
   },
   {
     id: "02",
-    title: "经营异常与失信风险",
-    layer: "pinnacle",
-    priority: 2,
-    overview: "关注经营异常名录、严重违法失信、行政提示与税务异常。",
-    defaultEvidence: ["国家企业信用信息公示系统", "行政处罚公开平台", "税务异常提示"],
-    defaultMetrics: ["经营异常次数", "失信记录", "行政提示数量"],
-    defaultAdvice: "核验异常是否已移出，评估异常对授信准入和合作稳定性的影响。",
-  },
-  {
-    id: "03",
     title: "实控人与股权控制风险",
-    layer: "pinnacle",
-    priority: 3,
+    layer: "micro",
+    priority: 2,
     overview: "关注股权稳定性、实控链清晰度、控制权质押与代持疑点。",
     defaultEvidence: ["工商股权穿透", "股权变更记录", "股权质押公告"],
     defaultMetrics: ["股权变更次数", "实控链层级", "股权质押比例"],
     defaultAdvice: "关注控制权稳定性与关键股东资金压力，必要时补充穿透核验。",
   },
   {
+    id: "03",
+    title: "法律诉讼与执行风险",
+    layer: "micro",
+    priority: 3,
+    overview: "关注诉讼、仲裁、执行、限制高消费与涉案金额传导。",
+    defaultEvidence: ["中国裁判文书网", "中国执行信息公开网", "企查查诉讼快照"],
+    defaultMetrics: ["涉诉案件数量", "涉案金额", "被执行信息数量"],
+    defaultAdvice: "优先核验案件进展、执行状态与是否已形成实质性偿债压力。",
+  },
+  {
     id: "04",
-    title: "偿债与现金流风险",
-    layer: "upper",
+    title: "经营异常与信用失范风险",
+    layer: "micro",
     priority: 4,
-    overview: "关注短债覆盖、经营现金流、利息保障与流动性缺口。",
-    defaultEvidence: ["财务报表", "银行流水", "授信台账"],
-    defaultMetrics: ["经营现金流", "短期债务", "利息保障倍数"],
-    defaultAdvice: "优先核验现金回收节奏和债务结构，判断短期流动性是否承压。",
+    overview: "关注经营异常名录、严重违法失信、行政提示与税务异常。",
+    defaultEvidence: ["国家企业信用信息公示系统", "行政处罚公开平台", "税务异常提示"],
+    defaultMetrics: ["经营异常次数", "失信记录", "行政提示数量"],
+    defaultAdvice: "核验异常是否已移出，评估异常对授信准入和合作稳定性的影响。",
   },
   {
     id: "05",
-    title: "财务质量风险",
-    layer: "upper",
+    title: "财务质量与盈利能力风险",
+    layer: "micro",
     priority: 5,
     overview: "关注收入确认、税票回款勾稽、毛利波动与应收质量。",
     defaultEvidence: ["近三年报表", "增值税发票摘要", "回款勾稽结果"],
@@ -818,28 +818,28 @@ const riskHouseBlueprint = [
   },
   {
     id: "06",
-    title: "关联网络风险",
-    layer: "upper",
+    title: "偿债能力与现金流风险",
+    layer: "micro",
     priority: 6,
+    overview: "关注短债覆盖、经营现金流、利息保障与流动性缺口。",
+    defaultEvidence: ["财务报表", "银行流水", "授信台账"],
+    defaultMetrics: ["经营现金流", "短期债务", "利息保障倍数"],
+    defaultAdvice: "优先核验现金回收节奏和债务结构，判断短期流动性是否承压。",
+  },
+  {
+    id: "07",
+    title: "关联网络与隐性关系风险",
+    layer: "meso",
+    priority: 7,
     overview: "关注关联企业、资金往来、公允交易与隐性担保链条。",
     defaultEvidence: ["关联方穿透图谱", "关联交易摘要", "司法关联网络"],
     defaultMetrics: ["关联企业数量", "关联交易金额", "短期往来频次"],
     defaultAdvice: "识别是否存在利益输送、循环交易或隐性担保安排。",
   },
   {
-    id: "07",
-    title: "合同履约与交易风险",
-    layer: "middle",
-    priority: 7,
-    overview: "关注合同违约、回款逾期、发货验收与历史争议。",
-    defaultEvidence: ["合同台账", "订单与出货记录", "客户对账单"],
-    defaultMetrics: ["逾期回款比例", "合同争议数量", "履约准时率"],
-    defaultAdvice: "对重点客户与大额合同做穿透核验，确认真实履约质量。",
-  },
-  {
     id: "08",
     title: "供应链与客户集中风险",
-    layer: "middle",
+    layer: "meso",
     priority: 8,
     overview: "关注单一客户依赖、关键原料替代性与上游稳定性。",
     defaultEvidence: ["前五客户清单", "前五供应商清单", "采购结算摘要"],
@@ -848,54 +848,100 @@ const riskHouseBlueprint = [
   },
   {
     id: "09",
-    title: "行业与市场风险",
-    layer: "middle",
+    title: "合同履约与交易真实性风险",
+    layer: "meso",
     priority: 9,
-    overview: "关注行业景气度、价格竞争、政策扰动与替代风险。",
-    defaultEvidence: ["行业研究", "券商/咨询报告", "政策法规摘要"],
-    defaultMetrics: ["行业景气度", "价格波动", "市场份额变化"],
-    defaultAdvice: "结合行业周期与政策变化，判断企业中期增长与毛利空间。",
+    overview: "关注合同违约、回款逾期、发货验收与历史争议。",
+    defaultEvidence: ["合同台账", "订单与出货记录", "客户对账单"],
+    defaultMetrics: ["逾期回款比例", "合同争议数量", "履约准时率"],
+    defaultAdvice: "对重点客户与大额合同做穿透核验，确认真实履约质量。",
   },
   {
     id: "10",
-    title: "主体身份与工商信息风险",
-    layer: "base",
+    title: "业务资质与准入合规风险",
+    layer: "meso",
     priority: 10,
-    overview: "关注主体状态、统一社会信用代码、法定代表人和工商登记一致性。",
-    defaultEvidence: ["工商登记", "营业执照", "历史变更记录"],
-    defaultMetrics: ["主体状态", "工商变更次数", "信息一致性校验"],
-    defaultAdvice: "仅在主体异常、注销吊销或信息冲突时上调优先级。",
-  },
-  {
-    id: "11",
-    title: "资质许可与合规备案风险",
-    layer: "base",
-    priority: 11,
     overview: "关注核心资质证照、行业许可、备案完整性与到期风险。",
     defaultEvidence: ["资质证照", "许可备案", "年审记录"],
     defaultMetrics: ["核心资质数量", "到期证照数量", "备案缺口"],
     defaultAdvice: "对关键经营资质做逐项核验，确认是否存在准入或续展风险。",
   },
   {
+    id: "11",
+    title: "行业与市场景气风险",
+    layer: "macro",
+    priority: 11,
+    overview: "关注行业景气度、价格竞争、政策扰动与替代风险。",
+    defaultEvidence: ["行业研究", "券商/咨询报告", "政策法规摘要"],
+    defaultMetrics: ["行业景气度", "价格波动", "市场份额变化"],
+    defaultAdvice: "结合行业周期与政策变化，判断企业中期增长与毛利空间。",
+  },
+  {
     id: "12",
-    title: "舆情与声誉风险",
-    layer: "base",
+    title: "区域政策与舆情声誉风险",
+    layer: "macro",
     priority: 12,
-    overview: "关注媒体负面、社交平台扩散、客户投诉与品牌冲击。",
-    defaultEvidence: ["新闻舆情", "社交平台舆情", "投诉与公开问询"],
-    defaultMetrics: ["负面舆情数量", "热度峰值", "投诉趋势"],
-    defaultAdvice: "持续跟踪负面信息是否扩散为业务风险或合规事件。",
+    overview: "关注区域政策、媒体负面、社交平台扩散、客户投诉与品牌冲击。",
+    defaultEvidence: ["区域政策", "新闻舆情", "投诉与公开问询"],
+    defaultMetrics: ["区域政策信号", "负面舆情数量", "投诉趋势"],
+    defaultAdvice: "持续跟踪区域政策和负面信息是否扩散为业务风险或合规事件。",
   },
 ];
 
+const portraitLayerConfig = [
+  {
+    id: "micro",
+    layerName: "微观层",
+    label: "微观",
+    shortDescription: "辨析细节，穿透隐患",
+    description: "穿透单体企业风险，识别经营、财务、司法与治理隐患",
+    moduleIds: ["01", "02", "03", "04", "05", "06"],
+  },
+  {
+    id: "meso",
+    layerName: "中观层",
+    label: "中观",
+    shortDescription: "管控全域，聚焦风险",
+    description: "穿透关系网络与交易链条，识别供应链、关联方与履约风险",
+    moduleIds: ["07", "08", "09", "10"],
+  },
+  {
+    id: "macro",
+    layerName: "宏观层",
+    label: "宏观",
+    shortDescription: "纵观市场，洞悉态势",
+    description: "洞察行业、区域、政策与舆情趋势，辅助整体风险判断",
+    moduleIds: ["11", "12"],
+  },
+];
+
+const portraitLayerByModuleId = portraitLayerConfig.reduce((acc, layer) => {
+  layer.moduleIds.forEach((moduleId) => {
+    acc[moduleId] = layer;
+  });
+  return acc;
+}, {});
+
+function getPortraitLayerConfig(moduleOrLayer) {
+  const moduleId = typeof moduleOrLayer === "string" ? moduleOrLayer : moduleOrLayer?.id;
+  const declaredLayer = typeof moduleOrLayer === "object" ? moduleOrLayer?.layer : moduleOrLayer;
+  return portraitLayerConfig.find((item) => item.id === declaredLayer || item.layerName === declaredLayer)
+    || portraitLayerByModuleId[moduleId]
+    || portraitLayerConfig[0];
+}
+
 function createRiskModule(companyName, config) {
   const blueprint = riskHouseBlueprint.find((item) => item.id === config.id);
+  const layer = getPortraitLayerConfig({ ...blueprint, ...config });
   return {
     id: blueprint.id,
     title: blueprint.title,
-    layer: blueprint.layer,
-    priority: blueprint.priority,
+    layer: layer.id,
+    layerName: layer.layerName,
+    priority: config.displayOrder || blueprint.priority,
+    displayOrder: config.displayOrder || blueprint.priority,
     level: config.level,
+    riskLevel: config.riskLevel || config.level,
     score: config.score,
     sufficiency: config.sufficiency,
     summary: config.summary || `${companyName} 在${blueprint.title}维度${blueprint.overview}`,
@@ -906,10 +952,32 @@ function createRiskModule(companyName, config) {
   };
 }
 
+const legacyRiskModuleIdMap = {
+  "01": "03",
+  "02": "04",
+  "03": "02",
+  "04": "06",
+  "05": "05",
+  "06": "07",
+  "07": "09",
+  "08": "08",
+  "09": "11",
+  "10": "01",
+  "11": "10",
+  "12": "12",
+};
+
+function normalizeLegacyPortraitModuleConfig(moduleConfig) {
+  return {
+    ...moduleConfig,
+    id: legacyRiskModuleIdMap[moduleConfig.id] || moduleConfig.id,
+  };
+}
+
 function createPortraitCompany(company) {
   return {
     ...company,
-    modules: company.modules.map((item) => createRiskModule(company.name, item)),
+    modules: company.modules.map((item) => createRiskModule(company.name, normalizeLegacyPortraitModuleConfig(item))),
   };
 }
 
@@ -1377,7 +1445,7 @@ function formatRecommendationStatus(value) {
 function formatGenerationModeLabel(value) {
   const text = String(value || "").trim();
   if (!text) return "—";
-  if (text === "skill_pipeline") return "双 Skill 生成";
+  if (text === "skill_pipeline" || text.startsWith("skill_pipeline::")) return "双 Skill 生成";
   if (text === "template") return "模板生成";
   if (text.startsWith("deepseek")) return "DeepSeek 生成";
   return text;
@@ -2286,6 +2354,7 @@ function renderFinancialDashboard(detail) {
 }
 
 function formatDataMode(value) {
+  if (value === "skill_pipeline" || value === "skill_poc") return "双 Skill 报告";
   return value === "public_pack" ? "原始资料清单" : "完整尽调案例";
 }
 
@@ -3340,7 +3409,7 @@ function renderDataSourceChooser(detail) {
 
 function renderReportReferencePanel(version, editorText, variant = "generated") {
   const references = getReportReferences(version);
-  const usage = getReferenceUsageMap(editorText);
+  const usage = getReferenceUsageMap(editorText, version);
   return `
     <aside class="report-reference-panel${state.reportReferencesOpen ? " is-open" : ""}">
       <div class="inline-head">
@@ -3979,7 +4048,7 @@ function buildPortraitModulesFromDetail(company, detail) {
 
   const configs = [
     {
-      id: "01",
+      id: "03",
       score: legalScore,
       sufficiency: estimatePortraitSufficiency([publicRisks, cases]),
       summary: publicRisks.length || cases.length
@@ -3989,7 +4058,7 @@ function buildPortraitModulesFromDetail(company, detail) {
       evidenceSources: ["公开风险信息", "案件/涉诉记录", "尽调案例信息"],
     },
     {
-      id: "02",
+      id: "04",
       score: complianceScore,
       sufficiency: estimatePortraitSufficiency([validationFindings]),
       summary: validationFindings.length
@@ -3999,7 +4068,7 @@ function buildPortraitModulesFromDetail(company, detail) {
       evidenceSources: ["校验发现清单", "尽调底稿"],
     },
     {
-      id: "03",
+      id: "02",
       score: ownershipScore,
       sufficiency: estimatePortraitSufficiency([relatedCompanies, shareholdingChanges, people]),
       summary: `已识别关联企业 ${relatedCompanies.length} 家、股权变更 ${shareholdingChanges.length} 条、关键人员 ${people.length} 名。`,
@@ -4007,7 +4076,7 @@ function buildPortraitModulesFromDetail(company, detail) {
       evidenceSources: ["关联企业清单", "股权变更记录", "人员角色信息"],
     },
     {
-      id: "04",
+      id: "06",
       score: cashflowScore,
       sufficiency: estimatePortraitSufficiency([metrics.operating_cash_flow, metrics.asset_liability_ratio, metrics.interest_coverage_ratio]),
       summary: "根据经营现金流、杠杆与利息保障倍数综合判断当前偿债与现金流风险。",
@@ -4023,7 +4092,7 @@ function buildPortraitModulesFromDetail(company, detail) {
       evidenceSources: ["财务指标", "应收快照", "订单与发票"],
     },
     {
-      id: "06",
+      id: "07",
       score: relatedScore,
       sufficiency: estimatePortraitSufficiency([relatedTransactions, relatedCompanies]),
       summary: relatedTransactions.length
@@ -4033,7 +4102,7 @@ function buildPortraitModulesFromDetail(company, detail) {
       evidenceSources: ["关联交易摘要", "关联企业清单"],
     },
     {
-      id: "07",
+      id: "09",
       score: contractScore,
       sufficiency: estimatePortraitSufficiency([contracts, orders]),
       summary: `已读取合同 ${contracts.length} 份、订单 ${orders.length} 条，可据此查看履约与回款链路。`,
@@ -4049,7 +4118,7 @@ function buildPortraitModulesFromDetail(company, detail) {
       evidenceSources: ["应收快照", "订单数据"],
     },
     {
-      id: "09",
+      id: "11",
       score: marketScore,
       sufficiency: estimatePortraitSufficiency([company.industry_category, publicRisks]),
       summary: `企业所属行业为 ${formatCompanyIndustry(company)}，市场与行业风险结合公开风险事件综合判断。`,
@@ -4057,7 +4126,7 @@ function buildPortraitModulesFromDetail(company, detail) {
       evidenceSources: ["企业主体信息", "公开风险信息"],
     },
     {
-      id: "10",
+      id: "01",
       score: identityScore,
       sufficiency: estimatePortraitSufficiency([company.unified_social_credit_code, company.operating_status]),
       summary: `主体状态为 ${formatOperatingStatus(company.operating_status) === "—" ? "暂无数据" : formatOperatingStatus(company.operating_status)}，统一社会信用代码${company.unified_social_credit_code ? "已读取" : "未读取"}。`,
@@ -4065,7 +4134,7 @@ function buildPortraitModulesFromDetail(company, detail) {
       evidenceSources: ["企业主体信息"],
     },
     {
-      id: "11",
+      id: "10",
       score: licenseScore,
       sufficiency: estimatePortraitSufficiency([profileAttributes]),
       summary: profileAttributes.length
@@ -4156,7 +4225,7 @@ function hasCompletedDueTaskReport(company) {
   if (detail?.report_generated === true || detail?.has_report === true || detail?.skill_pipeline) {
     return true;
   }
-  return company?.data_mode === "skill_poc";
+  return company?.data_mode === "skill_pipeline" || company?.data_mode === "skill_poc";
 }
 
 function getSelectionCompanies() {
@@ -4283,7 +4352,7 @@ function getReportCompanyStatus(config, company, index = 0) {
   const hasReportVersion = Boolean(cachedDetail?.report_versions?.length);
   if (config.id === "due-diligence") {
     if (hasReportVersion) return { label: "已生成", className: "is-ready", note: "可编辑 / 可预审" };
-    if (company.data_mode === "skill_poc" || company.data_mode === "full_case") {
+    if (company.data_mode === "skill_pipeline" || company.data_mode === "skill_poc" || company.data_mode === "full_case") {
       return { label: "可生成", className: "is-running", note: "资料已就绪" };
     }
     return { label: "待生成", className: "is-pending", note: "待补资料" };
@@ -6381,38 +6450,31 @@ function renderCompanyListPanel(selectedCompany, filteredCompanies, options = {}
   `;
 }
 
-const portraitLayerLabels = {
-  pinnacle: "核心控制层",
-  upper: "财务经营层",
-  middle: "交易市场层",
-  base: "主体合规层",
-};
-
 function renderRiskMatrixBlock(module, activeModule) {
-  const severity = getRiskSeverity(module.level);
+  const layer = getPortraitLayerConfig(module);
   const metrics = module.keyMetrics.slice(0, 2);
   return `
     <button
-      class="risk-matrix-card ${severity.toneClass}${module.id === activeModule.id ? " is-active" : ""}"
+      class="risk-funnel-card risk-funnel-card--${layer.id}${module.id === activeModule.id ? " is-active" : ""}"
       type="button"
       style="opacity:${Math.max(0.42, module.sufficiency)};"
       data-action="focus-risk-house"
       data-risk-house-id="${module.id}"
       aria-label="查看${escapeHtml(module.title)}详情"
     >
-      <span class="risk-matrix-card__top">
+      <span class="risk-funnel-card__top">
         <em>${module.id}</em>
-        <i>${escapeHtml(portraitLayerLabels[module.layer] || "风险模块")}</i>
+        <i>${escapeHtml(layer.label)}</i>
       </span>
       <strong>${escapeHtml(module.title)}</strong>
-      <span class="risk-matrix-card__meta">
+      <span class="risk-funnel-card__meta">
         ${renderRiskSeverityBadge(module.level)}
         <small>评分 ${module.score}</small>
       </span>
-      <span class="risk-matrix-card__metrics">
+      <span class="risk-funnel-card__metrics">
         ${metrics.map((item) => `<b>${escapeHtml(item)}</b>`).join("")}
       </span>
-      <span class="risk-matrix-card__sufficiency">
+      <span class="risk-funnel-card__sufficiency">
         <i style="width:${Math.round(module.sufficiency * 100)}%;"></i>
       </span>
     </button>
@@ -6420,14 +6482,14 @@ function renderRiskMatrixBlock(module, activeModule) {
 }
 
 function renderRiskMatrix2D(selectedCompany, activeModule) {
-  const modules = [...selectedCompany.modules].sort((a, b) => a.priority - b.priority);
+  const modules = [...selectedCompany.modules].sort((a, b) => (a.displayOrder || a.priority) - (b.displayOrder || b.priority));
   return `
     <article class="glass-card risk-workbench-stage">
       <div class="risk-workbench-stage__head">
         <div>
-          <p class="section-kicker">2D Risk Matrix</p>
+          <p class="section-kicker">Risk Insight Funnel</p>
           <h3>${escapeHtml(selectedCompany.name)}</h3>
-          <p>12 个风险模块按 Risk House 核心分类逻辑展开为 4×3 二维矩阵，点击模块查看评分、证据来源与 AI 解读。</p>
+          <p>12 个风险模块按微观、中观、宏观三层组织为倒三角漏斗，点击模块查看评分、证据来源与 AI 解读。</p>
         </div>
         <div class="risk-workbench-stage__meta">
           ${selectedCompany.riskLevel ? renderRiskSeverityBadge(selectedCompany.riskLevel) : ""}
@@ -6435,8 +6497,25 @@ function renderRiskMatrix2D(selectedCompany, activeModule) {
           ${selectedCompany.updatedAt ? `<span>更新于 ${selectedCompany.updatedAt}</span>` : ""}
         </div>
       </div>
-      <div class="risk-matrix2d" aria-label="二维风险矩阵">
-        ${modules.map((item) => renderRiskMatrixBlock(item, activeModule)).join("")}
+      <div class="risk-funnel" aria-label="微观中观宏观三层风险漏斗">
+        ${portraitLayerConfig.map((layer) => {
+          const layerModules = modules.filter((item) => getPortraitLayerConfig(item).id === layer.id);
+          if (!layerModules.length) return "";
+          return `
+            <section class="risk-funnel-layer risk-funnel-layer--${layer.id}" aria-label="${escapeHtml(layer.layerName)}">
+              <div class="risk-funnel-layer__head">
+                <div>
+                  <span>${escapeHtml(layer.layerName)}</span>
+                  <h4>${escapeHtml(layer.shortDescription)}</h4>
+                </div>
+                <p>${escapeHtml(layer.description)}</p>
+              </div>
+              <div class="risk-funnel-layer__grid">
+                ${layerModules.map((item) => renderRiskMatrixBlock(item, activeModule)).join("")}
+              </div>
+            </section>
+          `;
+        }).join("")}
       </div>
       ${renderRiskLegend()}
     </article>
@@ -6457,6 +6536,12 @@ function renderRiskLegend() {
       <div class="risk-legend__group">
         <strong>数据充分度</strong>
         <span class="risk-legend__item">透明度越低，表示当前证据仍需补充。</span>
+      </div>
+      <div class="risk-legend__group">
+        <strong>层级颜色</strong>
+        <span class="risk-legend__item"><i class="layer-dot layer-dot--micro"></i>微观红</span>
+        <span class="risk-legend__item"><i class="layer-dot layer-dot--meso"></i>中观紫</span>
+        <span class="risk-legend__item"><i class="layer-dot layer-dot--macro"></i>宏观蓝</span>
       </div>
     </div>
   `;
@@ -7017,10 +7102,44 @@ function getReferenceById(referenceId, version = getCurrentVersion()) {
   return getReportReferences(version).find((item) => item.id === referenceId) || null;
 }
 
-function getReferenceUsageMap(text = "") {
+function getReferenceAliasCandidates(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return [];
+  const withoutDot = raw.startsWith("./") ? raw.slice(2) : raw;
+  const candidates = new Set([raw, withoutDot]);
+  if (withoutDot.startsWith(".agent/")) candidates.add(`./${withoutDot}`);
+  if (withoutDot.includes("/")) candidates.add(withoutDot.split("/").pop());
+  return Array.from(candidates).filter(Boolean);
+}
+
+function buildReferenceAliasMap(version = getCurrentVersion()) {
+  const aliasMap = new Map();
+  getReportReferences(version).forEach((ref) => {
+    [ref.id, ref.source_path, ref.source_id, ref.title].forEach((value) => {
+      getReferenceAliasCandidates(value).forEach((alias) => aliasMap.set(alias, ref));
+    });
+  });
+  return aliasMap;
+}
+
+function getReferenceByToken(token, version = getCurrentVersion()) {
+  const raw = String(token || "").trim();
+  if (!raw) return null;
+  if (/^R\d+$/i.test(raw)) return getReferenceById(raw.toUpperCase(), version);
+  const aliasMap = buildReferenceAliasMap(version);
+  for (const alias of getReferenceAliasCandidates(raw)) {
+    const ref = aliasMap.get(alias);
+    if (ref) return ref;
+  }
+  return null;
+}
+
+function getReferenceUsageMap(text = "", version = getCurrentVersion()) {
   const usage = {};
-  String(text || "").replace(/\[(R\d+)\]/g, (_, id) => {
-    usage[id] = (usage[id] || 0) + 1;
+  String(text || "").replace(/\[([^[\]]+)\]/g, (_, token) => {
+    const ref = getReferenceByToken(token, version);
+    if (!ref) return _;
+    usage[ref.id] = (usage[ref.id] || 0) + 1;
     return _;
   });
   return usage;
@@ -7045,14 +7164,15 @@ function renderRichInline(text) {
   html = html.replace(/\*([^*\n]+)\*/g, "<em>$1</em>");
   html = html.replace(/\+\+([^+\n]+)\+\+/g, "<u>$1</u>");
   html = html.replace(/==([^=\n]+)==/g, '<mark class="doc-highlight">$1</mark>');
-  html = html.replace(/\[(R\d+)\]/g, (_match, refId) => {
-    const ref = getReferenceById(refId);
-    const title = ref ? `${ref.title}：${ref.excerpt || ""}` : `引用 ${refId}`;
+  html = html.replace(/\[([^[\]]+)\]/g, (_match, rawToken) => {
+    const ref = getReferenceByToken(rawToken);
+    if (!ref) return `<span class="doc-citation">[${rawToken}]</span>`;
+    const refId = ref.id;
+    const title = `${ref.title || ref.id}：${ref.excerpt || ""}`;
     const token = `__REFERENCE_TOKEN_${referenceTokens.length}__`;
-    referenceTokens.push(`<button class="doc-citation doc-citation--reference" type="button" data-action="focus-reference" data-reference-id="${refId}" title="${escapeHtml(title)}">[${refId}]${renderReferencePopover(ref)}</button>`);
+    referenceTokens.push(`<button class="doc-citation doc-citation--reference${state.activeReferenceId === refId ? " is-active" : ""}" type="button" data-action="focus-reference" data-reference-id="${refId}" title="${escapeHtml(title)}">[${refId}]${renderReferencePopover(ref)}</button>`);
     return token;
   });
-  html = html.replace(/\[([^[\]]+)\]/g, '<span class="doc-citation">[$1]</span>');
   referenceTokens.forEach((markup, index) => {
     html = html.replace(`__REFERENCE_TOKEN_${index}__`, markup);
   });
@@ -7516,6 +7636,34 @@ function scrollToReportAnchor(anchor, behavior = "smooth") {
   });
 }
 
+function syncReferenceHighlight(referenceId, variant = "generated") {
+  document.querySelectorAll(".doc-citation--reference.is-active, .report-reference-item.is-active").forEach((item) => {
+    item.classList.remove("is-active");
+  });
+  if (!referenceId) return;
+  document.querySelectorAll(`[data-reference-id="${referenceId}"]`).forEach((item) => {
+    if (item.classList.contains("doc-citation--reference") || item.classList.contains("report-reference-item")) {
+      item.classList.add("is-active");
+    }
+  });
+  const previewEl = document.getElementById(`report-preview-${variant}`);
+  const firstCitation = previewEl?.querySelector(`.doc-citation--reference[data-reference-id="${referenceId}"]`);
+  const section = firstCitation?.closest(".report-doc-section");
+  if (section?.id) {
+    state.previewSectionId = section.id;
+    document.querySelectorAll(`#report-preview-${variant} .report-doc-section.is-target`).forEach((item) => item.classList.remove("is-target"));
+    section.classList.add("is-target");
+  }
+}
+
+function pulseElement(element, className = "is-pulsing", duration = 1400) {
+  if (!element) return;
+  element.classList.remove(className);
+  void element.offsetWidth;
+  element.classList.add(className);
+  window.setTimeout(() => element.classList.remove(className), duration);
+}
+
 function runReportSearch(variant = "generated") {
   const inputEl = document.getElementById("report-search-input");
   const keyword = (inputEl?.value || state.reportSearchKeyword || "").trim().toLowerCase();
@@ -7542,16 +7690,24 @@ function runReportSearch(variant = "generated") {
   scrollToReportAnchor(matchedSection.id);
 }
 
-function focusReportReference(referenceId, variant = "generated") {
+function focusReportReference(referenceId, variant = "generated", direction = "citation") {
   if (!referenceId) return;
   state.activeReferenceId = referenceId;
   state.reportReferencesOpen = true;
+  syncReferenceHighlight(referenceId, variant);
   requestAnimationFrame(() => {
-    const chip = document.querySelector(`#report-preview-${variant} [data-reference-id="${referenceId}"]`);
-    if (chip) {
+    const citations = Array.from(document.querySelectorAll(`#report-preview-${variant} .doc-citation--reference[data-reference-id="${referenceId}"]`));
+    const referenceItem = document.querySelector(`.report-reference-item[data-reference-id="${referenceId}"]`);
+    syncReferenceHighlight(referenceId, variant);
+    if ((direction === "citation" || direction === "both") && referenceItem) {
+      referenceItem.scrollIntoView({ behavior: "smooth", block: "center" });
+      pulseElement(referenceItem);
+      referenceItem.focus?.({ preventScroll: true });
+    }
+    if ((direction === "reference" || direction === "both") && citations.length) {
+      const chip = citations[0];
       chip.scrollIntoView({ behavior: "smooth", block: "center" });
-      chip.classList.add("is-pulsing");
-      setTimeout(() => chip.classList.remove("is-pulsing"), 1400);
+      citations.forEach((citation) => pulseElement(citation));
       chip.focus?.({ preventScroll: true });
     }
   });
@@ -8185,9 +8341,11 @@ document.addEventListener("click", async (event) => {
   }
   if (action === "focus-reference") {
     const variant = target.dataset.reportVariant || "generated";
-    focusReportReference(target.dataset.referenceId, variant);
+    const direction = target.classList.contains("report-reference-item") ? "reference" : "citation";
+    state.activeReferenceId = target.dataset.referenceId || null;
+    state.reportReferencesOpen = true;
     render();
-    focusReportReference(target.dataset.referenceId, variant);
+    focusReportReference(target.dataset.referenceId, variant, direction);
     return;
   }
   if (action === "toggle-knowledge-pane") {

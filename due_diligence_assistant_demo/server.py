@@ -54,11 +54,14 @@ PDF_FONT_PATHS = [
 REPORT_RUNTIME: dict[str, dict] = {}
 DUE_DILIGENCE_MATERIALS_RUNTIME: dict[str, dict] = {}
 KNOWLEDGE_BASE_RUNTIME: dict[str, object] = {"initialized": False, "next_id": 1, "files": []}
+GLOBAL_SKILL_PIPELINE = {
+    "label": "通用双 Skill 报告生成",
+    "skills": ["auditing-data", "writing-report"],
+    "entry_mode": "auditing_then_writing",
+}
 SKILL_POC_COMPANY_CODE = "COMP-001"
-SKILL_PIPELINE_BINDINGS = {
+SKILL_PIPELINE_MOCK_BINDINGS = {
     SKILL_POC_COMPANY_CODE: {
-        "label": "灵犀微传感双 Skill POC",
-        "skills": ["auditing-data", "writing-report"],
         "mock_vdr_dir": PROJECT_ROOT / ".agent" / "mock_vdr" / "lingxi-sensors",
         "company_name": "深圳市灵犀微传感科技有限公司",
     }
@@ -1265,16 +1268,25 @@ def load_public_enrichment(company_code: str) -> dict:
 
 
 def get_skill_pipeline_binding(company_code: str) -> dict | None:
-    binding = SKILL_PIPELINE_BINDINGS.get(company_code)
-    if not binding:
+    if not all(get_skill_dir(skill_name).exists() for skill_name in GLOBAL_SKILL_PIPELINE["skills"]):
         return None
-    return {
+    mock_binding = SKILL_PIPELINE_MOCK_BINDINGS.get(company_code) or {}
+    binding = {
         "company_code": company_code,
-        "label": binding["label"],
-        "skills": list(binding["skills"]),
-        "mock_vdr_dir": str(binding["mock_vdr_dir"]),
-        "entry_mode": "auditing_then_writing",
+        "label": GLOBAL_SKILL_PIPELINE["label"],
+        "skills": list(GLOBAL_SKILL_PIPELINE["skills"]),
+        "entry_mode": GLOBAL_SKILL_PIPELINE["entry_mode"],
+        "mock_vdr_dir": str(mock_binding["mock_vdr_dir"]) if mock_binding.get("mock_vdr_dir") else None,
+        "company_name": mock_binding.get("company_name"),
     }
+    if mock_binding:
+        binding["label"] = "通用双 Skill 报告生成（灵犀含 Mock VDR 兜底）"
+    return binding
+
+
+def has_antigravity_mock_pack(company_code: str) -> bool:
+    mock_binding = SKILL_PIPELINE_MOCK_BINDINGS.get(company_code)
+    return bool(mock_binding and mock_binding.get("mock_vdr_dir") and mock_binding["mock_vdr_dir"].exists())
 
 
 def get_skill_dir(skill_name: str) -> Path:
@@ -1318,7 +1330,7 @@ def parse_percentage_amount(text: str) -> float | None:
 
 
 def load_antigravity_mock_pack(company_code: str) -> dict:
-    binding = SKILL_PIPELINE_BINDINGS[company_code]
+    binding = SKILL_PIPELINE_MOCK_BINDINGS[company_code]
     base = binding["mock_vdr_dir"]
     business_license_text = read_text_file(base / "business_license.md")
     shareholding_text = read_text_file(base / "shareholding_register.md")
@@ -1560,6 +1572,122 @@ def build_antigravity_audit_summary(company_code: str) -> dict:
             "must_highlight_first": [item["finding_title"] for item in findings if item["severity"] == "高"],
         },
     }
+
+
+def normalize_skill_severity(value: object) -> str:
+    text = str(value or "").strip().lower()
+    if text in {"高", "high", "red", "critical"}:
+        return "高"
+    if text in {"低", "low", "green"}:
+        return "低"
+    return "中"
+
+
+def build_structured_skill_audit_summary(company_code: str, detail: dict | None = None) -> dict:
+    detail = detail or get_company_detail_base_payload(company_code) or {}
+    company = detail.get("company") or {}
+    findings: list[dict] = []
+
+    for item in detail.get("validation_findings") or []:
+        title = item.get("finding_title") or item.get("title") or item.get("rule_name") or "结构化核验发现"
+        severity = normalize_skill_severity(item.get("severity") or item.get("risk_level"))
+        findings.append(
+            {
+                "severity": severity,
+                "finding_title": title,
+                "problem_definition": item.get("finding_summary") or item.get("summary") or item.get("description") or "结构化数据存在待复核事项。",
+                "financial_impact": item.get("impact") or item.get("risk_impact") or "可能影响授信风险判断，需结合原始资料进一步核验。",
+                "evidence_chain": [
+                    value
+                    for value in [
+                        item.get("evidence"),
+                        item.get("source_ref"),
+                        item.get("finding_detail"),
+                    ]
+                    if value
+                ],
+                "source_refs": [{"file": "structured://validation_findings", "line_hint": title}],
+            }
+        )
+
+    for item in detail.get("reconciliation_checks") or []:
+        if str(item.get("result") or item.get("status") or "").lower() in {"pass", "passed", "ok"}:
+            continue
+        title = item.get("check_name") or item.get("rule_name") or "财务勾稽差异"
+        findings.append(
+            {
+                "severity": normalize_skill_severity(item.get("severity") or item.get("risk_level")),
+                "finding_title": title,
+                "problem_definition": item.get("description") or item.get("finding") or "财务、银行流水或税务口径存在勾稽差异。",
+                "financial_impact": item.get("impact") or "可能影响收入真实性、现金回收质量和第一还款来源判断。",
+                "evidence_chain": [value for value in [item.get("metric_name"), item.get("difference_note"), item.get("source_ref")] if value],
+                "source_refs": [{"file": "structured://financial_reconciliation_checks", "line_hint": title}],
+            }
+        )
+
+    for item in detail.get("tax_invoice_checks") or []:
+        if str(item.get("result") or item.get("status") or "").lower() in {"pass", "passed", "ok"}:
+            continue
+        title = item.get("check_name") or item.get("rule_name") or "税票一致性差异"
+        findings.append(
+            {
+                "severity": normalize_skill_severity(item.get("severity") or item.get("risk_level")),
+                "finding_title": title,
+                "problem_definition": item.get("description") or "税务申报、发票或收入确认口径存在待解释差异。",
+                "financial_impact": item.get("impact") or "可能影响收入确认合规性和纳税申报可信度。",
+                "evidence_chain": [value for value in [item.get("difference_note"), item.get("source_ref")] if value],
+                "source_refs": [{"file": "structured://tax_invoice_consistency_checks", "line_hint": title}],
+            }
+        )
+
+    for item in detail.get("public_risks") or []:
+        title = item.get("risk_title") or item.get("title") or "公开风险事件"
+        findings.append(
+            {
+                "severity": normalize_skill_severity(item.get("severity") or item.get("risk_level")),
+                "finding_title": title,
+                "problem_definition": item.get("description") or item.get("summary") or "公开信息中存在待关注风险事件。",
+                "financial_impact": item.get("impact") or "需评估其对经营连续性、合规记录和偿债能力的影响。",
+                "evidence_chain": [value for value in [item.get("source_name"), item.get("source_ref"), item.get("event_date")] if value],
+                "source_refs": [{"file": "structured://public_risks", "line_hint": title}],
+            }
+        )
+
+    if not findings:
+        findings.append(
+            {
+                "severity": "中",
+                "finding_title": "资料完整性与结论一致性待复核",
+                "problem_definition": "当前结构化数据未触发明确高风险项，但仍需围绕主体准入、经营真实性、财务质量和担保缓释完成一致性复核。",
+                "financial_impact": "若资料缺口未补齐，可能影响授信额度、期限、担保条件及贷后监控安排。",
+                "evidence_chain": ["基于当前企业详情、财务指标、核验发现、公开风险和知识库文件形成初步审计输入。"],
+                "source_refs": [{"file": "structured://company_detail", "line_hint": "全量企业详情"}],
+            }
+        )
+
+    high_count = sum(1 for item in findings if item["severity"] == "高")
+    return {
+        "company_name": company.get("name") or company_code,
+        "analysis_scope": "structured_company_payload",
+        "computed_metrics": {
+            "latest_metric_count": len(detail.get("latest_metrics") or []),
+            "validation_finding_count": len(detail.get("validation_findings") or []),
+            "public_risk_count": len(detail.get("public_risks") or []),
+            "credit_history_count": len(detail.get("credit_history") or []),
+        },
+        "overall_risk_level": "高" if high_count else "中",
+        "findings": findings[:12],
+        "writer_handoff": {
+            "report_title": "尽职调查报告",
+            "must_highlight_first": [item["finding_title"] for item in findings if item["severity"] == "高"],
+        },
+    }
+
+
+def build_skill_audit_summary(company_code: str, detail: dict | None = None) -> dict:
+    if has_antigravity_mock_pack(company_code):
+        return build_antigravity_audit_summary(company_code)
+    return build_structured_skill_audit_summary(company_code, detail)
 
 
 def build_antigravity_report_markdown(company_code: str, version_number: int, detail: dict | None = None) -> str:
@@ -2559,7 +2687,7 @@ def build_reference_catalog(
             source_id=item.get("id", ""),
         )
 
-    if get_skill_pipeline_binding(company_code):
+    if has_antigravity_mock_pack(company_code):
         audit_summary = build_antigravity_audit_summary(company_code)
         for finding in audit_summary.get("findings", []):
             finding_title = finding.get("finding_title") or "审计发现"
@@ -2679,19 +2807,32 @@ def reference_catalog_prompt_block(references: list[dict]) -> str:
     return json_block("reference_catalog", references)
 
 
+def reference_marker_aliases(value: object) -> set[str]:
+    raw = str(value or "").strip()
+    if not raw:
+        return set()
+    without_dot = raw[2:] if raw.startswith("./") else raw
+    aliases = {raw, without_dot}
+    if without_dot.startswith(".agent/"):
+        aliases.add(f"./{without_dot}")
+    if "/" in without_dot:
+        aliases.add(Path(without_dot).name)
+    return {item for item in aliases if item}
+
+
 def normalize_reference_markers(text: str, references: list[dict]) -> str:
     normalized = text or ""
     for ref in references:
         marker = f"[{ref['id']}]"
         candidates = [
+            ref.get("id", ""),
             ref.get("source_path", ""),
             ref.get("source_id", ""),
             ref.get("title", ""),
         ]
         for candidate in candidates:
-            candidate = str(candidate or "").strip()
-            if candidate:
-                normalized = normalized.replace(f"[{candidate}]", marker)
+            for alias in reference_marker_aliases(candidate):
+                normalized = normalized.replace(f"[{alias}]", marker)
     return normalized
 
 
@@ -2889,7 +3030,7 @@ def build_skill_pipeline_report_prompt(
     selected_data_source_ids: list[str] | None = None,
 ) -> str:
     payload = build_ai_input_payload(detail, company_code, knowledge_files, selected_data_source_ids)
-    audit_summary = build_antigravity_audit_summary(company_code)
+    audit_summary = build_skill_audit_summary(company_code, detail)
     references = build_reference_catalog(detail, company_code, knowledge_files, selected_data_source_ids)
     auditing_skill = load_skill_file("auditing-data")
     writing_skill = load_skill_file("writing-report")
@@ -3207,15 +3348,16 @@ def build_generation_basis(detail: dict, knowledge_files: list[dict], company_co
 
 
 def build_skill_generation_basis(detail: dict, company_code: str, knowledge_files: list[dict], selected_data_source_ids: list[str] | None = None) -> list[str]:
-    binding = SKILL_PIPELINE_BINDINGS.get(company_code)
+    binding = get_skill_pipeline_binding(company_code)
     base_basis = build_generation_basis(detail, knowledge_files, company_code, selected_data_source_ids)
     if not binding:
         return base_basis
     skill_basis = [
         f"已调用 Skill Pipeline：{binding['skills'][0]} -> {binding['skills'][1]}",
-        f"Mock VDR 目录：{binding['mock_vdr_dir']}",
         "审计阶段先输出结构化 findings，再由 DeepSeek 按 skill 说明书生成风险前置长文本报告" if get_deepseek_api_key() else "当前未检测到 DeepSeek Key，已退回本地模板生成",
     ]
+    if binding.get("mock_vdr_dir"):
+        skill_basis.append(f"Mock VDR 目录：{binding['mock_vdr_dir']}")
     return skill_basis + base_basis
 
 
@@ -3283,13 +3425,18 @@ def generate_report_with_skill_pipeline(
     if detail is None:
         raise RuntimeError(f"Company detail not found for {company_code}")
 
-    if not get_deepseek_api_key():
+    if not get_deepseek_api_key() and has_antigravity_mock_pack(company_code):
         markdown = build_antigravity_report_markdown(company_code, version_number, detail)
         references = build_reference_catalog(detail, company_code, knowledge_files or [], selected_data_source_ids)
         markdown = normalize_reference_markers(markdown, references)
         sections, full_text = parse_markdown_report(markdown)
         if not sections:
             raise RuntimeError("Skill pipeline fallback returned no report sections")
+        return sections, full_text
+    if not get_deepseek_api_key():
+        sections, full_text, _ = build_fallback_report_sections(detail, version_number)
+        if not sections:
+            raise RuntimeError("Skill pipeline template fallback returned no report sections")
         return sections, full_text
 
     prompt = build_skill_pipeline_report_prompt(
@@ -3406,7 +3553,7 @@ def get_companies_payload() -> dict:
     for item in companies:
         workbook_info = workbook_index["companies"].get(item["company_code"], {})
         item["workbook_sheet_count"] = len(workbook_info.get("sheet_counts", {}))
-        item["data_mode"] = "skill_poc" if get_skill_pipeline_binding(item["company_code"]) else (
+        item["data_mode"] = "skill_pipeline" if get_skill_pipeline_binding(item["company_code"]) else (
             "public_pack" if item.get("recommendation_status") == "public_pack_only" else "full_case"
         )
     return {
