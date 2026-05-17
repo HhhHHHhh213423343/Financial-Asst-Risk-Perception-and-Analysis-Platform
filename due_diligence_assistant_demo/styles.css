@@ -7365,10 +7365,20 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 14px;
   min-width: 0;
-  width: min(100%, 360px);
-  padding: 12px 0 14px;
+  width: min(100%, 500px);
+  padding: 4px 0 6px;
+}
+
+.topbar-brand-image {
+  display: block;
+  width: clamp(360px, 24vw, 480px);
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 10px rgba(255, 255, 255, 0.1))
+    drop-shadow(0 0 22px rgba(89, 165, 255, 0.16));
 }
 
 .topbar-brand-emblem {
@@ -7432,8 +7442,11 @@ body::before {
 
 @media (max-width: 1080px) {
   .topbar-brand-heading {
-    width: min(100%, 300px);
-    gap: 10px;
+    width: min(100%, 340px);
+  }
+
+  .topbar-brand-image {
+    width: clamp(280px, 34vw, 340px);
   }
 
   .topbar-brand-emblem {

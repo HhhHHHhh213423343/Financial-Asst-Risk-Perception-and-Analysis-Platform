@@ -2541,15 +2541,7 @@ async function searchCompany(sectionId) {
 function renderTopbar() {
   topbarHeadingEl.innerHTML = `
     <div class="topbar-brand-heading">
-      <img src="/assets/astraea-emblem.png" alt="Astraea 人像徽记" class="topbar-brand-emblem" />
-      <div class="topbar-brand-copy">
-        <h1 class="topbar-brand-wordmark">ASTRAEA</h1>
-        <p class="topbar-brand-subline">
-          <span class="topbar-brand-cn">风险先知</span>
-          <span class="topbar-brand-divider" aria-hidden="true"></span>
-          <span class="topbar-brand-en">Astraea Intelligence</span>
-        </p>
-      </div>
+      <img src="/assets/astraea-topbar-logo.png" alt="ASTRAEA 风险先知 Astraea Intelligence" class="topbar-brand-image" />
     </div>
   `;
   topbarNavEl.innerHTML = "";
