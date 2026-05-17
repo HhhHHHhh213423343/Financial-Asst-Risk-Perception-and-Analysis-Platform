@@ -25,7 +25,7 @@
   --muted: #607066;
   --border: #d7e5ca;
   --shadow: 0 18px 40px rgba(10, 17, 12, 0.1);
-  --font-sans: "Noto Sans S Chinese Medium", "Noto Sans SC Medium", "Noto Sans CJK SC Medium", "Noto Sans SC", "Source Han Sans SC", "Microsoft YaHei", sans-serif;
+  --font-sans: "Noto Sans S Chinese Regular", "Noto Sans SC", "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei", sans-serif;
   --font-logo: "Alibaba PuHuiTi 3.0", "Alibaba PuHuiTi", "PingFang SC", "Source Han Sans SC", "Microsoft YaHei", sans-serif;
   --radius-card-lg: 16px;
   --radius-card: 12px;
@@ -10402,4 +10402,10 @@ body {
   .company-list-panel--full .company-list-panel__list {
     grid-template-columns: minmax(0, 1fr);
   }
+}
+
+.topbar-brand-wordmark,
+.topbar-brand-cn,
+.topbar-brand-en {
+  font-family: var(--font-logo) !important;
 }
