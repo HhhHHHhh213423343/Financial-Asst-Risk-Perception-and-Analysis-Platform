@@ -281,7 +281,8 @@ const homeQuickActions = [
     title: "风险洞察",
     subtitle: "对企业发起风险洞察任务",
     icon: "risk",
-    action: "start-demo",
+    action: "go-section",
+    topSection: "due-task",
   },
   {
     title: "企业画像",
@@ -754,8 +755,45 @@ const nationalRiskHotspots = [
 ];
 
 const RISK_MAP_BASE_PATH = "/risk-map";
+const PORTRAIT_DETAIL_LAYOUT_STORAGE_KEY = "astraeaPortraitDetailLayout";
 
 const portraitRiskFilters = ["全部", "极高风险", "高风险", "中风险", "低风险", "信息不足"];
+
+function clampNumber(value, min, max, fallback) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return fallback;
+  return Math.max(min, Math.min(max, number));
+}
+
+function readPortraitDetailLayoutPreference() {
+  try {
+    const raw = window.localStorage?.getItem(PORTRAIT_DETAIL_LAYOUT_STORAGE_KEY);
+    if (!raw) return { mainPercent: 78, collapsed: false };
+    const parsed = JSON.parse(raw);
+    return {
+      mainPercent: clampNumber(parsed?.mainPercent, 60, 85, 78),
+      collapsed: Boolean(parsed?.collapsed),
+    };
+  } catch (error) {
+    return { mainPercent: 78, collapsed: false };
+  }
+}
+
+function savePortraitDetailLayoutPreference() {
+  try {
+    window.localStorage?.setItem(
+      PORTRAIT_DETAIL_LAYOUT_STORAGE_KEY,
+      JSON.stringify({
+        mainPercent: clampNumber(state.portraitMainPercent, 60, 85, 78),
+        collapsed: Boolean(state.portraitDetailCollapsed),
+      }),
+    );
+  } catch (error) {
+    // localStorage may be unavailable in restricted preview contexts.
+  }
+}
+
+const portraitDetailLayoutPreference = readPortraitDetailLayoutPreference();
 
 const riskSeverityMeta = {
   极高风险: { badgeClass: "risk-badge-extreme", toneClass: "severity-extreme", scoreClass: "score-extreme" },
@@ -1209,6 +1247,8 @@ const state = {
   portraitCompanyId: DEMO_COMPANY_CODE,
   portraitLoadingCompanyCode: null,
   portraitError: null,
+  portraitMainPercent: portraitDetailLayoutPreference.mainPercent,
+  portraitDetailCollapsed: portraitDetailLayoutPreference.collapsed,
   riskRecentCodes: [],
   processRecentCodes: [],
   dueDiligenceTabId: "report-generate",
@@ -1260,6 +1300,7 @@ const state = {
   systemAdmin: null,
   homeFeed: null,
   companyDetailCache: {},
+  dueTaskGenerationByCompany: {},
   isGeneratingVersion: false,
   isRunningReview: false,
   homeHotspotId: null,
@@ -3663,6 +3704,7 @@ function renderDueDiligenceReportReview(detail) {
         <div class="button-row" style="margin-top: 16px;">
           <button class="ghost-action" type="button" data-action="save-review-draft">保存修改</button>
           <a class="secondary-action" href="${version.pdf_url}?variant=review" target="_blank" rel="noreferrer">导出</a>
+          <button class="secondary-action report-oa-action" type="button" data-action="send-review-to-oa">一键发送到 OA</button>
         </div>
         <div class="divider"></div>
         ${renderDocumentWorkspace(version, state.reviewEditorText, "review-editor-textarea", "review", "预审修订画布")}
@@ -4206,7 +4248,22 @@ function getCompanyTaskUpdatedAt(company, index = 0) {
     || formatCurrentDisplayTime(index);
 }
 
+function getDueTaskGenerationState(companyCode) {
+  if (!companyCode) return {};
+  return state.dueTaskGenerationByCompany[companyCode] || {};
+}
+
+function updateDueTaskGenerationState(companyCode, patch) {
+  if (!companyCode) return;
+  state.dueTaskGenerationByCompany[companyCode] = {
+    ...getDueTaskGenerationState(companyCode),
+    ...patch,
+  };
+}
+
 function hasCompletedDueTaskReport(company) {
+  const companyCode = company?.company_code || company?.companyCode || company?.id;
+  if (getDueTaskGenerationState(companyCode).reportGenerated) return true;
   const statusCandidates = [
     company?.reportStatus,
     company?.report_status,
@@ -4221,11 +4278,11 @@ function hasCompletedDueTaskReport(company) {
   if (statusCandidates.some((item) => ["completed", "generated", "done", "ready"].includes(item))) {
     return true;
   }
-  const detail = getCompanyDetail(company?.company_code);
-  if (detail?.report_generated === true || detail?.has_report === true || detail?.skill_pipeline) {
+  const detail = getCompanyDetail(companyCode);
+  if (detail?.report_generated === true || detail?.has_report === true) {
     return true;
   }
-  return company?.data_mode === "skill_pipeline" || company?.data_mode === "skill_poc";
+  return false;
 }
 
 function getSelectionCompanies() {
@@ -4268,6 +4325,15 @@ function buildDueTaskTimeline(taskState, company) {
       { time: "10:16:00", title: "工商/司法数据归集完成", note: `${company?.name || "当前企业"} 相关主体底稿已归集` },
     ];
   }
+  if (taskState.portraitGenerated) {
+    return [
+      { time: "10:34:00", title: "企业画像生成完成", note: "当前企业画像已就绪，等待生成尽调报告" },
+      { time: "10:27:00", title: "关联网络穿透完成", note: "关联企业、交易与担保链路已校验" },
+      { time: "10:22:00", title: "舆情与事件扫描完成", note: "外部公开风险与事件线索已同步" },
+      { time: "10:17:00", title: "财务与现金流分析完成", note: "关键财务指标与现金流压力已评估" },
+      { time: "10:12:00", title: "工商/司法数据归集完成", note: `${company?.name || "当前企业"} 主体与底稿资料已齐备` },
+    ];
+  }
   return [
     { time: "10:32:00", title: "生成初步结论处理中", note: "正在汇总前五步结论，等待生成最终报告" },
     { time: "10:27:00", title: "关联网络穿透完成", note: "关联企业、交易与担保链路已校验" },
@@ -4278,15 +4344,18 @@ function buildDueTaskTimeline(taskState, company) {
 }
 
 function buildDueTaskState(company, index = 0) {
+  const companyCode = company.company_code || company.companyCode || company.id;
+  const generationState = getDueTaskGenerationState(companyCode);
+  const portraitGenerated = Boolean(generationState.portraitGenerated);
   const reportCompleted = hasCompletedDueTaskReport(company);
   const riskScore = company.riskScore || 60;
-  const progress = reportCompleted ? 100 : 85;
-  const phase = reportCompleted ? "生成报告完成" : "生成初步结论中";
+  const progress = reportCompleted ? 100 : portraitGenerated ? 92 : 85;
+  const phase = reportCompleted ? "生成报告完成" : portraitGenerated ? "企业画像已生成" : "生成初步结论中";
   const step6State = reportCompleted ? "done" : "running";
   const steps = dueTaskStepBlueprints.map((step, stepIndex) => {
     const stepNumber = stepIndex + 1;
     const stateName = stepNumber <= 5 ? "done" : step6State;
-    const pct = stateName === "done" ? 100 : 58;
+    const pct = stateName === "done" ? 100 : stepNumber === 6 && portraitGenerated ? 50 : 58;
     return {
       index: stepNumber,
       title: step.title,
@@ -4296,20 +4365,26 @@ function buildDueTaskState(company, index = 0) {
       status: stateName === "done" ? "已完成" : "运行中",
       desc: stateName === "done"
         ? (stepNumber === 6 ? "报告生成完成" : "核验完成")
+        : stepNumber === 6 && portraitGenerated
+          ? "企业画像已生成"
         : "结论整理中",
+      portraitGenerated,
+      reportGenerated: reportCompleted,
     };
   });
   return {
     ...company,
+    company_code: companyCode,
+    portraitGenerated,
     reportCompleted,
     progress,
     phase,
     highRiskCount: Math.max(1, Math.round(riskScore / 38)),
     updatedAt: getCompanyTaskUpdatedAt(company, index),
-    actionLabel: reportCompleted ? "查看报告" : "进入任务",
-    liveLabel: reportCompleted ? "报告已生成" : "AI 自动尽调中",
+    actionLabel: reportCompleted ? "查看报告" : portraitGenerated ? "继续生成报告" : "进入任务",
+    liveLabel: reportCompleted ? "报告已生成" : portraitGenerated ? "企业画像已生成" : "AI 自动尽调中",
     steps,
-    timeline: buildDueTaskTimeline({ reportCompleted }, company),
+    timeline: buildDueTaskTimeline({ portraitGenerated, reportCompleted }, company),
   };
 }
 
@@ -4754,8 +4829,9 @@ function renderWatchlistCompanyList(items) {
       <button
         class="watch-company-row${item.code === state.watchlistFocusCode ? " is-active" : ""}"
         type="button"
-        data-action="focus-watchlist-company"
+        data-action="expand-watchlist-analysis"
         data-company-code="${escapeHtml(item.code)}"
+        aria-label="进入${escapeHtml(item.name)}预警详情页"
       >
         <span>
           <strong>${escapeHtml(item.name)}</strong>
@@ -4763,8 +4839,7 @@ function renderWatchlistCompanyList(items) {
         </span>
         <span class="watch-company-row__side">
           <em>${escapeHtml(item.riskLevel)}</em>
-          <span class="watch-row-action">查看预警详情</span>
-          <span class="watch-row-action watch-row-action--accent">展开完整分析</span>
+          <span class="watch-row-action watch-row-action--accent">进入详情</span>
         </span>
       </button>
     `)
@@ -6243,6 +6318,7 @@ function renderDueTask() {
 
   const company = getSelectedDueTaskCompany() || getDemoCompany();
   const steps = company?.steps || [];
+  const taskCompanyCode = escapeHtml(company?.company_code || DEMO_COMPANY_CODE);
   contentAreaEl.innerHTML = `
     <section class="due-task-screen task-journey-screen">
       <div class="task-detail-title">
@@ -6292,6 +6368,22 @@ function renderDueTask() {
                         <ul>
                           ${step.tasks.map((task) => `<li>${task}</li>`).join("")}
                         </ul>
+                        ${step.index === 6 ? `
+                          <div class="button-row due-flow-step__actions">
+                            <button
+                              class="secondary-action"
+                              type="button"
+                              data-action="generate-task-portrait"
+                              data-company-code="${taskCompanyCode}"
+                            >生成企业画像</button>
+                            <button
+                              class="primary-action"
+                              type="button"
+                              data-action="generate-task-report"
+                              data-company-code="${taskCompanyCode}"
+                            >生成尽调报告</button>
+                          </div>
+                        ` : ""}
                       </div>
                     </article>
                   `,
@@ -6498,6 +6590,7 @@ function renderRiskMatrix2D(selectedCompany, activeModule) {
         </div>
       </div>
       <div class="risk-funnel" aria-label="微观中观宏观三层风险漏斗">
+        <div class="risk-funnel__outline" aria-hidden="true"></div>
         ${portraitLayerConfig.map((layer) => {
           const layerModules = modules.filter((item) => getPortraitLayerConfig(item).id === layer.id);
           if (!layerModules.length) return "";
@@ -6551,9 +6644,18 @@ function renderRiskDetailPanel(selectedCompany, activeModule) {
   return `
     <aside class="glass-card risk-detail-panel">
       <div class="risk-detail-panel__head">
-        <p class="section-kicker">Risk Detail Panel</p>
-        <h3>${escapeHtml(selectedCompany.name)}</h3>
-        <strong>${escapeHtml(activeModule.title)}</strong>
+        <div>
+          <p class="section-kicker">Risk Detail Panel</p>
+          <h3>${escapeHtml(selectedCompany.name)}</h3>
+          <strong>${escapeHtml(activeModule.title)}</strong>
+        </div>
+        <button
+          class="risk-detail-panel__collapse"
+          type="button"
+          data-action="toggle-portrait-detail-panel"
+          aria-label="收起风险详情面板"
+          title="收起详情"
+        >›</button>
       </div>
       <div class="risk-detail-panel__score">
         <div>
@@ -6589,6 +6691,38 @@ function renderRiskDetailPanel(selectedCompany, activeModule) {
           <p>${Math.round(activeModule.sufficiency * 100)}%</p>
         </div>
       </div>
+    </aside>
+  `;
+}
+
+function renderPortraitResizeHandle() {
+  return `
+    <button
+      class="portrait-resize-handle"
+      type="button"
+      data-action="start-portrait-layout-resize"
+      aria-label="拖动调整风险模型与详情面板比例"
+      title="拖动调整左右比例"
+    >
+      <span></span>
+    </button>
+  `;
+}
+
+function renderCollapsedRiskDetailPanel(activeModule) {
+  return `
+    <aside class="glass-card risk-detail-rail">
+      <button
+        class="risk-detail-rail__button"
+        type="button"
+        data-action="toggle-portrait-detail-panel"
+        aria-label="展开风险详情面板"
+        title="展开详情"
+      >
+        <span>‹</span>
+        <strong>风险详情</strong>
+        <em>${escapeHtml(activeModule.title)}</em>
+      </button>
     </aside>
   `;
 }
@@ -6708,6 +6842,8 @@ function renderEnterpriseLibrary() {
   }
   const portraitDetail = buildPortraitCompanyDetail(selectedCompany, detail);
   const activeModule = getPortraitModule(portraitDetail) || portraitDetail.modules[0];
+  const portraitMainPercent = clampNumber(state.portraitMainPercent, 60, 85, 78);
+  const detailCollapsed = Boolean(state.portraitDetailCollapsed);
   contentAreaEl.innerHTML = `
     <section class="portrait-screen risk-house-workbench">
       <div class="page-title-row risk-workbench-title-row">
@@ -6717,12 +6853,22 @@ function renderEnterpriseLibrary() {
           <button class="portrait-back-inline" type="button" data-action="back-portrait-list">返回上一级</button>
         </div>
         <div class="risk-workbench-title-actions">
+          <button
+            class="ghost-action"
+            type="button"
+            data-action="open-task-workbench"
+            data-company-code="${escapeHtml(selectedCompany.companyCode)}"
+          >返回尽调工作台</button>
           <button class="secondary-action" type="button" data-action="go-section" data-top-section="report-center">导出画像报告</button>
         </div>
       </div>
-      <div class="risk-workbench-layout risk-workbench-layout--detail">
+      <div
+        class="risk-workbench-layout risk-workbench-layout--detail${detailCollapsed ? " is-detail-collapsed" : ""}"
+        style="--portrait-main-percent: ${portraitMainPercent};"
+      >
         ${renderRiskMatrix2D(portraitDetail, activeModule)}
-        ${renderRiskDetailPanel(portraitDetail, activeModule)}
+        ${detailCollapsed ? "" : renderPortraitResizeHandle()}
+        ${detailCollapsed ? renderCollapsedRiskDetailPanel(activeModule) : renderRiskDetailPanel(portraitDetail, activeModule)}
       </div>
     </section>
   `;
@@ -6748,7 +6894,7 @@ function renderWatchlist() {
         <div>
           <p class="section-kicker">Astraea Watchlist</p>
           <h2>AI 风险雷达监测中心</h2>
-          <p>以雷达距离表达风险强度，越靠近中心代表风险越高；行业用不同颜色区分，右侧清单可同步高亮雷达点。</p>
+          <p>以雷达距离表达风险强度，越靠近中心代表风险越高；行业用不同颜色区分，点击行业清单中的企业可直接进入预警详情。</p>
         </div>
       </div>
       <div class="card-grid compact-grid">
@@ -6826,6 +6972,12 @@ function renderReportCenter() {
               <p>${escapeHtml(selectedReport.detailSummary)}</p>
             </div>
             <div class="button-row">
+              <button
+                class="secondary-action"
+                type="button"
+                data-action="open-task-workbench"
+                data-company-code="${escapeHtml(company.company_code || company.companyCode || company.id || state.processEngineCompanyCode || DEMO_COMPANY_CODE)}"
+              >返回尽调工作台</button>
               <button class="ghost-action" type="button" data-action="back-report-company-list">返回企业清单</button>
               <button class="ghost-action" type="button" data-action="back-report-hub">返回报告类型</button>
             </div>
@@ -6867,6 +7019,12 @@ function renderReportCenter() {
               <p>正在加载该企业的报告工作区，请稍候。</p>
             </div>
             <div class="button-row">
+              <button
+                class="secondary-action"
+                type="button"
+                data-action="open-task-workbench"
+                data-company-code="${escapeHtml(company.company_code || company.companyCode || company.id || state.processEngineCompanyCode || DEMO_COMPANY_CODE)}"
+              >返回尽调工作台</button>
               <button class="ghost-action" type="button" data-action="back-report-company-list">返回企业清单</button>
               <button class="ghost-action" type="button" data-action="back-report-hub">返回报告类型</button>
             </div>
@@ -6902,6 +7060,12 @@ function renderReportCenter() {
             <p>这是当前唯一已开放的完整报告链路，支持生成、编辑、预审与证据溯源。</p>
           </div>
           <div class="button-row">
+            <button
+              class="secondary-action"
+              type="button"
+              data-action="open-task-workbench"
+              data-company-code="${escapeHtml(company.company_code || company.companyCode || company.id || state.processEngineCompanyCode || DEMO_COMPANY_CODE)}"
+            >返回尽调工作台</button>
             <button class="ghost-action" type="button" data-action="back-report-company-list">返回企业清单</button>
             <button class="ghost-action" type="button" data-action="back-report-hub">返回报告类型</button>
             ${renderAstraeaPersona("tiny")}
@@ -7921,6 +8085,8 @@ async function handleSaveReportDraft(variant = "generated") {
   render();
 }
 
+let portraitResizeSession = null;
+
 document.addEventListener("click", async (event) => {
   const target = event.target.closest("[data-action]");
   if (!target) return;
@@ -8009,6 +8175,62 @@ document.addEventListener("click", async (event) => {
       }
 	    return;
 	  }
+  if (action === "generate-task-portrait") {
+    const code = target.dataset.companyCode || state.taskBoardCompanyCode || DEMO_COMPANY_CODE;
+    updateDueTaskGenerationState(code, { portraitGenerated: true });
+    state.taskBoardCompanyCode = code;
+    state.topSectionId = "enterprise-library";
+    state.portraitCompanyId = code;
+    resetTopLevelViews();
+    state.portraitView = "detail";
+    state.portraitLoadingCompanyCode = code;
+    state.portraitError = null;
+    syncLocationFromState();
+    render();
+    try {
+      await ensureCompanyDetail(code);
+      const company = mapCompanyToPortraitListItem(getRealCompanySummary(code));
+      if (!company) throw new Error("当前企业不在后端企业清单中");
+      state.riskHouseFocusId = getPortraitDefaultFocusId(buildPortraitCompanyDetail(company, getCompanyDetail(code)));
+    } catch (error) {
+      state.portraitError = error.message || "企业画像详情加载失败";
+    } finally {
+      state.portraitLoadingCompanyCode = null;
+      render();
+    }
+    return;
+  }
+  if (action === "generate-task-report") {
+    const code = target.dataset.companyCode || state.taskBoardCompanyCode || DEMO_COMPANY_CODE;
+    updateDueTaskGenerationState(code, { portraitGenerated: true, reportGenerated: true });
+    state.taskBoardCompanyCode = code;
+    state.topSectionId = "report-center";
+    state.processEngineCompanyCode = code;
+    state.reportCenterReportTypeId = "due-diligence";
+    state.reportCenterView = "detail";
+    state.reportCenterLoadingCompanyCode = code;
+    state.reportCenterError = null;
+    state.dueDiligenceTabId = "report-generate";
+    state.reportImmersiveMode = false;
+    state.reportReferencesOpen = false;
+    state.activeReferenceId = null;
+    syncLocationFromState();
+    render();
+    try {
+      await ensureCompanyDetail(code);
+      const reportDetail = getCompanyDetail(code);
+      syncSelectedVersion(reportDetail);
+      syncKnowledgeSelection(reportDetail);
+      rememberCompany("process-engine", code);
+    } catch (error) {
+      state.reportCenterError = error.message || "加载企业报告失败";
+      state.reportCenterView = "company-list";
+    } finally {
+      state.reportCenterLoadingCompanyCode = null;
+      render();
+    }
+    return;
+  }
   if (action === "switch-report-pane") {
     state.topSectionId = "report-center";
     state.reportCenterView = "detail";
@@ -8054,10 +8276,15 @@ document.addEventListener("click", async (event) => {
       return;
     }
     if (action === "expand-watchlist-analysis") {
-      if (target.dataset.companyCode) state.watchlistFocusCode = target.dataset.companyCode;
+      const companyCode = target.dataset.companyCode;
+      if (companyCode) state.watchlistFocusCode = companyCode;
       state.topSectionId = "watchlist";
       state.watchlistPanelMode = "analysis";
       render();
+      if (companyCode) {
+        await ensureCompanyDetail(companyCode).catch(() => {});
+        render();
+      }
       return;
     }
     if (action === "collapse-watchlist-analysis") {
@@ -8085,6 +8312,15 @@ document.addEventListener("click", async (event) => {
 	    render();
 	    return;
 	  }
+  if (action === "toggle-portrait-detail-panel") {
+    state.portraitDetailCollapsed = !state.portraitDetailCollapsed;
+    savePortraitDetailLayoutPreference();
+    render();
+    return;
+  }
+  if (action === "start-portrait-layout-resize") {
+    return;
+  }
   if (action === "open-task-company") {
     state.topSectionId = "due-task";
     state.taskBoardCompanyCode = target.dataset.companyCode || DEMO_COMPANY_CODE;
@@ -8099,6 +8335,27 @@ document.addEventListener("click", async (event) => {
     state.taskBoardView = "list";
     state.previewOpen = false;
     state.previewSectionId = null;
+    render();
+    return;
+  }
+  if (action === "open-task-workbench") {
+    const code = target.dataset.companyCode
+      || state.taskBoardCompanyCode
+      || state.portraitCompanyId
+      || state.processEngineCompanyCode
+      || DEMO_COMPANY_CODE;
+    state.topSectionId = "due-task";
+    state.taskBoardCompanyCode = code;
+    state.taskBoardView = "detail";
+    state.previewOpen = false;
+    state.previewSectionId = null;
+    state.reportReferencesOpen = false;
+    state.reportImmersiveMode = false;
+    state.activeReferenceId = null;
+    state.portraitView = "list";
+    state.reportCenterLoadingCompanyCode = null;
+    state.reportCenterError = null;
+    syncLocationFromState();
     render();
     return;
   }
@@ -8382,6 +8639,13 @@ document.addEventListener("click", async (event) => {
     await handleSaveReportDraft("review");
     return;
   }
+  if (action === "send-review-to-oa") {
+    const detail = getCompanyDetail(state.processEngineCompanyCode);
+    const version = getCurrentVersion(detail);
+    const reportTitle = detail?.company?.name ? `${detail.company.name} 尽调报告` : "当前预审修订稿";
+    window.alert(`${reportTitle}已提交至 OA 审批流程。${version?.version_label ? `\n版本：${version.version_label}` : ""}`);
+    return;
+  }
   if (action === "apply-report-format") {
     applyReportEditorCommand(target.dataset.reportCommand, target.dataset.reportValue, target.dataset.reportVariant || "generated");
     return;
@@ -8446,6 +8710,43 @@ document.addEventListener("click", async (event) => {
     state.previewSectionId = target.dataset.previewSection;
     renderPreviewDrawer();
   }
+});
+
+document.addEventListener("pointerdown", (event) => {
+  const target = event.target.closest('[data-action="start-portrait-layout-resize"]');
+  if (!target) return;
+  const layout = target.closest(".risk-workbench-layout--detail");
+  if (!layout || state.portraitDetailCollapsed || window.matchMedia("(max-width: 1360px)").matches) return;
+  event.preventDefault();
+  const rect = layout.getBoundingClientRect();
+  portraitResizeSession = { layout, rect };
+  document.body.classList.add("is-portrait-resizing");
+  target.setPointerCapture?.(event.pointerId);
+});
+
+document.addEventListener("pointermove", (event) => {
+  if (!portraitResizeSession) return;
+  event.preventDefault();
+  const { layout, rect } = portraitResizeSession;
+  const maxByDetailWidth = ((rect.width - 320) / Math.max(rect.width, 1)) * 100;
+  const maxPercent = Math.min(85, Math.max(60, maxByDetailWidth));
+  const nextPercent = clampNumber(((event.clientX - rect.left) / Math.max(rect.width, 1)) * 100, 60, maxPercent, state.portraitMainPercent);
+  state.portraitMainPercent = Number(nextPercent.toFixed(1));
+  layout.style.setProperty("--portrait-main-percent", state.portraitMainPercent);
+});
+
+document.addEventListener("pointerup", () => {
+  if (!portraitResizeSession) return;
+  portraitResizeSession = null;
+  document.body.classList.remove("is-portrait-resizing");
+  savePortraitDetailLayoutPreference();
+});
+
+document.addEventListener("pointercancel", () => {
+  if (!portraitResizeSession) return;
+  portraitResizeSession = null;
+  document.body.classList.remove("is-portrait-resizing");
+  savePortraitDetailLayoutPreference();
 });
 
 document.addEventListener("mousedown", (event) => {
